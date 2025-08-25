@@ -289,7 +289,7 @@ export default function Factoring() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild data-testid="button-apply-now">
-              <a href="https://clientportal.boreal.financial" target="_blank" rel="noopener noreferrer">
+              <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
                 Start Factoring Today
               </a>
             </Button>

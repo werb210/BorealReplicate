@@ -44,7 +44,7 @@ export function Navigation() {
                 </Link>
               ))}
               <Button asChild data-testid="button-apply-now-header">
-                <a href="https://clientportal.boreal.financial" target="_blank" rel="noopener noreferrer">
+                <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
                   Apply Now
                 </a>
               </Button>
@@ -84,7 +84,7 @@ export function Navigation() {
               ))}
               <div className="px-3 py-2">
                 <Button asChild className="w-full" data-testid="button-apply-now-mobile">
-                  <a href="https://clientportal.boreal.financial" target="_blank" rel="noopener noreferrer">
+                  <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
                     Apply Now
                   </a>
                 </Button>

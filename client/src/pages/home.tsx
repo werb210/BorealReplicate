@@ -96,7 +96,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button asChild data-testid="button-apply-now-hero">
-                    <a href="https://clientportal.boreal.financial" target="_blank" rel="noopener noreferrer">
+                    <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
                       Apply Now
                     </a>
                   </Button>
@@ -204,7 +204,7 @@ export default function Home() {
                   Fill out our secure application. Within 24 hours we'll call you to discuss payment and funding details.
                 </p>
                 <Button asChild data-testid="button-apply-online">
-                  <a href="https://clientportal.boreal.financial" target="_blank" rel="noopener noreferrer">
+                  <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
                     Apply Online
                   </a>
                 </Button>
@@ -221,7 +221,7 @@ export default function Home() {
                   98% of applications are approved. Businesses see up to 120% increase in sales. We have 100% transparency.
                 </p>
                 <Button variant="secondary" asChild data-testid="button-get-funding">
-                  <a href="https://clientportal.boreal.financial" target="_blank" rel="noopener noreferrer">
+                  <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
                     Get Funding
                   </a>
                 </Button>
@@ -335,7 +335,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild data-testid="button-apply-now-cta">
-              <a href="https://clientportal.boreal.financial" target="_blank" rel="noopener noreferrer">
+              <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
                 Apply Now
               </a>
             </Button>
