@@ -112,10 +112,10 @@ export default function Home() {
             <div className="space-y-6">
               {/* Professional business handshake merger image */}
               <img 
-                src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=800" 
-                alt="Business professionals shaking hands in modern office setting" 
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=800" 
+                alt="Professional business team meeting in modern conference room" 
                 className="rounded-xl shadow-lg w-full h-auto"
-                data-testid="img-business-handshake"
+                data-testid="img-business-meeting"
               />
               
               <Card className="border-gray-200" data-testid="quick-facts-card">
