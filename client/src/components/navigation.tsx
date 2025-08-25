@@ -43,13 +43,11 @@ export function Navigation() {
                   </a>
                 </Link>
               ))}
-              <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer" data-testid="business-image-header">
-                <img 
-                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=120&h=40" 
-                  alt="Business professionals in meeting" 
-                  className="h-10 w-auto rounded-lg hover:opacity-80 transition-opacity cursor-pointer"
-                />
-              </a>
+              <Button asChild data-testid="button-apply-now-header">
+                <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
+                  Apply Now
+                </a>
+              </Button>
             </div>
           </div>
           
