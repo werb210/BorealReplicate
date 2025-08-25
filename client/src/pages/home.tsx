@@ -218,7 +218,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold text-secondary mb-4">Get Funding</h3>
                 <p className="text-gray-700 mb-6">
-                  98% of applications are approved. Businesses see up to 120% increase in sales. We have 100% transparency.
+                  98% of qualified applications are approved. Businesses see up to 120% increase in sales. We have 100% transparency.
                 </p>
                 <Button variant="secondary" asChild data-testid="button-get-funding">
                   <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
@@ -278,7 +278,7 @@ export default function Home() {
               <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Check className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">98% of applications are approved</h3>
+              <h3 className="text-xl font-semibold mb-2">98% of qualified applications are approved</h3>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6" data-testid="funding-stat-2">
               <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
