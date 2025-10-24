@@ -361,7 +361,7 @@ function csrfMiddleware(options: { isProduction: boolean }) {
 
     const cookie = serializeCookie(CSRF_COOKIE_NAME, token, {
       secure: options.isProduction,
-      sameSite: "Lax",
+      sameSite: options.isProduction ? "None" : "Lax",
       httpOnly: true,
       maxAge: 60 * 60,
       path: "/",
