@@ -1,5 +1,9 @@
 import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { randomUUID, randomBytes, scrypt as callbackScrypt } from "crypto";
+import { promisify } from "util";
+import { AppError } from "./errors";
+
+const scrypt = promisify(callbackScrypt);
 
 // modify the interface with any CRUD methods
 // you might need
@@ -7,6 +11,7 @@ import { randomUUID } from "crypto";
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
+  listUsers(): Promise<User[]>;
   createUser(user: InsertUser): Promise<User>;
 }
 
@@ -27,9 +32,27 @@ export class MemStorage implements IStorage {
     );
   }
 
+  async listUsers(): Promise<User[]> {
+    return Array.from(this.users.values());
+  }
+
   async createUser(insertUser: InsertUser): Promise<User> {
+    const existing = await this.getUserByUsername(insertUser.username);
+    if (existing) {
+      throw new AppError("USER_EXISTS");
+    }
+
+    const salt = randomBytes(16).toString("hex");
+    const hashedBuffer = (await scrypt(insertUser.password, salt, 64)) as Buffer;
+    const hashedPassword = `${salt}:${hashedBuffer.toString("hex")}`;
+
     const id = randomUUID();
-    const user: User = { ...insertUser, id };
+    const user: User = {
+      id,
+      username: insertUser.username,
+      password: hashedPassword,
+    };
+
     this.users.set(id, user);
     return user;
   }
