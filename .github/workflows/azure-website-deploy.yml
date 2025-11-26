@@ -1,0 +1,27 @@
+name: Deploy Website to Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build Docker image
+        run: docker build . -t boreal-website:latest
+
+      - name: Deploy to Azure Web App (Container)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: boreal-website
+          images: boreal-website:latest
