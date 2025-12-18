@@ -4,31 +4,36 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import { ChatbotProvider } from "@/hooks/use-chatbot";
 
 // Import all pages
 import Home from "@/pages/home";
-import BusinessLineOfCredit from "@/pages/business-line-of-credit";
-import MediaFinancing from "@/pages/media-financing";
-import AccountReceivableFinancing from "@/pages/account-receivable-financing";
-import EquipmentFinancing from "@/pages/equipment-financing";
-import RetailInventoryFinancing from "@/pages/retail-inventory-financing";
+import LinesOfCredit from "@/pages/lines-of-credit";
+import TermLoans from "@/pages/term-loans";
 import Factoring from "@/pages/factoring";
-import POFinancing from "@/pages/po-financing";
+import PurchaseOrderFinancing from "@/pages/purchase-order-financing";
+import EquipmentFinancing from "@/pages/equipment-financing";
+import Construction from "@/pages/construction";
+import Manufacturing from "@/pages/manufacturing";
+import Logistics from "@/pages/logistics";
 
 function Router() {
   return (
     <Switch>
       {/* Homepage */}
       <Route path="/" component={Home} />
-      
-      {/* Service Pages */}
-      <Route path="/business-line-of-credit" component={BusinessLineOfCredit} />
-      <Route path="/media-financing" component={MediaFinancing} />
-      <Route path="/account-receivable-financing" component={AccountReceivableFinancing} />
-      <Route path="/equipment-financing" component={EquipmentFinancing} />
-      <Route path="/retail-inventory-financing" component={RetailInventoryFinancing} />
+
+      {/* Funding Pages */}
+      <Route path="/term-loans" component={TermLoans} />
+      <Route path="/lines-of-credit" component={LinesOfCredit} />
       <Route path="/factoring" component={Factoring} />
-      <Route path="/po-financing" component={POFinancing} />
+      <Route path="/purchase-order-financing" component={PurchaseOrderFinancing} />
+      <Route path="/equipment-financing" component={EquipmentFinancing} />
+
+      {/* Industry Pages */}
+      <Route path="/construction" component={Construction} />
+      <Route path="/manufacturing" component={Manufacturing} />
+      <Route path="/logistics" component={Logistics} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />
@@ -40,8 +45,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router />
+        <ChatbotProvider>
+          <Toaster />
+          <Router />
+        </ChatbotProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

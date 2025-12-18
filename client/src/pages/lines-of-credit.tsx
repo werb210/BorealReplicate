@@ -2,9 +2,9 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
-import { Building2, Cog, Truck as TruckIcon } from "lucide-react";
+import { Repeat, Building2, Factory, Truck } from "lucide-react";
 
-export default function EquipmentFinancing() {
+export default function LinesOfCredit() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
@@ -13,11 +13,11 @@ export default function EquipmentFinancing() {
         <section className="bg-gradient-to-br from-blue-50 to-white py-14">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div className="space-y-4">
-              <p className="text-sm font-semibold text-primary">Equipment Financing</p>
-              <h1 className="text-4xl font-bold text-secondary">Add or upgrade assets without draining cash</h1>
+              <p className="text-sm font-semibold text-primary">Lines of Credit</p>
+              <h1 className="text-4xl font-bold text-secondary">Draw and repay as jobs, production, and loads move</h1>
               <p className="text-lg text-gray-700">
-                Built for crews, plants, and fleets that need reliable gear to keep projects, production, and deliveries moving.
-                Finance or lease heavy equipment, machinery, and vehicles with terms that match utilization.
+                Flexible working capital for construction, manufacturing, and logistics teams that need to cover payroll,
+                materials, fuel, and short-term gaps without reapplying for every draw.
               </p>
               <div className="flex gap-3">
                 <ApplyNowButton />
@@ -27,13 +27,13 @@ export default function EquipmentFinancing() {
             <Card className="border-blue-100 shadow-lg">
               <CardContent className="p-6 space-y-3">
                 <div className="flex items-center gap-3">
-                  <Building2 className="w-6 h-6 text-primary" />
+                  <Repeat className="w-6 h-6 text-primary" />
                   <p className="text-secondary font-semibold">Who it's for</p>
                 </div>
                 <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>Contractors expanding fleets or replacing high-maintenance units.</li>
-                  <li>Manufacturers modernizing production lines or adding capacity.</li>
-                  <li>Logistics operators scaling tractors, trailers, or specialized equipment.</li>
+                  <li>Crews that need quick draws between progress payments or retainage releases.</li>
+                  <li>Plants that buy inventory and materials ahead of receivables clearing.</li>
+                  <li>Fleets covering fuel, maintenance, and driver pay while invoices age.</li>
                 </ul>
               </CardContent>
             </Card>
@@ -47,9 +47,9 @@ export default function EquipmentFinancing() {
                 <CardContent className="p-6 space-y-3">
                   <h2 className="text-2xl font-semibold text-secondary">How it works</h2>
                   <ol className="list-decimal list-inside space-y-2 text-gray-700 text-sm">
-                    <li>Share the equipment list, utilization plans, and expected revenue impact.</li>
-                    <li>We align payment terms with project timelines, production cycles, or route volumes.</li>
-                    <li>Take delivery while preserving cash for payroll, materials, and fuel.</li>
+                    <li>Approved limit based on receivables, contracts, and equipment strength.</li>
+                    <li>Draw when you need cash and repay as invoices clear or milestones fund.</li>
+                    <li>Reuse the line without restarting the application each time.</li>
                   </ol>
                 </CardContent>
               </Card>
@@ -57,11 +57,11 @@ export default function EquipmentFinancing() {
               <Card className="h-full">
                 <CardContent className="p-6 space-y-3">
                   <h2 className="text-2xl font-semibold text-secondary">Why it fits these industries</h2>
-                  <p className="text-gray-700 text-sm">Equipment is the heartbeat of each sector.</p>
+                  <p className="text-gray-700 text-sm">Built for uneven cash cycles and heavy asset costs.</p>
                   <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>Construction: finance cranes, loaders, and trucks tied to project schedules.</li>
-                    <li>Manufacturing: upgrade machinery to improve throughput and quality.</li>
-                    <li>Logistics: expand or refresh fleet assets to meet broker and shipper demand.</li>
+                    <li>Construction: bridge payroll and materials between draws and retainage.</li>
+                    <li>Manufacturing: fund inputs while you convert POs into shipments.</li>
+                    <li>Logistics: keep trucks fueled while brokers and shippers pay on delay.</li>
                   </ul>
                 </CardContent>
               </Card>
@@ -75,21 +75,21 @@ export default function EquipmentFinancing() {
                       <Building2 className="w-5 h-5 text-primary" />
                       <p className="font-semibold text-secondary">Construction</p>
                     </div>
-                    <p>Keep crews productive with reliable machines and attachments.</p>
+                    <p>Cover subcontractors, permits, and mobilization costs without slowing field work.</p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <Cog className="w-5 h-5 text-primary" />
+                      <Factory className="w-5 h-5 text-primary" />
                       <p className="font-semibold text-secondary">Manufacturing</p>
                     </div>
-                    <p>Financing structured around depreciation and uptime targets.</p>
+                    <p>Buy materials in bulk and fund overtime to meet rush orders.</p>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <TruckIcon className="w-5 h-5 text-primary" />
+                      <Truck className="w-5 h-5 text-primary" />
                       <p className="font-semibold text-secondary">Logistics</p>
                     </div>
-                    <p>Match terms to lane volumes and maintenance windows.</p>
+                    <p>Protect routes from fuel spikes or unexpected maintenance while receivables clear.</p>
                   </div>
                 </div>
               </CardContent>

@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 
 export function Navigation() {
   const [location] = useLocation();
@@ -9,10 +9,14 @@ export function Navigation() {
 
   const navigationItems = [
     { href: "/", label: "Home" },
-    { href: "/business-line-of-credit", label: "Line of Credit" },
-    { href: "/media-financing", label: "Media Financing" },
-    { href: "/equipment-financing", label: "Equipment" },
-    { href: "/account-receivable-financing", label: "Receivables" },
+    { href: "/term-loans", label: "Term Loans" },
+    { href: "/lines-of-credit", label: "Lines of Credit" },
+    { href: "/factoring", label: "Factoring" },
+    { href: "/purchase-order-financing", label: "PO Financing" },
+    { href: "/equipment-financing", label: "Equipment Financing" },
+    { href: "/construction", label: "Construction" },
+    { href: "/manufacturing", label: "Manufacturing" },
+    { href: "/logistics", label: "Logistics" }
   ];
 
   return (
@@ -26,68 +30,61 @@ export function Navigation() {
               </h1>
             </Link>
           </div>
-          
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navigationItems.map((item) => (
                 <Link key={item.href} href={item.href}>
-                  <a 
+                  <a
                     className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      location === item.href 
-                        ? 'text-primary bg-primary/10' 
-                        : 'text-gray-700 hover:text-primary'
+                      location === item.href
+                        ? "text-primary bg-primary/10"
+                        : "text-gray-700 hover:text-primary"
                     }`}
-                    data-testid={`nav-link-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    data-testid={`nav-link-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {item.label}
                   </a>
                 </Link>
               ))}
-              <Button asChild data-testid="button-apply-now-header">
-                <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
-                  Apply Now
-                </a>
-              </Button>
+              <AskQuestionButton size="sm" variant="outline" />
+              <ApplyNowButton size="sm" />
             </div>
           </div>
-          
+
           <div className="md:hidden">
-            <Button 
-              variant="ghost" 
-              size="sm"
+            <button
+              className="p-2 rounded-md hover:bg-gray-100"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="button-mobile-menu"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            </button>
           </div>
         </div>
-        
+
         {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 py-2">
             <div className="flex flex-col space-y-1">
               {navigationItems.map((item) => (
                 <Link key={item.href} href={item.href}>
-                  <a 
+                  <a
                     className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                      location === item.href 
-                        ? 'text-primary bg-primary/10' 
-                        : 'text-gray-700 hover:text-primary'
+                      location === item.href
+                        ? "text-primary bg-primary/10"
+                        : "text-gray-700 hover:text-primary"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
-                    data-testid={`mobile-nav-link-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    data-testid={`mobile-nav-link-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {item.label}
                   </a>
                 </Link>
               ))}
-              <div className="px-3 py-2">
-                <Button asChild className="w-full" data-testid="button-apply-now-mobile">
-                  <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer">
-                    Apply Now
-                  </a>
-                </Button>
+              <div className="px-3 py-2 space-y-2">
+                <AskQuestionButton className="w-full" size="sm" variant="outline" />
+                <ApplyNowButton className="w-full" size="sm" />
               </div>
             </div>
           </div>
