@@ -2,11 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { X, MessageCircle, Loader2, Send } from "lucide-react";
 
-const industryOptions = [
-  "Construction",
-  "Manufacturing",
-  "Logistics"
-];
+const industryOptions = ["Construction", "Manufacturing", "Logistics", "Other"];
 
 const cashFlowOptions = [
   { value: "invoice-gaps", label: "Waiting on invoices or progress draws" },
@@ -43,7 +39,10 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
   const [industry, setIndustry] = useState<string | null>(null);
   const [issue, setIssue] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([
-    { from: "bot", text: "Which industry are you in?" }
+    {
+      from: "bot",
+      text: "I can help you figure out which financing fits your business. What industry are you in?"
+    }
   ]);
   const [sending, setSending] = useState(false);
 
@@ -52,7 +51,12 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
     setIndustry(null);
     setIssue(null);
     setSending(false);
-    setMessages([{ from: "bot", text: "Which industry are you in?" }]);
+    setMessages([
+      {
+        from: "bot",
+        text: "I can help you figure out which financing fits your business. What industry are you in?"
+      }
+    ]);
   }, [resetCount, isOpen]);
 
   const recommendation = useMemo(() => {
@@ -72,7 +76,11 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
 
   const handleIndustrySelect = (choice: string) => {
     setIndustry(choice);
-    setMessages((prev) => [...prev, { from: "user", text: choice }, { from: "bot", text: "What's the cash-flow challenge you're solving?" }]);
+    setMessages((prev) => [
+      ...prev,
+      { from: "user", text: choice },
+      { from: "bot", text: "What's the cash-flow challenge you're solving?" }
+    ]);
     setStep("cashflow");
   };
 
@@ -81,7 +89,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
     setMessages((prev) => [
       ...prev,
       { from: "user", text: label },
-      { from: "bot", text: "Here is what fits best for you." }
+      { from: "bot", text: "Here is what fits best for you before you head to Apply." }
     ]);
     setStep("summary");
   };
@@ -141,10 +149,10 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
             {step === "summary" && recommendation && industry && (
               <div className="space-y-2 text-sm">
                 <div className="bg-white border border-blue-100 text-gray-800 p-3 rounded-xl">
-                  <p className="font-semibold text-secondary">Recommendation</p>
+                  <p className="font-semibold text-secondary">Recommendation before you apply</p>
                   <p className="mt-1 text-gray-700">
                     You mentioned {industry} and a cash-flow need around {cashFlowOptions.find((c) => c.value === issue)?.label?.toLowerCase()}.
-                    We recommend <strong>{recommendation}</strong> for asset-heavy, cash-flow-driven work.
+                    We recommend <strong>{recommendation}</strong> for asset-heavy, cash-flow-driven work. We'll send this summary with you when you click Apply Now.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">

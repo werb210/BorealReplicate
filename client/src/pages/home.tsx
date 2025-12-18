@@ -209,54 +209,35 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Why Boreal understands */}
+        {/* Why Boreal */}
         <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <div className="text-center space-y-3">
-              <p className="text-sm font-semibold text-primary">Why Boreal</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">We understand how these industries collect cash</h2>
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                Our team prices around production milestones, freight cycles, and equipment utilization—not just credit scores.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {industries.map((industry) => (
-                <Card key={industry.name} className="h-full">
-                  <CardContent className="p-6 space-y-3">
-                    <industry.icon className="w-7 h-7 text-primary" />
-                    <h3 className="text-xl font-semibold text-secondary">{industry.name}</h3>
-                    <ul className="space-y-2 text-sm text-gray-700">
-                      <li>Underwriting reflects {industry.focus.toLowerCase()}.</li>
-                      <li>Structures align with how and when you get paid.</li>
-                      <li>Support from specialists who speak your job costing language.</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <p className="text-sm font-semibold text-primary">Why Boreal</p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Built for Businesses Banks Don’t Understand</h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              We work with lenders who understand irregular cash flow, asset heavy balance sheets, and contract driven revenue.
+              We structure deals based on reality, not checkboxes.
+            </p>
           </div>
         </section>
 
         {/* How it works */}
         <section className="py-16 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
             <div className="space-y-3">
-              <p className="text-sm font-semibold text-primary">Simple 3-Step Process</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">From question to capital in three moves</h2>
-              <p className="text-lg text-gray-700">
-                Start in chat, confirm your product, and apply with details already attached.
-              </p>
+              <p className="text-sm font-semibold text-primary">How It Works</p>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Simple. Direct. Efficient.</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              {["Tell us your industry", "Share the cash-flow gap", "Apply with the recommendation"].map((step, idx) => (
+              {["Apply or chat", "We structure the deal", "Review terms and fund"].map((step, idx) => (
                 <Card key={step} className="h-full">
                   <CardContent className="p-6 space-y-3">
                     <p className="text-sm font-semibold text-primary">Step {idx + 1}</p>
                     <h3 className="text-xl font-semibold text-secondary">{step}</h3>
                     <p className="text-gray-700 text-sm">
-                      {idx === 0 && "Construction, manufacturing, or logistics—so we anchor terms to your reality."}
-                      {idx === 1 && "Is it invoices, equipment, a big order, or working capital? We recommend the right product."}
-                      {idx === 2 && "We summarize your answers and pass them into the application so underwriting can move quickly."}
+                      {idx === 0 && "Start by applying or opening the chatbot to get matched."}
+                      {idx === 1 && "We align repayment and access to the reality of your contracts and receivables."}
+                      {idx === 2 && "Review straightforward terms and move to funding without extra hoops."}
                     </p>
                   </CardContent>
                 </Card>
@@ -268,10 +249,7 @@ export default function Home() {
         {/* Final CTA */}
         <section className="py-16 bg-primary text-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h2 className="text-3xl lg:text-4xl font-bold">Ready to fund your next project, order, or route?</h2>
-            <p className="text-lg text-blue-100 max-w-3xl mx-auto">
-              Apply now for construction, manufacturing, or logistics financing—or ask a question and let the chatbot guide you.
-            </p>
+            <h2 className="text-3xl lg:text-4xl font-bold">Get Financing That Fits Your Business Not the Bank’s</h2>
             <div className="flex flex-wrap gap-4 justify-center">
               <ApplyNowButton variant="secondary" />
               <AskQuestionButton variant="outline" />
