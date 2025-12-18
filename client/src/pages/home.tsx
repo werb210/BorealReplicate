@@ -7,49 +7,44 @@ import { Building2, Factory, Truck, Workflow, MessageCircle, Compass, ShieldChec
 const industries = [
   {
     name: "Construction",
-    focus: "Progress billing, retainage, heavy equipment",
+    focus: "Progress billing, retainage, payroll gaps, equipment heavy operations.",
     icon: Building2,
-    details: "Stage-based payouts and retainage make cash timing critical. We structure advances around projects and fleets."
+    details: "We understand staged payouts and retainage. Cover payroll, equipment, and material swings while you wait for draws."
   },
   {
     name: "Manufacturing",
-    focus: "Inventory, machinery, purchase orders",
+    focus: "Inventory cycles, purchase orders, machinery, scaling production.",
     icon: Factory,
-    details: "From raw materials to finished goods, we finance the production cycle so you can accept larger orders."
+    details: "Finance inventory and machinery without slowing production. Keep PO commitments moving while protecting cash."
   },
   {
     name: "Logistics",
-    focus: "Fleet, fuel, delayed receivables",
+    focus: "Fleet costs, fuel, delayed receivables, contract based cash flow.",
     icon: Truck,
-    details: "Keep trucks moving with coverage for fuel, maintenance, and long payment terms from brokers and shippers."
+    details: "Fleet, fuel, and maintenance stay covered even with long broker and shipper terms."
   }
 ];
 
 const fundingOptions = [
   {
     name: "Term Loans",
-    description: "Predictable capital for asset-heavy businesses that need a set amount for a defined timeline.",
-    bestFor: "Stabilizing cash flow, replacing high-cost debt, or bridging project gaps."
+    description: "Structured repayment for growth and refinancing"
   },
   {
     name: "Lines of Credit",
-    description: "Reusable capital you can draw and repay as cash ebbs and flows.",
-    bestFor: "Payroll, materials, fuel, and short-term working capital needs."
+    description: "Flexible working capital access"
   },
   {
     name: "Factoring",
-    description: "Turn invoices into immediate cash without waiting on slow payers.",
-    bestFor: "Progress draws, broker payments, or customers on 30-90 day terms."
+    description: "Immediate cash from receivables"
   },
   {
     name: "Purchase Order Financing",
-    description: "Fund supplier costs tied to confirmed orders so you can deliver without strain.",
-    bestFor: "Large orders that require upfront material or subcontractor spend."
+    description: "Fund supplier costs for large orders"
   },
   {
     name: "Equipment Financing",
-    description: "Acquire or upgrade machinery, fleet, and heavy equipment without draining liquidity.",
-    bestFor: "Scaling crews, adding routes, or modernizing production lines."
+    description: "Acquire assets without draining cash"
   }
 ];
 
@@ -70,8 +65,7 @@ export default function Home() {
                 Business Financing Built for Construction, Manufacturing, and Logistics
               </h1>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Access Term Loans, Lines of Credit, Factoring, Purchase Order Financing, and Equipment Financing crafted for
-                companies that live on equipment, crews, and predictable cash conversion.
+                Term loans, lines of credit, factoring, purchase order financing, and equipment financing structured for asset heavy, cash flow driven businesses.
               </p>
               <div className="flex flex-wrap gap-4">
                 <ApplyNowButton />
@@ -79,7 +73,7 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg p-4">
                 <ShieldCheck className="w-5 h-5 text-primary" />
-                <span>Persistent chatbot stays with you on every page to answer questions or push details into your application.</span>
+                <span>Not sure what fits? Our financing assistant can help instantly.</span>
               </div>
             </div>
             <Card className="shadow-xl border-blue-100">
@@ -115,10 +109,9 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="text-center space-y-3">
               <p className="text-sm font-semibold text-primary">Industry Focus</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Purpose-built for the field, floor, and road</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Financing That Matches How You Actually Operate</h2>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                We start with how you earn and collect cash: progress draws, production runs, and loads delivered. Each playbook
-                keeps crews moving and equipment working.
+                Tailored programs for construction, manufacturing, and logistics operations that run on equipment, crews, and predictable schedules.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -131,13 +124,12 @@ export default function Home() {
                       <h3 className="text-xl font-semibold text-secondary">{industry.name}</h3>
                     </div>
                     <p className="text-gray-700 leading-relaxed">{industry.details}</p>
-                    <div className="flex gap-3">
-                      <ApplyNowButton size="sm" />
-                      <AskQuestionButton size="sm" variant="outline" />
-                    </div>
                   </CardContent>
                 </Card>
               ))}
+            </div>
+            <div className="flex justify-center">
+              <AskQuestionButton size="lg">See Industry Solutions</AskQuestionButton>
             </div>
           </div>
         </section>
@@ -147,10 +139,9 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="text-center space-y-3">
               <p className="text-sm font-semibold text-primary">Funding Options</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">The five products we recommend most</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Capital Without Bank Rigidity</h2>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                Every option is designed for equipment-heavy, cash-flow-driven operators. Choose the structure that fits your
-                contracts, receivables, and fleet plans.
+                Term loans, lines of credit, factoring, purchase order financing, and equipment financing structured around how you earn and collect cash.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -159,7 +150,6 @@ export default function Home() {
                   <CardContent className="p-6 space-y-3">
                     <h3 className="text-xl font-semibold text-secondary">{option.name}</h3>
                     <p className="text-gray-700">{option.description}</p>
-                    <p className="text-sm text-gray-600">Best for: {option.bestFor}</p>
                     <div className="flex gap-3">
                       <ApplyNowButton size="sm" />
                       <AskQuestionButton size="sm" variant="outline" />
@@ -168,6 +158,7 @@ export default function Home() {
                 </Card>
               ))}
             </div>
+            <p className="text-center text-gray-700">Questions? Ask the financing assistant.</p>
           </div>
         </section>
 
@@ -176,28 +167,30 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div className="space-y-4">
               <p className="text-sm font-semibold text-primary">Chat-first guidance</p>
-              <h2 className="text-3xl font-bold text-secondary">A persistent chatbot that qualifies before you apply</h2>
+              <h2 className="text-3xl font-bold text-secondary">Get Answers Before You Apply</h2>
               <p className="text-lg text-gray-700">
-                The chatbot is pinned to every page. It starts by asking for your industry, confirms the cash-flow pain, and
-                recommends a product. Then it summarizes your answers before pushing the details into the application.
+                Unsure which option fits? Ask questions. Get direct answers. No pressure.
               </p>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex gap-3">
                   <MessageCircle className="w-5 h-5 text-primary" />
-                  <span>Opens with your industry so we can align risk, retainage, and payment timelines.</span>
+                  <span>Product fit by industry</span>
                 </li>
                 <li className="flex gap-3">
                   <Compass className="w-5 h-5 text-primary" />
-                  <span>Qualifies the cash-flow problem and matches it to a funding product.</span>
+                  <span>Typical requirements</span>
                 </li>
                 <li className="flex gap-3">
                   <Workflow className="w-5 h-5 text-primary" />
-                  <span>Summarizes and passes your industry and product into the application to save time.</span>
+                  <span>Funding timelines</span>
+                </li>
+                <li className="flex gap-3">
+                  <ShieldCheck className="w-5 h-5 text-primary" />
+                  <span>Credit and cash flow considerations</span>
                 </li>
               </ul>
               <div className="flex gap-3">
-                <ApplyNowButton />
-                <AskQuestionButton />
+                <AskQuestionButton>Ask the Financing Assistant</AskQuestionButton>
               </div>
             </div>
             <Card className="border-primary/20 shadow-lg">
