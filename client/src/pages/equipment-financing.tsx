@@ -2,7 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
-import { Building2, Cog, Truck as TruckIcon } from "lucide-react";
+
+const bestFor = ["Vehicles", "Heavy equipment", "Machinery", "Technology"];
 
 export default function EquipmentFinancing() {
   return (
@@ -10,94 +11,38 @@ export default function EquipmentFinancing() {
       <Navigation />
 
       <main>
-        <section className="bg-gradient-to-br from-blue-50 to-white py-14">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-4">
-              <p className="text-sm font-semibold text-primary">Equipment Financing</p>
-              <h1 className="text-4xl font-bold text-secondary">Add or upgrade assets without draining cash</h1>
-              <p className="text-lg text-gray-700">
-                Built for crews, plants, and fleets that need reliable gear to keep projects, production, and deliveries moving.
-                Finance or lease heavy equipment, machinery, and vehicles with terms that match utilization.
-              </p>
-              <div className="flex gap-3">
-                <ApplyNowButton />
-                <AskQuestionButton />
-              </div>
+        <section className="bg-gradient-to-br from-blue-50 to-white py-16 lg:py-20">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
+            <p className="text-sm font-semibold text-primary">Equipment Financing</p>
+            <h1 className="text-4xl font-bold text-secondary">Get the Equipment Keep the Cash</h1>
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+              Equipment acts as collateral preserving cash flow.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <ApplyNowButton />
+              <AskQuestionButton variant="outline" />
             </div>
-            <Card className="border-blue-100 shadow-lg">
-              <CardContent className="p-6 space-y-3">
-                <div className="flex items-center gap-3">
-                  <Building2 className="w-6 h-6 text-primary" />
-                  <p className="text-secondary font-semibold">Who it's for</p>
-                </div>
-                <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>Contractors expanding fleets or replacing high-maintenance units.</li>
-                  <li>Manufacturers modernizing production lines or adding capacity.</li>
-                  <li>Logistics operators scaling tractors, trailers, or specialized equipment.</li>
-                </ul>
-              </CardContent>
-            </Card>
           </div>
         </section>
 
         <section className="py-14 bg-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <Card className="h-full">
-                <CardContent className="p-6 space-y-3">
-                  <h2 className="text-2xl font-semibold text-secondary">How it works</h2>
-                  <ol className="list-decimal list-inside space-y-2 text-gray-700 text-sm">
-                    <li>Share the equipment list, utilization plans, and expected revenue impact.</li>
-                    <li>We align payment terms with project timelines, production cycles, or route volumes.</li>
-                    <li>Take delivery while preserving cash for payroll, materials, and fuel.</li>
-                  </ol>
-                </CardContent>
-              </Card>
-
-              <Card className="h-full">
-                <CardContent className="p-6 space-y-3">
-                  <h2 className="text-2xl font-semibold text-secondary">Why it fits these industries</h2>
-                  <p className="text-gray-700 text-sm">Equipment is the heartbeat of each sector.</p>
-                  <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>Construction: finance cranes, loaders, and trucks tied to project schedules.</li>
-                    <li>Manufacturing: upgrade machinery to improve throughput and quality.</li>
-                    <li>Logistics: expand or refresh fleet assets to meet broker and shipper demand.</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card className="border-primary/20">
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Building2 className="w-5 h-5 text-primary" />
-                      <p className="font-semibold text-secondary">Construction</p>
-                    </div>
-                    <p>Keep crews productive with reliable machines and attachments.</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Cog className="w-5 h-5 text-primary" />
-                      <p className="font-semibold text-secondary">Manufacturing</p>
-                    </div>
-                    <p>Financing structured around depreciation and uptime targets.</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <TruckIcon className="w-5 h-5 text-primary" />
-                      <p className="font-semibold text-secondary">Logistics</p>
-                    </div>
-                    <p>Match terms to lane volumes and maintenance windows.</p>
-                  </div>
-                </div>
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <Card className="border-blue-100">
+              <CardContent className="p-6 space-y-3 text-left">
+                <p className="text-sm font-semibold text-primary">Best for</p>
+                <ul className="list-disc list-inside text-gray-700 space-y-1">
+                  {bestFor.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <p className="text-gray-700">
+                  Add or upgrade vehicles, machinery, and technology while keeping day-to-day cash available for crews, routes, and production.
+                </p>
               </CardContent>
             </Card>
-
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center">
               <ApplyNowButton />
-              <AskQuestionButton />
+              <AskQuestionButton variant="outline">Ask a Question</AskQuestionButton>
             </div>
           </div>
         </section>
