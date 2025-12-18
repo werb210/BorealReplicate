@@ -6,6 +6,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+process.on("unhandledRejection", (reason) => {
+  log(`Unhandled rejection: ${reason}`);
+});
+
+process.on("uncaughtException", (error) => {
+  log(`Uncaught exception: ${error.message}`);
+  if (error.stack) {
+    log(error.stack);
+  }
+});
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -43,8 +54,12 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
+    log(message, "error");
+    if (err?.stack) {
+      log(err.stack, "error");
+    }
+
     res.status(status).json({ message });
-    throw err;
   });
 
   // importantly only setup vite in development and after
