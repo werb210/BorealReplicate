@@ -9,14 +9,9 @@ export function Navigation() {
 
   const navigationItems = [
     { href: "/", label: "Home" },
-    { href: "/term-loans", label: "Term Loans" },
-    { href: "/lines-of-credit", label: "Lines of Credit" },
-    { href: "/factoring", label: "Factoring" },
-    { href: "/purchase-order-financing", label: "PO Financing" },
-    { href: "/equipment-financing", label: "Equipment Financing" },
-    { href: "/construction", label: "Construction" },
-    { href: "/manufacturing", label: "Manufacturing" },
-    { href: "/logistics", label: "Logistics" }
+    { href: "/funding-solutions", label: "Funding Solutions" },
+    { href: "/industries", label: "Industries" },
+    { href: "/how-it-works", label: "How It Works" }
   ];
 
   return (

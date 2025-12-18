@@ -16,12 +16,20 @@ import EquipmentFinancing from "@/pages/equipment-financing";
 import Construction from "@/pages/construction";
 import Manufacturing from "@/pages/manufacturing";
 import Logistics from "@/pages/logistics";
+import FundingSolutions from "@/pages/funding-solutions";
+import Industries from "@/pages/industries";
+import HowItWorks from "@/pages/how-it-works";
 
 function Router() {
   return (
     <Switch>
       {/* Homepage */}
       <Route path="/" component={Home} />
+
+      {/* Navigation Pages */}
+      <Route path="/funding-solutions" component={FundingSolutions} />
+      <Route path="/industries" component={Industries} />
+      <Route path="/how-it-works" component={HowItWorks} />
 
       {/* Funding Pages */}
       <Route path="/term-loans" component={TermLoans} />
