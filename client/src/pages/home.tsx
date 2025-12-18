@@ -229,16 +229,28 @@ export default function Home() {
               <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Simple. Direct. Efficient.</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              {["Apply or chat", "We structure the deal", "Review terms and fund"].map((step, idx) => (
-                <Card key={step} className="h-full">
+              {[
+                {
+                  title: "Apply or chat",
+                  description:
+                    "Start with the chatbot or the application—either path captures your industry and cash-flow context."
+                },
+                {
+                  title: "We structure the deal",
+                  description:
+                    "Lenders who understand irregular cash flow, retainage, and asset-heavy work tailor the structure."
+                },
+                {
+                  title: "Review terms and fund",
+                  description:
+                    "You get clear terms built around reality, not checkboxes, so funding can move without friction."
+                }
+              ].map((step, idx) => (
+                <Card key={step.title} className="h-full">
                   <CardContent className="p-6 space-y-3">
                     <p className="text-sm font-semibold text-primary">Step {idx + 1}</p>
-                    <h3 className="text-xl font-semibold text-secondary">{step}</h3>
-                    <p className="text-gray-700 text-sm">
-                      {idx === 0 && "Start by applying or opening the chatbot to get matched."}
-                      {idx === 1 && "We align repayment and access to the reality of your contracts and receivables."}
-                      {idx === 2 && "Review straightforward terms and move to funding without extra hoops."}
-                    </p>
+                    <h3 className="text-xl font-semibold text-secondary">{step.title}</h3>
+                    <p className="text-gray-700 text-sm">{step.description}</p>
                   </CardContent>
                 </Card>
               ))}
