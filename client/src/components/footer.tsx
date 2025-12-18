@@ -1,21 +1,28 @@
 import { Link } from "wouter";
 import { AskQuestionButton, ApplyNowButton } from "@/components/cta-buttons";
 
+const quickLinks = [
+  { href: "/", label: "Home" },
+  { href: "/funding-solutions", label: "Funding Solutions" },
+  { href: "/industries", label: "Industries" },
+  { href: "/how-it-works", label: "How It Works" }
+];
+
+const productLinks = [
+  { href: "/term-loans", label: "Term Loans" },
+  { href: "/lines-of-credit", label: "Lines of Credit" },
+  { href: "/factoring", label: "Factoring" },
+  { href: "/purchase-order-financing", label: "Purchase Order Financing" },
+  { href: "/equipment-financing", label: "Equipment Financing" }
+];
+
+const industryLinks = [
+  { href: "/construction", label: "Construction" },
+  { href: "/manufacturing", label: "Manufacturing" },
+  { href: "/logistics", label: "Logistics" }
+];
+
 export function Footer() {
-  const fundingLinks = [
-    { href: "/term-loans", label: "Term Loans" },
-    { href: "/lines-of-credit", label: "Lines of Credit" },
-    { href: "/factoring", label: "Factoring" },
-    { href: "/purchase-order-financing", label: "PO Financing" },
-    { href: "/equipment-financing", label: "Equipment Financing" }
-  ];
-
-  const industryLinks = [
-    { href: "/construction", label: "Construction" },
-    { href: "/manufacturing", label: "Manufacturing" },
-    { href: "/logistics", label: "Logistics" }
-  ];
-
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -33,14 +40,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4" data-testid="footer-services-heading">Funding</h4>
+            <h4 className="text-lg font-semibold mb-4">Navigation</h4>
             <ul className="space-y-2 text-gray-400">
-              {fundingLinks.map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}>
-                    <a className="hover:text-white transition-colors" data-testid={`footer-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}>
-                      {link.label}
-                    </a>
+                    <a className="hover:text-white transition-colors">{link.label}</a>
                   </Link>
                 </li>
               ))}
@@ -48,22 +53,32 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4" data-testid="footer-contact-heading">Industries</h4>
+            <h4 className="text-lg font-semibold mb-4">Solutions</h4>
             <ul className="space-y-2 text-gray-400">
-              {industryLinks.map((link) => (
+              {productLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}>
-                    <a className="hover:text-white transition-colors" data-testid={`footer-link-${link.label.toLowerCase()}`}>
-                      {link.label}
-                    </a>
+                    <a className="hover:text-white transition-colors">{link.label}</a>
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-4 space-y-1 text-gray-400 text-sm">
-              <p>Email: <a href="mailto:Info@boreal.financial" className="hover:text-white">Info@boreal.financial</a></p>
-              <p>Client Portal: <a href="https://staff.boreal.financial/" target="_blank" rel="noopener noreferrer" className="hover:text-white">Apply Now</a></p>
-            </div>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Industries</h4>
+            <ul className="space-y-2 text-gray-400">
+              {industryLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href}>
+                    <a className="hover:text-white transition-colors">{link.label}</a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-gray-400 text-sm">
+              Ask a Question opens the chatbot, and Apply Now connects to the existing application from any page.
+            </p>
           </div>
         </div>
 
