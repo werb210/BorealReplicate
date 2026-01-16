@@ -197,7 +197,7 @@ export default function MediaFinancing() {
             Ready to bring your vision to life? Apply for media financing and get the capital you need to make your project a success.
           </p>
           <Button size="lg" asChild data-testid="button-apply-media-financing">
-            <a href="https://client.boreal.financial" target="_blank" rel="noopener noreferrer">
+            <a href="/apply/step-1">
               Apply for Media Financing
             </a>
           </Button>

@@ -188,7 +188,7 @@ export default function BusinessLineOfCredit() {
           </p>
           <div className="space-y-4">
             <Button size="lg" variant="secondary" asChild data-testid="button-apply-now-main">
-              <a href="https://client.boreal.financial" target="_blank" rel="noopener noreferrer">
+              <a href="/apply/step-1">
                 Apply Now and Experience the Difference
               </a>
             </Button>

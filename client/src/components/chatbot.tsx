@@ -27,7 +27,7 @@ const faqOptions = [
 ];
 
 const HUMAN_CONTACT = "mailto:info@boreal.financial";
-const APPLY_URL = "https://client.boreal.financial";
+const APPLY_URL = "/apply/step-1";
 
 function recommendProduct(industry: string, issue: string) {
   if (issue === "invoice-gaps") return "Factoring";
