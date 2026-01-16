@@ -27,6 +27,7 @@ const faqOptions = [
 ];
 
 const HUMAN_CONTACT = "mailto:info@boreal.financial";
+const APPLY_URL = "https://client.boreal.financial";
 
 function recommendProduct(industry: string, issue: string) {
   if (issue === "invoice-gaps") return "Factoring";
@@ -83,13 +84,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
     return null;
   }, [industry, issue]);
 
-  const applyUrl = useMemo(() => {
-    const params = new URLSearchParams();
-    if (industry) params.set("industry", industry);
-    if (recommendation) params.set("product", recommendation);
-    const query = params.toString();
-    return query ? `/apply?${query}` : "/apply";
-  }, [industry, recommendation]);
+  const applyUrl = useMemo(() => APPLY_URL, []);
 
   const handleIndustrySelect = (choice: string) => {
     setIndustry(choice);
@@ -137,21 +132,21 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
           isOpen ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"
         }`}
       >
-        <div className="bg-white shadow-xl border border-gray-200 rounded-2xl w-96 max-w-[90vw] overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 bg-primary text-white">
+        <div className="bg-background shadow-xl border border-border rounded-2xl w-96 max-w-[90vw] overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 bg-secondary text-secondary-foreground">
             <div className="flex items-center space-x-2">
               <MessageCircle className="w-5 h-5" />
               <div>
                 <p className="text-sm font-semibold">Boreal Concierge</p>
-                <p className="text-xs text-blue-100">FAQs, product guidance, and human support</p>
+                <p className="text-xs text-secondary-foreground/70">FAQs, product guidance, and human support</p>
               </div>
             </div>
-            <button onClick={onClose} className="text-white hover:text-blue-100 transition-colors" aria-label="Close chatbot">
+            <button onClick={onClose} className="text-secondary-foreground hover:text-secondary-foreground/70 transition-colors" aria-label="Close chatbot">
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="p-4 space-y-3 max-h-[340px] overflow-y-auto bg-gray-50">
+          <div className="p-4 space-y-3 max-h-[340px] overflow-y-auto bg-muted/40">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -159,7 +154,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
               >
                 <div
                   className={`px-3 py-2 rounded-2xl text-sm max-w-[80%] ${
-                    message.from === "bot" ? "bg-white text-gray-800 border border-gray-200" : "bg-primary text-white"
+                    message.from === "bot" ? "bg-background text-foreground border border-border" : "bg-primary text-primary-foreground"
                   }`}
                 >
                   {message.text}
@@ -169,9 +164,9 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
 
             {step === "summary" && recommendation && industry && (
               <div className="space-y-2 text-sm">
-                <div className="bg-white border border-blue-100 text-gray-800 p-3 rounded-xl">
+                <div className="bg-background border border-border text-foreground p-3 rounded-xl">
                   <p className="font-semibold text-secondary">Recommendation before you apply</p>
-                  <p className="mt-1 text-gray-700">
+                  <p className="mt-1 text-muted-foreground">
                     You mentioned {industry} and a cash-flow need around {cashFlowOptions.find((c) => c.value === issue)?.label?.toLowerCase()}.
                     We recommend <strong>{recommendation}</strong> for asset-heavy, cash-flow-driven work. We'll send this summary with you when you click Apply Now.
                   </p>
@@ -199,10 +194,10 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
             )}
           </div>
 
-          <div className="border-t border-gray-200 p-4 space-y-3">
+          <div className="border-t border-border p-4 space-y-3">
             {step === "industry" && (
               <div className="space-y-2">
-                <p className="text-xs font-semibold text-gray-600">Select your industry</p>
+                <p className="text-xs font-semibold text-muted-foreground">Select your industry</p>
                 <div className="flex flex-wrap gap-2">
                   {industryOptions.map((option) => (
                     <Button key={option} size="sm" variant={industry === option ? "default" : "outline"} onClick={() => handleIndustrySelect(option)}>
@@ -215,7 +210,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
 
             {step === "cashflow" && (
               <div className="space-y-2">
-                <p className="text-xs font-semibold text-gray-600">What's the cash-flow problem?</p>
+                <p className="text-xs font-semibold text-muted-foreground">What's the cash-flow problem?</p>
                 <div className="flex flex-col gap-2">
                   {cashFlowOptions.map((option) => (
                     <Button
@@ -232,7 +227,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
             )}
 
             <div className="space-y-2">
-              <p className="text-xs font-semibold text-gray-600">Common questions</p>
+              <p className="text-xs font-semibold text-muted-foreground">Common questions</p>
               <div className="flex flex-col gap-2">
                 {faqOptions.map((option) => (
                   <Button
@@ -249,7 +244,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
             </div>
 
             {step === "summary" && (
-              <div className="text-xs text-gray-600 flex items-center justify-between">
+              <div className="text-xs text-muted-foreground flex items-center justify-between">
                 <span>Need to start over?</span>
                 <Button size="sm" variant="ghost" onClick={onReset}>
                   Reset conversation
@@ -261,9 +256,11 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
       </div>
 
       <Button
-        className={`fixed bottom-4 right-4 shadow-lg ${isOpen ? "hidden" : ""}`}
+        className={`fixed bottom-6 right-6 shadow-lg rounded-full px-4 py-3 flex items-center gap-2 ${isOpen ? "hidden" : ""}`}
         onClick={onOpen}
+        aria-label="Open chatbot"
       >
+        <MessageCircle className="w-5 h-5" />
         Talk to an expert
       </Button>
     </div>

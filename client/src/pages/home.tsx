@@ -70,22 +70,22 @@ const industries = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navigation />
 
       <main>
         {/* Hero */}
-        <section className="bg-gradient-to-br from-blue-50 to-white py-16 lg:py-24">
+        <section className="bg-muted/40 border-b border-border py-12 lg:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-6">
-              <p className="inline-flex items-center gap-2 text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
+            <div className="space-y-4">
+              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-3 py-1 rounded-full">
                 Speed-first lender marketplace
               </p>
-              <h1 className="text-4xl lg:text-5xl font-bold text-secondary leading-tight">
+              <h1 className="text-4xl lg:text-5xl font-semibold tracking-tight text-secondary leading-tight">
                 marketplace lending for real businesses
               </h1>
-              <p className="text-lg text-gray-700 leading-relaxed">construction, manufacturing, logistics</p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">construction, manufacturing, logistics</p>
+              <p className="text-base text-muted-foreground leading-relaxed">
                 Boreal structures deals fast by matching your business to lenders that specialize in asset-heavy cash cycles. We focus on
                 the right structure, not generic rate shopping.
               </p>
@@ -94,16 +94,16 @@ export default function Home() {
                 <AskQuestionButton variant="outline" />
               </div>
             </div>
-            <Card className="shadow-xl border-blue-100">
-              <CardContent className="p-6 space-y-4">
+            <Card className="shadow-sm border-border bg-background">
+              <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-3">
                   <Workflow className="w-6 h-6 text-primary" />
                   <div>
-                    <p className="text-sm uppercase tracking-wide text-gray-500">Marketplace breadth</p>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Marketplace breadth</p>
                     <p className="text-lg font-semibold text-secondary">Multiple lenders, one structured deal</p>
                   </div>
                 </div>
-                <ul className="space-y-3 text-gray-700">
+                <ul className="space-y-3 text-sm text-muted-foreground">
                   <li className="flex gap-3">
                     <span className="text-primary font-semibold">1</span>
                     <span>Industry underwriting aligned to your project or production timeline.</span>
@@ -123,22 +123,22 @@ export default function Home() {
         </section>
 
         {/* How it works */}
-        <section className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <section className="py-12 bg-background">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="text-center space-y-3">
-              <p className="text-sm font-semibold text-primary">How it works</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Apply, match, fund — quickly.</h2>
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">How it works</p>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Apply, match, fund — quickly.</h2>
+              <p className="text-base text-muted-foreground max-w-3xl mx-auto">
                 We move fast so you can move projects, production, and routes without waiting on traditional bank timelines.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {howItWorks.map((step, index) => (
-                <Card key={step.title} className="h-full">
-                  <CardContent className="p-6 space-y-3">
-                    <p className="text-sm font-semibold text-primary">Step {index + 1}</p>
-                    <h3 className="text-xl font-semibold text-secondary">{step.title}</h3>
-                    <p className="text-gray-700 text-sm">{step.description}</p>
+                <Card key={step.title} className="h-full border-border shadow-sm">
+                  <CardContent className="p-5 space-y-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-primary">Step {index + 1}</p>
+                    <h3 className="text-lg font-semibold text-secondary">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm">{step.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -147,18 +147,18 @@ export default function Home() {
         </section>
 
         {/* Products overview */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <section className="py-12 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="text-center space-y-3">
-              <p className="text-sm font-semibold text-primary">Products</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Five core products. Structured around your cash flow.</h2>
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Products</p>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Five core products. Structured around your cash flow.</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
-                <Card key={product.name} className="h-full border-blue-100">
-                  <CardContent className="p-6 space-y-3">
-                    <h3 className="text-xl font-semibold text-secondary">{product.name}</h3>
-                    <p className="text-gray-700">{product.description}</p>
+                <Card key={product.name} className="h-full border-border shadow-sm bg-background">
+                  <CardContent className="p-5 space-y-3">
+                    <h3 className="text-lg font-semibold text-secondary">{product.name}</h3>
+                    <p className="text-sm text-muted-foreground">{product.description}</p>
                     <a href={product.href} className="text-primary font-semibold text-sm hover:underline">
                       View product details
                     </a>
@@ -173,23 +173,23 @@ export default function Home() {
         </section>
 
         {/* Industries served */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <section className="py-12 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="text-center space-y-3">
-              <p className="text-sm font-semibold text-primary">Industries served</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Specialized underwriting by industry.</h2>
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Industries served</p>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Specialized underwriting by industry.</h2>
+              <p className="text-base text-muted-foreground max-w-3xl mx-auto">
                 We specialize in cash cycles that depend on equipment, crews, inventory, and long customer terms.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {industries.map((industry) => (
-                <Card key={industry.name} className="h-full">
-                  <CardContent className="p-6 space-y-3">
+                <Card key={industry.name} className="h-full border-border shadow-sm">
+                  <CardContent className="p-5 space-y-3">
                     <industry.icon className="w-8 h-8 text-primary" />
                     <div>
-                      <h3 className="text-xl font-semibold text-secondary">{industry.name}</h3>
-                      <p className="text-sm text-gray-700">{industry.focus}</p>
+                      <h3 className="text-lg font-semibold text-secondary">{industry.name}</h3>
+                      <p className="text-sm text-muted-foreground">{industry.focus}</p>
                     </div>
                     <a href={industry.href} className="text-primary font-semibold text-sm hover:underline">
                       Explore {industry.name}
@@ -202,15 +202,15 @@ export default function Home() {
         </section>
 
         {/* Chatbot entry */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-12 bg-muted/30">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div className="space-y-4">
-              <p className="text-sm font-semibold text-primary">Talk to an expert</p>
-              <h2 className="text-3xl font-bold text-secondary">Get instant guidance before you apply.</h2>
-              <p className="text-lg text-gray-700">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Talk to an expert</p>
+              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Get instant guidance before you apply.</h2>
+              <p className="text-base text-muted-foreground">
                 The Boreal chatbot covers FAQs, product guidance, and a direct handoff to a human when you need it.
               </p>
-              <ul className="space-y-3 text-gray-700">
+              <ul className="space-y-3 text-sm text-muted-foreground">
                 <li className="flex gap-3">
                   <MessageCircle className="w-5 h-5 text-primary" />
                   <span>FAQ answers in seconds</span>
@@ -233,10 +233,10 @@ export default function Home() {
                 <ApplyNowButton variant="outline" />
               </div>
             </div>
-            <Card className="border-primary/20 shadow-lg">
-              <CardContent className="p-6 space-y-4">
-                <h3 className="text-xl font-semibold text-secondary">What happens in the chat</h3>
-                <div className="space-y-2 text-sm text-gray-700 bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <Card className="border-border shadow-sm bg-background">
+              <CardContent className="p-5 space-y-4">
+                <h3 className="text-lg font-semibold text-secondary">What happens in the chat</h3>
+                <div className="space-y-2 text-sm text-muted-foreground bg-muted/40 border border-border rounded-lg p-4">
                   <p><strong>Step 1:</strong> Share your industry and cash-flow timing.</p>
                   <p><strong>Step 2:</strong> Get a product recommendation and document checklist.</p>
                   <p><strong>Step 3:</strong> Escalate to a human if you want a live walkthrough.</p>

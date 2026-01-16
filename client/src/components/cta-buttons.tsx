@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useChatbot } from "@/hooks/use-chatbot";
 import { ReactNode } from "react";
 
-const APPLY_URL = "/apply";
+const APPLY_URL = "https://client.boreal.financial";
 
 type CTAProps = {
   children?: ReactNode;

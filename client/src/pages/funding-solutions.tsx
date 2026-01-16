@@ -39,15 +39,15 @@ const products = [
 
 export default function FundingSolutions() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navigation />
 
       <main>
-        <section className="bg-gradient-to-br from-blue-50 to-white py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-            <p className="text-sm font-semibold text-primary">Products</p>
-            <h1 className="text-4xl lg:text-5xl font-bold text-secondary">Marketplace-backed financing, structured for your business</h1>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+        <section className="bg-muted/40 border-b border-border py-12 lg:py-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center">
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary">Products</p>
+            <h1 className="text-3xl lg:text-4xl font-semibold text-secondary">Marketplace-backed financing, structured for your business</h1>
+            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
               Boreal matches your deal to lenders who know your industry. Explore the products below, or apply now to start structuring a custom funding plan.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -57,17 +57,17 @@ export default function FundingSolutions() {
           </div>
         </section>
 
-        <section className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <section className="py-12 bg-background">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
-                <Card key={product.name} className="h-full border-blue-100">
-                  <CardContent className="p-6 space-y-3">
+                <Card key={product.name} className="h-full border-border shadow-sm">
+                  <CardContent className="p-5 space-y-3">
                     <div className="space-y-1">
-                      <p className="text-sm font-semibold text-primary">{product.name}</p>
-                      <h3 className="text-xl font-semibold text-secondary">{product.title}</h3>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-primary">{product.name}</p>
+                      <h3 className="text-lg font-semibold text-secondary">{product.title}</h3>
                     </div>
-                    <p className="text-gray-700 text-sm">{product.details}</p>
+                    <p className="text-muted-foreground text-sm">{product.details}</p>
                     <a
                       href={product.slug}
                       className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:underline"
