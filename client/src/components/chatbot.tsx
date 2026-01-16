@@ -11,6 +11,23 @@ const cashFlowOptions = [
   { value: "working-capital", label: "Covering payroll, fuel, or materials this month" }
 ];
 
+const faqOptions = [
+  {
+    question: "How fast can funding happen?",
+    answer: "Most applications move quickly once documents are in. Timing depends on the product and lender match, but we prioritize speed from intake to term sheet."
+  },
+  {
+    question: "What documents do you need?",
+    answer: "Typically 3-6 months of bank statements, recent financials, and aging reports for receivables. Product-specific items like invoices or POs may be required."
+  },
+  {
+    question: "Do you work with complex cash cycles?",
+    answer: "Yes. Boreal specializes in construction, manufacturing, and logistics where retainage, inventory, and delayed payments are the norm."
+  }
+];
+
+const HUMAN_CONTACT = "mailto:info@boreal.financial";
+
 function recommendProduct(industry: string, issue: string) {
   if (issue === "invoice-gaps") return "Factoring";
   if (issue === "equipment-upgrade") return "Equipment Financing";
@@ -41,7 +58,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
   const [messages, setMessages] = useState<Message[]>([
     {
       from: "bot",
-      text: "I can help you figure out which financing fits your business. What industry are you in?"
+      text: "I can answer FAQs, guide you to the right product, or connect you to a human. What industry are you in?"
     }
   ]);
   const [sending, setSending] = useState(false);
@@ -54,7 +71,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
     setMessages([
       {
         from: "bot",
-        text: "I can help you figure out which financing fits your business. What industry are you in?"
+        text: "I can answer FAQs, guide you to the right product, or connect you to a human. What industry are you in?"
       }
     ]);
   }, [resetCount, isOpen]);
@@ -71,7 +88,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
     if (industry) params.set("industry", industry);
     if (recommendation) params.set("product", recommendation);
     const query = params.toString();
-    return query ? `https://staff.boreal.financial/?${query}` : "https://staff.boreal.financial/";
+    return query ? `/apply?${query}` : "/apply";
   }, [industry, recommendation]);
 
   const handleIndustrySelect = (choice: string) => {
@@ -92,6 +109,10 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
       { from: "bot", text: "Here is what fits best for you before you head to Apply." }
     ]);
     setStep("summary");
+  };
+
+  const handleFaqSelect = (question: string, answer: string) => {
+    setMessages((prev) => [...prev, { from: "user", text: question }, { from: "bot", text: answer }]);
   };
 
   const handleConfirm = () => {
@@ -122,7 +143,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
               <MessageCircle className="w-5 h-5" />
               <div>
                 <p className="text-sm font-semibold">Boreal Concierge</p>
-                <p className="text-xs text-blue-100">Ask anything about financing</p>
+                <p className="text-xs text-blue-100">FAQs, product guidance, and human support</p>
               </div>
             </div>
             <button onClick={onClose} className="text-white hover:text-blue-100 transition-colors" aria-label="Close chatbot">
@@ -157,7 +178,10 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Button size="sm" asChild>
-                    <a href={applyUrl} target="_blank" rel="noopener noreferrer">Apply Now</a>
+                    <a href={applyUrl}>Apply Now</a>
+                  </Button>
+                  <Button size="sm" variant="outline" asChild>
+                    <a href={HUMAN_CONTACT}>Talk to a human</a>
                   </Button>
                   <Button size="sm" variant="outline" onClick={handleConfirm} disabled={sending}>
                     {sending ? (
@@ -207,6 +231,23 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
               </div>
             )}
 
+            <div className="space-y-2">
+              <p className="text-xs font-semibold text-gray-600">Common questions</p>
+              <div className="flex flex-col gap-2">
+                {faqOptions.map((option) => (
+                  <Button
+                    key={option.question}
+                    size="sm"
+                    variant="ghost"
+                    className="justify-start text-left"
+                    onClick={() => handleFaqSelect(option.question, option.answer)}
+                  >
+                    {option.question}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
             {step === "summary" && (
               <div className="text-xs text-gray-600 flex items-center justify-between">
                 <span>Need to start over?</span>
@@ -223,7 +264,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
         className={`fixed bottom-4 right-4 shadow-lg ${isOpen ? "hidden" : ""}`}
         onClick={onOpen}
       >
-        Ask a Question
+        Talk to an expert
       </Button>
     </div>
   );
