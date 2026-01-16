@@ -8,37 +8,32 @@ const products = [
   {
     name: "Term Loans",
     slug: "/term-loans",
-    title: "Structured Capital for Growth and Stability",
-    bestFor: ["Expansion", "Refinancing", "Large investments"],
-    description: "Fixed or variable repayment structured around real cash flow not rigid bank formulas."
+    title: "Structured capital for larger projects",
+    details: "Longer-term financing built around project schedules, expansion plans, or refinancing needs."
   },
   {
     name: "Lines of Credit",
     slug: "/lines-of-credit",
-    title: "Flexible Capital Without Reapplying Every Time",
-    bestFor: ["Working capital", "Payroll gaps", "Material purchases"],
-    description: "Revolving access to funds. Pay interest only on what you use."
+    title: "Flexible access to working capital",
+    details: "Draw and repay as you go to cover payroll, materials, and seasonal swings."
   },
   {
     name: "Factoring",
     slug: "/factoring",
-    title: "Get Paid Now Not When Your Customer Decides",
-    bestFor: ["Progress billing", "Net 30 or Net 60 receivables", "Rapid growth"],
-    description: "Advance against invoices. Funding based on receivables not credit score."
+    title: "Unlock cash tied up in receivables",
+    details: "Convert invoices into funding when customers pay on long terms."
   },
   {
     name: "Purchase Order Financing",
     slug: "/purchase-order-financing",
-    title: "Take on Bigger Orders Without Cash Strain",
-    bestFor: ["Manufacturers", "Distributors", "Contract based businesses"],
-    description: "Finance supplier costs so large orders can be fulfilled."
+    title: "Fulfill large orders without cash strain",
+    details: "Finance supplier costs to accept bigger contracts and larger POs."
   },
   {
     name: "Equipment Financing",
     slug: "/equipment-financing",
-    title: "Get the Equipment Keep the Cash",
-    bestFor: ["Vehicles", "Heavy equipment", "Machinery", "Technology"],
-    description: "Equipment acts as collateral preserving cash flow."
+    title: "Grow fleets and machinery with speed",
+    details: "Acquire, replace, or upgrade equipment without draining operating cash."
   }
 ];
 
@@ -50,10 +45,10 @@ export default function FundingSolutions() {
       <main>
         <section className="bg-gradient-to-br from-blue-50 to-white py-16 lg:py-20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-            <p className="text-sm font-semibold text-primary">Funding Solutions</p>
-            <h1 className="text-4xl lg:text-5xl font-bold text-secondary">Choose the path that fits your cash flow</h1>
+            <p className="text-sm font-semibold text-primary">Products</p>
+            <h1 className="text-4xl lg:text-5xl font-bold text-secondary">Marketplace-backed financing, structured for your business</h1>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-              Start here to pick the right solution, open the chatbot with Ask a Question, or Apply Now when you are ready. Each option below links to the dedicated page with more detail.
+              Boreal matches your deal to lenders who know your industry. Explore the products below, or apply now to start structuring a custom funding plan.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <ApplyNowButton />
@@ -72,15 +67,7 @@ export default function FundingSolutions() {
                       <p className="text-sm font-semibold text-primary">{product.name}</p>
                       <h3 className="text-xl font-semibold text-secondary">{product.title}</h3>
                     </div>
-                    <div className="space-y-1 text-sm text-gray-700">
-                      <p className="font-semibold">Best for:</p>
-                      <ul className="list-disc list-inside space-y-1">
-                        {product.bestFor.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <p className="text-gray-700 text-sm">{product.description}</p>
+                    <p className="text-gray-700 text-sm">{product.details}</p>
                     <a
                       href={product.slug}
                       className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:underline"

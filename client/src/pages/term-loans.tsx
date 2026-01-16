@@ -3,7 +3,36 @@ import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 
-const bestFor = ["Expansion", "Refinancing", "Large investments"];
+const whoItsFor = [
+  "Construction firms funding multi-phase projects",
+  "Manufacturers expanding capacity or refinancing existing debt",
+  "Logistics operators investing in long-term growth"
+];
+
+const useCases = [
+  "Facility build-outs or plant expansion",
+  "Refinancing short-term or high-cost debt",
+  "Large project mobilization or contract ramp-up"
+];
+
+const worksWhen = [
+  "Cash flow is predictable across contracts or recurring revenue",
+  "The project timeline supports monthly repayment",
+  "You need a structured, longer-term solution"
+];
+
+const notIdealWhen = [
+  "The need is a short-term invoice gap",
+  "Revenue is highly volatile month to month",
+  "A revolving facility would provide more flexibility"
+];
+
+const requiredDocs = [
+  "6-12 months of bank statements",
+  "Recent financial statements",
+  "Accounts receivable and payable aging",
+  "Project backlog or contract schedule"
+];
 
 export default function TermLoans() {
   return (
@@ -14,9 +43,9 @@ export default function TermLoans() {
         <section className="bg-gradient-to-br from-blue-50 to-white py-16 lg:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
             <p className="text-sm font-semibold text-primary">Term Loans</p>
-            <h1 className="text-4xl font-bold text-secondary">Structured Capital for Growth and Stability</h1>
+            <h1 className="text-4xl font-bold text-secondary">Structured capital for long-term projects</h1>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-              Fixed or variable repayment structured around real cash flow not rigid bank formulas.
+              Term loans provide a fixed repayment plan that matches project timelines, expansion plans, or refinance needs.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <ApplyNowButton />
@@ -26,23 +55,56 @@ export default function TermLoans() {
         </section>
 
         <section className="py-14 bg-white">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <Card className="border-blue-100">
-              <CardContent className="p-6 space-y-3 text-left">
-                <p className="text-sm font-semibold text-primary">Best for</p>
-                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                  {bestFor.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <p className="text-gray-700">
-                  Term loans provide predictable capital to execute on growth, refinance expensive debt, or make large purchases with timelines built around your contracts.
-                </p>
+              <CardContent className="p-6 space-y-4 text-left">
+                <div>
+                  <p className="text-sm font-semibold text-primary">Who this is for</p>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
+                    {whoItsFor.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-primary">Typical use cases</p>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
+                    {useCases.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm font-semibold text-primary">When it works</p>
+                    <ul className="list-disc list-inside text-gray-700 space-y-1">
+                      {worksWhen.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-primary">When it doesn't</p>
+                    <ul className="list-disc list-inside text-gray-700 space-y-1">
+                      {notIdealWhen.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-primary">High-level required documents</p>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
+                    {requiredDocs.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               </CardContent>
             </Card>
             <div className="flex flex-wrap gap-3 justify-center">
               <ApplyNowButton />
-              <AskQuestionButton variant="outline">Ask a Question</AskQuestionButton>
+              <AskQuestionButton variant="outline" />
             </div>
           </div>
         </section>

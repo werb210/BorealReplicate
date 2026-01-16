@@ -4,47 +4,67 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 import { Building2, Factory, Truck, Workflow, MessageCircle, Compass, ShieldCheck } from "lucide-react";
 
-const industries = [
+const howItWorks = [
   {
-    name: "Construction",
-    focus: "Progress billing, retainage, payroll gaps, equipment heavy operations.",
-    icon: Building2,
-    details: "We understand staged payouts and retainage. Cover payroll, equipment, and material swings while you wait for draws."
+    title: "Apply",
+    description: "Share your project, cash-flow timing, and documents once. We move fast so lenders can respond quickly."
   },
   {
-    name: "Manufacturing",
-    focus: "Inventory cycles, purchase orders, machinery, scaling production.",
-    icon: Factory,
-    details: "Finance inventory and machinery without slowing production. Keep PO commitments moving while protecting cash."
+    title: "Match",
+    description: "We route your deal to a marketplace of industry-fit lenders and structure terms around your timeline."
   },
   {
-    name: "Logistics",
-    focus: "Fleet costs, fuel, delayed receivables, contract based cash flow.",
-    icon: Truck,
-    details: "Fleet, fuel, and maintenance stay covered even with long broker and shipper terms."
+    title: "Fund",
+    description: "Choose the structure that fits, finalize diligence, and fund without unnecessary back-and-forth."
   }
 ];
 
-const fundingOptions = [
+const products = [
   {
     name: "Term Loans",
-    description: "Structured repayment for growth and refinancing"
+    description: "Structured repayment for growth, refinancing, or project-heavy capital needs.",
+    href: "/term-loans"
   },
   {
     name: "Lines of Credit",
-    description: "Flexible working capital access"
+    description: "Revolving access for payroll, materials, and seasonal swings.",
+    href: "/lines-of-credit"
   },
   {
     name: "Factoring",
-    description: "Immediate cash from receivables"
+    description: "Turn receivables into cash when customers pay on long terms.",
+    href: "/factoring"
   },
   {
     name: "Purchase Order Financing",
-    description: "Fund supplier costs for large orders"
+    description: "Cover supplier costs to fulfill large orders or contracts.",
+    href: "/purchase-order-financing"
   },
   {
     name: "Equipment Financing",
-    description: "Acquire assets without draining cash"
+    description: "Acquire or upgrade equipment while protecting working capital.",
+    href: "/equipment-financing"
+  }
+];
+
+const industries = [
+  {
+    name: "Construction",
+    focus: "Progress billing, retainage, crew-heavy schedules",
+    icon: Building2,
+    href: "/industries/construction"
+  },
+  {
+    name: "Manufacturing",
+    focus: "Inventory cycles, PO-driven production, equipment upgrades",
+    icon: Factory,
+    href: "/industries/manufacturing"
+  },
+  {
+    name: "Logistics",
+    focus: "Fleet costs, fuel, broker terms, contract routes",
+    icon: Truck,
+    href: "/industries/logistics"
   }
 ];
 
@@ -59,21 +79,19 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div className="space-y-6">
               <p className="inline-flex items-center gap-2 text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                Asset-heavy, cash-flow-driven financing
+                Speed-first lender marketplace
               </p>
               <h1 className="text-4xl lg:text-5xl font-bold text-secondary leading-tight">
-                Business Financing Built for Construction, Manufacturing, and Logistics
+                marketplace lending for real businesses
               </h1>
+              <p className="text-lg text-gray-700 leading-relaxed">construction, manufacturing, logistics</p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Term loans, lines of credit, factoring, purchase order financing, and equipment financing structured for asset heavy, cash flow driven businesses.
+                Boreal structures deals fast by matching your business to lenders that specialize in asset-heavy cash cycles. We focus on
+                the right structure, not generic rate shopping.
               </p>
               <div className="flex flex-wrap gap-4">
                 <ApplyNowButton />
                 <AskQuestionButton variant="outline" />
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg p-4">
-                <ShieldCheck className="w-5 h-5 text-primary" />
-                <span>Not sure what fits? Our financing assistant can help instantly.</span>
               </div>
             </div>
             <Card className="shadow-xl border-blue-100">
@@ -81,22 +99,22 @@ export default function Home() {
                 <div className="flex items-center gap-3">
                   <Workflow className="w-6 h-6 text-primary" />
                   <div>
-                    <p className="text-sm uppercase tracking-wide text-gray-500">Tailored Funding Tracks</p>
-                    <p className="text-lg font-semibold text-secondary">Built around jobsites, shop floors, and routes</p>
+                    <p className="text-sm uppercase tracking-wide text-gray-500">Marketplace breadth</p>
+                    <p className="text-lg font-semibold text-secondary">Multiple lenders, one structured deal</p>
                   </div>
                 </div>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex gap-3">
                     <span className="text-primary font-semibold">1</span>
-                    <span>Start with your industry so underwriting reflects real project timelines.</span>
+                    <span>Industry underwriting aligned to your project or production timeline.</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-primary font-semibold">2</span>
-                    <span>Match cash-flow challenges to the right product before you apply.</span>
+                    <span>Multiple lender responses without multiple applications.</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-primary font-semibold">3</span>
-                    <span>Push your industry and product selection directly into the application.</span>
+                    <span>Deal structuring that matches cash inflows, not generic formulas.</span>
                   </li>
                 </ul>
               </CardContent>
@@ -104,151 +122,21 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Industry focus */}
+        {/* How it works */}
         <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="text-center space-y-3">
-              <p className="text-sm font-semibold text-primary">Industry Focus</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Financing That Matches How You Actually Operate</h2>
+              <p className="text-sm font-semibold text-primary">How it works</p>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Apply, match, fund — quickly.</h2>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                Tailored programs for construction, manufacturing, and logistics operations that run on equipment, crews, and predictable schedules.
+                We move fast so you can move projects, production, and routes without waiting on traditional bank timelines.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {industries.map((industry) => (
-                <Card key={industry.name} className="h-full">
-                  <CardContent className="p-6 space-y-3">
-                    <industry.icon className="w-8 h-8 text-primary" />
-                    <div>
-                      <p className="text-sm uppercase tracking-wide text-gray-500">{industry.focus}</p>
-                      <h3 className="text-xl font-semibold text-secondary">{industry.name}</h3>
-                    </div>
-                    <p className="text-gray-700 leading-relaxed">{industry.details}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <div className="flex justify-center">
-              <AskQuestionButton size="lg">See Industry Solutions</AskQuestionButton>
-            </div>
-          </div>
-        </section>
-
-        {/* Funding options summary */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <div className="text-center space-y-3">
-              <p className="text-sm font-semibold text-primary">Funding Options</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Capital Without Bank Rigidity</h2>
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                Term loans, lines of credit, factoring, purchase order financing, and equipment financing structured around how you earn and collect cash.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {fundingOptions.map((option) => (
-                <Card key={option.name} className="h-full border-blue-100">
-                  <CardContent className="p-6 space-y-3">
-                    <h3 className="text-xl font-semibold text-secondary">{option.name}</h3>
-                    <p className="text-gray-700">{option.description}</p>
-                    <div className="flex gap-3">
-                      <ApplyNowButton size="sm" />
-                      <AskQuestionButton size="sm" variant="outline" />
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <p className="text-center text-gray-700">Questions? Ask the financing assistant.</p>
-          </div>
-        </section>
-
-        {/* Chatbot explainer */}
-        <section className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div className="space-y-4">
-              <p className="text-sm font-semibold text-primary">Chat-first guidance</p>
-              <h2 className="text-3xl font-bold text-secondary">Get Answers Before You Apply</h2>
-              <p className="text-lg text-gray-700">
-                Unsure which option fits? Ask questions. Get direct answers. No pressure.
-              </p>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex gap-3">
-                  <MessageCircle className="w-5 h-5 text-primary" />
-                  <span>Product fit by industry</span>
-                </li>
-                <li className="flex gap-3">
-                  <Compass className="w-5 h-5 text-primary" />
-                  <span>Typical requirements</span>
-                </li>
-                <li className="flex gap-3">
-                  <Workflow className="w-5 h-5 text-primary" />
-                  <span>Funding timelines</span>
-                </li>
-                <li className="flex gap-3">
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                  <span>Credit and cash flow considerations</span>
-                </li>
-              </ul>
-              <div className="flex gap-3">
-                <AskQuestionButton>Ask the Financing Assistant</AskQuestionButton>
-              </div>
-            </div>
-            <Card className="border-primary/20 shadow-lg">
-              <CardContent className="p-6 space-y-4">
-                <h3 className="text-xl font-semibold text-secondary">How the bot responds</h3>
-                <div className="space-y-2 text-sm text-gray-700 bg-gray-50 border border-gray-200 rounded-lg p-4">
-                  <p><strong>Step 1:</strong> "Which industry are you in?"</p>
-                  <p><strong>Step 2:</strong> "What's the cash-flow challenge you're solving?"</p>
-                  <p><strong>Step 3:</strong> "We recommend Factoring/PO Financing/Term Loan etc. We'll push this into your application."</p>
-                </div>
-                <p className="text-gray-700 text-sm">
-                  Ask it to compare options or clarify how funds can support payroll, fuel, materials, or equipment schedules.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Why Boreal */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <p className="text-sm font-semibold text-primary">Why Boreal</p>
-            <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Built for Businesses Banks Don’t Understand</h2>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              We work with lenders who understand irregular cash flow, asset heavy balance sheets, and contract driven revenue.
-              We structure deals based on reality, not checkboxes.
-            </p>
-          </div>
-        </section>
-
-        {/* How it works */}
-        <section className="py-16 bg-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-            <div className="space-y-3">
-              <p className="text-sm font-semibold text-primary">How It Works</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Simple. Direct. Efficient.</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              {[
-                {
-                  title: "Apply or chat",
-                  description:
-                    "Start with the chatbot or the application—either path captures your industry and cash-flow context."
-                },
-                {
-                  title: "We structure the deal",
-                  description:
-                    "Lenders who understand irregular cash flow, retainage, and asset-heavy work tailor the structure."
-                },
-                {
-                  title: "Review terms and fund",
-                  description:
-                    "You get clear terms built around reality, not checkboxes, so funding can move without friction."
-                }
-              ].map((step, idx) => (
+              {howItWorks.map((step, index) => (
                 <Card key={step.title} className="h-full">
                   <CardContent className="p-6 space-y-3">
-                    <p className="text-sm font-semibold text-primary">Step {idx + 1}</p>
+                    <p className="text-sm font-semibold text-primary">Step {index + 1}</p>
                     <h3 className="text-xl font-semibold text-secondary">{step.title}</h3>
                     <p className="text-gray-700 text-sm">{step.description}</p>
                   </CardContent>
@@ -258,14 +146,103 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="py-16 bg-primary text-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h2 className="text-3xl lg:text-4xl font-bold">Get Financing That Fits Your Business Not the Bank’s</h2>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <ApplyNowButton variant="secondary" />
-              <AskQuestionButton variant="outline" />
+        {/* Products overview */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="text-center space-y-3">
+              <p className="text-sm font-semibold text-primary">Products</p>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Five core products. Structured around your cash flow.</h2>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map((product) => (
+                <Card key={product.name} className="h-full border-blue-100">
+                  <CardContent className="p-6 space-y-3">
+                    <h3 className="text-xl font-semibold text-secondary">{product.name}</h3>
+                    <p className="text-gray-700">{product.description}</p>
+                    <a href={product.href} className="text-primary font-semibold text-sm hover:underline">
+                      View product details
+                    </a>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="flex justify-center">
+              <ApplyNowButton />
+            </div>
+          </div>
+        </section>
+
+        {/* Industries served */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="text-center space-y-3">
+              <p className="text-sm font-semibold text-primary">Industries served</p>
+              <h2 className="text-3xl lg:text-4xl font-bold text-secondary">Specialized underwriting by industry.</h2>
+              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                We specialize in cash cycles that depend on equipment, crews, inventory, and long customer terms.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {industries.map((industry) => (
+                <Card key={industry.name} className="h-full">
+                  <CardContent className="p-6 space-y-3">
+                    <industry.icon className="w-8 h-8 text-primary" />
+                    <div>
+                      <h3 className="text-xl font-semibold text-secondary">{industry.name}</h3>
+                      <p className="text-sm text-gray-700">{industry.focus}</p>
+                    </div>
+                    <a href={industry.href} className="text-primary font-semibold text-sm hover:underline">
+                      Explore {industry.name}
+                    </a>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Chatbot entry */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div className="space-y-4">
+              <p className="text-sm font-semibold text-primary">Talk to an expert</p>
+              <h2 className="text-3xl font-bold text-secondary">Get instant guidance before you apply.</h2>
+              <p className="text-lg text-gray-700">
+                The Boreal chatbot covers FAQs, product guidance, and a direct handoff to a human when you need it.
+              </p>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex gap-3">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                  <span>FAQ answers in seconds</span>
+                </li>
+                <li className="flex gap-3">
+                  <Compass className="w-5 h-5 text-primary" />
+                  <span>Match products to your cash-flow challenge</span>
+                </li>
+                <li className="flex gap-3">
+                  <Workflow className="w-5 h-5 text-primary" />
+                  <span>Transfer details directly into your application</span>
+                </li>
+                <li className="flex gap-3">
+                  <ShieldCheck className="w-5 h-5 text-primary" />
+                  <span>Talk to a human anytime</span>
+                </li>
+              </ul>
+              <div className="flex gap-3">
+                <AskQuestionButton />
+                <ApplyNowButton variant="outline" />
+              </div>
+            </div>
+            <Card className="border-primary/20 shadow-lg">
+              <CardContent className="p-6 space-y-4">
+                <h3 className="text-xl font-semibold text-secondary">What happens in the chat</h3>
+                <div className="space-y-2 text-sm text-gray-700 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                  <p><strong>Step 1:</strong> Share your industry and cash-flow timing.</p>
+                  <p><strong>Step 2:</strong> Get a product recommendation and document checklist.</p>
+                  <p><strong>Step 3:</strong> Escalate to a human if you want a live walkthrough.</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>

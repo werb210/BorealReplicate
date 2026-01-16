@@ -18,7 +18,6 @@ import Manufacturing from "@/pages/manufacturing";
 import Logistics from "@/pages/logistics";
 import FundingSolutions from "@/pages/funding-solutions";
 import Industries from "@/pages/industries";
-import HowItWorks from "@/pages/how-it-works";
 
 function Router() {
   return (
@@ -27,9 +26,9 @@ function Router() {
       <Route path="/" component={Home} />
 
       {/* Navigation Pages */}
+      <Route path="/products" component={FundingSolutions} />
       <Route path="/funding-solutions" component={FundingSolutions} />
       <Route path="/industries" component={Industries} />
-      <Route path="/how-it-works" component={HowItWorks} />
 
       {/* Funding Pages */}
       <Route path="/term-loans" component={TermLoans} />
@@ -39,10 +38,10 @@ function Router() {
       <Route path="/equipment-financing" component={EquipmentFinancing} />
 
       {/* Industry Pages */}
-      <Route path="/construction" component={Construction} />
-      <Route path="/manufacturing" component={Manufacturing} />
-      <Route path="/logistics" component={Logistics} />
-      
+      <Route path="/industries/construction" component={Construction} />
+      <Route path="/industries/manufacturing" component={Manufacturing} />
+      <Route path="/industries/logistics" component={Logistics} />
+
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

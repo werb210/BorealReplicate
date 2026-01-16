@@ -8,10 +8,8 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigationItems = [
-    { href: "/", label: "Home" },
-    { href: "/funding-solutions", label: "Funding Solutions" },
-    { href: "/industries", label: "Industries" },
-    { href: "/how-it-works", label: "How It Works" }
+    { href: "/products", label: "Products" },
+    { href: "/industries", label: "Industries" }
   ];
 
   return (
@@ -42,8 +40,10 @@ export function Navigation() {
                   </a>
                 </Link>
               ))}
-              <AskQuestionButton size="sm" variant="outline" />
-              <ApplyNowButton size="sm" />
+              <AskQuestionButton size="sm" variant="outline">
+                Contact / Chat
+              </AskQuestionButton>
+              <ApplyNowButton size="sm">Apply</ApplyNowButton>
             </div>
           </div>
 
@@ -78,8 +78,12 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="px-3 py-2 space-y-2">
-                <AskQuestionButton className="w-full" size="sm" variant="outline" />
-                <ApplyNowButton className="w-full" size="sm" />
+                <AskQuestionButton className="w-full" size="sm" variant="outline">
+                  Contact / Chat
+                </AskQuestionButton>
+                <ApplyNowButton className="w-full" size="sm">
+                  Apply
+                </ApplyNowButton>
               </div>
             </div>
           </div>

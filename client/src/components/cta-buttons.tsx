@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useChatbot } from "@/hooks/use-chatbot";
 import { ReactNode } from "react";
 
-const APPLY_URL = "https://staff.boreal.financial/";
+const APPLY_URL = "/apply";
 
 type CTAProps = {
   children?: ReactNode;
@@ -14,9 +14,7 @@ type CTAProps = {
 export function ApplyNowButton({ children, className, variant = "default", size = "lg" }: CTAProps) {
   return (
     <Button asChild className={className} variant={variant} size={size}>
-      <a href={APPLY_URL} target="_blank" rel="noopener noreferrer">
-        {children ?? "Apply Now"}
-      </a>
+      <a href={APPLY_URL}>{children ?? "Apply Now"}</a>
     </Button>
   );
 }
@@ -34,7 +32,7 @@ export function AskQuestionButton({ children, className, variant = "outline", si
         openChatbot();
       }}
     >
-      {children ?? "Ask a Question"}
+      {children ?? "Talk to an expert"}
     </Button>
   );
 }
