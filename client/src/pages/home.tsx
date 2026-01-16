@@ -75,48 +75,40 @@ export default function Home() {
 
       <main>
         {/* Hero */}
-        <section className="bg-muted/40 border-b border-border py-12 lg:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <section className="bg-background border-b border-border py-12 lg:py-16">
+          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div className="space-y-4">
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-3 py-1 rounded-full">
-                Speed-first lender marketplace
+                Boreal Funding Marketplace
               </p>
               <h1 className="text-4xl lg:text-5xl font-semibold tracking-tight text-secondary leading-tight">
-                marketplace lending for real businesses
+                Funding that keeps your business moving.
               </h1>
-              <p className="text-base text-muted-foreground leading-relaxed">construction, manufacturing, logistics</p>
               <p className="text-base text-muted-foreground leading-relaxed">
-                Boreal structures deals fast by matching your business to lenders that specialize in asset-heavy cash cycles. We focus on
-                the right structure, not generic rate shopping.
+                Complete your application in minutes with a secure SMS magic-link that lets you pick up right where you left off.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Available to businesses in Canada and the United States.
               </p>
               <div className="flex flex-wrap gap-4">
-                <ApplyNowButton />
-                <AskQuestionButton variant="outline" />
+                <ApplyNowButton variant="cta">Start Your Application</ApplyNowButton>
+                <ApplyNowButton variant="outline">Apply Now</ApplyNowButton>
               </div>
             </div>
-            <Card className="shadow-sm border-border bg-background">
+            <Card className="shadow-sm border-border bg-card">
               <CardContent className="p-5 space-y-4">
                 <div className="flex items-center gap-3">
                   <Workflow className="w-6 h-6 text-primary" />
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Marketplace breadth</p>
-                    <p className="text-lg font-semibold text-secondary">Multiple lenders, one structured deal</p>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">What to expect</p>
+                    <p className="text-lg font-semibold text-secondary">Your application in three steps</p>
                   </div>
                 </div>
-                <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li className="flex gap-3">
-                    <span className="text-primary font-semibold">1</span>
-                    <span>Industry underwriting aligned to your project or production timeline.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-primary font-semibold">2</span>
-                    <span>Multiple lender responses without multiple applications.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-primary font-semibold">3</span>
-                    <span>Deal structuring that matches cash inflows, not generic formulas.</span>
-                  </li>
-                </ul>
+                <ol className="space-y-3 text-sm text-muted-foreground list-decimal pl-5">
+                  <li>Answer a few questions about your business and funding needs</li>
+                  <li>Review the product category that best matches your profile</li>
+                  <li>Upload required documents or request a secure upload link</li>
+                </ol>
               </CardContent>
             </Card>
           </div>
@@ -124,7 +116,7 @@ export default function Home() {
 
         {/* How it works */}
         <section className="py-12 bg-background">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="text-center space-y-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-primary">How it works</p>
               <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Apply, match, fund — quickly.</h2>
@@ -148,7 +140,7 @@ export default function Home() {
 
         {/* Products overview */}
         <section className="py-12 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="text-center space-y-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-primary">Products</p>
               <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Five core products. Structured around your cash flow.</h2>
@@ -174,7 +166,7 @@ export default function Home() {
 
         {/* Industries served */}
         <section className="py-12 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="text-center space-y-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-primary">Industries served</p>
               <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Specialized underwriting by industry.</h2>
@@ -203,7 +195,7 @@ export default function Home() {
 
         {/* Chatbot entry */}
         <section className="py-12 bg-muted/30">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div className="space-y-4">
               <p className="text-xs font-semibold uppercase tracking-wide text-primary">Talk to an expert</p>
               <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Get instant guidance before you apply.</h2>

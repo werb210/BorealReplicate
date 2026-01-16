@@ -291,7 +291,7 @@ export default function RetailInventoryFinancing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild data-testid="button-apply-now">
-              <a href="https://client.boreal.financial" target="_blank" rel="noopener noreferrer">
+              <a href="/apply/step-1">
                 Apply for Inventory Financing
               </a>
             </Button>
