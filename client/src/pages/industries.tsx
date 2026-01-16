@@ -30,15 +30,15 @@ const industries = [
 
 export default function Industries() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navigation />
 
       <main>
-        <section className="bg-gradient-to-br from-blue-50 to-white py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-            <p className="text-sm font-semibold text-primary">Industries</p>
-            <h1 className="text-4xl lg:text-5xl font-bold text-secondary">Industry-first underwriting that moves fast</h1>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+        <section className="bg-muted/40 border-b border-border py-12 lg:py-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center">
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary">Industries</p>
+            <h1 className="text-3xl lg:text-4xl font-semibold text-secondary">Industry-first underwriting that moves fast</h1>
+            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
               Choose your industry to see the pain points we solve, the products that fit, and real-world scenarios we fund every day.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -48,15 +48,15 @@ export default function Industries() {
           </div>
         </section>
 
-        <section className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <section className="py-12 bg-background">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {industries.map((industry) => (
-                <Card key={industry.name} className="h-full border-blue-100">
-                  <CardContent className="p-6 space-y-3">
-                    <p className="text-sm font-semibold text-primary">{industry.name}</p>
-                    <h3 className="text-xl font-semibold text-secondary">{industry.headline}</h3>
-                    <div className="space-y-2 text-sm text-gray-700">
+                <Card key={industry.name} className="h-full border-border shadow-sm">
+                  <CardContent className="p-5 space-y-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-primary">{industry.name}</p>
+                    <h3 className="text-lg font-semibold text-secondary">{industry.headline}</h3>
+                    <div className="space-y-2 text-sm text-muted-foreground">
                       <p className="font-semibold">Pain points:</p>
                       <ul className="list-disc list-inside space-y-1">
                         {industry.challenges.map((item) => (
