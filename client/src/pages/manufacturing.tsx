@@ -2,6 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
+import { Seo } from "@/components/Seo";
+import { organizationJsonLd } from "@/lib/structured-data";
 
 const painPoints = [
   "Inventory and raw materials absorb cash before revenue lands",
@@ -20,6 +22,7 @@ const scenarios = [
 export default function Manufacturing() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Manufacturing Financing | Boreal Financial" description="Manufacturing financing for inventory cycles, equipment upgrades, and purchase-order backed growth." canonical="https://borealfinancial.com/industries/manufacturing" jsonLd={organizationJsonLd} />
       <Navigation />
 
       <main>

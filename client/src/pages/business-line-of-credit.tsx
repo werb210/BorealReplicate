@@ -3,10 +3,13 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Users, Clock, DollarSign } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 export default function BusinessLineOfCredit() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Business Line of Credit | Boreal Financial" description="A business line of credit that provides revolving access to capital as your cash flow needs change." canonical="https://borealfinancial.com/business-line-of-credit" jsonLd={financialServiceJsonLd("Business Line of Credit", "Revolving credit access for ongoing business expenses.", "/business-line-of-credit")} />
       <Navigation />
       
       {/* Hero Section */}

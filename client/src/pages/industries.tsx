@@ -3,6 +3,8 @@ import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 import { ArrowRight } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { organizationJsonLd } from "@/lib/structured-data";
 
 const industries = [
   {
@@ -31,6 +33,7 @@ const industries = [
 export default function Industries() {
   return (
     <div className="min-h-screen bg-background">
+      <Seo title="Industries We Serve | Boreal Financial" description="See how Boreal Financial supports construction, manufacturing, logistics, and other industries with tailored funding strategies." canonical="https://borealfinancial.com/industries" jsonLd={organizationJsonLd} />
       <Navigation />
 
       <main>

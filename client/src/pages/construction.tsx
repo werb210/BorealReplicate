@@ -2,6 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
+import { Seo } from "@/components/Seo";
+import { organizationJsonLd } from "@/lib/structured-data";
 
 const painPoints = [
   "Progress billing creates long gaps between labor and payment",
@@ -20,6 +22,7 @@ const scenarios = [
 export default function Construction() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Construction Financing | Boreal Financial" description="Construction-focused financing solutions for project mobilization, payroll, materials, and retainage-driven cash flow." canonical="https://borealfinancial.com/industries/construction" jsonLd={organizationJsonLd} />
       <Navigation />
 
       <main>

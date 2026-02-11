@@ -3,10 +3,13 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle, Lightbulb, Film, CheckCircle } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 export default function MediaFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Media Financing | Boreal Financial" description="Media financing solutions designed for production timelines, receivables cycles, and project-based expenses." canonical="https://borealfinancial.com/media-financing" jsonLd={financialServiceJsonLd("Media Financing", "Funding for media production, campaigns, and content operations.", "/media-financing")} />
       <Navigation />
       
       {/* Hero Section */}

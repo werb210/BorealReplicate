@@ -2,6 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 const whoItsFor = [
   "Contractors managing payroll and material cycles",
@@ -37,6 +39,7 @@ const requiredDocs = [
 export default function LinesOfCredit() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Lines of Credit | Boreal Financial" description="Flexible revolving lines of credit for payroll, inventory purchases, and operational cash flow." canonical="https://borealfinancial.com/lines-of-credit" jsonLd={financialServiceJsonLd("Lines of Credit", "Flexible revolving capital for day-to-day operations.", "/lines-of-credit")} />
       <Navigation />
 
       <main>

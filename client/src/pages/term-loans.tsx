@@ -2,6 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 const whoItsFor = [
   "Construction firms funding multi-phase projects",
@@ -37,6 +39,7 @@ const requiredDocs = [
 export default function TermLoans() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Term Loans | Boreal Financial" description="Structured term loans for growth projects, refinancing, and long-term capital investments." canonical="https://borealfinancial.com/term-loans" jsonLd={financialServiceJsonLd("Term Loans", "Structured term loans for long-term projects and growth initiatives.", "/term-loans")} />
       <Navigation />
 
       <main>

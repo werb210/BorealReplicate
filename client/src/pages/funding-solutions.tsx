@@ -3,6 +3,8 @@ import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 import { ArrowRight } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { organizationJsonLd } from "@/lib/structured-data";
 
 const products = [
   {
@@ -40,6 +42,7 @@ const products = [
 export default function FundingSolutions() {
   return (
     <div className="min-h-screen bg-background">
+      <Seo title="Funding Solutions | Boreal Financial" description="Explore Boreal Financial funding solutions, including term loans, lines of credit, factoring, and purchase order financing." canonical="https://borealfinancial.com/funding-solutions" jsonLd={organizationJsonLd} />
       <Navigation />
 
       <main>
