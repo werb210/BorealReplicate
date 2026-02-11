@@ -1,7 +1,26 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 
-const chatSessions = new Map<string, Array<{ role: "assistant" | "user"; content: string }>>();
+type ChatMessage = { role: "assistant" | "user"; content: string };
+const chatSessions = new Map<string, Array<ChatMessage>>();
+
+function buildAssistantReply(messages: ChatMessage[]) {
+  const lastUser = [...messages].reverse().find((message) => message.role === "user")?.content?.toLowerCase() ?? "";
+
+  if (lastUser.includes("apply") || lastUser.includes("application")) {
+    return "Start with Apply Now, complete the smart intake, and we'll route your file to matched lenders.";
+  }
+
+  if (lastUser.includes("factoring")) {
+    return "Factoring can unlock working capital from unpaid invoices. We can help match you with factoring lenders after one intake.";
+  }
+
+  if (lastUser.includes("line of credit") || lastUser.includes("loc")) {
+    return "A line of credit gives revolving working capital for payroll, inventory, and operating gaps.";
+  }
+
+  return "Boreal is a marketplace: apply once, complete smart intake, and compare offers from qualified lenders.";
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/health", (_req, res) => {
@@ -39,6 +58,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const messages = chatSessions.get(sessionId) ?? [];
     res.json({ messages });
+  });
+
+  app.post("/api/ai/chat", (req, res) => {
+    const messages = (req.body?.messages ?? []) as ChatMessage[];
+    const reply = buildAssistantReply(messages);
+    res.json({ reply });
+  });
+
+  app.post("/api/support/report", (req, res) => {
+    const { url, userAgent, screenshot, viewport } = req.body as {
+      url?: string;
+      userAgent?: string;
+      screenshot?: string;
+      viewport?: { width: number; height: number };
+    };
+
+    if (!url || !userAgent || !screenshot) {
+      res.status(400).json({ error: "url, userAgent, and screenshot are required" });
+      return;
+    }
+
+    res.status(202).json({ ok: true, receivedAt: new Date().toISOString(), viewport: viewport ?? null });
   });
 
   return createServer(app);

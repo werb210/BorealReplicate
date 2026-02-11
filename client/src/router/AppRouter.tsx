@@ -12,7 +12,7 @@ import PartnerLogin from "@/pages/PartnerLogin";
 import NotFound from "@/pages/NotFound";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { SupportModal } from "@/components/support/SupportModal";
+import { ChatWidget } from "@/components/ChatWidget";
 import { initGA, trackPageView } from "@/analytics/ga";
 
 function AnalyticsListener() {
@@ -52,7 +52,7 @@ export function AppRouter() {
         </Switch>
       </main>
       <Footer />
-      <SupportModal />
+      <ChatWidget />
     </div>
   );
 }
