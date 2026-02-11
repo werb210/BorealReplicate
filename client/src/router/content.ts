@@ -1,61 +1,85 @@
 export type Product = {
   slug: string;
   name: string;
-  problem: string;
+  heroImage: string;
+  intro: string;
+  bestFor: string[];
   howItWorks: string[];
-  eligibility: string[];
-  documents: string[];
+  requirements: string[];
 };
 
 export type Industry = {
   slug: string;
   name: string;
-  challenges: string[];
-  marketplaceHelp: string[];
-  products: string[];
-  faqs: Array<{ question: string; answer: string }>;
+  overview: string;
+  examples: string[];
 };
 
 export const products: Product[] = [
   {
     slug: "term-loan",
-    name: "Term Loan",
-    problem: "Need predictable capital for expansion and high-ticket opportunities.",
-    howItWorks: ["Submit intake once", "Boreal packages the file", "Lenders compete with structured terms"],
-    eligibility: ["6+ months in business", "$250k+ annual revenue", "Commercial operations in Canada or US"],
-    documents: ["Bank statements", "Financial statements", "AR/AP aging report"],
+    name: "Term Loans",
+    heroImage: "/images/business-handshake-close-up.jpg",
+    intro: "Stable funding for major purchases, expansion, or refinancing with predictable payments.",
+    bestFor: ["Expansion projects", "High-ticket inventory or contracts", "Debt consolidation with fixed terms"],
+    howItWorks: [
+      "Complete one application for a full credit package",
+      "Boreal shares your file with multiple term-loan lenders",
+      "Compare repayment schedules and total cost before you choose",
+    ],
+    requirements: ["6+ months in business", "Operating revenue history", "Business bank account in Canada or U.S."],
   },
   {
     slug: "line-of-credit",
-    name: "Line of Credit",
-    problem: "Cash flow fluctuates and working capital needs spike throughout the month.",
-    howItWorks: ["One smart intake", "Marketplace lender matching", "Choose revolving option"],
-    eligibility: ["Operating business bank account", "Recurring receivables", "Minimum credit profile"],
-    documents: ["Recent bank statements", "Receivable summary", "Government ID"],
+    name: "Lines of Credit",
+    heroImage: "/images/old-man.webp",
+    intro: "Flexible working capital you can draw as needed for payroll, inventory, and short-term cash-flow gaps.",
+    bestFor: ["Seasonal cash-flow swings", "Recurring working-capital needs", "Businesses with steady receivables"],
+    howItWorks: [
+      "Submit one intake with your current financial profile",
+      "Marketplace lenders review and propose revolving limits",
+      "Use funds when needed and repay to restore available credit",
+    ],
+    requirements: ["Business chequing account", "Recent bank statements", "Baseline business credit and operating history"],
   },
   {
     slug: "factoring",
     name: "Factoring",
-    problem: "Slow-paying invoices are constraining payroll and vendor obligations.",
-    howItWorks: ["Upload invoice sample", "Lenders evaluate debtor quality", "Advance offer selection"],
-    eligibility: ["B2B invoices", "Creditworthy debtors", "No major tax arrears"],
-    documents: ["Invoice aging", "Customer list", "Bank statements"],
+    heroImage: "/images/factoring-financing.jpeg",
+    intro: "Turn unpaid invoices into immediate working capital without waiting on long payment terms.",
+    bestFor: ["B2B companies paid on net terms", "Payroll and supplier timing pressure", "Fast-growing receivables books"],
+    howItWorks: [
+      "Share an invoice sample and aging summary",
+      "Lenders evaluate customer payment quality",
+      "Receive advance offers and choose the best fit",
+    ],
+    requirements: ["Invoice-based B2B revenue", "Trackable accounts receivable aging", "Valid customer contracts or purchase records"],
   },
   {
     slug: "equipment-finance",
-    name: "Equipment Finance",
-    problem: "Need machinery or fleet upgrades without draining working capital.",
-    howItWorks: ["Share quote and specs", "Lender bids by risk profile", "Select best structure"],
-    eligibility: ["Business use equipment", "Verifiable revenue", "Clear purchase objective"],
-    documents: ["Equipment quote", "Financials", "Ownership documents"],
+    name: "Equipment Financing",
+    heroImage: "/images/Take possession of your new manufacturing equipment.jpeg",
+    intro: "Preserve cash while acquiring vehicles, machinery, or tools your business depends on.",
+    bestFor: ["Fleet or machinery upgrades", "Replacing aging equipment", "Keeping working capital free for operations"],
+    howItWorks: [
+      "Provide equipment quote and business details",
+      "Lenders price terms based on asset type and profile",
+      "Choose lease or loan structure that fits cash flow",
+    ],
+    requirements: ["Commercial-use equipment quote", "Basic financial statements", "Business registration and ownership details"],
   },
   {
     slug: "purchase-order-finance",
-    name: "Purchase Order Finance",
-    problem: "Large purchase orders outpace available cash for production and fulfillment.",
-    howItWorks: ["Submit PO and supplier details", "Lenders assess contract quality", "Funding is staged to suppliers"],
-    eligibility: ["Confirmed purchase order", "Reliable supplier", "Positive delivery history"],
-    documents: ["Purchase order", "Supplier agreement", "Bank statements"],
+    name: "Purchase Order Financing",
+    heroImage: "/images/An image of two groups of business people shaking hands over a meeting table celebrating signing a deal to merge.jpeg.webp",
+    intro: "Fund supplier costs tied to confirmed purchase orders so you can deliver larger contracts.",
+    bestFor: ["Large confirmed orders", "Supplier prepayment requirements", "Businesses scaling fulfillment capacity"],
+    howItWorks: [
+      "Submit purchase order and supplier information",
+      "Lenders evaluate buyer strength and delivery terms",
+      "Funding is advanced to support production and fulfillment",
+    ],
+    requirements: ["Confirmed purchase order", "Reliable supplier relationship", "Track record of successful delivery"],
   },
 ];
 
@@ -63,46 +87,26 @@ export const industries: Industry[] = [
   {
     slug: "construction",
     name: "Construction",
-    challenges: ["Retainage delays", "Seasonal labor ramps", "Project mobilization costs"],
-    marketplaceHelp: ["Lenders with draw-cycle expertise", "Options for project-backed structures"],
-    products: ["Term Loan", "Line of Credit", "Equipment Finance"],
-    faqs: [
-      { question: "Can Boreal support progress billing cycles?", answer: "Yes. Boreal lenders underwrite around milestone billing and retainage timing." },
-      { question: "Do you fund mobilization?", answer: "Many lenders in the marketplace can structure upfront mobilization support." },
-    ],
+    overview: "Projects with milestone billing, retainage, and equipment-heavy operating cycles.",
+    examples: ["General contractors", "Specialty trades", "Commercial renovation teams"],
   },
   {
     slug: "manufacturing",
     name: "Manufacturing",
-    challenges: ["Raw material purchase timing", "Inventory carrying costs", "Equipment upgrades"],
-    marketplaceHelp: ["Inventory-aware underwriting", "Options tied to receivable conversion cycles"],
-    products: ["Line of Credit", "Factoring", "Equipment Finance"],
-    faqs: [
-      { question: "Can I finance new equipment and working capital together?", answer: "Yes, Boreal can present mixed structures through multiple lenders." },
-      { question: "What if customer terms are net-60?", answer: "Factoring and revolving facilities can help bridge long receivable periods." },
-    ],
+    overview: "Businesses balancing raw materials, production timelines, and receivable cycles.",
+    examples: ["Food and beverage", "Light industrial", "Custom fabrication"],
   },
   {
     slug: "logistics",
     name: "Logistics",
-    challenges: ["Fuel volatility", "Slow broker pay", "Fleet maintenance costs"],
-    marketplaceHelp: ["Transportation-specialist lenders", "Structured offers for fleet-heavy operators"],
-    products: ["Factoring", "Line of Credit", "Equipment Finance"],
-    faqs: [
-      { question: "Do lenders understand freight broker receivables?", answer: "Yes. Boreal includes lenders that regularly finance freight and transport receivables." },
-      { question: "Can I refinance existing equipment debt?", answer: "Many marketplace lenders can evaluate consolidation and refinance requests." },
-    ],
+    overview: "Operators managing freight timing, fuel costs, and delayed customer payments.",
+    examples: ["Freight carriers", "Warehouse operators", "Distribution businesses"],
   },
   {
     slug: "other",
-    name: "Other",
-    challenges: ["Irregular cash conversion cycles", "Growth capital pressure", "Complex deal structures"],
-    marketplaceHelp: ["Broad lender panel", "Custom structuring and layered products"],
-    products: ["Term Loan", "Line of Credit", "Purchase Order Finance"],
-    faqs: [
-      { question: "Do you support niche B2B verticals?", answer: "Yes. Boreal can route files to lenders based on sector fit and risk appetite." },
-      { question: "How fast are decisions?", answer: "Initial lender feedback typically arrives within 24-48 hours." },
-    ],
+    name: "Other Industries",
+    overview: "Boreal supports a wide range of B2B sectors beyond the examples above.",
+    examples: ["Professional services", "Wholesale and distribution", "Technology-enabled businesses"],
   },
 ];
 
