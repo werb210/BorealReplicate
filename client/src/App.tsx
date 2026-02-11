@@ -18,23 +18,11 @@ import Logistics from "@/pages/logistics";
 import FundingSolutions from "@/pages/funding-solutions";
 import Industries from "@/pages/industries";
 import FaqPage from "@/pages/FaqPage";
-import SeoGeneratedPage from "@/pages/seo-generated/SeoGeneratedPage";
-
-function ProductPillarRoute({ params }: { params: { product: string } }) {
-  return <SeoGeneratedPage path={`/products/${params.product}`} />;
-}
-
-function ProductLocationRoute({ params }: { params: { product: string; location: string } }) {
-  return <SeoGeneratedPage path={`/products/${params.product}/${params.location}`} />;
-}
-
-function ProductIndustryRoute({ params }: { params: { product: string; industry: string } }) {
-  return <SeoGeneratedPage path={`/products/${params.product}/industry/${params.industry}`} />;
-}
-
-function ProductIntentRoute({ params }: { params: { product: string; intent: string } }) {
-  return <SeoGeneratedPage path={`/products/${params.product}/intent/${params.intent}`} />;
-}
+import PillarTemplate from "@/pages/seo/PillarTemplate";
+import LocationTemplate from "@/pages/seo/LocationTemplate";
+import IndustryTemplate from "@/pages/seo/IndustryTemplate";
+import ComparisonTemplate from "@/pages/seo/ComparisonTemplate";
+import CaseStudyTemplate from "@/pages/seo/CaseStudyTemplate";
 
 function Router() {
   return (
@@ -56,10 +44,11 @@ function Router() {
       <Route path="/industries/manufacturing" component={Manufacturing} />
       <Route path="/industries/logistics" component={Logistics} />
 
-      <Route path="/products/:product/industry/:industry" component={ProductIndustryRoute} />
-      <Route path="/products/:product/intent/:intent" component={ProductIntentRoute} />
-      <Route path="/products/:product/:location" component={ProductLocationRoute} />
-      <Route path="/products/:product" component={ProductPillarRoute} />
+      <Route path="/products/:product/:location" component={LocationTemplate} />
+      <Route path="/products/:product" component={PillarTemplate} />
+      <Route path="/industry/:industry/:product" component={IndustryTemplate} />
+      <Route path="/compare/:slug" component={ComparisonTemplate} />
+      <Route path="/case-studies/:slug" component={CaseStudyTemplate} />
 
       <Route component={NotFound} />
     </Switch>
