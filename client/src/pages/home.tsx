@@ -1,248 +1,68 @@
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
-import { Building2, Factory, Truck, Workflow, MessageCircle, Compass, ShieldCheck } from "lucide-react";
 import { Seo } from "@/components/Seo";
-import { coreFaqJsonLd, organizationJsonLd } from "@/lib/structured-data";
-
-const howItWorks = [
-  {
-    title: "Apply",
-    description: "Share your project, cash-flow timing, and documents once. We move fast so lenders can respond quickly."
-  },
-  {
-    title: "Match",
-    description: "We route your deal to a marketplace of industry-fit lenders and structure terms around your timeline."
-  },
-  {
-    title: "Fund",
-    description: "Choose the structure that fits, finalize diligence, and fund without unnecessary back-and-forth."
-  }
-];
-
-const products = [
-  {
-    name: "Term Loans",
-    description: "Structured repayment for growth, refinancing, or project-heavy capital needs.",
-    href: "/term-loans"
-  },
-  {
-    name: "Lines of Credit",
-    description: "Revolving access for payroll, materials, and seasonal swings.",
-    href: "/lines-of-credit"
-  },
-  {
-    name: "Factoring",
-    description: "Turn receivables into cash when customers pay on long terms.",
-    href: "/factoring"
-  },
-  {
-    name: "Purchase Order Financing",
-    description: "Cover supplier costs to fulfill large orders or contracts.",
-    href: "/purchase-order-financing"
-  },
-  {
-    name: "Equipment Financing",
-    description: "Acquire or upgrade equipment while protecting working capital.",
-    href: "/equipment-financing"
-  }
-];
-
-const industries = [
-  {
-    name: "Construction",
-    focus: "Progress billing, retainage, crew-heavy schedules",
-    icon: Building2,
-    href: "/industries/construction"
-  },
-  {
-    name: "Manufacturing",
-    focus: "Inventory cycles, PO-driven production, equipment upgrades",
-    icon: Factory,
-    href: "/industries/manufacturing"
-  },
-  {
-    name: "Logistics",
-    focus: "Fleet costs, fuel, broker terms, contract routes",
-    icon: Truck,
-    href: "/industries/logistics"
-  }
-];
+import { SiteLayout } from "@/components/SiteLayout";
+import { MarketplaceSteps } from "@/components/MarketplaceSteps";
+import { IndustryCards } from "@/components/IndustryCards";
+import { ProductGrid } from "@/components/ProductGrid";
+import { Button } from "@/components/ui/button";
+import { breadcrumbJsonLd, financialServiceJsonLd, homeFaqJsonLd, organizationJsonLd, webPageJsonLd } from "@/lib/structured-data";
 
 export default function Home() {
+  const title = "Structured Lending Marketplace | Boreal Financial";
+  const description = "Submit once and receive lender responses across Canada and the US with Boreal's structured lending marketplace.";
+
   return (
-    <div className="min-h-screen bg-background">
-      <Seo title="Boreal Financial | Business Funding Marketplace" description="Boreal Financial connects businesses in Canada and the U.S. with term loans, lines of credit, factoring, and equipment financing solutions." canonical="https://borealfinancial.com/" jsonLd={[organizationJsonLd, coreFaqJsonLd]} />
-      <Navigation />
+    <SiteLayout>
+      <Seo
+        title={title}
+        description={description}
+        canonical="https://borealfinancial.com/"
+        jsonLd={[
+          organizationJsonLd,
+          webPageJsonLd("/", title, description),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+          ]),
+          financialServiceJsonLd("Structured Lending Marketplace", description, "/"),
+          homeFaqJsonLd,
+        ]}
+      />
 
-      <main>
-        {/* Hero */}
-        <section className="bg-background border-b border-border py-12 lg:py-16">
-          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-4">
-              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-3 py-1 rounded-full">
-                Boreal Funding Marketplace
-              </p>
-              <h1 className="text-4xl lg:text-5xl font-semibold tracking-tight text-secondary leading-tight">
-                Funding that keeps your business moving.
-              </h1>
-              <p className="text-base text-muted-foreground leading-relaxed">
-                Complete your application in minutes with a secure SMS magic-link that lets you pick up right where you left off.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Available to businesses in Canada and the United States.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <ApplyNowButton variant="cta">Start Your Application</ApplyNowButton>
-                <ApplyNowButton variant="outline">Apply Now</ApplyNowButton>
-              </div>
-            </div>
-            <Card className="shadow-sm border-border bg-card">
-              <CardContent className="p-5 space-y-4">
-                <div className="flex items-center gap-3">
-                  <Workflow className="w-6 h-6 text-primary" />
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground">What to expect</p>
-                    <p className="text-lg font-semibold text-secondary">Your application in three steps</p>
-                  </div>
-                </div>
-                <ol className="space-y-3 text-sm text-muted-foreground list-decimal pl-5">
-                  <li>Answer a few questions about your business and funding needs</li>
-                  <li>Review the product category that best matches your profile</li>
-                  <li>Upload required documents or request a secure upload link</li>
-                </ol>
-              </CardContent>
-            </Card>
+      <section className="border-b py-14 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-semibold text-secondary tracking-tight">Submit once. Multiple lenders respond.</h1>
+          <p className="mt-4 text-lg text-muted-foreground">Structured lending marketplace for Canada &amp; US</p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg"><a href="/apply">Start Application</a></Button>
+            <Button asChild variant="outline" size="lg"><a href="/how-it-works">How It Works</a></Button>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* How it works */}
-        <section className="py-12 bg-background">
-          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <div className="text-center space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">How it works</p>
-              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Apply, match, fund — quickly.</h2>
-              <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-                We move fast so you can move projects, production, and routes without waiting on traditional bank timelines.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {howItWorks.map((step, index) => (
-                <Card key={step.title} className="h-full border-border shadow-sm">
-                  <CardContent className="p-5 space-y-3">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-primary">Step {index + 1}</p>
-                    <h3 className="text-lg font-semibold text-secondary">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm">{step.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+      <MarketplaceSteps />
+      <IndustryCards />
+      <ProductGrid />
+
+      <section className="py-14 bg-muted/30" aria-labelledby="why-boreal-title">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 id="why-boreal-title" className="text-2xl font-semibold text-secondary">Why Boreal</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <article className="rounded-lg border p-5 bg-background"><h3 className="font-semibold">One intake</h3><p className="text-sm text-muted-foreground mt-2">Submit once and avoid repeating your business profile across lenders.</p></article>
+            <article className="rounded-lg border p-5 bg-background"><h3 className="font-semibold">Industry fit</h3><p className="text-sm text-muted-foreground mt-2">Construction, manufacturing, logistics, and other B2B sectors are prioritized.</p></article>
+            <article className="rounded-lg border p-5 bg-background"><h3 className="font-semibold">Guided process</h3><p className="text-sm text-muted-foreground mt-2">Compare structured options with support from Boreal specialists.</p></article>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Products overview */}
-        <section className="py-12 bg-muted/30">
-          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <div className="text-center space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Products</p>
-              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Five core products. Structured around your cash flow.</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((product) => (
-                <Card key={product.name} className="h-full border-border shadow-sm bg-background">
-                  <CardContent className="p-5 space-y-3">
-                    <h3 className="text-lg font-semibold text-secondary">{product.name}</h3>
-                    <p className="text-sm text-muted-foreground">{product.description}</p>
-                    <a href={product.href} className="text-primary font-semibold text-sm hover:underline">
-                      View product details
-                    </a>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <div className="flex justify-center">
-              <ApplyNowButton />
-            </div>
+      <section className="py-16" aria-labelledby="final-cta-title">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center rounded-xl border p-8">
+          <h2 id="final-cta-title" className="text-3xl font-semibold">Ready to compare lenders?</h2>
+          <p className="mt-3 text-muted-foreground">Start your application now or review how the marketplace process works before you submit.</p>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg"><a href="/apply">Start Application</a></Button>
+            <Button asChild size="lg" variant="outline"><a href="/how-it-works">How It Works</a></Button>
           </div>
-        </section>
-
-        {/* Industries served */}
-        <section className="py-12 bg-background">
-          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <div className="text-center space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Industries served</p>
-              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Specialized underwriting by industry.</h2>
-              <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-                We specialize in cash cycles that depend on equipment, crews, inventory, and long customer terms.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {industries.map((industry) => (
-                <Card key={industry.name} className="h-full border-border shadow-sm">
-                  <CardContent className="p-5 space-y-3">
-                    <industry.icon className="w-8 h-8 text-primary" />
-                    <div>
-                      <h3 className="text-lg font-semibold text-secondary">{industry.name}</h3>
-                      <p className="text-sm text-muted-foreground">{industry.focus}</p>
-                    </div>
-                    <a href={industry.href} className="text-primary font-semibold text-sm hover:underline">
-                      Explore {industry.name}
-                    </a>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Chatbot entry */}
-        <section className="py-12 bg-muted/30">
-          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Talk to an expert</p>
-              <h2 className="text-2xl lg:text-3xl font-semibold text-secondary">Get instant guidance before you apply.</h2>
-              <p className="text-base text-muted-foreground">
-                The Boreal chatbot covers FAQs, product guidance, and a direct handoff to a human when you need it.
-              </p>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex gap-3">
-                  <MessageCircle className="w-5 h-5 text-primary" />
-                  <span>FAQ answers in seconds</span>
-                </li>
-                <li className="flex gap-3">
-                  <Compass className="w-5 h-5 text-primary" />
-                  <span>Match products to your cash-flow challenge</span>
-                </li>
-                <li className="flex gap-3">
-                  <Workflow className="w-5 h-5 text-primary" />
-                  <span>Transfer details directly into your application</span>
-                </li>
-                <li className="flex gap-3">
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                  <span>Talk to a human anytime</span>
-                </li>
-              </ul>
-              <div className="flex gap-3">
-                <AskQuestionButton />
-                <ApplyNowButton variant="outline" />
-              </div>
-            </div>
-            <Card className="border-border shadow-sm bg-background">
-              <CardContent className="p-5 space-y-4">
-                <h3 className="text-lg font-semibold text-secondary">What happens in the chat</h3>
-                <div className="space-y-2 text-sm text-muted-foreground bg-muted/40 border border-border rounded-lg p-4">
-                  <p><strong>Step 1:</strong> Share your industry and cash-flow timing.</p>
-                  <p><strong>Step 2:</strong> Get a product recommendation and document checklist.</p>
-                  <p><strong>Step 3:</strong> Escalate to a human if you want a live walkthrough.</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </SiteLayout>
   );
 }

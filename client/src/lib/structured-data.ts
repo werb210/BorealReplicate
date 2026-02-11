@@ -6,41 +6,36 @@ export const organizationJsonLd = {
   name: "Boreal Financial",
   url: BASE_URL,
   logo: `${BASE_URL}/assets/og-image.png`,
-  sameAs: [
-    "https://www.linkedin.com/company/borealfinancial"
-  ]
+  sameAs: ["https://www.linkedin.com/company/borealfinancial"],
 };
 
-export const coreFaqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How quickly can Boreal Financial provide funding options?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Most applicants receive lender match options within 24 to 48 hours after submitting complete documentation."
-      }
+export function webPageJsonLd(path: string, name: string, description: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url: `${BASE_URL}${path}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Boreal Financial",
+      url: BASE_URL,
     },
-    {
-      "@type": "Question",
-      name: "Which businesses does Boreal Financial support?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Boreal Financial supports construction, manufacturing, logistics, and other B2B businesses across Canada and the United States."
-      }
-    },
-    {
-      "@type": "Question",
-      name: "What funding products are available?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Available products include term loans, lines of credit, factoring, purchase order financing, and equipment financing."
-      }
-    }
-  ]
-};
+  };
+}
+
+export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${BASE_URL}${item.path}`,
+    })),
+  };
+}
 
 export function financialServiceJsonLd(name: string, description: string, path: string) {
   return {
@@ -52,9 +47,34 @@ export function financialServiceJsonLd(name: string, description: string, path: 
     provider: {
       "@type": "Organization",
       name: "Boreal Financial",
-      url: BASE_URL
+      url: BASE_URL,
     },
     areaServed: ["CA", "US"],
-    serviceType: name
+    serviceType: name,
   };
 }
+
+export const homeFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How does Boreal's lending marketplace work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "You submit one application and Boreal routes it to fit-matched lenders for structured offers.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Which geographies are supported?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Boreal supports commercial borrowers across Canada and the United States.",
+      },
+    },
+  ],
+};
+
+export const coreFaqJsonLd = homeFaqJsonLd;
