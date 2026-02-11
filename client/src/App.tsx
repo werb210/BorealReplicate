@@ -18,7 +18,23 @@ import Logistics from "@/pages/logistics";
 import FundingSolutions from "@/pages/funding-solutions";
 import Industries from "@/pages/industries";
 import FaqPage from "@/pages/FaqPage";
-import SeoLandingPage from "@/pages/SeoLandingPage";
+import SeoGeneratedPage from "@/pages/seo-generated/SeoGeneratedPage";
+
+function ProductPillarRoute({ params }: { params: { product: string } }) {
+  return <SeoGeneratedPage path={`/products/${params.product}`} />;
+}
+
+function ProductLocationRoute({ params }: { params: { product: string; location: string } }) {
+  return <SeoGeneratedPage path={`/products/${params.product}/${params.location}`} />;
+}
+
+function ProductIndustryRoute({ params }: { params: { product: string; industry: string } }) {
+  return <SeoGeneratedPage path={`/products/${params.product}/industry/${params.industry}`} />;
+}
+
+function ProductIntentRoute({ params }: { params: { product: string; intent: string } }) {
+  return <SeoGeneratedPage path={`/products/${params.product}/intent/${params.intent}`} />;
+}
 
 function Router() {
   return (
@@ -40,7 +56,11 @@ function Router() {
       <Route path="/industries/manufacturing" component={Manufacturing} />
       <Route path="/industries/logistics" component={Logistics} />
 
-      <Route path="/:productSlug/:location" component={SeoLandingPage} />
+      <Route path="/products/:product/industry/:industry" component={ProductIndustryRoute} />
+      <Route path="/products/:product/intent/:intent" component={ProductIntentRoute} />
+      <Route path="/products/:product/:location" component={ProductLocationRoute} />
+      <Route path="/products/:product" component={ProductPillarRoute} />
+
       <Route component={NotFound} />
     </Switch>
   );
