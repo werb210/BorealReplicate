@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Package, TrendingUp, Clock, Target } from "lucide-react";
 import { Seo } from "@/components/Seo";
 import { financialServiceJsonLd } from "@/lib/structured-data";
+import { SeoImage } from "@/components/SeoImage";
 
 export default function POFinancing() {
   return (
@@ -29,7 +30,7 @@ export default function POFinancing() {
             </div>
             
             <div>
-              <img 
+              <SeoImage 
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMJA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=800" 
                 alt="Business professionals reviewing purchase orders and contracts during handshake meeting" 
                 className="rounded-xl shadow-lg w-full h-auto"
