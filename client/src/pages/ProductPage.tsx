@@ -16,7 +16,7 @@ export default function ProductPage() {
     <section className="mx-auto max-w-5xl px-4 py-10">
       <SEO
         title={`${product.name} | Boreal Financial`}
-        description={description}
+        description={product.intro}
         schema={[
           financialServiceSchema(product.name, description),
           breadcrumbSchema([
