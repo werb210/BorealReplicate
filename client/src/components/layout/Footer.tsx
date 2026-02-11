@@ -1,33 +1,35 @@
-import { Link } from "wouter";
-
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-slate-50">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 text-sm text-slate-700 md:grid-cols-3">
+    <footer className="mt-20 bg-gray-100">
+      <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 text-sm md:grid-cols-4">
         <div>
-          <h3 className="mb-3 font-semibold text-slate-900">About</h3>
-          <p>Boreal Financial — strategic capital advisory and marketplace financing for Canadian businesses.</p>
+          <h4 className="mb-3 font-semibold">About</h4>
+          <p>
+            Boreal Financial is a strategic capital advisory + funding marketplace serving Canadian and U.S.
+            businesses.
+          </p>
         </div>
 
         <div>
-          <h3 className="mb-3 font-semibold text-slate-900">Navigate</h3>
-          <ul className="space-y-2">
-            <li><Link href="/products/term-loans" className="hover:text-orange-600">Products</Link></li>
-            <li><Link href="/industries/construction" className="hover:text-orange-600">Industries</Link></li>
-            <li><Link href="/apply" className="hover:text-orange-600">Apply</Link></li>
-            <li><Link href="/lender-login" className="hover:text-orange-600">Lender / Referral Login</Link></li>
-          </ul>
+          <h4 className="mb-3 font-semibold">Products</h4>
+          <p>Term Loans</p>
+          <p>Line of Credit</p>
+          <p>Factoring</p>
+          <p>Equipment Financing</p>
+          <p>Purchase Order Financing</p>
         </div>
 
         <div>
-          <h3 className="mb-3 font-semibold text-slate-900">Legal</h3>
-          <ul className="space-y-2">
-            <li><a href="#" className="hover:text-orange-600">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-orange-600">Terms of Use</a></li>
-            <li>
-              Contact: <a className="font-medium text-slate-800 hover:underline" href="mailto:info@boreal.financial">info@boreal.financial</a>
-            </li>
-          </ul>
+          <h4 className="mb-3 font-semibold">Industries</h4>
+          <p>Construction</p>
+          <p>Manufacturing</p>
+          <p>Logistics</p>
+        </div>
+
+        <div>
+          <h4 className="mb-3 font-semibold">Legal</h4>
+          <p>Privacy</p>
+          <p>Terms</p>
         </div>
       </div>
     </footer>

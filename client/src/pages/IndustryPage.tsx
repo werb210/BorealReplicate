@@ -15,7 +15,13 @@ export default function IndustryPage() {
         title={`${industry.name} Financing | Boreal Financial`}
         description={`Learn how Boreal supports ${industry.name.toLowerCase()} businesses with marketplace lending options.`}
       />
-      <h1 className="text-3xl font-bold">{industry.name}</h1>
+      <img
+        src={industry.heroImage}
+        alt={industry.name}
+        className="w-full h-[420px] object-cover object-center rounded-xl"
+        loading="lazy"
+      />
+      <h1 className="mt-6 text-3xl font-bold">{industry.name}</h1>
       <p className="mt-3 text-slate-600">{industry.overview}</p>
       <section className="mt-6">
         <h2 className="text-xl font-semibold">Examples</h2>

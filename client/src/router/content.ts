@@ -11,6 +11,7 @@ export type Product = {
 export type Industry = {
   slug: string;
   name: string;
+  heroImage: string;
   overview: string;
   examples: string[];
 };
@@ -20,92 +21,155 @@ export const products: Product[] = [
     slug: "term-loans",
     name: "Term Loans",
     heroImage: "/images/business-handshake-close-up.jpg",
-    intro: "Fixed or variable financing for growth investments, refinancing, and major capital expenditures.",
-    bestFor: ["Expansion projects", "High-ticket inventory or contracts", "Debt consolidation with predictable terms"],
-    howItWorks: [
-      "Complete one application for a full credit package",
-      "Boreal shares your file with multiple term-loan lenders",
-      "Compare repayment schedules and total cost before you choose",
+    intro:
+      "Term loans provide fixed-amount capital with structured repayment, making them ideal for expansion projects, refinancing expensive debt, or funding major strategic investments.",
+    bestFor: [
+      "Expansion initiatives such as opening locations, adding production capacity, or launching a new service line",
+      "High-ticket contract execution where working capital alone cannot carry project costs",
+      "Debt consolidation strategies aimed at simplifying payments and improving cash-flow planning",
     ],
-    requirements: ["6+ months in business", "Operating revenue history", "Business bank account in Canada or U.S."],
+    howItWorks: [
+      "Complete one Boreal application and upload key business documents once",
+      "Boreal packages your file and presents it to suitable term-loan lenders across the marketplace",
+      "Compare rate options, amortization schedules, fees, and covenant terms before choosing a facility",
+    ],
+    requirements: [
+      "At least 6 months of business operations (longer history generally improves terms)",
+      "Verifiable operating revenue and business bank account activity",
+      "Standard business documentation including ownership details and core financial records",
+    ],
   },
   {
     slug: "lines-of-credit",
-    name: "Lines of Credit",
+    name: "Line of Credit",
     heroImage: "/images/pngtree-diverse-team-of-professionals-collaborating-in-a-modern-office-setting-with-image_20052579.webp",
-    intro: "Flexible revolving capital for payroll, inventory, and short-term operating gaps.",
-    bestFor: ["Seasonal swings", "Recurring working-capital needs", "Businesses with steady receivables"],
-    howItWorks: [
-      "Submit one intake with your current financial profile",
-      "Marketplace lenders review and propose revolving limits",
-      "Draw and repay as needed to restore available credit",
+    intro:
+      "A business line of credit offers revolving access to capital you can draw, repay, and draw again, helping you cover recurring short-term gaps without repeatedly reapplying.",
+    bestFor: [
+      "Seasonal or cyclical cash-flow businesses with predictable peaks and troughs",
+      "Managing payroll, rent, and vendor obligations while waiting for customer receivables",
+      "Businesses that need liquidity flexibility but want to borrow only what is required at any moment",
     ],
-    requirements: ["Business chequing account", "Recent bank statements", "Baseline business credit and operating history"],
+    howItWorks: [
+      "Submit one marketplace intake with your recent financial and banking profile",
+      "Lenders evaluate your operating stability and propose revolving limits with pricing",
+      "Once approved, draw funds as needed and repay to restore available credit capacity",
+    ],
+    requirements: [
+      "Active business chequing account and recent bank statements",
+      "Demonstrable revenue activity and reasonable business credit profile",
+      "Basic corporate documentation, ownership verification, and operating history",
+    ],
   },
   {
     slug: "factoring",
     name: "Factoring",
     heroImage: "/images/factoring-financing.jpeg",
-    intro: "Turn unpaid invoices into immediate liquidity without waiting on net payment terms.",
-    bestFor: ["B2B companies paid on terms", "Payroll and supplier timing pressure", "Fast-growing receivables books"],
-    howItWorks: [
-      "Share an invoice sample and AR aging summary",
-      "Lenders evaluate customer payment quality",
-      "Receive advance offers and choose the best fit",
+    intro:
+      "Factoring unlocks cash tied up in accounts receivable by advancing funds against eligible invoices, improving liquidity without waiting 30, 60, or 90 days for customer payment.",
+    bestFor: [
+      "B2B companies with strong customers that pay on extended terms",
+      "Fast-growing firms where receivables growth is outpacing available working capital",
+      "Operators that need dependable payroll and supplier liquidity while invoices age",
     ],
-    requirements: ["Invoice-based B2B revenue", "Trackable AR aging", "Valid customer contracts or purchase records"],
+    howItWorks: [
+      "Share sample invoices, AR aging reports, and customer concentration details",
+      "Lenders assess customer credit quality, invoice validity, and payment history",
+      "Receive advance-rate and fee proposals, then choose a factoring structure that matches your cycle",
+    ],
+    requirements: [
+      "Invoice-based B2B revenue with clear documentation and delivery proof",
+      "Trackable receivables aging and customer payment behavior",
+      "Customer contracts, purchase confirmations, or equivalent support records",
+    ],
   },
   {
     slug: "equipment-financing",
     name: "Equipment Financing",
     heroImage: "/images/Take possession of your new manufacturing equipment.jpeg",
-    intro: "Acquire vehicles and machinery while preserving working capital.",
-    bestFor: ["Fleet or machinery upgrades", "Replacing aging equipment", "Balancing growth with cash retention"],
-    howItWorks: [
-      "Provide equipment quote and business details",
-      "Lenders price terms based on asset type and profile",
-      "Choose lease or loan structure that fits cash flow",
+    intro:
+      "Equipment financing helps businesses acquire revenue-producing assets while preserving cash reserves, with repayment terms designed around useful life and business cash flow.",
+    bestFor: [
+      "Fleet expansion or replacement for transportation and field-service operations",
+      "Manufacturing upgrades where new machinery boosts output and efficiency",
+      "Construction or industrial operators requiring specialized high-cost assets",
     ],
-    requirements: ["Commercial-use equipment quote", "Basic financial statements", "Business registration and ownership details"],
+    howItWorks: [
+      "Provide equipment quotes, vendor details, and a summary of intended commercial use",
+      "Lenders underwrite based on asset type, resale profile, and your business performance",
+      "Choose from lease and loan options aligned to budget, seasonality, and long-term ownership goals",
+    ],
+    requirements: [
+      "Commercial-use equipment quote or invoice from an approved supplier",
+      "Core financial information and recent business bank activity",
+      "Business registration details and ownership identity documentation",
+    ],
   },
   {
     slug: "purchase-order-financing",
     name: "Purchase Order Financing",
     heroImage: "/images/An image of two groups of business people shaking hands over a meeting table celebrating signing a deal to merge.jpeg.webp",
-    intro: "Fund supplier production costs tied to confirmed purchase orders.",
-    bestFor: ["Large confirmed orders", "Supplier prepayment requirements", "Businesses scaling fulfillment"],
-    howItWorks: [
-      "Submit purchase order and supplier information",
-      "Lenders evaluate buyer strength and delivery terms",
-      "Funding supports production and delivery timelines",
+    intro:
+      "Purchase order financing funds supplier and production costs tied to confirmed customer orders, helping you fulfill larger contracts without straining working capital.",
+    bestFor: [
+      "Wholesalers and distributors handling large confirmed customer orders",
+      "Businesses with reliable buyers but supplier prepayment requirements",
+      "Growth-stage companies that need external support to scale fulfillment capacity",
     ],
-    requirements: ["Confirmed purchase order", "Reliable supplier relationship", "Track record of successful delivery"],
+    howItWorks: [
+      "Submit signed purchase orders, supplier terms, and transaction flow details",
+      "Lenders review buyer credibility, gross margins, and delivery milestones",
+      "Funding is deployed to support production and supplier obligations through fulfillment",
+    ],
+    requirements: [
+      "Verifiable purchase order from a credible end buyer",
+      "Qualified supplier relationships with documented commercial terms",
+      "Operational track record showing fulfillment reliability and margin capacity",
+    ],
   },
   {
     slug: "merchant-cash-advance",
     name: "Merchant Cash Advance",
     heroImage: "/images/premium_photo-1661962673986-dcffa2a05e07.jpg",
-    intro: "Fast-access capital repaid from future card sales or daily receipts.",
-    bestFor: ["Retail and hospitality operators", "Urgent short-term needs", "Businesses with strong card volume"],
-    howItWorks: [
-      "Share recent sales and bank activity",
-      "Advance size is set against expected receipts",
-      "Repayment flexes with sales performance",
+    intro:
+      "Merchant cash advances provide fast capital repaid from future card or receivable sales, making them useful for urgent funding scenarios where speed is critical.",
+    bestFor: [
+      "Retail, hospitality, and service businesses with meaningful card-processing volume",
+      "Time-sensitive expenses such as repairs, urgent inventory, or immediate staffing needs",
+      "Operators seeking quick approval pathways when traditional facilities are too slow",
     ],
-    requirements: ["Consistent monthly sales", "Business bank statements", "Payment processing history"],
+    howItWorks: [
+      "Submit recent sales, processing, and bank activity to establish receivable patterns",
+      "Advance size is set based on expected future receivables and payment consistency",
+      "Repayments are collected as fixed daily/weekly amounts or percentage-based receivable sweeps",
+    ],
+    requirements: [
+      "Consistent monthly sales and active merchant processing history",
+      "Recent business bank and processing statements",
+      "Valid business registration and ownership verification",
+    ],
   },
   {
     slug: "asset-based-lending",
     name: "Asset-Based Lending",
     heroImage: "/images/tohcyytw4kftsfv6ivr2.jpg",
-    intro: "Borrow against receivables, inventory, or equipment for scalable borrowing capacity.",
-    bestFor: ["Asset-heavy businesses", "Complex cash cycles", "Growing firms with collateral"],
-    howItWorks: [
-      "Review eligible collateral pool",
-      "Lenders issue borrowing base structures",
-      "Facility limit adjusts based on asset values",
+    intro:
+      "Asset-based lending creates flexible borrowing capacity secured by receivables, inventory, or equipment, supporting businesses with strong assets but complex cash cycles.",
+    bestFor: [
+      "Asset-heavy businesses seeking larger limits than unsecured facilities",
+      "Companies with fluctuating working-capital demands tied to growth or seasonality",
+      "Organizations needing tailored structures around collateral reporting and draw controls",
     ],
-    requirements: ["Detailed AR/inventory reporting", "Financial statements", "Collateral documentation"],
+    howItWorks: [
+      "Assess eligible collateral pools and reporting quality across AR, inventory, or equipment",
+      "Lenders establish an advance formula and borrowing-base mechanics",
+      "Facility availability adjusts over time based on updated collateral values and compliance",
+    ],
+    requirements: [
+      "Detailed collateral reporting, including AR aging and inventory summaries where relevant",
+      "Current financial statements and operating performance visibility",
+      "Complete collateral documentation and legal entity records",
+    ],
   },
 ];
 
@@ -113,26 +177,50 @@ export const industries: Industry[] = [
   {
     slug: "construction",
     name: "Construction",
-    overview: "Projects with milestone billing, retainage, and equipment-heavy operating cycles.",
-    examples: ["General contractors", "Specialty trades", "Commercial renovation teams"],
+    heroImage: "/images/68b6a8f361e1aadb77072041_excavator-loan-vs-lease.webp",
+    overview:
+      "Construction businesses operate in milestone-based billing cycles with retainage, mobilization costs, and heavy equipment demands. Boreal helps structure financing that aligns to project cash-flow timing and contract complexity.",
+    examples: [
+      "General contractors managing multiple active project timelines",
+      "Specialty trades financing labor peaks, mobilization, and material deposits",
+      "Civil and infrastructure firms balancing long receivable cycles against operating burn",
+    ],
   },
   {
     slug: "manufacturing",
     name: "Manufacturing",
-    overview: "Businesses balancing raw materials, production timelines, and receivable cycles.",
-    examples: ["Food and beverage", "Light industrial", "Custom fabrication"],
+    heroImage: "/images/premium_photo-1661962673986-dcffa2a05e07.jpg",
+    overview:
+      "Manufacturing operators must balance raw-material procurement, production timelines, and delayed customer collections. Boreal supports facilities that keep production running while protecting liquidity and margin stability.",
+    examples: [
+      "Food and beverage producers funding packaging, ingredient, and distribution cycles",
+      "Light industrial manufacturers modernizing machinery and throughput",
+      "Custom fabrication shops managing large order deposits and staged invoicing",
+    ],
   },
   {
     slug: "logistics",
     name: "Logistics",
-    overview: "Operators managing freight timing, fuel costs, and delayed customer payments.",
-    examples: ["Freight carriers", "Warehouse operators", "Distribution businesses"],
+    heroImage: "/images/BICyMkoEnUVpYgcZk4VT2XaB9gjh5CyaQGfWXnRHf-eF3dxmXhrTn0WwPuM82qYpJujUu6SjbpnF7LFGnnBX8NilsMf2U4neXl3oR5aGwX4.jpg",
+    overview:
+      "Logistics companies face fuel volatility, fleet maintenance demands, and contract payment delays. Boreal structures financing for transportation operators that need reliable working capital across dynamic route and freight schedules.",
+    examples: [
+      "Freight carriers bridging broker payment delays and driver payroll timing",
+      "Warehouse operators financing inventory flow and facility expansion",
+      "Distribution businesses replacing fleet assets while supporting contract growth",
+    ],
   },
   {
     slug: "other",
     name: "Other Industries",
-    overview: "Boreal supports a wide range of B2B sectors beyond the examples above.",
-    examples: ["Professional services", "Wholesale and distribution", "Technology-enabled businesses"],
+    heroImage: "/images/business-handshake-close-up.jpg",
+    overview:
+      "Beyond featured sectors, Boreal supports a broad range of B2B industries that need strategic deal structuring and lender matching across secured and unsecured funding solutions.",
+    examples: [
+      "Professional services firms with uneven contract receivable timing",
+      "Wholesale businesses scaling inventory and supplier payment programs",
+      "Technology-enabled operators requiring growth capital with flexible structures",
+    ],
   },
 ];
 

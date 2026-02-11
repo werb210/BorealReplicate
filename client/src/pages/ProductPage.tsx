@@ -26,7 +26,7 @@ export default function ProductPage() {
           ]),
         ]}
       />
-      <img src={product.heroImage} alt={product.name} className="h-56 w-full rounded-xl object-cover md:h-72" loading="lazy" />
+      <img src={product.heroImage} alt={product.name} className="w-full h-[420px] object-cover object-center rounded-xl" loading="lazy" />
       <h1 className="mt-6 text-3xl font-bold">{product.name}</h1>
       <p className="mt-2 text-slate-600">{product.intro}</p>
 

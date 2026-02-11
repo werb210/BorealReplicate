@@ -57,9 +57,9 @@ export default function Home() {
 
           <div>
             <img
-              src="/images/business-handshake-close-up.jpg"
+              src="/images/epub_QM0825-FEAT-Measure-Faro-p1FT-GettyImages-1298326681_webp.webp"
               alt="Business advisory team discussing financing strategy"
-              className="h-full w-full rounded-lg object-cover shadow-lg"
+              className="w-full h-[420px] object-cover object-center rounded-xl"
             />
           </div>
         </section>
