@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, ShoppingCart, TrendingUp, DollarSign, Clock } from "lucide-react";
 import { Seo } from "@/components/Seo";
 import { financialServiceJsonLd } from "@/lib/structured-data";
+import { SeoImage } from "@/components/SeoImage";
 
 export default function RetailInventoryFinancing() {
   return (
@@ -29,7 +30,7 @@ export default function RetailInventoryFinancing() {
             </div>
             
             <div>
-              <img 
+              <SeoImage 
                 src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=800" 
                 alt="Modern retail store with organized inventory and professional credit card transaction" 
                 className="rounded-xl shadow-lg w-full h-auto"

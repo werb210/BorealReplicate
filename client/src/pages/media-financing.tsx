@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle, Lightbulb, Film, CheckCircle } from "lucide-react";
 import { Seo } from "@/components/Seo";
 import { financialServiceJsonLd } from "@/lib/structured-data";
+import { SeoImage } from "@/components/SeoImage";
 
 export default function MediaFinancing() {
   return (
@@ -16,7 +17,7 @@ export default function MediaFinancing() {
       <section className="bg-gradient-to-br from-purple-50 to-white py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <img 
+            <SeoImage 
               src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=600" 
               alt="Professional film production studio with cameras, lighting, and crew working" 
               className="rounded-xl shadow-lg w-full h-64 object-cover mb-8"
@@ -86,7 +87,7 @@ export default function MediaFinancing() {
 
             <div className="space-y-6">
               {/* Media production studio image */}
-              <img 
+              <SeoImage 
                 src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMJA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=600" 
                 alt="TV production studio control room with multiple monitors and professional broadcasting equipment" 
                 className="rounded-xl shadow-lg w-full h-auto"

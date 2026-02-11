@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "@/lib/helmetAsync";
 
 type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
 

@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Users, Clock, DollarSign } from "lucide-react";
 import { Seo } from "@/components/Seo";
 import { financialServiceJsonLd } from "@/lib/structured-data";
+import { SeoImage } from "@/components/SeoImage";
 
 export default function BusinessLineOfCredit() {
   return (
@@ -30,7 +31,7 @@ export default function BusinessLineOfCredit() {
             </div>
             
             <div>
-              <img 
+              <SeoImage 
                 src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=800" 
                 alt="Modern business equipment and office workspace setup" 
                 className="rounded-xl shadow-lg w-full h-auto"
@@ -99,7 +100,7 @@ export default function BusinessLineOfCredit() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               {/* Business line of credit image */}
-              <img 
+              <SeoImage 
                 src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=800" 
                 alt="Business owner reviewing line of credit documentation in modern office" 
                 className="rounded-xl shadow-lg w-full h-auto"

@@ -6,7 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { ChatbotProvider } from "@/hooks/use-chatbot";
 
-// Import all pages
 import Home from "@/pages/home";
 import LinesOfCredit from "@/pages/lines-of-credit";
 import TermLoans from "@/pages/term-loans";
@@ -18,31 +17,30 @@ import Manufacturing from "@/pages/manufacturing";
 import Logistics from "@/pages/logistics";
 import FundingSolutions from "@/pages/funding-solutions";
 import Industries from "@/pages/industries";
+import FaqPage from "@/pages/FaqPage";
+import SeoLandingPage from "@/pages/SeoLandingPage";
 
 function Router() {
   return (
     <Switch>
-      {/* Homepage */}
       <Route path="/" component={Home} />
 
-      {/* Navigation Pages */}
       <Route path="/products" component={FundingSolutions} />
       <Route path="/funding-solutions" component={FundingSolutions} />
       <Route path="/industries" component={Industries} />
+      <Route path="/faq" component={FaqPage} />
 
-      {/* Funding Pages */}
       <Route path="/term-loans" component={TermLoans} />
       <Route path="/lines-of-credit" component={LinesOfCredit} />
       <Route path="/factoring" component={Factoring} />
       <Route path="/purchase-order-financing" component={PurchaseOrderFinancing} />
       <Route path="/equipment-financing" component={EquipmentFinancing} />
 
-      {/* Industry Pages */}
       <Route path="/industries/construction" component={Construction} />
       <Route path="/industries/manufacturing" component={Manufacturing} />
       <Route path="/industries/logistics" component={Logistics} />
 
-      {/* Fallback to 404 */}
+      <Route path="/:productSlug/:location" component={SeoLandingPage} />
       <Route component={NotFound} />
     </Switch>
   );
