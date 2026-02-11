@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "wouter";
 import { Seo } from "@/components/Seo";
-import NotFound from "@/pages/not-found";
+import NotFound from "@/pages/NotFound";
 import {
   COMPARISONS,
   INDUSTRIES,

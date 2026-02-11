@@ -1,5 +1,5 @@
 import { Seo } from "@/components/Seo";
-import NotFound from "@/pages/not-found";
+import NotFound from "@/pages/NotFound";
 import { COMPARISON_BY_SLUG } from "@/data/seoFramework";
 
 const BASE_URL = "https://borealfinancial.com";

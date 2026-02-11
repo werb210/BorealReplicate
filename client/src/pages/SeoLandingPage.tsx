@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { LOCATIONS, PRODUCTS } from "@/data/seoLandingConfig";
-import NotFound from "@/pages/not-found";
+import NotFound from "@/pages/NotFound";
 
 function normalizeSlug(input: string): string {
   return input.trim().toLowerCase();
