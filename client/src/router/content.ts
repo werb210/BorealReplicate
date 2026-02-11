@@ -17,7 +17,7 @@ export type Industry = {
 
 export const products: Product[] = [
   {
-    slug: "term-loan",
+    slug: "term-loans",
     name: "Term Loans",
     heroImage: "/images/business-handshake-close-up.jpg",
     intro: "Stable funding for major purchases, expansion, or refinancing with predictable payments.",
@@ -30,7 +30,7 @@ export const products: Product[] = [
     requirements: ["6+ months in business", "Operating revenue history", "Business bank account in Canada or U.S."],
   },
   {
-    slug: "line-of-credit",
+    slug: "loc",
     name: "Lines of Credit",
     heroImage: "/images/old-man.webp",
     intro: "Flexible working capital you can draw as needed for payroll, inventory, and short-term cash-flow gaps.",
@@ -56,7 +56,7 @@ export const products: Product[] = [
     requirements: ["Invoice-based B2B revenue", "Trackable accounts receivable aging", "Valid customer contracts or purchase records"],
   },
   {
-    slug: "equipment-finance",
+    slug: "equipment",
     name: "Equipment Financing",
     heroImage: "/images/Take possession of your new manufacturing equipment.jpeg",
     intro: "Preserve cash while acquiring vehicles, machinery, or tools your business depends on.",

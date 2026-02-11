@@ -79,7 +79,8 @@
     "zod": "^3.24.2",
     "zod-validation-error": "^3.4.0",
     "react-helmet": "file:vendor/react-helmet",
-    "react-helmet-async": "file:vendor/react-helmet-async"
+    "react-helmet-async": "file:vendor/react-helmet-async",
+    "html2canvas": "file:vendor/html2canvas"
   },
   "devDependencies": {
     "@replit/vite-plugin-cartographer": "^0.3.0",
