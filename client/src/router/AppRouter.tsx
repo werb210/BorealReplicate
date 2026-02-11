@@ -48,6 +48,7 @@ export function AppRouter() {
           <Route path="/contact" component={Contact} />
           <Route path="/staff-login" component={StaffLogin} />
           <Route path="/partner-login" component={PartnerLogin} />
+          <Route path="/lender-login" component={PartnerLogin} />
           <Route component={NotFound} />
         </Switch>
       </main>

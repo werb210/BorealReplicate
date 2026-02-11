@@ -1,67 +1,96 @@
 import { Link } from "wouter";
 import { SEO } from "@/seo/SEO";
 
+const differentiators = [
+  "Deep industry underwriting knowledge",
+  "Asset-heavy deal experience",
+  "Complex cash cycle structuring",
+  "Non-bank capital access",
+  "Speed without compromise",
+  "Deal packaging strength",
+  "Strong lender alignment",
+  "Technology-driven intake",
+];
+
+const productLinks = [
+  { title: "Term Loans", link: "/products/term-loans" },
+  { title: "Lines of Credit", link: "/products/lines-of-credit" },
+  { title: "Factoring", link: "/products/factoring" },
+  { title: "Equipment Financing", link: "/products/equipment-financing" },
+  { title: "Purchase Order Financing", link: "/products/purchase-order-financing" },
+  { title: "Merchant Cash Advance", link: "/products/merchant-cash-advance" },
+  { title: "Asset-Based Lending", link: "/products/asset-based-lending" },
+];
+
 export default function Home() {
   return (
     <>
       <SEO
-        title="Boreal Financial | Apply Once. Match with Multiple Lenders"
-        description="Boreal is a funding marketplace. Complete one smart intake and get matched with qualified lenders without applying one by one."
+        title="Boreal Financial | Strategic Capital Advisory + Marketplace"
+        description="Boreal Financial designs structured financing strategies for asset-intensive businesses and connects you with aligned lenders quickly."
       />
 
       <main>
         <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 md:grid-cols-2 md:py-20">
           <div>
-            <h1 className="text-4xl font-bold leading-tight md:text-5xl">
-              Submit once. Get matched to the right lenders.
-            </h1>
-
+            <p className="text-sm font-semibold uppercase tracking-wide text-orange-600">Strategic Capital Advisory + Marketplace</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">Better structured financing, delivered with lender-ready clarity.</h1>
             <p className="mt-6 text-lg text-gray-600">
-              Boreal is a funding marketplace. One smart application sends your file to multiple qualified lenders — no more applying lender by lender.
+              Boreal Financial partners with asset-intensive businesses to design structured financing strategies and connect you with the right lenders faster.
             </p>
 
-            <Link
-              href="/apply"
-              className="mt-8 inline-block rounded-md bg-orange-500 px-6 py-3 text-lg font-medium text-white transition hover:bg-orange-600"
-            >
-              Apply Now
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/apply"
+                className="inline-block rounded-md bg-orange-500 px-6 py-3 text-lg font-medium text-white transition hover:bg-orange-600"
+              >
+                Apply Now
+              </Link>
+              <Link
+                href="/how-it-works"
+                className="inline-block rounded-md border border-slate-300 px-6 py-3 text-lg font-medium text-slate-900 transition hover:bg-slate-50"
+              >
+                How It Works
+              </Link>
+            </div>
           </div>
 
           <div>
             <img
-              src="/images/factoring-financing.jpeg"
-              alt="Marketplace business financing"
-              className="w-full rounded-lg shadow-lg"
+              src="/images/business-handshake-close-up.jpg"
+              alt="Business advisory team discussing financing strategy"
+              className="h-full w-full rounded-lg object-cover shadow-lg"
             />
           </div>
         </section>
 
         <section className="bg-gray-50 py-16">
-          <div className="mx-auto max-w-5xl px-4 text-center">
-            <h2 className="text-3xl font-semibold">Homepage → Apply → Smart Intake → Lender Match</h2>
-
-            <div className="mt-12 grid gap-8 text-left md:grid-cols-3">
-              <div>
-                <h3 className="text-lg font-semibold">Apply</h3>
-                <p className="mt-2 text-gray-600">
-                  Complete one intelligent intake.
+          <div className="mx-auto max-w-6xl px-4 text-center">
+            <h2 className="text-3xl font-semibold text-gray-900">Why Boreal Is Different</h2>
+            <div className="mt-10 grid gap-8 text-left text-gray-700 md:grid-cols-2">
+              {differentiators.map((item) => (
+                <p key={item} className="flex items-start gap-3">
+                  <span className="font-bold text-orange-500">•</span>
+                  {item}
                 </p>
-              </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-              <div>
-                <h3 className="text-lg font-semibold">Smart Intake</h3>
-                <p className="mt-2 text-gray-600">
-                  We organize your file and route it to the right lender profiles.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold">Lender Match</h3>
-                <p className="mt-2 text-gray-600">
-                  Multiple lenders review simultaneously so you can choose the strongest offer.
-                </p>
-              </div>
+        <section className="py-16">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="text-center text-3xl font-semibold text-gray-900">Solutions for Every Financing Need</h2>
+            <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {productLinks.map((item) => (
+                <Link
+                  key={item.title}
+                  href={item.link}
+                  className="block rounded-lg border p-6 text-center text-gray-800 transition hover:text-orange-600 hover:shadow-lg"
+                >
+                  {item.title}
+                </Link>
+              ))}
             </div>
           </div>
         </section>
