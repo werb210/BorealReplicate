@@ -1,23 +1,22 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { Seo } from "@/components/Seo";
+import { SiteLayout } from "@/components/SiteLayout";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Seo title="Page Not Found | Boreal Financial" description="The page you requested could not be found. Return to Boreal Financial to explore business funding options." canonical="https://borealfinancial.com/404" />
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
+    <SiteLayout>
+      <Seo title="Page Not Found | Boreal Financial" description="The page you requested could not be found." canonical="https://borealfinancial.com/404" />
+      <section className="py-24">
+        <div className="mx-auto max-w-xl px-4 text-center">
+          <AlertCircle className="w-10 h-10 mx-auto text-primary" />
+          <h1 className="text-3xl font-semibold mt-4">404: Page not found</h1>
+          <p className="mt-3 text-muted-foreground">The URL you entered is unavailable. Explore products or start an application instead.</p>
+          <div className="mt-6 flex justify-center gap-3">
+            <a className="underline" href="/">Home</a>
+            <a className="underline" href="/apply">Apply</a>
           </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </section>
+    </SiteLayout>
   );
 }
