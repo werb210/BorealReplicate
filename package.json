@@ -10,7 +10,9 @@
     "check": "tsc",
     "db:push": "drizzle-kit push",
     "sitemap": "tsx scripts/generate-sitemap.ts",
-    "audit:alt": "node scripts/alt-audit.js"
+    "audit:alt": "node scripts/alt-audit.js",
+    "generate:seo": "ts-node scripts/generate-seo-pages.ts",
+    "generate:sitemap": "ts-node scripts/generate-sitemap.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -76,7 +78,8 @@
     "ws": "^8.18.0",
     "zod": "^3.24.2",
     "zod-validation-error": "^3.4.0",
-    "react-helmet": "file:vendor/react-helmet"
+    "react-helmet": "file:vendor/react-helmet",
+    "react-helmet-async": "file:vendor/react-helmet-async"
   },
   "devDependencies": {
     "@replit/vite-plugin-cartographer": "^0.3.0",
@@ -100,7 +103,8 @@
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.1",
     "typescript": "5.6.3",
-    "vite": "^5.4.19"
+    "vite": "^5.4.19",
+    "ts-node": "file:vendor/ts-node-shim"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8"
