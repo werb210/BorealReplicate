@@ -9,11 +9,11 @@ import { SEO } from "@/seo/SEO";
 export default function Home() {
   return (
     <>
-      <SEO title="Boreal Financial | Structured Lending Marketplace" description="Submit your file once and let multiple lenders compete with structured financing offers." />
+      <SEO title="Boreal Financial | Business Funding Marketplace" description="Apply once and compare business funding offers from multiple lenders through Boreal's simple marketplace process." />
       <Hero />
       <MarketplaceSteps />
-      <IndustryCards />
       <ProductGrid />
+      <IndustryCards />
       <WhyBoreal />
       <FinalCTA />
     </>
