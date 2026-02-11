@@ -26,8 +26,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Boreal Financial | Strategic Capital Advisory + Marketplace"
-        description="Boreal Financial designs structured financing strategies for asset-intensive businesses and connects you with aligned lenders quickly."
+        title="Boreal Financial | Strategic Capital Advisory + Funding Marketplace"
+        description="Structured business financing for construction, manufacturing, and logistics. Access non-bank capital, asset-based lending, equipment financing, and more."
       />
 
       <main>
@@ -78,6 +78,49 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="bg-gray-50 py-20">
+          <div className="max-w-6xl mx-auto px-6 text-center">
+            <h2 className="text-3xl font-bold mb-6">
+              Capital Structured for How You Actually Operate
+            </h2>
+            <p className="text-lg text-gray-600 mb-10">
+              We align facilities with your asset base, receivables, equipment,
+              purchase orders, and contract cycles — not generic bank templates.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8 text-left">
+              <div>
+                <h4 className="font-semibold mb-2">Better Approval Odds</h4>
+                <p className="text-gray-600">
+                  Deal packaging and lender alignment increases the probability of
+                  approval and competitive pricing.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-2">Faster Execution</h4>
+                <p className="text-gray-600">
+                  Technology-driven intake reduces friction and speeds underwriting.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-2">Non-Bank Capital Access</h4>
+                <p className="text-gray-600">
+                  Access to private credit, specialty finance, and asset-based lenders.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-12">
+              <a
+                href="/apply"
+                className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600"
+              >
+                Apply Now
+              </a>
+            </div>
+          </div>
+        </section>
+
         <section className="py-16">
           <div className="mx-auto max-w-6xl px-4">
             <h2 className="text-center text-3xl font-semibold text-gray-900">Solutions for Every Financing Need</h2>
@@ -91,6 +134,44 @@ export default function Home() {
                   {item.title}
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Frequently Asked Questions
+            </h2>
+
+            <div className="space-y-6">
+              <div>
+                <h4 className="font-semibold">
+                  How fast can funding close?
+                </h4>
+                <p className="text-gray-600">
+                  Facilities can close in days for revenue-based products and
+                  2–4 weeks for structured asset-backed transactions.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-semibold">
+                  Do you work with startups?
+                </h4>
+                <p className="text-gray-600">
+                  Yes, particularly asset-backed and contract-backed opportunities.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-semibold">
+                  Is this traditional bank financing?
+                </h4>
+                <p className="text-gray-600">
+                  No. We access specialty lenders, private capital, and non-bank credit.
+                </p>
+              </div>
             </div>
           </div>
         </section>
