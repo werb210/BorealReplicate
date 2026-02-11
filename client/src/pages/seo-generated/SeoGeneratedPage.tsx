@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { seoGeneratedPages } from "@/pages/seo-generated/routeManifest";
-import NotFound from "@/pages/not-found";
+import NotFound from "@/pages/NotFound";
 
 interface SeoGeneratedPageProps {
   path: string;
