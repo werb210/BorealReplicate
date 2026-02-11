@@ -2,6 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 const whoItsFor = [
   "Construction firms upgrading heavy equipment",
@@ -37,6 +39,7 @@ const requiredDocs = [
 export default function EquipmentFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Equipment Financing | Boreal Financial" description="Acquire and upgrade mission-critical equipment with flexible Boreal Financial equipment financing." canonical="https://borealfinancial.com/equipment-financing" jsonLd={financialServiceJsonLd("Equipment Financing", "Finance machinery, vehicles, and equipment with predictable terms.", "/equipment-financing")} />
       <Navigation />
 
       <main>

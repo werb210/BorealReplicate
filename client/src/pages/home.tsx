@@ -3,6 +3,8 @@ import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 import { Building2, Factory, Truck, Workflow, MessageCircle, Compass, ShieldCheck } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { coreFaqJsonLd, organizationJsonLd } from "@/lib/structured-data";
 
 const howItWorks = [
   {
@@ -71,6 +73,7 @@ const industries = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
+      <Seo title="Boreal Financial | Business Funding Marketplace" description="Boreal Financial connects businesses in Canada and the U.S. with term loans, lines of credit, factoring, and equipment financing solutions." canonical="https://borealfinancial.com/" jsonLd={[organizationJsonLd, coreFaqJsonLd]} />
       <Navigation />
 
       <main>

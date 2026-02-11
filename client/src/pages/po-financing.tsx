@@ -3,10 +3,13 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Package, TrendingUp, Clock, Target } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 export default function POFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="PO Financing | Boreal Financial" description="Purchase order financing options to fund supplier deposits and satisfy high-volume customer demand." canonical="https://borealfinancial.com/po-financing" jsonLd={financialServiceJsonLd("PO Financing", "Support supplier payments tied to purchase orders.", "/po-financing")} />
       <Navigation />
       
       {/* Hero Section */}

@@ -2,6 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
+import { Seo } from "@/components/Seo";
+import { organizationJsonLd } from "@/lib/structured-data";
 
 const painPoints = [
   "Fuel and maintenance costs hit before customer payments",
@@ -20,6 +22,7 @@ const scenarios = [
 export default function Logistics() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Logistics Financing | Boreal Financial" description="Logistics and transportation funding for fleet expansion, fuel expenses, and receivables management." canonical="https://borealfinancial.com/industries/logistics" jsonLd={organizationJsonLd} />
       <Navigation />
 
       <main>

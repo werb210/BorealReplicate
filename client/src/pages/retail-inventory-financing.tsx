@@ -3,10 +3,13 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, ShoppingCart, TrendingUp, DollarSign, Clock } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 export default function RetailInventoryFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Retail Inventory Financing | Boreal Financial" description="Retail inventory financing that helps businesses stock products, preserve cash flow, and scale sales." canonical="https://borealfinancial.com/retail-inventory-financing" jsonLd={financialServiceJsonLd("Retail Inventory Financing", "Finance inventory purchases and seasonal stock planning.", "/retail-inventory-financing")} />
       <Navigation />
       
       {/* Hero Section */}

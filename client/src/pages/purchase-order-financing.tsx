@@ -2,6 +2,8 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
+import { Seo } from "@/components/Seo";
+import { financialServiceJsonLd } from "@/lib/structured-data";
 
 const whoItsFor = [
   "Manufacturers or distributors with confirmed purchase orders",
@@ -37,6 +39,7 @@ const requiredDocs = [
 export default function PurchaseOrderFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Purchase Order Financing | Boreal Financial" description="Purchase order financing to help cover supplier costs and fulfill larger customer orders confidently." canonical="https://borealfinancial.com/purchase-order-financing" jsonLd={financialServiceJsonLd("Purchase Order Financing", "Finance supplier payments and fulfill large customer orders.", "/purchase-order-financing")} />
       <Navigation />
 
       <main>

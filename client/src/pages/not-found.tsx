@@ -1,9 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
+import { Seo } from "@/components/Seo";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
+      <Seo title="Page Not Found | Boreal Financial" description="The page you requested could not be found. Return to Boreal Financial to explore business funding options." canonical="https://borealfinancial.com/404" />
       <Card className="w-full max-w-md mx-4">
         <CardContent className="pt-6">
           <div className="flex mb-4 gap-2">

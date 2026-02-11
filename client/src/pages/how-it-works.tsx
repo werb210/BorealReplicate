@@ -3,6 +3,8 @@ import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 import { MessageCircle, Workflow, ClipboardCheck, Send, ShieldCheck } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { coreFaqJsonLd, organizationJsonLd } from "@/lib/structured-data";
 
 const steps = [
   {
@@ -40,6 +42,7 @@ const coverage = [
 export default function HowItWorks() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="How It Works | Boreal Financial" description="Learn Boreal Financial's process to apply, get matched with lenders, and secure working capital quickly." canonical="https://borealfinancial.com/how-it-works" jsonLd={[organizationJsonLd, coreFaqJsonLd]} />
       <Navigation />
 
       <main>
