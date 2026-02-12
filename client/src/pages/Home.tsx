@@ -1,282 +1,87 @@
+import { useEffect } from "react";
 import { Link } from "wouter";
-import { useState } from "react";
-import SEO from "../components/SEO";
+import SEO from "@/components/SEO";
 import LenderLogos from "@/components/LenderLogos";
-import LenderStrip from "@/components/LenderStrip";
-import TrustSection from "@/components/TrustSection";
-import { trackEvent } from "@/utils/analytics";
-import Modal from "@/components/ui/Modal";
-import LeadCaptureModal from "@/features/lead/LeadCaptureModal";
-import { useLenderCount } from "@/hooks/useLenderCount";
+import { scrollToTop } from "@/utils/scrollToTop";
 
-const differentiators = [
-  "Deep industry underwriting knowledge",
-  "Asset-heavy deal experience",
-  "Complex cash cycle structuring",
-  "Non-bank capital access",
-  "Speed without compromise",
-  "Deal packaging strength",
-  "Strong lender alignment",
-  "Technology-driven intake",
-];
-
-const productLinks = [
-  { title: "Term Loans", link: "/products/term-loans" },
-  { title: "Lines of Credit", link: "/products/lines-of-credit" },
-  { title: "Factoring", link: "/products/factoring" },
-  { title: "Equipment Financing", link: "/products/equipment-financing" },
-  { title: "Purchase Order Financing", link: "/products/purchase-order-financing" },
-  { title: "Merchant Cash Advance", link: "/products/merchant-cash-advance" },
-  { title: "Asset-Based Lending", link: "/products/asset-based-lending" },
+const verticals = [
+  {
+    title: "Construction",
+    description: "Progress draws, equipment financing, and receivables structuring for project-based cash cycles.",
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    link: "/construction",
+  },
+  {
+    title: "Manufacturing",
+    description: "Inventory, machinery, and PO-backed facilities aligned to production velocity and margin protection.",
+    image: "https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1200&q=80",
+    link: "/manufacturing",
+  },
+  {
+    title: "Logistics",
+    description: "Fleet, fuel, and AR facilities designed to keep freight moving without liquidity compression.",
+    image: "https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?auto=format&fit=crop&w=1200&q=80",
+    link: "/logistics",
+  },
 ];
 
 export default function Home() {
-  const [leadOpen, setLeadOpen] = useState(false);
-  const lenderCount = useLenderCount();
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <>
-      <SEO
-        title="Boreal Financial | Strategic Capital Advisory + Marketplace"
-        description="Structured financing for construction, manufacturing, and logistics businesses."
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "FinancialService",
-          name: "Boreal Financial",
-          areaServed: ["Canada", "United States"],
-          serviceType: [
-            "Term Loans",
-            "Line of Credit",
-            "Factoring",
-            "Equipment Financing",
-            "Asset-Based Lending",
-          ],
-        }}
-      />
-
+      <SEO title="Boreal Financial | Boutique Capital Advisory" description="Boutique advisory for construction, manufacturing, and logistics capital structuring." />
       <main>
-        <section className="hero mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 md:grid-cols-2 md:py-20">
+        <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-2">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-orange-600">Strategic Capital Advisory + Marketplace</p>
-            <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">Better structured financing, delivered with lender-ready clarity.</h1>
-            <p className="mt-6 text-lg text-gray-600">
-              Boreal Financial partners with asset-intensive businesses to design structured financing strategies and connect you with the right lenders faster.
-            </p>
-            {lenderCount && (
-              <div style={{ marginTop: 10 }}>
-                Access to <strong>{lenderCount}+</strong> lenders nationwide
-              </div>
-            )}
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={() => setLeadOpen(true)}
-                className="inline-block rounded-md border border-orange-500 px-6 py-3 text-lg font-medium text-orange-600 transition hover:bg-orange-50"
-              >
-                Get Capital Strategy
-              </button>
-              <Link
-                href="/apply"
-                onClick={() => trackEvent("apply_clicked", { source: "homepage" })}
-                className="inline-block rounded-md bg-orange-500 px-6 py-3 text-lg font-medium text-white transition hover:bg-orange-600"
-              >
-                Apply Now
-              </Link>
-              <Link
-                href="/how-it-works"
-                className="inline-block rounded-md border border-slate-300 px-6 py-3 text-lg font-medium text-slate-900 transition hover:bg-slate-50"
-              >
-                How It Works
-              </Link>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Boutique Capital Advisory</p>
+            <h1 className="mt-4 text-5xl font-semibold leading-tight text-slate-900">AI-guided structuring for complex capital files.</h1>
+            <p className="mt-6 text-lg text-slate-600">We prepare lender-ready packages for construction, manufacturing, and logistics operators that need speed without compromising structure.</p>
+            <div className="mt-8 flex gap-3">
+              <Link href="/apply" className="rounded-lg bg-slate-900 px-6 py-3 text-white">Apply Now</Link>
+              <Link href="/contact" className="rounded-lg border border-slate-300 px-6 py-3 text-slate-900">Speak With Advisor</Link>
             </div>
           </div>
-
-          <div>
-            <img
-              src="/images/equipment.jpg"
-              alt="Business advisory team discussing financing strategy"
-              style={{ width: "100%", height: "auto", objectFit: "contain" }} loading="lazy"
-            />
-          </div>
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80" alt="Capital advisory team" className="h-[420px] w-full rounded-2xl object-cover shadow-xl" />
         </section>
 
-        <section style={{ display: "flex", justifyContent: "space-around", padding: 40, gap: 16, flexWrap: "wrap" }}>
-          <div>✔ Multi-Lender Marketplace</div>
-          <div>✔ Non-Bank Capital Access</div>
-          <div>✔ Fast Approvals</div>
-          <div>✔ Structuring Expertise</div>
-        </section>
-
-        <section className="bg-gray-50 py-16">
-          <div className="mx-auto max-w-6xl px-4 text-center">
-            <h2 className="text-3xl font-semibold text-gray-900">Why Boreal Is Different</h2>
-            <div className="mt-10 grid gap-8 text-left text-gray-700 md:grid-cols-2">
-              {differentiators.map((item) => (
-                <p key={item} className="flex items-start gap-3">
-                  <span className="font-bold text-orange-500">•</span>
-                  {item}
-                </p>
+        <section className="bg-slate-50">
+          <div className="mx-auto max-w-7xl px-6">
+            <h2 className="text-4xl font-semibold text-slate-900">Vertical expertise, structured execution.</h2>
+            <div className="mt-10 grid gap-8 md:grid-cols-3">
+              {verticals.map((vertical) => (
+                <article key={vertical.title} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                  <img src={vertical.image} alt={vertical.title} className="h-48 w-full object-cover" />
+                  <div className="p-6">
+                    <h3 className="text-2xl font-semibold text-slate-900">{vertical.title}</h3>
+                    <p className="mt-3 text-slate-600">{vertical.description}</p>
+                    <Link href={vertical.link} className="mt-5 inline-block text-sm font-semibold text-slate-900">View Vertical →</Link>
+                  </div>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="bg-gray-50 py-20">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-6">
-              Capital Structured for How You Actually Operate
-            </h2>
-            <p className="text-lg text-gray-600 mb-10">
-              We align facilities with your asset base, receivables, equipment,
-              purchase orders, and contract cycles — not generic bank templates.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-8 text-left">
-              <div>
-                <h4 className="font-semibold mb-2">Better Approval Odds</h4>
-                <p className="text-gray-600">
-                  Deal packaging and lender alignment increases the probability of
-                  approval and competitive pricing.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-2">Faster Execution</h4>
-                <p className="text-gray-600">
-                  Technology-driven intake reduces friction and speeds underwriting.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-2">Non-Bank Capital Access</h4>
-                <p className="text-gray-600">
-                  Access to private credit, specialty finance, and asset-based lenders.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-12">
-              <a
-                href="/apply"
-                onClick={() => trackEvent("apply_clicked", { source: "homepage" })}
-                className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600"
-              >
-                Apply Now
-              </a>
-            </div>
+        <section className="mx-auto max-w-6xl px-6 text-center">
+          <h2 className="text-4xl font-semibold text-slate-900">AI-Driven Capital Structuring</h2>
+          <p className="mx-auto mt-4 max-w-4xl text-lg text-slate-600">Boreal’s AI underwriting engine analyzes banking trends, contract structures, and capital stack positioning before submission to increase approval probability and reduce structuring friction.</p>
+          <div className="mt-10 grid grid-cols-2 gap-4 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm md:grid-cols-4">
+            {['Intake', 'AI Packaging', 'Lender Match', 'Structured Offer'].map((step) => (
+              <div key={step} className="rounded-xl bg-slate-50 p-4 text-sm font-semibold text-slate-700">{step}</div>
+            ))}
           </div>
         </section>
 
-        <section className="py-16">
-          <div className="mx-auto max-w-6xl px-4">
-            <h2 className="text-center text-3xl font-semibold text-gray-900">Solutions for Every Financing Need</h2>
-            <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {productLinks.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.link}
-                  className="block rounded-lg border p-6 text-center text-gray-800 transition hover:text-orange-600 hover:shadow-lg"
-                >
-                  {item.title}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20">
-          <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl font-bold mb-8 text-center">
-              Frequently Asked Questions
-            </h2>
-
-            <div className="space-y-6">
-              <div>
-                <h4 className="font-semibold">
-                  How fast can funding close?
-                </h4>
-                <p className="text-gray-600">
-                  Facilities can close in days for revenue-based products and
-                  2–4 weeks for structured asset-backed transactions.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="font-semibold">
-                  Do you work with startups?
-                </h4>
-                <p className="text-gray-600">
-                  Yes, particularly asset-backed and contract-backed opportunities.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="font-semibold">
-                  Is this traditional bank financing?
-                </h4>
-                <p className="text-gray-600">
-                  No. We access specialty lenders, private capital, and non-bank credit.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl py-12 px-6">
-          <h2 className="text-3xl font-bold text-center">Bank vs Boreal</h2>
-          <table className="mt-6 w-full table-auto border text-left">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-4">Feature</th>
-                <th className="p-4">Bank</th>
-                <th className="p-4">Boreal</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-t">
-                <td className="p-4 font-semibold">Speed</td>
-                <td className="p-4">4–8 weeks</td>
-                <td className="p-4">48 hrs–2 weeks</td>
-              </tr>
-              <tr className="border-t">
-                <td className="p-4 font-semibold">Collateral Flexibility</td>
-                <td className="p-4">Rigid</td>
-                <td className="p-4">Flexible</td>
-              </tr>
-              <tr className="border-y">
-                <td className="p-4 font-semibold">Capital Sources</td>
-                <td className="p-4">1 Lender</td>
-                <td className="p-4">Multiple Lenders</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section className="bg-gray-50 py-16 text-center">
-          <h2 className="text-3xl font-bold mb-4">Capital Readiness Score Preview</h2>
-          <p>See how lenders evaluate your business before you apply.</p>
-          <a href="/apply" className="mt-6 inline-block rounded bg-black px-6 py-3 text-white">Preview My Score</a>
-        </section>
-
-        <TrustSection />
-        <LenderStrip />
-
-        <section className="bg-gray-50 py-12 text-center">
-          <h2 className="text-3xl font-bold">Trusted Across Industries</h2>
-          <div className="mt-4 flex flex-wrap justify-center gap-8 text-sm text-gray-600">
-            <span>Construction</span>
-            <span>Manufacturing</span>
-            <span>Logistics</span>
-            <span>Asset Finance</span>
-          </div>
-          <p className="mt-2 text-gray-500">Access to {lenderCount ?? 40}+ vetted lenders</p>
+        <section className="bg-[#0f1f36] text-center text-white">
+          <h2 className="text-4xl font-semibold">Capital clarity. Structured execution.</h2>
+          <Link href="/apply" className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-slate-900">Apply Now</Link>
         </section>
 
         <LenderLogos />
       </main>
-
-      <Modal open={leadOpen} onClose={() => setLeadOpen(false)}>
-        <LeadCaptureModal onDone={() => setLeadOpen(false)} />
-      </Modal>
     </>
   );
 }

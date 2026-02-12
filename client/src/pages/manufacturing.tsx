@@ -1,84 +1,12 @@
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
-import { Seo } from "@/components/SEO";
-import { organizationJsonLd } from "@/lib/structured-data";
+import { VerticalPage } from "@/components/VerticalPage";
 
-const painPoints = [
-  "Inventory and raw materials absorb cash before revenue lands",
-  "Long production cycles delay payment",
-  "Machinery upgrades are capital intensive"
-];
-
-const products = ["Purchase Order Financing", "Term Loans", "Equipment Financing", "Lines of Credit"];
-
-const scenarios = [
-  "A manufacturer needs supplier funding to accept a large PO",
-  "A plant wants to refinance equipment for better cash flow",
-  "A growing brand needs working capital to smooth inventory cycles"
+const solutions = [
+  { name: "Inventory Line", when: "Fund raw material purchases ahead of production runs.", minimum: "A/R + inventory reporting and minimum gross margin stability.", size: "$300K to $6M" },
+  { name: "Machinery Financing", when: "Modernize equipment while preserving operating liquidity.", minimum: "Equipment list, usage profile, and down payment capacity.", size: "$250K to $10M" },
+  { name: "PO Financing", when: "Accept larger orders without supplier cash strain.", minimum: "Verifiable purchase orders and approved end buyer.", size: "$200K to $5M" },
+  { name: "Working Capital Facility", when: "Balance payroll, production, and receivables lag.", minimum: "12+ months operations and positive contribution margins.", size: "$250K to $4M" },
 ];
 
 export default function Manufacturing() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Seo title="Manufacturing Financing | Boreal Financial" description="Manufacturing financing for inventory cycles, equipment upgrades, and purchase-order backed growth." canonical="https://borealfinancial.com/industries/manufacturing" jsonLd={organizationJsonLd} />
-      <Navigation />
-
-      <main>
-        <section className="bg-gradient-to-br from-blue-50 to-white py-16 lg:py-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-            <p className="text-sm font-semibold text-primary">Manufacturing</p>
-            <h1 className="text-4xl font-bold text-secondary">Capital aligned to production cycles</h1>
-            <p className="text-lg text-gray-700">
-              We structure manufacturing financing around inventory turns, PO timing, and equipment investment needs.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <ApplyNowButton />
-              <AskQuestionButton variant="outline" />
-            </div>
-          </div>
-        </section>
-
-        <section className="py-14 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <Card className="border-blue-100">
-              <CardContent className="p-6 space-y-4 text-left">
-                <div>
-                  <p className="text-sm font-semibold text-primary">Industry pain points</p>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    {painPoints.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-primary">Relevant funding products</p>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    {products.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-primary">Example scenarios</p>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    {scenarios.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <ApplyNowButton />
-              <AskQuestionButton variant="outline" />
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
-  );
+  return <VerticalPage title="Manufacturing" headline="Capital structure that scales with production." subheadline="Inventory turns. Equipment modernization. PO-backed growth. Delivered through lender-calibrated packaging." image="https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1200&q=80" solutions={solutions} />;
 }

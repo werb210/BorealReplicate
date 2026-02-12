@@ -14,6 +14,10 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/ChatWidget";
 import { initGA, trackPageView } from "@/analytics/ga";
+import { scrollToTop } from "@/utils/scrollToTop";
+import Construction from "@/pages/construction";
+import Manufacturing from "@/pages/manufacturing";
+import Logistics from "@/pages/logistics";
 
 function AnalyticsListener() {
   const [location] = useLocation();
@@ -24,6 +28,7 @@ function AnalyticsListener() {
 
   useEffect(() => {
     trackPageView(location);
+    scrollToTop();
   }, [location]);
 
   return null;
@@ -46,6 +51,9 @@ export function AppRouter() {
           <Route path="/industries" component={Industries} />
           <Route path="/industries/:slug" component={IndustryPage} />
           <Route path="/contact" component={Contact} />
+          <Route path="/construction" component={Construction} />
+          <Route path="/manufacturing" component={Manufacturing} />
+          <Route path="/logistics" component={Logistics} />
           <Route path="/staff-login" component={StaffLogin} />
           <Route path="/partner-login" component={PartnerLogin} />
           <Route path="/lender-login" component={PartnerLogin} />
