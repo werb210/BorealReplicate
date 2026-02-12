@@ -1,38 +1,43 @@
-import { Helmet } from "react-helmet";
+import { SEO } from "@/seo/SEO";
 
-export default function SEO({ title, description }: any) {
+interface LegacySEOProps {
+  title: string;
+  description: string;
+  url?: string;
+  image?: string;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+  canonical?: string;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+function normalizeSchema(props: LegacySEOProps) {
+  return props.schema ?? props.jsonLd;
+}
+
+function normalizeUrl(props: LegacySEOProps) {
+  return props.url ?? props.canonical;
+}
+
+export default function LegacySEO(props: LegacySEOProps) {
   return (
-    <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <link rel="canonical" href={`https://borealfinancial.com${window.location.pathname}`} />
-      <meta name="robots" content="index,follow" />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content="/images/hero.jpg" />
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Boreal Financial",
-          url: "https://borealfinancial.com",
-          logo: "https://borealfinancial.com/images/logo.png",
-        })}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FinancialService",
-          name: "Boreal Financial",
-          areaServed: "Canada",
-          serviceType: "Business Financing Marketplace",
-          url: "https://borealfinancial.com",
-        })}
-      </script>
-    </Helmet>
+    <SEO
+      title={props.title}
+      description={props.description}
+      url={normalizeUrl(props)}
+      image={props.image}
+      schema={normalizeSchema(props)}
+    />
   );
 }
 
-export function Seo({ title, description }: any) {
-  return <SEO title={title} description={description} />;
+export function Seo(props: LegacySEOProps) {
+  return (
+    <SEO
+      title={props.title}
+      description={props.description}
+      url={normalizeUrl(props)}
+      image={props.image}
+      schema={normalizeSchema(props)}
+    />
+  );
 }
