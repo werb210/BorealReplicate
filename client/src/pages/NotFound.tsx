@@ -7,10 +7,11 @@ export default function NotFound() {
       <SEO
         title="Page Not Found"
         description="The page you requested could not be found. Return to Boreal Financial's homepage to continue."
+        noindex
       />
-      <h1 className="text-3xl font-bold">Page not found</h1>
+      <h1 className="text-3xl font-bold">Page Not Found</h1>
       <p className="mt-3 text-slate-600">We couldn't find that page.</p>
-      <Link href="/" className="mt-5 inline-block rounded-md bg-slate-900 px-4 py-2 text-white">Back to Home</Link>
+      <Link href="/" className="mt-5 inline-block rounded-md bg-slate-900 px-4 py-2 text-white">Return Home</Link>
     </section>
   );
 }

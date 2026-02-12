@@ -20,7 +20,7 @@ export function Navbar() {
       <nav className="navbar container" aria-label="Main navigation">
         <div className="nav-left">
           <a href="/" aria-label="Boreal Financial home">
-            <img src="/images/logo.png" className="logo" alt="Boreal Financial Logo" style={{ height: 40 }} />
+            <img src="/images/logo.png" className="logo" alt="Boreal Financial" loading="lazy" style={{ height: 40, objectFit: "cover" }} />
           </a>
           <a href="/apply" className="apply-btn" onClick={() => track("apply_clicked", { source: "navbar" })}>Apply Now</a>
         </div>

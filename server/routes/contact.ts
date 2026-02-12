@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
   try {
     await sendTwilioSms(`Website Lead:\nCompany: ${company}\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nUTM: ${JSON.stringify(utm ?? {})}`);
 
-    console.log("Stored Web Lead:", {
+    if (process.env.NODE_ENV !== "production") console.log("Stored Web Lead:", {
       company,
       firstName,
       lastName,

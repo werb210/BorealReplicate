@@ -1,4 +1,4 @@
-const GA_MEASUREMENT_ID = "G-BOREAL1234";
+const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_ID as string | undefined;
 
 declare global {
   interface Window {
@@ -10,9 +10,14 @@ declare global {
 let initialized = false;
 
 export function initGA() {
-  if (initialized || typeof window === "undefined") {
+  if (initialized || typeof window === "undefined" || !GA_MEASUREMENT_ID) {
     return;
   }
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(script);
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag(...args: unknown[]) {
@@ -27,7 +32,7 @@ export function initGA() {
 }
 
 export function trackEvent(eventName: string, params: Record<string, unknown> = {}) {
-  if (typeof window === "undefined" || !window.gtag) {
+  if (typeof window === "undefined" || !window.gtag || !GA_MEASUREMENT_ID) {
     return;
   }
 

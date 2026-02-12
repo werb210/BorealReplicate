@@ -38,9 +38,12 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
+  preview: {
+    headers: {
+      "Content-Security-Policy": "default-src 'self'; img-src 'self' data:; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://www.google-analytics.com;",
+      "X-Frame-Options": "DENY",
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+    },
+  },
 });
-
-if (process.env.NODE_ENV === "production") {
-  console.log = () => {};
-  console.warn = () => {};
-}

@@ -41,7 +41,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    console.log("Support Event:", { event, source: source ?? "website", timestamp: new Date().toISOString() });
+    if (process.env.NODE_ENV !== "production") console.log("Support Event:", { event, source: source ?? "website", timestamp: new Date().toISOString() });
     res.status(202).json({ ok: true });
   });
 
@@ -59,8 +59,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    console.log("CRM Web Lead:", { companyName, firstName, lastName, email, phone, channel: "website" });
-    console.log("SMS Dispatch:", { to: "+15878881837", message: `New lead from ${companyName} (${firstName} ${lastName})` });
+    if (process.env.NODE_ENV !== "production") console.log("CRM Web Lead:", { companyName, firstName, lastName, email, phone, channel: "website" });
+    if (process.env.NODE_ENV !== "production") console.log("SMS Dispatch:", { to: "+15878881837", message: `New lead from ${companyName} (${firstName} ${lastName})` });
     res.status(202).json({ ok: true });
   });
 
@@ -71,7 +71,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return;
     }
 
-    console.log("Live Support Escalation:", { source: source ?? "website", sessionId, trigger: trigger ?? "manual" });
+    if (process.env.NODE_ENV !== "production") console.log("Live Support Escalation:", { source: source ?? "website", sessionId, trigger: trigger ?? "manual" });
     res.status(202).json({ ok: true, status: "queued" });
   });
 

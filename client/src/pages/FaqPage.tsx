@@ -1,6 +1,6 @@
-import { Helmet } from "@/lib/helmetAsync";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
+import { SEO } from "@/seo/SEO";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { FAQS } from "@/data/faqs";
 
@@ -23,12 +23,7 @@ export default function FaqPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href="https://borealfinancial.com/faq" />
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+      <SEO title={title} description={description} url="https://borealfinancial.com/faq" schema={faqSchema} />
       <Navigation />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
         <header className="space-y-3">

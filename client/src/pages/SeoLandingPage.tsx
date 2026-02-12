@@ -1,9 +1,9 @@
-import { Helmet } from "@/lib/helmetAsync";
 import { Link, useRoute } from "wouter";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
 import { LOCATIONS, PRODUCTS } from "@/data/seoLandingConfig";
+import { SEO } from "@/seo/SEO";
 import NotFound from "@/pages/NotFound";
 
 function normalizeSlug(input: string): string {
@@ -41,12 +41,7 @@ export default function SeoLandingPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={canonical} />
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      </Helmet>
+      <SEO title={title} description={description} url={canonical} schema={jsonLd} />
       <Navigation />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
