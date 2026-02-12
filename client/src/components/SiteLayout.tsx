@@ -2,6 +2,7 @@ import { ReactNode, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/footer";
 import { SupportModal } from "@/components/SupportModal";
+import LeadModal from "./LeadModal";
 
 type SiteLayoutProps = {
   children: ReactNode;
@@ -19,6 +20,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
       <main id="main-content">{children}</main>
       <Footer />
       <SupportModal open={supportOpen} onOpenChange={setSupportOpen} />
+      <LeadModal />
     </div>
   );
 }

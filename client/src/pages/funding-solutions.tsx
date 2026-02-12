@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ApplyNowButton, AskQuestionButton } from "@/components/cta-buttons";
 import { ArrowRight } from "lucide-react";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import { organizationJsonLd } from "@/lib/structured-data";
 
 const products = [

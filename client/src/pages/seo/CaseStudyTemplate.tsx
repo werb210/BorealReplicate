@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import NotFound from "@/pages/NotFound";
 import { CASE_STUDY_BY_SLUG, PRODUCT_BY_SLUG } from "@/data/seoFramework";
 
