@@ -16,7 +16,9 @@ export function initGA() {
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag(...args: unknown[]) {
-    window.dataLayer.push(args);
+    const dataLayer = window.dataLayer || [];
+    dataLayer.push(args);
+    window.dataLayer = dataLayer;
   };
 
   window.gtag("js", new Date());

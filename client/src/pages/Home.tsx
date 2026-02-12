@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import SEO from "../components/SEO";
 import CapitalScore from "../components/CapitalScore";
+import { trackEvent } from "@/utils/analytics";
 
 const differentiators = [
   "Deep industry underwriting knowledge",
@@ -56,6 +57,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/apply"
+                onClick={() => trackEvent("apply_click", { category: "conversion" })}
                 className="inline-block rounded-md bg-orange-500 px-6 py-3 text-lg font-medium text-white transition hover:bg-orange-600"
               >
                 Apply Now
@@ -127,6 +129,7 @@ export default function Home() {
             <div className="mt-12">
               <a
                 href="/apply"
+                onClick={() => trackEvent("apply_click", { category: "conversion" })}
                 className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600"
               >
                 Apply Now
@@ -190,24 +193,31 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto py-16 px-6">
-          <h2 className="text-3xl font-bold mb-8 text-center">Bank vs Boreal</h2>
-          <table className="w-full border text-left">
+        <section className="mx-auto max-w-6xl py-12 px-6">
+          <h2 className="text-3xl font-bold text-center">Bank vs Boreal</h2>
+          <table className="mt-6 w-full table-auto border text-left">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="p-4">Feature</th>
+                <th className="p-4">Bank</th>
+                <th className="p-4">Boreal</th>
+              </tr>
+            </thead>
             <tbody>
               <tr className="border-t">
                 <td className="p-4 font-semibold">Speed</td>
-                <td className="p-4">Banks: 4–8 weeks</td>
-                <td className="p-4">Boreal: 48 hours</td>
+                <td className="p-4">4–8 weeks</td>
+                <td className="p-4">48 hrs–2 weeks</td>
               </tr>
               <tr className="border-t">
                 <td className="p-4 font-semibold">Collateral Flexibility</td>
-                <td className="p-4">Banks: Strict</td>
-                <td className="p-4">Boreal: Structured</td>
+                <td className="p-4">Rigid</td>
+                <td className="p-4">Flexible</td>
               </tr>
-              <tr className="border-t border-b">
-                <td className="p-4 font-semibold">Multiple Lenders</td>
-                <td className="p-4">Banks: No</td>
-                <td className="p-4">Boreal: Yes</td>
+              <tr className="border-y">
+                <td className="p-4 font-semibold">Capital Sources</td>
+                <td className="p-4">1 Lender</td>
+                <td className="p-4">Multiple Lenders</td>
               </tr>
             </tbody>
           </table>
@@ -219,12 +229,15 @@ export default function Home() {
           <button className="mt-6 bg-black text-white px-6 py-3 rounded">Preview My Score</button>
         </section>
 
-        <section className="py-10 border-t border-b">
-          <div className="flex justify-center gap-12 text-gray-400 text-sm">
-            <span>Trusted by Canadian Businesses</span>
-            <span>Asset Finance Experts</span>
-            <span>Non-Bank Capital Access</span>
+        <section className="bg-gray-50 py-12 text-center">
+          <h2 className="text-3xl font-bold">Trusted Across Industries</h2>
+          <div className="mt-4 flex flex-wrap justify-center gap-8 text-sm text-gray-600">
+            <span>Construction</span>
+            <span>Manufacturing</span>
+            <span>Logistics</span>
+            <span>Asset Finance</span>
           </div>
+          <p className="mt-2 text-gray-500">Access to 50+ specialty capital providers</p>
         </section>
 
         <section className="py-20">
