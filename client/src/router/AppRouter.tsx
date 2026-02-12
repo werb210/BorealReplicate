@@ -54,6 +54,9 @@ export function AppRouter() {
       </main>
       <Footer />
       <ChatWidget />
+      <div className="sticky-apply">
+        <a href="/apply" style={{ color: "white" }}>Apply Now</a>
+      </div>
     </div>
   );
 }

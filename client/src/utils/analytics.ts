@@ -9,7 +9,6 @@ declare global {
 
 export function trackEvent(name: string, data: any = {}) {
   if (typeof window === "undefined") return;
-  if (process.env.NODE_ENV !== "production") return;
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({

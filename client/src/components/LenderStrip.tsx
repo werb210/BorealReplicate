@@ -1,0 +1,33 @@
+import type { CSSProperties } from "react";
+
+export default function LenderStrip() {
+  const logos = [
+    "/assets/lenders/lender1.png",
+    "/assets/lenders/lender2.png",
+    "/assets/lenders/lender3.png",
+    "/assets/lenders/lender4.png",
+  ];
+
+  return (
+    <section style={container} aria-label="Lender partners">
+      {logos.map((src, i) => (
+        <img key={i} src={src} alt="Lender partner" style={imgStyle} loading="lazy" />
+      ))}
+    </section>
+  );
+}
+
+const container: CSSProperties = {
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+  padding: "40px 0",
+  flexWrap: "wrap",
+};
+
+const imgStyle: CSSProperties = {
+  height: 50,
+  margin: 15,
+  opacity: 0.8,
+  width: "auto",
+};
