@@ -18,6 +18,8 @@ export function SEO({ title, description, schema }: SEOProps) {
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <link rel="canonical" href={url} />
+      <meta name="robots" content="index,follow" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />

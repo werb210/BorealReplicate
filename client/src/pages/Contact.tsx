@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { SEO } from "@/seo/SEO";
+import { trackEvent } from "@/utils/analytics";
 
 type Reason = "General" | "Funding" | "Issue";
 
@@ -43,6 +44,10 @@ export default function Contact() {
     event.preventDefault();
     setSubmission(formData);
     setSubmitted(true);
+    trackEvent("contact_form_submitted", {
+      reason: formData.reason.toLowerCase(),
+      source: "contact_page",
+    });
   };
 
   return (

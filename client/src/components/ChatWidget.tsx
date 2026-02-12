@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { trackEvent } from "@/utils/analytics";
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -7,7 +8,11 @@ export function ChatWidget() {
     <aside className="fixed bottom-6 right-6 z-50">
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          const nextOpen = !open;
+          setOpen(nextOpen);
+          if (nextOpen) trackEvent("chat_opened", { source: "floating_widget" });
+        }}
         className="rounded-lg bg-orange-500 px-4 py-2 text-white shadow-lg transition hover:bg-orange-600"
       >
         Chat
@@ -23,6 +28,7 @@ export function ChatWidget() {
               type="button"
               className="flex-1 rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700"
               onClick={() => {
+                trackEvent("talk_to_human_clicked", { source: "chat_widget" });
                 window.location.href = "/contact";
               }}
             >
@@ -32,6 +38,7 @@ export function ChatWidget() {
               type="button"
               className="flex-1 rounded-lg bg-gray-200 py-2 font-semibold hover:bg-gray-300"
               onClick={() => {
+                trackEvent("issue_reported", { source: "chat_widget" });
                 window.location.href = "mailto:info@boreal.financial?subject=Website%20Issue";
               }}
             >

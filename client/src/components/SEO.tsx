@@ -5,7 +5,8 @@ export default function SEO({ title, description }: any) {
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={`https://canadianbusinessfinancing.com${window.location.pathname}`} />
+      <link rel="canonical" href={`https://borealfinancial.com${window.location.pathname}`} />
+      <meta name="robots" content="index,follow" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content="/images/hero.jpg" />
@@ -14,8 +15,8 @@ export default function SEO({ title, description }: any) {
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Boreal Financial",
-          url: "https://canadianbusinessfinancing.com",
-          logo: "https://canadianbusinessfinancing.com/images/logo.png",
+          url: "https://borealfinancial.com",
+          logo: "https://borealfinancial.com/images/logo.png",
         })}
       </script>
     </Helmet>

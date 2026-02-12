@@ -1,8 +1,10 @@
 import { Link, useParams } from "wouter";
+import { useEffect } from "react";
 import { getProductBySlug } from "@/router/content";
 import NotFound from "@/pages/NotFound";
 import { SEO } from "@/seo/SEO";
 import { breadcrumbSchema, financialServiceSchema } from "@/seo/structuredData";
+import { trackEvent } from "@/utils/analytics";
 
 export default function ProductPage() {
   const params = useParams();
@@ -11,6 +13,10 @@ export default function ProductPage() {
   if (!product) return <NotFound />;
 
   const description = `${product.name} through Boreal's marketplace: apply once and compare offers from multiple lenders.`;
+
+  useEffect(() => {
+    trackEvent("product_page_view", { product: product.slug });
+  }, [product.slug]);
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-10">
@@ -51,7 +57,7 @@ export default function ProductPage() {
         </ul>
       </section>
 
-      <Link href="/apply" className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white">Apply Now</Link>
+      <Link href="/apply" className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white" onClick={() => trackEvent("apply_clicked", { source: "product_page", product: product.slug })}>Apply Now</Link>
     </section>
   );
 }

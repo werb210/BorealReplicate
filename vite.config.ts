@@ -27,6 +27,8 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
+    target: "es2022",
+    minify: "esbuild",
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
