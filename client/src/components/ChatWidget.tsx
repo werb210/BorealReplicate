@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { trackEvent } from "@/utils/analytics";
+import AIChat from "@/components/AIChat";
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -23,27 +24,8 @@ export function ChatWidget() {
           <h4 className="font-semibold">Boreal Assistant</h4>
           <p className="mt-1 text-sm text-gray-600">Ask about financing products, eligibility, or your application process.</p>
 
-          <div className="mt-4 flex gap-3">
-            <button
-              type="button"
-              className="chat-human flex-1 rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700"
-              onClick={() => {
-                trackEvent("talk_to_human_clicked", { source: "chat_widget" });
-                window.location.href = "/contact";
-              }}
-            >
-              Talk to a Human
-            </button>
-            <button
-              type="button"
-              className="chat-report flex-1 rounded-lg bg-gray-200 py-2 font-semibold hover:bg-gray-300"
-              onClick={() => {
-                trackEvent("issue_reported", { source: "chat_widget" });
-                window.location.href = "mailto:info@boreal.financial?subject=Website%20Issue";
-              }}
-            >
-              Report an Issue
-            </button>
+          <div className="mt-4">
+            <AIChat />
           </div>
         </div>
       ) : null}
