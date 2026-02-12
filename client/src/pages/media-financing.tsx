@@ -20,7 +20,7 @@ export default function MediaFinancing() {
             <SeoImage 
               src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&h=600" 
               alt="Professional film production studio with cameras, lighting, and crew working" 
-              className="rounded-xl shadow-lg w-full h-64 object-cover mb-8"
+              className="mb-8 h-[500px] w-full rounded-xl object-cover object-center shadow-lg"
               data-testid="hero-image"
             />
             

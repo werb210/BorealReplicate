@@ -256,7 +256,7 @@ export default function Chatbot({ isOpen, onOpen, onClose, onReset, resetCount }
       </div>
 
       <Button
-        className={`fixed bottom-6 right-6 shadow-lg rounded-full px-4 py-3 flex items-center gap-2 ${isOpen ? "hidden" : ""}`}
+        className={`fixed bottom-6 right-6 flex items-center gap-2 rounded-full bg-orange-500 px-5 py-3 font-semibold text-white shadow-lg ring-2 ring-orange-200 hover:bg-orange-600 ${isOpen ? "hidden" : ""}`}
         onClick={onOpen}
         aria-label="Open chatbot"
       >
