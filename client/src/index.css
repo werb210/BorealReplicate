@@ -186,6 +186,22 @@ img {
   display: block;
 }
 
+.dropdown-menu.open,
+.nav-dropdown-menu.open {
+  display: grid;
+}
+
+.sticky-apply {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0A2342;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  z-index: 999;
+}
+
 .footer {
   margin-top: 64px;
   background: #f3f4f6;
@@ -243,5 +259,23 @@ img {
     box-shadow: none;
     padding: 8px 0;
     display: grid;
+  }
+}
+
+@media (max-width: 1024px) {
+  .dropdown:hover .dropdown-menu,
+  .nav-dropdown:hover .nav-dropdown-menu {
+    display: none;
+  }
+
+  .dropdown-menu.open,
+  .nav-dropdown-menu.open {
+    display: grid;
+  }
+}
+
+@media (max-width: 768px) {
+  .sticky-apply {
+    display: none;
   }
 }

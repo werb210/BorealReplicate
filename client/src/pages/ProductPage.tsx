@@ -57,6 +57,30 @@ export default function ProductPage() {
         </ul>
       </section>
 
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">How It Works</h2>
+        <p className="mt-2 text-slate-700">Step-by-step explanation of how we match your profile to lender programs, package your deal, and move through approvals efficiently.</p>
+      </section>
+
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">Who It’s For</h2>
+        <p className="mt-2 text-slate-700">Industry specific examples include construction firms managing draws, manufacturers buying raw materials, and logistics operators balancing receivables cycles.</p>
+      </section>
+
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">Common Use Cases</h2>
+        <ul className="mt-2 list-disc pl-5 text-slate-700">
+          <li>Inventory purchase</li>
+          <li>Seasonal working capital</li>
+          <li>Equipment acquisition</li>
+        </ul>
+      </section>
+
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">Why Not a Bank?</h2>
+        <p className="mt-2 text-slate-700">Specialty lenders often provide greater speed, flexibility, and structuring advantages for asset-heavy or complex cash-flow situations.</p>
+      </section>
+
       <Link href="/apply" className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white" onClick={() => trackEvent("apply_clicked", { source: "product_page", product: product.slug })}>Apply Now</Link>
     </section>
   );

@@ -1,12 +1,13 @@
 import { Link } from "wouter";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SEO from "../components/SEO";
 import LenderLogos from "@/components/LenderLogos";
+import LenderStrip from "@/components/LenderStrip";
 import TrustSection from "@/components/TrustSection";
 import { trackEvent } from "@/utils/analytics";
-import { fetchLenderCount } from "@/utils/lenderCount";
 import Modal from "@/components/ui/Modal";
 import LeadCaptureModal from "@/features/lead/LeadCaptureModal";
+import { useLenderCount } from "@/hooks/useLenderCount";
 
 const differentiators = [
   "Deep industry underwriting knowledge",
@@ -30,12 +31,8 @@ const productLinks = [
 ];
 
 export default function Home() {
-  const [lenderCount, setLenderCount] = useState(40);
   const [leadOpen, setLeadOpen] = useState(false);
-
-  useEffect(() => {
-    fetchLenderCount().then((count) => setLenderCount(count || 40));
-  }, []);
+  const lenderCount = useLenderCount();
 
   return (
     <>
@@ -65,6 +62,11 @@ export default function Home() {
             <p className="mt-6 text-lg text-gray-600">
               Boreal Financial partners with asset-intensive businesses to design structured financing strategies and connect you with the right lenders faster.
             </p>
+            {lenderCount && (
+              <div style={{ marginTop: 10 }}>
+                Access to <strong>{lenderCount}+</strong> lenders nationwide
+              </div>
+            )}
 
             <div className="mt-8 flex flex-wrap gap-3">
               <button
@@ -256,6 +258,7 @@ export default function Home() {
         </section>
 
         <TrustSection />
+        <LenderStrip />
 
         <section className="bg-gray-50 py-12 text-center">
           <h2 className="text-3xl font-bold">Trusted Across Industries</h2>
@@ -265,7 +268,7 @@ export default function Home() {
             <span>Logistics</span>
             <span>Asset Finance</span>
           </div>
-          <p className="mt-2 text-gray-500">Access to {lenderCount}+ vetted lenders</p>
+          <p className="mt-2 text-gray-500">Access to {lenderCount ?? 40}+ vetted lenders</p>
         </section>
 
         <LenderLogos />
