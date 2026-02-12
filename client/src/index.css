@@ -4,19 +4,19 @@
 @tailwind utilities;
 
 :root {
-  --background: #F7F9FC;
-  --foreground: #1C2B3A;
+  --background: #F8FAFC;
+  --foreground: #172033;
   --card: #FFFFFF;
   --card-foreground: #1C2B3A;
   --popover: #FFFFFF;
   --popover-foreground: #1C2B3A;
-  --primary: #1F3A5F;
+  --primary: #10233f;
   --primary-foreground: #FFFFFF;
-  --secondary: #1C2B3A;
+  --secondary: #1f2937;
   --secondary-foreground: #FFFFFF;
   --muted: #F7F9FC;
   --muted-foreground: #6B7A90;
-  --accent: #F2994A;
+  --accent: #c67a3d;
   --accent-foreground: #FFFFFF;
   --destructive: #E5484D;
   --destructive-foreground: #FFFFFF;
@@ -39,7 +39,7 @@
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
-  --radius: 0.5rem;
+  --radius: 0.7rem;
 }
 
 .dark {
@@ -103,9 +103,14 @@ img {
 
 
 .container {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 28px 24px;
+}
+
+section {
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .navbar {
@@ -135,10 +140,10 @@ img {
 }
 
 .apply-btn {
-  background: #f97316;
+  background: #10233f;
   color: white;
-  padding: 10px 14px;
-  border-radius: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
 }
 
 .dropdown {
@@ -176,14 +181,6 @@ img {
 .dropdown-menu a {
   display: block;
   padding: 6px 0;
-}
-
-.dropdown:hover .dropdown-menu {
-  display: grid;
-}
-
-.nav-dropdown:hover .nav-dropdown-menu {
-  display: block;
 }
 
 .dropdown-menu.open,
@@ -263,11 +260,6 @@ img {
 }
 
 @media (max-width: 1024px) {
-  .dropdown:hover .dropdown-menu,
-  .nav-dropdown:hover .nav-dropdown-menu {
-    display: none;
-  }
-
   .dropdown-menu.open,
   .nav-dropdown-menu.open {
     display: grid;

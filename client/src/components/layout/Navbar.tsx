@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "wouter";
 import { track } from "@/utils/track";
@@ -6,17 +6,25 @@ import { track } from "@/utils/track";
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   const toggleMenu = (menu: string) => {
-    if (typeof window !== "undefined" && window.innerWidth > 1024) {
-      return;
-    }
-
     setOpenMenu((current) => (current === menu ? null : menu));
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (!navRef.current?.contains(event.target as Node)) {
+        setOpenMenu(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
   return (
-    <header className="nav sticky top-0 z-50 border-b border-slate-200 bg-white" role="banner">
+    <header className="nav sticky top-0 z-50 border-b border-slate-200 bg-white" role="banner" ref={navRef}>
       <nav className="navbar container" aria-label="Main navigation">
         <div className="nav-left">
           <a href="/" aria-label="Boreal Financial home">
@@ -36,7 +44,7 @@ export function Navbar() {
         </button>
 
         <ul className={`nav-right ${mobileOpen ? "open" : ""}`}>
-          <li className="nav-dropdown dropdown" onMouseEnter={() => setOpenMenu("products")} onMouseLeave={() => setTimeout(() => setOpenMenu(null), 150)}>
+          <li className="nav-dropdown dropdown">
             <button type="button" onClick={() => toggleMenu("products")}>Products</button>
             <ul className={`nav-dropdown-menu dropdown-menu ${openMenu === "products" ? "open" : ""}`}>
               <li><Link href="/products/term-loans">Term Loans</Link></li>
@@ -47,12 +55,12 @@ export function Navbar() {
             </ul>
           </li>
 
-          <li className="nav-dropdown dropdown" onMouseEnter={() => setOpenMenu("industries")} onMouseLeave={() => setTimeout(() => setOpenMenu(null), 150)}>
+          <li className="nav-dropdown dropdown">
             <button type="button" onClick={() => toggleMenu("industries")}>Industries</button>
             <ul className={`nav-dropdown-menu dropdown-menu ${openMenu === "industries" ? "open" : ""}`}>
-              <li><Link href="/industries/construction">Construction</Link></li>
-              <li><Link href="/industries/manufacturing">Manufacturing</Link></li>
-              <li><Link href="/industries/logistics">Logistics</Link></li>
+              <li><Link href="/construction">Construction</Link></li>
+              <li><Link href="/manufacturing">Manufacturing</Link></li>
+              <li><Link href="/logistics">Logistics</Link></li>
             </ul>
           </li>
 

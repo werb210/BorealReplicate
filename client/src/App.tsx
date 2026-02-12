@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
-import ExitIntentModal from "@/features/lead/ExitIntentModal";
 
 function App() {
   const trackedDepthRef = useRef({ fifty: false, seventyFive: false });
@@ -34,7 +33,6 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <AppRouter />
-        <ExitIntentModal />
       </TooltipProvider>
     </QueryClientProvider>
   );

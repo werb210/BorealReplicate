@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { trackEvent } from "@/utils/analytics";
-import { API_BASE_URL } from "@/config/env";
 
 type ContactModalProps = {
   open: boolean;
@@ -9,52 +8,31 @@ type ContactModalProps = {
 
 type ContactForm = {
   companyName: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
-  phone: string;
+  mobilePhone: string;
 };
 
 const initialForm: ContactForm = {
   companyName: "",
-  firstName: "",
-  lastName: "",
+  fullName: "",
   email: "",
-  phone: "",
+  mobilePhone: "",
 };
-
-async function submitContact(data: ContactForm) {
-  await fetch(`${API_BASE_URL}/api/support/contact`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-}
 
 export default function ContactModal({ open, onClose }: ContactModalProps) {
   const [form, setForm] = useState<ContactForm>(initialForm);
-  const [submitting, setSubmitting] = useState(false);
 
-  const submit = async () => {
-    if (!form.companyName || !form.firstName || !form.lastName || !form.email || !form.phone) {
+  const submit = () => {
+    if (!form.companyName || !form.fullName || !form.email || !form.mobilePhone) {
       alert("All fields required");
       return;
     }
 
-    try {
-      setSubmitting(true);
-      await submitContact(form);
-
-      trackEvent("contact_submit", { category: "conversion" });
-      alert("Submitted");
-      setForm(initialForm);
-      onClose();
-    } catch (error) {
-      console.error(error);
-      alert("Unable to submit right now.");
-    } finally {
-      setSubmitting(false);
-    }
+    trackEvent("contact_submit", { category: "conversion" });
+    alert("Submitted");
+    setForm(initialForm);
+    onClose();
   };
 
   if (!open) return null;
@@ -64,53 +42,16 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
       <div className="w-full max-w-md rounded-xl bg-white p-8">
         <h2 className="mb-4 text-2xl font-bold">Contact Us</h2>
 
-        <input
-          className="mb-3 w-full rounded border p-2"
-          placeholder="Company Name"
-          value={form.companyName}
-          onChange={(e) => setForm({ ...form, companyName: e.target.value })}
-        />
-        <input
-          className="mb-3 w-full rounded border p-2"
-          placeholder="First Name"
-          value={form.firstName}
-          onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-        />
-        <input
-          className="mb-3 w-full rounded border p-2"
-          placeholder="Last Name"
-          value={form.lastName}
-          onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-        />
-        <input
-          className="mb-3 w-full rounded border p-2"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          className="mb-3 w-full rounded border p-2"
-          placeholder="Phone"
-          value={form.phone}
-          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-        />
-
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          <button
-            onClick={onClose}
-            className="w-full rounded border border-gray-300 px-4 py-2"
-            disabled={submitting}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={submit}
-            className="w-full rounded bg-orange-500 px-4 py-2 text-white"
-            disabled={submitting}
-          >
-            {submitting ? "Submitting..." : "Submit"}
-          </button>
-        </div>
+        <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); submit(); }}>
+          <input className="w-full rounded border p-2" placeholder="Company Name" required value={form.companyName} onChange={(e) => setForm({ ...form, companyName: e.target.value })} />
+          <input className="w-full rounded border p-2" placeholder="Full Name" required value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} />
+          <input className="w-full rounded border p-2" type="email" placeholder="Email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <input className="w-full rounded border p-2" type="tel" placeholder="Mobile Phone" required value={form.mobilePhone} onChange={(e) => setForm({ ...form, mobilePhone: e.target.value })} />
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <button onClick={onClose} type="button" className="w-full rounded border border-gray-300 px-4 py-2">Cancel</button>
+            <button type="submit" className="w-full rounded bg-slate-900 px-4 py-2 text-white">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   );
