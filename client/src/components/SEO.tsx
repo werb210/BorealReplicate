@@ -19,6 +19,16 @@ export default function SEO({ title, description }: any) {
           logo: "https://borealfinancial.com/images/logo.png",
         })}
       </script>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FinancialService",
+          name: "Boreal Financial",
+          areaServed: "Canada",
+          serviceType: "Business Financing Marketplace",
+          url: "https://borealfinancial.com",
+        })}
+      </script>
     </Helmet>
   );
 }

@@ -13,7 +13,7 @@ export function ChatWidget() {
           setOpen(nextOpen);
           if (nextOpen) trackEvent("chat_opened", { source: "floating_widget" });
         }}
-        className="rounded-lg bg-orange-500 px-4 py-2 text-white shadow-lg transition hover:bg-orange-600"
+        className="rounded-full bg-orange-500 px-5 py-3 font-semibold text-white shadow-lg ring-2 ring-orange-200 transition hover:bg-orange-600"
       >
         Chat
       </button>

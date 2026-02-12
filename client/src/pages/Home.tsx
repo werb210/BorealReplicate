@@ -1,7 +1,8 @@
 import { Link } from "wouter";
 import { useEffect, useState } from "react";
 import SEO from "../components/SEO";
-import CapitalReadinessModal from "@/components/CapitalReadinessModal";
+import LenderLogos from "@/components/LenderLogos";
+import TrustSection from "@/components/TrustSection";
 import { trackEvent } from "@/utils/analytics";
 import { fetchLenderCount } from "@/utils/lenderCount";
 
@@ -28,7 +29,6 @@ const productLinks = [
 
 export default function Home() {
   const [lenderCount, setLenderCount] = useState(40);
-  const [showReadinessModal, setShowReadinessModal] = useState(false);
 
   useEffect(() => {
     fetchLenderCount().then((count) => setLenderCount(count || 40));
@@ -84,7 +84,7 @@ export default function Home() {
             <img
               src="/images/epub_QM0825-FEAT-Measure-Faro-p1FT-GettyImages-1298326681_webp.webp"
               alt="Business advisory team discussing financing strategy"
-              className="hero-image w-full h-[420px] rounded-xl" loading="lazy"
+              className="hero-image h-[500px] w-full rounded-xl object-cover object-center" loading="lazy"
             />
           </div>
         </section>
@@ -235,8 +235,10 @@ export default function Home() {
         <section className="bg-gray-50 py-16 text-center">
           <h2 className="text-3xl font-bold mb-4">Capital Readiness Score Preview</h2>
           <p>See how lenders evaluate your business before you apply.</p>
-          <button className="mt-6 rounded bg-black px-6 py-3 text-white" onClick={() => setShowReadinessModal(true)}>Preview My Score</button>
+          <a href="/apply" className="mt-6 inline-block rounded bg-black px-6 py-3 text-white">Preview My Score</a>
         </section>
+
+        <TrustSection />
 
         <section className="bg-gray-50 py-12 text-center">
           <h2 className="text-3xl font-bold">Trusted Across Industries</h2>
@@ -249,7 +251,7 @@ export default function Home() {
           <p className="mt-2 text-gray-500">Access to {lenderCount}+ vetted lenders</p>
         </section>
 
-        <CapitalReadinessModal open={showReadinessModal} onClose={() => setShowReadinessModal(false)} />
+        <LenderLogos />
       </main>
     </>
   );
