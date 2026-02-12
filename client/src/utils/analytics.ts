@@ -7,15 +7,17 @@ declare global {
   }
 }
 
-export function trackEvent(name: string, params: AnalyticsParams = {}) {
-  if (typeof window === "undefined") {
-    return;
-  }
+export function trackEvent(name: string, data: any = {}) {
+  if (typeof window === "undefined") return;
+  if (process.env.NODE_ENV !== "production") return;
 
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: name, ...params });
+  window.dataLayer.push({
+    event: name,
+    ...data,
+  });
 
   if (typeof window.gtag === "function") {
-    window.gtag("event", name, params);
+    window.gtag("event", name, data);
   }
 }

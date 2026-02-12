@@ -46,7 +46,7 @@ export default function Home() {
       />
 
       <main>
-        <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 md:grid-cols-2 md:py-20">
+        <section className="hero mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 md:grid-cols-2 md:py-20">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-orange-600">Strategic Capital Advisory + Marketplace</p>
             <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">Better structured financing, delivered with lender-ready clarity.</h1>
