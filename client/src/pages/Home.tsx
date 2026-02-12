@@ -190,64 +190,45 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              Bank vs Boreal Marketplace
-            </h2>
+        <section className="max-w-6xl mx-auto py-16 px-6">
+          <h2 className="text-3xl font-bold mb-8 text-center">Bank vs Boreal</h2>
+          <table className="w-full border text-left">
+            <tbody>
+              <tr className="border-t">
+                <td className="p-4 font-semibold">Speed</td>
+                <td className="p-4">Banks: 4–8 weeks</td>
+                <td className="p-4">Boreal: 48 hours</td>
+              </tr>
+              <tr className="border-t">
+                <td className="p-4 font-semibold">Collateral Flexibility</td>
+                <td className="p-4">Banks: Strict</td>
+                <td className="p-4">Boreal: Structured</td>
+              </tr>
+              <tr className="border-t border-b">
+                <td className="p-4 font-semibold">Multiple Lenders</td>
+                <td className="p-4">Banks: No</td>
+                <td className="p-4">Boreal: Yes</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
-            <div className="overflow-x-auto">
-              <table className="w-full border text-left">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="p-4">Feature</th>
-                    <th className="p-4">Traditional Bank</th>
-                    <th className="p-4">Boreal Marketplace</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-t">
-                    <td className="p-4">Speed</td>
-                    <td className="p-4">4–8 weeks</td>
-                    <td className="p-4 font-semibold text-green-600">Days to weeks</td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="p-4">Asset-Based Structuring</td>
-                    <td className="p-4">Limited</td>
-                    <td className="p-4 font-semibold text-green-600">Yes</td>
-                  </tr>
-                  <tr className="border-t">
-                    <td className="p-4">Non-Bank Capital</td>
-                    <td className="p-4">No</td>
-                    <td className="p-4 font-semibold text-green-600">Yes</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <section className="bg-gray-50 py-16 text-center">
+          <h2 className="text-3xl font-bold mb-4">Capital Readiness Score Preview</h2>
+          <p>See how lenders evaluate your business before you apply.</p>
+          <button className="mt-6 bg-black text-white px-6 py-3 rounded">Preview My Score</button>
+        </section>
+
+        <section className="py-10 border-t border-b">
+          <div className="flex justify-center gap-12 text-gray-400 text-sm">
+            <span>Trusted by Canadian Businesses</span>
+            <span>Asset Finance Experts</span>
+            <span>Non-Bank Capital Access</span>
           </div>
         </section>
 
         <section className="py-20">
           <CapitalScore />
-        </section>
-
-        <section className="py-20 bg-gray-100">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-10">
-              Trusted Across Asset-Heavy Industries
-            </h2>
-
-            <div className="grid md:grid-cols-4 gap-8 text-gray-600 font-semibold">
-              <div>Construction</div>
-              <div>Manufacturing</div>
-              <div>Logistics</div>
-              <div>Distribution</div>
-            </div>
-
-            <div className="mt-10 text-sm text-gray-500">
-              Access to 50+ specialty lenders and private credit providers.
-            </div>
-          </div>
         </section>
       </main>
     </>

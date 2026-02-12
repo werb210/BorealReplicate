@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useChatbot } from "@/hooks/use-chatbot";
 import { ReactNode } from "react";
+import { trackEvent } from "@/analytics/ga";
 
 const APPLY_URL = "/apply/step-1";
 
@@ -14,7 +15,7 @@ type CTAProps = {
 export function ApplyNowButton({ children, className, variant = "cta", size = "lg" }: CTAProps) {
   return (
     <Button asChild className={className} variant={variant} size={size}>
-      <a href={APPLY_URL}>{children ?? "Apply Now"}</a>
+      <a href={APPLY_URL} onClick={() => trackEvent("apply_click", { event_category: "conversion" })}>{children ?? "Apply Now"}</a>
     </Button>
   );
 }
