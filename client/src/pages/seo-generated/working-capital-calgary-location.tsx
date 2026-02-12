@@ -11,7 +11,7 @@ export default function WorkingCapitalCalgaryLocationPage() {
     "@type": "Organization",
     name: "Boreal Financial",
     url: BASE_URL,
-    logo: BASE_URL + "/assets/logo.png"
+    logo: BASE_URL + "/images/logo.png"
   };
 
   const financialServiceJsonLd = {

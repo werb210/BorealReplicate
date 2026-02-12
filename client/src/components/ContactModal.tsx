@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { trackEvent } from "@/utils/analytics";
+import { API_BASE_URL } from "@/config/env";
 
 type ContactModalProps = {
   open: boolean;
@@ -23,7 +24,7 @@ const initialForm: ContactForm = {
 };
 
 async function submitContact(data: ContactForm) {
-  await fetch("/api/support/contact", {
+  await fetch(`${API_BASE_URL}/api/support/contact`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

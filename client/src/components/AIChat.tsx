@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import html2canvas from "html2canvas";
+import { API_BASE_URL } from "@/config/env";
 
 const escalationSignals = ["human", "agent", "urgent", "escalate", "help now", "speak to someone"];
 
@@ -16,7 +17,7 @@ export default function AIChat() {
     const trimmed = message.trim();
     if (!trimmed) return;
 
-    const res = await fetch("/api/chat", {
+    const res = await fetch(`${API_BASE_URL}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: trimmed }),
@@ -24,7 +25,7 @@ export default function AIChat() {
     const data = await res.json();
     setResponse(data.response ?? "No response available right now.");
 
-    await fetch("/api/support/event", {
+    await fetch(`${API_BASE_URL}/api/support/event`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: "ai_chat_message", source: "website" }),
@@ -32,7 +33,7 @@ export default function AIChat() {
   }
 
   async function escalate() {
-    await fetch("/api/support/live", {
+    await fetch(`${API_BASE_URL}/api/support/live`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -42,7 +43,7 @@ export default function AIChat() {
       }),
     });
 
-    await fetch("/api/support/event", {
+    await fetch(`${API_BASE_URL}/api/support/event`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: "support_escalation", source: "website" }),
@@ -57,7 +58,7 @@ export default function AIChat() {
 
     const screenshot = await html2canvas(document.body).then((canvas) => canvas.toDataURL());
 
-    await fetch("/api/support/report", {
+    await fetch(`${API_BASE_URL}/api/support/report`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description, screenshot }),

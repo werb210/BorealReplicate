@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { API_BASE_URL } from "@/config/env";
 
 type Readiness = "Strong" | "Moderate" | "Needs Structuring";
 
@@ -28,7 +29,7 @@ export default function ReadinessModal() {
     });
     setScore(result);
 
-    await fetch("/api/support/event", {
+    await fetch(`${API_BASE_URL}/api/support/event`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: "readiness_score_completed", source: "website" }),

@@ -1,39 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://borealfinancial.com/</loc>
+    <loc>https://yourdomain.com/</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.com/products</loc>
+    <loc>https://yourdomain.com/products</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.com/products/term-loans</loc>
+    <loc>https://yourdomain.com/industries</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.com/products/line-of-credit</loc>
+    <loc>https://yourdomain.com/apply</loc>
   </url>
-  <url>
-    <loc>https://borealfinancial.com/products/factoring</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.com/products/equipment-financing</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.com/products/purchase-order-financing</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.com/industries</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.com/apply</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.com/about</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.com/privacy</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.com/terms</loc>
-  </url>
+
 </urlset>

@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { API_BASE_URL } from "@/config/env";
 
 export default function ContactModal() {
   const [submitted, setSubmitted] = useState(false);
@@ -7,7 +8,7 @@ export default function ContactModal() {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
 
-    await fetch("/api/crm/web-leads", {
+    await fetch(`${API_BASE_URL}/api/crm/web-leads`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -19,7 +20,7 @@ export default function ContactModal() {
       }),
     });
 
-    await fetch("/api/support/event", {
+    await fetch(`${API_BASE_URL}/api/support/event`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: "contact_modal_submit", source: "website" }),

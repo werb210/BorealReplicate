@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { useLocation } from "wouter";
 import { trackEvent } from "@/analytics/ga";
 import { SEO } from "@/seo/SEO";
+import { API_BASE_URL } from "@/config/env";
 
 type FormData = {
   industry: string;
@@ -37,7 +38,7 @@ export default function Apply() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    await fetch("/api/apply", {
+    await fetch(`${API_BASE_URL}/api/apply`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { API_BASE_URL } from "@/config/env";
 
 export type ChatMessage = { role: "assistant" | "user"; content: string };
 
@@ -14,7 +15,7 @@ export function ChatWindow({ sessionId, compact = false }: ChatWindowProps) {
 
   useEffect(() => {
     const intervalId = window.setInterval(async () => {
-      const response = await fetch(`/api/chat/receive?sessionId=${sessionId}`);
+      const response = await fetch(`${API_BASE_URL}/api/chat/receive?sessionId=${sessionId}`);
       if (!response.ok) return;
       const payload = (await response.json()) as { messages: ChatMessage[] };
       setMessages(payload.messages);
@@ -32,7 +33,7 @@ export function ChatWindow({ sessionId, compact = false }: ChatWindowProps) {
     setSending(true);
     setMessages((current) => [...current, { role: "user", content }]);
 
-    await fetch("/api/chat/send", {
+    await fetch(`${API_BASE_URL}/api/chat/send`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: content, sessionId }),
