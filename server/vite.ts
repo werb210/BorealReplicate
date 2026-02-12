@@ -76,6 +76,15 @@ export function serveStatic(app: Express) {
     );
   }
 
+  app.use((req, res, next) => {
+    if (/\.(js|css|png|jpg|jpeg|webp|svg|ico|woff2?)$/i.test(req.path)) {
+      res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    } else if (req.path === "/" || req.path.endsWith(".html")) {
+      res.setHeader("Cache-Control", "public, max-age=300");
+    }
+    next();
+  });
+
   app.use(express.static(distPath));
 
   // fall through to index.html if the file doesn't exist

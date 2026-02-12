@@ -1,7 +1,9 @@
 import { Link } from "wouter";
+import { useEffect, useState } from "react";
 import SEO from "../components/SEO";
-import CapitalScore from "../components/CapitalScore";
+import CapitalReadinessModal from "@/components/CapitalReadinessModal";
 import { trackEvent } from "@/utils/analytics";
+import { fetchLenderCount } from "@/utils/lenderCount";
 
 const differentiators = [
   "Deep industry underwriting knowledge",
@@ -25,6 +27,13 @@ const productLinks = [
 ];
 
 export default function Home() {
+  const [lenderCount, setLenderCount] = useState(40);
+  const [showReadinessModal, setShowReadinessModal] = useState(false);
+
+  useEffect(() => {
+    fetchLenderCount().then((count) => setLenderCount(count || 40));
+  }, []);
+
   return (
     <>
       <SEO
@@ -57,7 +66,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/apply"
-                onClick={() => trackEvent("apply_click", { category: "conversion" })}
+                onClick={() => trackEvent("apply_clicked", { source: "homepage" })}
                 className="inline-block rounded-md bg-orange-500 px-6 py-3 text-lg font-medium text-white transition hover:bg-orange-600"
               >
                 Apply Now
@@ -75,7 +84,7 @@ export default function Home() {
             <img
               src="/images/epub_QM0825-FEAT-Measure-Faro-p1FT-GettyImages-1298326681_webp.webp"
               alt="Business advisory team discussing financing strategy"
-              className="w-full h-[420px] object-cover object-center rounded-xl"
+              className="hero-image w-full h-[420px] rounded-xl" loading="lazy"
             />
           </div>
         </section>
@@ -129,7 +138,7 @@ export default function Home() {
             <div className="mt-12">
               <a
                 href="/apply"
-                onClick={() => trackEvent("apply_click", { category: "conversion" })}
+                onClick={() => trackEvent("apply_clicked", { source: "homepage" })}
                 className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600"
               >
                 Apply Now
@@ -226,7 +235,7 @@ export default function Home() {
         <section className="bg-gray-50 py-16 text-center">
           <h2 className="text-3xl font-bold mb-4">Capital Readiness Score Preview</h2>
           <p>See how lenders evaluate your business before you apply.</p>
-          <button className="mt-6 bg-black text-white px-6 py-3 rounded">Preview My Score</button>
+          <button className="mt-6 rounded bg-black px-6 py-3 text-white" onClick={() => setShowReadinessModal(true)}>Preview My Score</button>
         </section>
 
         <section className="bg-gray-50 py-12 text-center">
@@ -237,12 +246,10 @@ export default function Home() {
             <span>Logistics</span>
             <span>Asset Finance</span>
           </div>
-          <p className="mt-2 text-gray-500">Access to 50+ specialty capital providers</p>
+          <p className="mt-2 text-gray-500">Access to {lenderCount}+ vetted lenders</p>
         </section>
 
-        <section className="py-20">
-          <CapitalScore />
-        </section>
+        <CapitalReadinessModal open={showReadinessModal} onClose={() => setShowReadinessModal(false)} />
       </main>
     </>
   );

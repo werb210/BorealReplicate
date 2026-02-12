@@ -27,6 +27,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ status: "ok", uptime: process.uptime(), timestamp: new Date().toISOString() });
   });
 
+  app.get("/api/public/lender-count", (_req, res) => {
+    const count = Number(process.env.PUBLIC_LENDER_COUNT || "40");
+    res.set("Cache-Control", "public, max-age=300, s-maxage=300");
+    res.json({ count: Number.isFinite(count) ? count : 40 });
+  });
+
   app.post("/api/apply", (req, res) => {
     res.status(202).json({ status: "received", payload: req.body });
   });

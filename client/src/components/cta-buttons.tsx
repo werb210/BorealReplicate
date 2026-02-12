@@ -15,7 +15,7 @@ type CTAProps = {
 export function ApplyNowButton({ children, className, variant = "cta", size = "lg" }: CTAProps) {
   return (
     <Button asChild className={className} variant={variant} size={size}>
-      <a href={APPLY_URL} onClick={() => trackEvent("apply_click", { category: "conversion" })}>{children ?? "Apply Now"}</a>
+      <a href={APPLY_URL} onClick={() => trackEvent("apply_clicked", { source: "homepage" })}>{children ?? "Apply Now"}</a>
     </Button>
   );
 }
@@ -31,6 +31,7 @@ export function AskQuestionButton({ children, className, variant = "outline", si
       onClick={() => {
         resetChatbot();
         openChatbot();
+        trackEvent("chat_opened", { source: "cta_button" });
       }}
     >
       {children ?? "Talk to an expert"}
