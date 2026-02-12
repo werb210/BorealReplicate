@@ -82,9 +82,9 @@ export default function Home() {
 
           <div>
             <img
-              src="/images/epub_QM0825-FEAT-Measure-Faro-p1FT-GettyImages-1298326681_webp.webp"
+              src="/images/equipment.jpg"
               alt="Business advisory team discussing financing strategy"
-              className="hero-image h-[500px] w-full rounded-xl object-cover object-center" loading="lazy"
+              style={{ width: "100%", height: "auto", objectFit: "contain" }} loading="lazy"
             />
           </div>
         </section>

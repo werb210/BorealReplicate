@@ -7,7 +7,7 @@ type ContactModalProps = {
 };
 
 type ContactForm = {
-  company: string;
+  companyName: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -15,42 +15,36 @@ type ContactForm = {
 };
 
 const initialForm: ContactForm = {
-  company: "",
+  companyName: "",
   firstName: "",
   lastName: "",
   email: "",
   phone: "",
 };
 
+async function submitContact(data: ContactForm) {
+  await fetch("/api/support/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+}
+
 export default function ContactModal({ open, onClose }: ContactModalProps) {
   const [form, setForm] = useState<ContactForm>(initialForm);
   const [submitting, setSubmitting] = useState(false);
 
   const submit = async () => {
-    if (!form.company || !form.firstName || !form.lastName || !form.email || !form.phone) {
+    if (!form.companyName || !form.firstName || !form.lastName || !form.email || !form.phone) {
       alert("All fields required");
       return;
     }
 
     try {
       setSubmitting(true);
-      const utmParams = {
-        utm_source: localStorage.getItem("utm_source"),
-        utm_medium: localStorage.getItem("utm_medium"),
-        utm_campaign: localStorage.getItem("utm_campaign"),
-      };
+      await submitContact(form);
 
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, utm: utmParams }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-
-      trackEvent("contact_submit", { category: "conversion", ...utmParams });
+      trackEvent("contact_submit", { category: "conversion" });
       alert("Submitted");
       setForm(initialForm);
       onClose();
@@ -69,15 +63,36 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
       <div className="w-full max-w-md rounded-xl bg-white p-8">
         <h2 className="mb-4 text-2xl font-bold">Contact Us</h2>
 
-        {(Object.keys(form) as Array<keyof ContactForm>).map((key) => (
-          <input
-            key={key}
-            className="mb-3 w-full rounded border p-2"
-            placeholder={key.replace(/([A-Z])/g, " $1").replace(/^./, (value) => value.toUpperCase())}
-            value={form[key]}
-            onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-          />
-        ))}
+        <input
+          className="mb-3 w-full rounded border p-2"
+          placeholder="Company Name"
+          value={form.companyName}
+          onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+        />
+        <input
+          className="mb-3 w-full rounded border p-2"
+          placeholder="First Name"
+          value={form.firstName}
+          onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+        />
+        <input
+          className="mb-3 w-full rounded border p-2"
+          placeholder="Last Name"
+          value={form.lastName}
+          onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+        />
+        <input
+          className="mb-3 w-full rounded border p-2"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+        <input
+          className="mb-3 w-full rounded border p-2"
+          placeholder="Phone"
+          value={form.phone}
+          onChange={(e) => setForm({ ...form, phone: e.target.value })}
+        />
 
         <div className="mt-2 grid grid-cols-2 gap-2">
           <button
