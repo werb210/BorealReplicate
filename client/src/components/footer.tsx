@@ -5,6 +5,8 @@ import ProductComparisonModal from "@/components/ProductComparisonModal";
 
 export function Footer() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [scoreOpen, setScoreOpen] = useState(false);
+  const [comparisonOpen, setComparisonOpen] = useState(false);
 
   return (
     <>
@@ -29,6 +31,8 @@ export function Footer() {
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               <li><a href="/apply">Start Application</a></li>
               <li><button className="text-left" onClick={() => setContactOpen(true)}>Contact Us</button></li>
+              <li><button className="text-left" onClick={() => setScoreOpen(true)}>Credit Readiness Score</button></li>
+              <li><button className="text-left" onClick={() => setComparisonOpen(true)}>Compare Financing Options</button></li>
               <li><a href="/staff-login">Staff Login</a></li>
               <li><a href="/lender-login">Lender Login</a></li>
             </ul>
@@ -36,8 +40,8 @@ export function Footer() {
         </div>
 
         <div className="mt-2 flex justify-center gap-6 px-4 pb-10">
-          <CapitalReadinessModal />
-          <ProductComparisonModal />
+          <CapitalReadinessModal open={scoreOpen} onClose={() => setScoreOpen(false)} />
+          <ProductComparisonModal open={comparisonOpen} onClose={() => setComparisonOpen(false)} />
         </div>
       </footer>
 

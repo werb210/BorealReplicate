@@ -75,47 +75,99 @@
 }
 
 
-.hero-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: center top;
-}
-
-.hero-image--equipment {
-  object-position: center 30%;
-}
-
+.hero-image,
 .hero img {
   width: 100%;
-  height: 480px;
-  object-fit: cover;
-  object-position: center top;
+  height: auto;
+  object-fit: contain;
 }
 
-@media (max-width: 768px) {
-  .hero img {
-    height: 280px;
-  }
+
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
 }
 
-.dropdown-menu {
-  position: absolute;
-  background: white;
-  padding: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.navbar {
   display: flex;
-  flex-direction: column;
-  min-width: 220px;
-  z-index: 1000;
-  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
-.nav {
-  position: sticky;
-  top: 0;
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  width: auto;
+}
+
+.apply-btn,
+.login-btn,
+.dropdown button {
+  font-weight: 600;
+}
+
+.apply-btn {
+  background: #f97316;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
   background: white;
-  z-index: 100;
+  min-width: 220px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  padding: 12px;
+  display: block;
+}
+
+.footer {
+  margin-top: 64px;
+  background: #f3f4f6;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.footer-grid h4 {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.footer-grid a,
+.footer-actions button {
+  display: block;
+  margin-bottom: 6px;
 }
 
 .mobile-toggle {
@@ -123,24 +175,26 @@
 }
 
 @media (max-width: 900px) {
+  .mobile-toggle {
+    display: block;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+
   .nav-right {
     display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .nav-right.open {
     display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 64px;
-    right: 16px;
-    left: 16px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
   }
 
-  .mobile-toggle {
-    display: block;
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
 }

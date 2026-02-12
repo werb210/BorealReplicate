@@ -5,52 +5,42 @@ import ProductComparisonModal from "@/components/ProductComparisonModal";
 
 export function Footer() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [scoreOpen, setScoreOpen] = useState(false);
+  const [comparisonOpen, setComparisonOpen] = useState(false);
 
   return (
     <>
-      <footer className="mt-20 bg-gray-100">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 text-sm md:grid-cols-4">
+      <footer className="footer">
+        <div className="footer-grid container">
           <div>
-            <h4 className="mb-3 font-semibold">About</h4>
-            <p>
-              Boreal Financial is a strategic capital advisory + funding marketplace serving Canadian and U.S.
-              businesses.
-            </p>
+            <h4>About</h4>
+            <a href="/about">Who We Are</a>
+            <a href="/apply">Apply</a>
           </div>
 
           <div>
-            <h4 className="mb-3 font-semibold">Products</h4>
-            <p>Term Loans</p>
-            <p>Line of Credit</p>
-            <p>Factoring</p>
-            <p>Equipment Financing</p>
-            <p>Purchase Order Financing</p>
+            <h4>Products</h4>
+            <a href="/products/term-loans">Term Loans</a>
+            <a href="/products/line-of-credit">Line of Credit</a>
           </div>
 
           <div>
-            <h4 className="mb-3 font-semibold">Industries</h4>
-            <p>Construction</p>
-            <p>Manufacturing</p>
-            <p>Logistics</p>
+            <h4>Legal</h4>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
           </div>
 
-          <div>
-            <h4 className="mb-3 font-semibold">Legal</h4>
-            <p>Privacy</p>
-            <p>Terms</p>
-            <button className="mt-2 text-left underline" onClick={() => setContactOpen(true)}>
-              Contact Us
-            </button>
+          <div className="footer-actions">
+            <button onClick={() => setContactOpen(true)}>Contact Us</button>
+            <button onClick={() => setScoreOpen(true)}>Credit Readiness Score</button>
+            <button onClick={() => setComparisonOpen(true)}>Compare Financing Options</button>
           </div>
-        </div>
-
-        <div className="mt-6 flex justify-center gap-6 pb-10">
-          <CapitalReadinessModal />
-          <ProductComparisonModal />
         </div>
       </footer>
 
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      <CapitalReadinessModal open={scoreOpen} onClose={() => setScoreOpen(false)} />
+      <ProductComparisonModal open={comparisonOpen} onClose={() => setComparisonOpen(false)} />
     </>
   );
 }

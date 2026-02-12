@@ -26,7 +26,7 @@ export function ChatWidget() {
           <div className="mt-4 flex gap-3">
             <button
               type="button"
-              className="flex-1 rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700"
+              className="chat-human flex-1 rounded-lg bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700"
               onClick={() => {
                 trackEvent("talk_to_human_clicked", { source: "chat_widget" });
                 window.location.href = "/contact";
@@ -36,7 +36,7 @@ export function ChatWidget() {
             </button>
             <button
               type="button"
-              className="flex-1 rounded-lg bg-gray-200 py-2 font-semibold hover:bg-gray-300"
+              className="chat-report flex-1 rounded-lg bg-gray-200 py-2 font-semibold hover:bg-gray-300"
               onClick={() => {
                 trackEvent("issue_reported", { source: "chat_widget" });
                 window.location.href = "mailto:info@boreal.financial?subject=Website%20Issue";
