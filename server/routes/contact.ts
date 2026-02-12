@@ -6,6 +6,7 @@ type ContactPayload = {
   lastName?: string;
   email?: string;
   phone?: string;
+  utm?: Record<string, string | null>;
 };
 
 const router = Router();
@@ -42,22 +43,23 @@ async function sendTwilioSms(messageBody: string) {
 }
 
 router.post("/", async (req, res) => {
-  const { company, firstName, lastName, email, phone } = req.body as ContactPayload;
+  const { company, firstName, lastName, email, phone, utm } = req.body as ContactPayload;
 
   if (!company || !firstName || !lastName || !email || !phone) {
     return res.status(400).json({ error: "All fields required" });
   }
 
   try {
-    await sendTwilioSms(`New Website Lead:\nCompany: ${company}\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}`);
+    await sendTwilioSms(`Website Lead:\nCompany: ${company}\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nUTM: ${JSON.stringify(utm ?? {})}`);
 
-    console.log("CRM Lead Stored:", {
+    console.log("Stored Web Lead:", {
       company,
       firstName,
       lastName,
       email,
       phone,
-      source: "Website Contact Form",
+      utm,
+      source: "Website Contact",
       createdAt: new Date().toISOString(),
     });
 

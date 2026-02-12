@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { trackEvent } from "@/analytics/ga";
+import { trackEvent } from "@/utils/analytics";
 
 type ContactModalProps = {
   open: boolean;
@@ -34,17 +34,23 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
 
     try {
       setSubmitting(true);
+      const utmParams = {
+        utm_source: localStorage.getItem("utm_source"),
+        utm_medium: localStorage.getItem("utm_medium"),
+        utm_campaign: localStorage.getItem("utm_campaign"),
+      };
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, utm: utmParams }),
       });
 
       if (!response.ok) {
         throw new Error("Request failed");
       }
 
-      trackEvent("contact_submit", { event_category: "conversion" });
+      trackEvent("contact_submit", { category: "conversion", ...utmParams });
       alert("Submitted");
       setForm(initialForm);
       onClose();
