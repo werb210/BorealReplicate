@@ -20,6 +20,7 @@ export default function IndustryPage() {
         alt={industry.name}
         className="w-full h-[420px] object-cover object-center rounded-xl"
         loading="lazy"
+        style={{ objectFit: "cover" }}
       />
       <h1 className="mt-6 text-3xl font-bold">{industry.name}</h1>
       <p className="mt-3 text-slate-600">{industry.overview}</p>

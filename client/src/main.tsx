@@ -19,6 +19,10 @@ function RootApp() {
   useUTMCapture();
 
   useEffect(() => {
+    if (!import.meta.env.VITE_GA_ID) {
+      return;
+    }
+
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: "page_view" });
   }, []);

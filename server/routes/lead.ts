@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
   const yearsValue = Number(years) || 0;
   const score = Math.min(100, Math.round(revenueValue / 10000 + yearsValue * 10));
 
-  console.log("Capital Readiness Lead:", {
+  if (process.env.NODE_ENV !== "production") console.log("Capital Readiness Lead:", {
     revenue,
     industry,
     years,

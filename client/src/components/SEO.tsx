@@ -8,6 +8,7 @@ interface LegacySEOProps {
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
   canonical?: string;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+  noindex?: boolean;
 }
 
 function normalizeSchema(props: LegacySEOProps) {
@@ -26,6 +27,7 @@ export default function LegacySEO(props: LegacySEOProps) {
       url={normalizeUrl(props)}
       image={props.image}
       schema={normalizeSchema(props)}
+      noindex={props.noindex}
     />
   );
 }
@@ -38,6 +40,7 @@ export function Seo(props: LegacySEOProps) {
       url={normalizeUrl(props)}
       image={props.image}
       schema={normalizeSchema(props)}
+      noindex={props.noindex}
     />
   );
 }
