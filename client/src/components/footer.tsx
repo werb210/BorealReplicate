@@ -1,21 +1,25 @@
 import { useState } from "react";
 import ContactModal from "@/components/ContactModal";
+import ScoreModal from "@/components/ScoreModal";
+import CompareModal from "@/components/CompareModal";
 
 export function Footer() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [scoreOpen, setScoreOpen] = useState(false);
+  const [compareOpen, setCompareOpen] = useState(false);
 
   return (
     <>
-      <footer className="bg-slate-950 text-slate-200 mt-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 grid gap-6 md:grid-cols-3">
+      <footer className="mt-16 bg-slate-950 text-slate-200">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:px-6 lg:px-8 md:grid-cols-3">
           <div>
-            <h2 className="font-semibold text-lg">Boreal Financial</h2>
-            <p className="text-sm text-slate-400 mt-2">
+            <h2 className="text-lg font-semibold">Boreal Financial</h2>
+            <p className="mt-2 text-sm text-slate-400">
               Structured lending marketplace helping businesses across Canada and the United States.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-sm uppercase tracking-wide">Explore</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wide">Explore</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               <li><a href="/how-it-works">How It Works</a></li>
               <li><a href="/products/term-loans">Products</a></li>
@@ -23,17 +27,22 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-sm uppercase tracking-wide">Start</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wide">Start</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               <li><a href="/apply">Start Application</a></li>
               <li><button className="text-left" onClick={() => setContactOpen(true)}>Contact Us</button></li>
+              <li><button className="text-left" onClick={() => setScoreOpen(true)}>Capital Score</button></li>
+              <li><button className="text-left" onClick={() => setCompareOpen(true)}>Compare to Banks</button></li>
               <li><a href="/staff-login">Staff Login</a></li>
               <li><a href="/lender-login">Lender Login</a></li>
             </ul>
           </div>
         </div>
       </footer>
+
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      <ScoreModal open={scoreOpen} onClose={() => setScoreOpen(false)} />
+      <CompareModal open={compareOpen} onClose={() => setCompareOpen(false)} />
     </>
   );
 }
