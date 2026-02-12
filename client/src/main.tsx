@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
 import { useUTMCapture } from "@/hooks/useUTM";
 import "./index.css";
+import "./styles/global.css";
 
 declare global {
   interface Window {

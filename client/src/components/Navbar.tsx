@@ -25,7 +25,7 @@ export function Navbar({ onOpenSupport }: NavbarProps) {
           <div
             className="dropdown relative"
             onMouseEnter={() => setOpenMenu("products")}
-            onMouseLeave={() => setOpenMenu(null)}
+            onMouseLeave={() => setTimeout(() => setOpenMenu(null), 150)}
           >
             <button className="text-sm font-medium text-secondary hover:text-primary">Products</button>
             {openMenu === "products" && (
@@ -42,7 +42,7 @@ export function Navbar({ onOpenSupport }: NavbarProps) {
           <div
             className="dropdown relative"
             onMouseEnter={() => setOpenMenu("industries")}
-            onMouseLeave={() => setOpenMenu(null)}
+            onMouseLeave={() => setTimeout(() => setOpenMenu(null), 150)}
           >
             <button className="text-sm font-medium text-secondary hover:text-primary">Industries</button>
             {openMenu === "industries" && (

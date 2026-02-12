@@ -36,7 +36,7 @@ export function Navbar() {
         </button>
 
         <ul className={`nav-right ${mobileOpen ? "open" : ""}`}>
-          <li className="nav-dropdown dropdown">
+          <li className="nav-dropdown dropdown" onMouseEnter={() => setOpenMenu("products")} onMouseLeave={() => setTimeout(() => setOpenMenu(null), 150)}>
             <button type="button" onClick={() => toggleMenu("products")}>Products</button>
             <ul className={`nav-dropdown-menu dropdown-menu ${openMenu === "products" ? "open" : ""}`}>
               <li><Link href="/products/term-loans">Term Loans</Link></li>
@@ -47,7 +47,7 @@ export function Navbar() {
             </ul>
           </li>
 
-          <li className="nav-dropdown dropdown">
+          <li className="nav-dropdown dropdown" onMouseEnter={() => setOpenMenu("industries")} onMouseLeave={() => setTimeout(() => setOpenMenu(null), 150)}>
             <button type="button" onClick={() => toggleMenu("industries")}>Industries</button>
             <ul className={`nav-dropdown-menu dropdown-menu ${openMenu === "industries" ? "open" : ""}`}>
               <li><Link href="/industries/construction">Construction</Link></li>

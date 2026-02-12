@@ -2,10 +2,10 @@ import type { CSSProperties } from "react";
 
 export default function LenderStrip() {
   const logos = [
-    "/assets/lenders/lender1.png",
-    "/assets/lenders/lender2.png",
-    "/assets/lenders/lender3.png",
-    "/assets/lenders/lender4.png",
+    "/images/lenders/lender1.png",
+    "/images/lenders/lender2.png",
+    "/images/lenders/lender3.png",
+    "/images/lenders/lender4.png",
   ];
 
   return (

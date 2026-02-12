@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { API_BASE_URL } from "@/config/env";
 
 type SupportModalProps = {
   open: boolean;
@@ -41,13 +42,13 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
     setQuery("");
 
     try {
-      await fetch("/chat/send", {
+      await fetch(`${API_BASE_URL}/chat/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
       });
 
-      const response = await fetch("/chat/receive", { method: "GET" });
+      const response = await fetch(`${API_BASE_URL}/chat/receive`, { method: "GET" });
       if (!response.ok) {
         throw new Error("Failed to receive reply");
       }

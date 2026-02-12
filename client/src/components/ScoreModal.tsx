@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { trackEvent } from "@/utils/analytics";
+import { API_BASE_URL } from "@/config/env";
 
 type ScoreModalProps = {
   open: boolean;
@@ -43,7 +44,7 @@ export default function ScoreModal({ open, onClose }: ScoreModalProps) {
         utm_campaign: localStorage.getItem("utm_campaign"),
       };
 
-      const response = await fetch("/api/lead", {
+      const response = await fetch(`${API_BASE_URL}/api/lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...state, utm }),
