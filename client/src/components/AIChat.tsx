@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import html2canvas from "html2canvas";
+
+const escalationSignals = ["human", "agent", "urgent", "escalate", "help now", "speak to someone"];
 
 export default function AIChat() {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
+
+  const shouldEscalate = useMemo(() => {
+    const lower = `${message} ${response}`.toLowerCase();
+    return escalationSignals.some((signal) => lower.includes(signal));
+  }, [message, response]);
 
   async function sendMessage() {
     const trimmed = message.trim();
@@ -16,6 +23,12 @@ export default function AIChat() {
     });
     const data = await res.json();
     setResponse(data.response ?? "No response available right now.");
+
+    await fetch("/api/support/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: "ai_chat_message", source: "website" }),
+    });
   }
 
   async function escalate() {
@@ -25,8 +38,16 @@ export default function AIChat() {
       body: JSON.stringify({
         source: "website",
         sessionId: Date.now().toString(),
+        trigger: shouldEscalate ? "keyword" : "manual",
       }),
     });
+
+    await fetch("/api/support/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: "support_escalation", source: "website" }),
+    });
+
     alert("A human will join shortly.");
   }
 
@@ -56,6 +77,9 @@ export default function AIChat() {
       <div className="flex flex-wrap gap-2">
         <button onClick={sendMessage} className="rounded bg-slate-900 px-3 py-2 text-sm font-semibold text-white">Ask AI</button>
         <button onClick={escalate} className="rounded bg-blue-600 px-3 py-2 text-sm font-semibold text-white">Talk to a Human</button>
+        {shouldEscalate ? (
+          <button onClick={escalate} className="rounded bg-red-600 px-3 py-2 text-sm font-semibold text-white">Escalate Now</button>
+        ) : null}
         <button onClick={reportIssue} className="rounded bg-slate-200 px-3 py-2 text-sm font-semibold text-slate-800">Report an Issue</button>
       </div>
       <div className="rounded-md bg-slate-50 p-2 text-sm text-slate-700">{response}</div>

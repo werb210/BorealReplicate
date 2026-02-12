@@ -5,7 +5,6 @@ import { track } from "@/utils/track";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
     <header className="nav sticky top-0 z-50 border-b border-slate-200 bg-white" role="banner">
@@ -28,36 +27,24 @@ export function Navbar() {
         </button>
 
         <ul className={`nav-right ${mobileOpen ? "open" : ""}`}>
-          <li
-            className="dropdown"
-            onMouseEnter={() => setOpenMenu("products")}
-            onMouseLeave={() => setOpenMenu(null)}
-          >
+          <li className="nav-dropdown dropdown">
             <button type="button">Products</button>
-            {openMenu === "products" && (
-              <ul className="dropdown-menu">
-                <li><Link href="/products/term-loans">Term Loans</Link></li>
-                <li><Link href="/products/line-of-credit">Line of Credit</Link></li>
-                <li><Link href="/products/factoring">Factoring</Link></li>
-                <li><Link href="/products/equipment-financing">Equipment Financing</Link></li>
-                <li><Link href="/products/purchase-order-financing">Purchase Order Financing</Link></li>
-              </ul>
-            )}
+            <ul className="nav-dropdown-menu dropdown-menu">
+              <li><Link href="/products/term-loans">Term Loans</Link></li>
+              <li><Link href="/products/line-of-credit">Line of Credit</Link></li>
+              <li><Link href="/products/factoring">Factoring</Link></li>
+              <li><Link href="/products/equipment-financing">Equipment Financing</Link></li>
+              <li><Link href="/products/purchase-order-financing">Purchase Order Financing</Link></li>
+            </ul>
           </li>
 
-          <li
-            className="dropdown"
-            onMouseEnter={() => setOpenMenu("industries")}
-            onMouseLeave={() => setOpenMenu(null)}
-          >
+          <li className="nav-dropdown dropdown">
             <button type="button">Industries</button>
-            {openMenu === "industries" && (
-              <ul className="dropdown-menu">
-                <li><Link href="/industries/construction">Construction</Link></li>
-                <li><Link href="/industries/manufacturing">Manufacturing</Link></li>
-                <li><Link href="/industries/logistics">Logistics</Link></li>
-              </ul>
-            )}
+            <ul className="nav-dropdown-menu dropdown-menu">
+              <li><Link href="/industries/construction">Construction</Link></li>
+              <li><Link href="/industries/manufacturing">Manufacturing</Link></li>
+              <li><Link href="/industries/logistics">Logistics</Link></li>
+            </ul>
           </li>
 
           <li>
