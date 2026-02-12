@@ -5,6 +5,8 @@ import LenderLogos from "@/components/LenderLogos";
 import TrustSection from "@/components/TrustSection";
 import { trackEvent } from "@/utils/analytics";
 import { fetchLenderCount } from "@/utils/lenderCount";
+import Modal from "@/components/ui/Modal";
+import LeadCaptureModal from "@/features/lead/LeadCaptureModal";
 
 const differentiators = [
   "Deep industry underwriting knowledge",
@@ -29,6 +31,7 @@ const productLinks = [
 
 export default function Home() {
   const [lenderCount, setLenderCount] = useState(40);
+  const [leadOpen, setLeadOpen] = useState(false);
 
   useEffect(() => {
     fetchLenderCount().then((count) => setLenderCount(count || 40));
@@ -64,6 +67,13 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => setLeadOpen(true)}
+                className="inline-block rounded-md border border-orange-500 px-6 py-3 text-lg font-medium text-orange-600 transition hover:bg-orange-50"
+              >
+                Get Capital Strategy
+              </button>
               <Link
                 href="/apply"
                 onClick={() => trackEvent("apply_clicked", { source: "homepage" })}
@@ -87,6 +97,13 @@ export default function Home() {
               style={{ width: "100%", height: "auto", objectFit: "contain" }} loading="lazy"
             />
           </div>
+        </section>
+
+        <section style={{ display: "flex", justifyContent: "space-around", padding: 40, gap: 16, flexWrap: "wrap" }}>
+          <div>✔ Multi-Lender Marketplace</div>
+          <div>✔ Non-Bank Capital Access</div>
+          <div>✔ Fast Approvals</div>
+          <div>✔ Structuring Expertise</div>
         </section>
 
         <section className="bg-gray-50 py-16">
@@ -253,6 +270,10 @@ export default function Home() {
 
         <LenderLogos />
       </main>
+
+      <Modal open={leadOpen} onClose={() => setLeadOpen(false)}>
+        <LeadCaptureModal onDone={() => setLeadOpen(false)} />
+      </Modal>
     </>
   );
 }

@@ -33,6 +33,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ count: Number.isFinite(count) ? count : 40 });
   });
 
+
+  app.post("/api/support/event", (req, res) => {
+    const { event, source } = req.body as { event?: string; source?: string };
+    if (!event) {
+      res.status(400).json({ error: "event is required" });
+      return;
+    }
+
+    console.log("Support Event:", { event, source: source ?? "website", timestamp: new Date().toISOString() });
+    res.status(202).json({ ok: true });
+  });
+
+  app.post("/api/crm/web-leads", (req, res) => {
+    const { companyName, firstName, lastName, email, phone } = req.body as {
+      companyName?: string;
+      firstName?: string;
+      lastName?: string;
+      email?: string;
+      phone?: string;
+    };
+
+    if (!companyName || !firstName || !lastName || !email || !phone) {
+      res.status(400).json({ error: "All lead fields are required" });
+      return;
+    }
+
+    console.log("CRM Web Lead:", { companyName, firstName, lastName, email, phone, channel: "website" });
+    console.log("SMS Dispatch:", { to: "+15878881837", message: `New lead from ${companyName} (${firstName} ${lastName})` });
+    res.status(202).json({ ok: true });
+  });
+
+  app.post("/api/support/live", (req, res) => {
+    const { source, sessionId, trigger } = req.body as { source?: string; sessionId?: string; trigger?: string };
+    if (!sessionId) {
+      res.status(400).json({ error: "sessionId is required" });
+      return;
+    }
+
+    console.log("Live Support Escalation:", { source: source ?? "website", sessionId, trigger: trigger ?? "manual" });
+    res.status(202).json({ ok: true, status: "queued" });
+  });
+
   app.post("/api/apply", (req, res) => {
     res.status(202).json({ status: "received", payload: req.body });
   });
@@ -64,6 +106,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const messages = chatSessions.get(sessionId) ?? [];
     res.json({ messages });
+  });
+
+  app.post("/api/chat", (req, res) => {
+    const message = String(req.body?.message ?? "");
+    const reply = buildAssistantReply([{ role: "user", content: message }]);
+    res.json({ response: reply });
   });
 
   app.post("/api/ai/chat", (req, res) => {
