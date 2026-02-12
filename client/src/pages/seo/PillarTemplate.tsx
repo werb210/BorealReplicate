@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "wouter";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import NotFound from "@/pages/NotFound";
 import {
   COMPARISONS,

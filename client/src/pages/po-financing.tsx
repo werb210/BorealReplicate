@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Package, TrendingUp, Clock, Target } from "lucide-react";
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import { financialServiceJsonLd } from "@/lib/structured-data";
 import { SeoImage } from "@/components/SeoImage";
 

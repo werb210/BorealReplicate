@@ -1,4 +1,4 @@
-import { Seo } from "@/components/Seo";
+import { Seo } from "@/components/SEO";
 import { SEOFAQ } from "@/components/SEOFAQ";
 import { getIntentFaqs } from "@/data/faqs";
 
