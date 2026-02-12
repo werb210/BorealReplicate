@@ -1,12 +1,14 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
+import leadRoute from "./routes/lead";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/contact", contactRoute);
+app.use("/api/lead", leadRoute);
 
 process.on("unhandledRejection", (reason) => {
   log(`Unhandled rejection: ${reason}`);
