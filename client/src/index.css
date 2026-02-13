@@ -105,12 +105,12 @@ img {
 .container {
   max-width: 1240px;
   margin: auto;
-  padding: 28px 24px;
+  padding: 0 24px;
 }
 
 section {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 88px;
+  padding-bottom: 88px;
 }
 
 .navbar {
@@ -206,7 +206,7 @@ section {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -218,7 +218,12 @@ section {
 .footer-grid a,
 .footer-actions button {
   display: block;
-  margin-bottom: 6px;
+  margin-top: 8px;
+  color: #475569;
+}
+
+.footer-grid a:hover {
+  color: #1d4ed8;
 }
 
 .mobile-toggle {
