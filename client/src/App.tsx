@@ -4,7 +4,6 @@ import { queryClient } from "@/lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRouter } from "@/router/AppRouter";
-import FloatingChatButton from "@/components/FloatingChatButton";
 import { trackEvent } from "@/utils/analytics";
 
 function App() {
@@ -34,7 +33,11 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <AppRouter />
-        <FloatingChatButton />
+        <div className="fixed bottom-6 right-6 z-50">
+          <button className="bg-black text-white px-5 py-3 rounded-full shadow-lg">
+            Chat with Maya
+          </button>
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );

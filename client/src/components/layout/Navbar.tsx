@@ -21,7 +21,7 @@ export function Navbar() {
               <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-[#0a1731] p-2 ring-1 ring-white/20">
                 {industries.map((industry) => (
                   <Link key={industry.slug} href={`/industries/${industry.slug}`} className="block rounded-md px-3 py-2 hover:bg-white/10">
-                    {industry.title}
+                    {industry.name}
                   </Link>
                 ))}
               </div>

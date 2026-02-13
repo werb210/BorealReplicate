@@ -28,9 +28,9 @@ export default function Home() {
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {industries.map((industry) => (
               <Link key={industry.slug} href={`/industries/${industry.slug}`} className="group relative overflow-hidden rounded-2xl">
-                <img src={industry.heroImage} alt={industry.title} className="h-64 w-full object-cover transition group-hover:scale-105" />
+                <img src={industry.heroImage} alt={industry.name} className="h-64 w-full object-cover transition group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
-                <div className="absolute bottom-0 p-5"><h3 className="text-2xl font-bold">{industry.title}</h3></div>
+                <div className="absolute bottom-0 p-5"><h3 className="text-2xl font-bold">{industry.name}</h3></div>
               </Link>
             ))}
           </div>
