@@ -20,6 +20,7 @@ import ProductComparison from "@/pages/ProductComparison";
 import CapitalReadiness from "@/pages/CapitalReadiness";
 import Podcasts from "@/pages/Podcasts";
 import Products from "@/pages/Products";
+import ProductDetail from "@/pages/ProductDetail";
 
 function AnalyticsListener() {
   const [location] = useLocation();
@@ -41,12 +42,13 @@ export function AppRouter() {
     <div className="min-h-screen bg-[#020817] text-white">
       <AnalyticsListener />
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className="pt-20">
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/how-it-works" component={HowItWorks} />
 
           <Route path="/products" component={Products} />
+          <Route path="/products/:slug">{(params) => <ProductDetail slug={params.slug} />}</Route>
           <Route path="/products/term-loans" component={TermLoans} />
           <Route path="/products/line-of-credit" component={LineOfCredit} />
           <Route path="/products/factoring" component={Factoring} />

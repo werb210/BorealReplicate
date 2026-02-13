@@ -3,7 +3,8 @@ export type ProductSlug =
   | "term-loan"
   | "invoice-factoring"
   | "equipment-financing"
-  | "purchase-order-financing";
+  | "purchase-order-financing"
+  | "asset-based-lending";
 
 export type Product = {
   slug: ProductSlug;
@@ -27,7 +28,7 @@ export const products: Product[] = [
     bestFor: ["Seasonal cash flow variability", "Short-cycle operating expenses", "Businesses with recurring receivables"],
     structureHighlights: ["Draw as needed", "Reusable as repaid", "Fast access for ongoing needs"],
     heroImage: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1400&q=80",
-    ctaLabel: "Apply for Line of Credit",
+    ctaLabel: "Learn More",
     href: "/products/line-of-credit",
   },
   {
@@ -39,8 +40,8 @@ export const products: Product[] = [
     bestFor: ["Expansion and hiring plans", "Facility upgrades", "Defined ROI projects"],
     structureHighlights: ["Lump-sum funding", "Fixed amortization", "Longer duration options"],
     heroImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=80",
-    ctaLabel: "Apply for Term Loan",
-    href: "/products/term-loans",
+    ctaLabel: "Learn More",
+    href: "/products/term-loan",
   },
   {
     slug: "invoice-factoring",
@@ -51,8 +52,8 @@ export const products: Product[] = [
     bestFor: ["B2B companies with net terms", "Rapidly growing receivables", "Working capital stabilization"],
     structureHighlights: ["AR-backed advances", "Accelerated cash conversion", "Scales with invoice volume"],
     heroImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=80",
-    ctaLabel: "Apply for Factoring",
-    href: "/products/factoring",
+    ctaLabel: "Learn More",
+    href: "/products/invoice-factoring",
   },
   {
     slug: "equipment-financing",
@@ -63,7 +64,7 @@ export const products: Product[] = [
     bestFor: ["Fleet and machinery purchases", "Modernization initiatives", "Asset-heavy operators"],
     structureHighlights: ["Asset-secured", "Lifecycle-aligned terms", "Protects operating cash"],
     heroImage: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1400&q=80",
-    ctaLabel: "Apply for Equipment Financing",
+    ctaLabel: "Learn More",
     href: "/products/equipment-financing",
   },
   {
@@ -75,8 +76,20 @@ export const products: Product[] = [
     bestFor: ["Large confirmed purchase orders", "Supplier prepayment pressure", "Growth without working capital strain"],
     structureHighlights: ["Order-backed structure", "Supplier payment support", "Scales with demand"],
     heroImage: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1400&q=80",
-    ctaLabel: "Apply for PO Financing",
+    ctaLabel: "Learn More",
     href: "/products/purchase-order-financing",
+  },
+  {
+    slug: "asset-based-lending",
+    title: "Asset Based Lending",
+    tagline: "Borrow against business assets to unlock working capital",
+    shortDescription:
+      "Leverage inventory, receivables, and other business assets to support growth initiatives and stabilize cash flow.",
+    bestFor: ["Inventory-heavy businesses", "Companies with strong receivables", "Working capital optimization"],
+    structureHighlights: ["Asset-backed facilities", "Flexible borrowing base", "Scalable with asset growth"],
+    heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
+    ctaLabel: "Learn More",
+    href: "/products/asset-based-lending",
   },
 ];
 

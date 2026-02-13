@@ -1,38 +1,58 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { APPLY_URL } from "@/config/site";
-import { industries } from "@/data/industries";
 
 export function Navbar() {
-  const [openIndustries, setOpenIndustries] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#020817]/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/images/logo.png" alt="Boreal" className="h-14 w-auto" />
+    <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#050B1A]">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <Link href="/" className="text-lg font-semibold text-white">
+          Boreal
         </Link>
 
-        <nav className="relative flex items-center gap-6 text-sm font-medium text-slate-100">
-          <Link href="/products" className="hover:text-blue-300">Products</Link>
-          <div className="relative" onMouseEnter={() => setOpenIndustries(true)} onMouseLeave={() => setOpenIndustries(false)}>
-            <Link href="/industries" className="hover:text-blue-300">Industries</Link>
-            {openIndustries && (
-              <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-[#0a1731] p-2 ring-1 ring-white/20">
-                {industries.map((industry) => (
-                  <Link key={industry.slug} href={`/industries/${industry.slug}`} className="block rounded-md px-3 py-2 hover:bg-white/10">
-                    {industry.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-          <Link href="/capital-readiness" className="hover:text-blue-300">Capital Readiness</Link>
-          <Link href="/product-comparison" className="hover:text-blue-300">Product Comparison</Link>
-          <Link href="/contact" className="hover:text-blue-300">Contact</Link>
-          <a href={APPLY_URL} className="rounded-full bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-500">Apply Now</a>
+        <nav className="hidden items-center gap-8 text-white md:flex">
+          <Link href="/products">Products</Link>
+          <Link href="/industries">Industries</Link>
+          <Link href="/capital-readiness">Capital Readiness</Link>
+          <Link href="/product-comparison">Product Comparison</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/contact" className="rounded-full bg-blue-600 px-5 py-2 text-white">
+            Apply Now
+          </Link>
         </nav>
+
+        <button className="text-white md:hidden" onClick={() => setOpen((prev) => !prev)} aria-label="Toggle menu">
+          ☰
+        </button>
       </div>
+
+      {open && (
+        <div className="flex flex-col gap-4 border-t border-white/10 bg-[#050B1A] px-6 pb-6 text-white md:hidden">
+          <Link href="/products" onClick={() => setOpen(false)}>
+            Products
+          </Link>
+          <Link href="/industries" onClick={() => setOpen(false)}>
+            Industries
+          </Link>
+          <Link href="/capital-readiness" onClick={() => setOpen(false)}>
+            Capital Readiness
+          </Link>
+          <Link href="/product-comparison" onClick={() => setOpen(false)}>
+            Product Comparison
+          </Link>
+          <Link href="/contact" onClick={() => setOpen(false)}>
+            Contact
+          </Link>
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="rounded-full bg-blue-600 py-2 text-center"
+          >
+            Apply Now
+          </Link>
+        </div>
+      )}
     </header>
   );
 }
