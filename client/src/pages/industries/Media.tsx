@@ -1,13 +1,12 @@
-import { APPLY_URL } from "@/config/site";
+import IndustryAdvisoryTemplate from "@/pages/industries/IndustryAdvisoryTemplate";
 
 export default function Media() {
   return (
-    <div className="bg-slate-900 py-24 text-white">
-      <div className="mx-auto max-w-6xl px-6">
-        <h1 className="mb-6 text-5xl font-semibold">Strategic Capital for Media Execution</h1>
-        <p className="text-lg text-gray-300">Campaign bridge funding. Production liquidity. Contract-backed scaling.</p>
-        <a href={APPLY_URL} className="mt-8 inline-block rounded-md bg-white px-6 py-3 text-black">Apply Now</a>
-      </div>
-    </div>
+    <IndustryAdvisoryTemplate
+      title="Media"
+      headline="Strategic Capital for Media Execution"
+      description="Campaign-backed facilities and production liquidity designed around contract pacing and release milestones."
+      bullets={['Bridge funding between campaign launch and receivables', 'Production financing aligned to milestone-based payouts', 'Working capital support for agency and studio operations']}
+    />
   );
 }

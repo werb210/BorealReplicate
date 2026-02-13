@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { APPLY_URL } from "@/config/site";
 
 type NavbarProps = {
   onOpenSupport: () => void;
@@ -16,7 +17,7 @@ export function Navbar({ onOpenSupport }: NavbarProps) {
           <Link href="/" className="logo text-lg font-semibold text-secondary">
             Boreal Financial
           </Link>
-          <a href="/apply" className="apply-btn inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+          <a href={APPLY_URL} className="apply-btn inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
             Apply Now
           </a>
         </div>
@@ -50,11 +51,14 @@ export function Navbar({ onOpenSupport }: NavbarProps) {
                 <a href="/industries/construction">Construction</a>
                 <a href="/industries/manufacturing">Manufacturing</a>
                 <a href="/industries/logistics">Logistics</a>
+                <a href="/industries/distribution">Distribution</a>
+                <a href="/industries/media">Media</a>
+                <a href="/industries/healthcare">Healthcare</a>
               </div>
             )}
           </div>
 
-          <a href="/portal/login" className="login-btn text-sm font-medium text-secondary hover:text-primary">
+          <a href="/lender-login" className="login-btn text-sm font-medium text-secondary hover:text-primary">
             Lender / Referrer Login
           </a>
           <button

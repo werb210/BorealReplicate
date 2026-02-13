@@ -2,10 +2,11 @@ import { useMemo, useState } from "react";
 import { MessageSquare, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { ChatWindow } from "@/components/support/ChatWindow";
+import { APPLY_URL } from "@/config/site";
 
 const actions = [
-  { label: "Start Application", href: "/apply" },
-  { label: "Upload Documents", href: "/apply" },
+  { label: "Start Application", href: APPLY_URL },
+  { label: "Upload Documents", href: APPLY_URL },
   { label: "Book Meeting", href: "/contact?reason=funding" },
   { label: "Talk to Human", href: "/contact?focus=form" },
   { label: "Report Issue", href: "/contact?reason=issue&focus=form" },

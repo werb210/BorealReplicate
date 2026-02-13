@@ -6,6 +6,7 @@ import { CheckCircle, Users, Clock, DollarSign } from "lucide-react";
 import { Seo } from "@/components/SEO";
 import { financialServiceJsonLd } from "@/lib/structured-data";
 import { SeoImage } from "@/components/SeoImage";
+import { APPLY_URL } from "@/config/site";
 
 export default function BusinessLineOfCredit() {
   return (
@@ -192,7 +193,7 @@ export default function BusinessLineOfCredit() {
           </p>
           <div className="space-y-4">
             <Button size="lg" variant="secondary" asChild data-testid="button-apply-now-main">
-              <a href="/apply/step-1">
+              <a href={APPLY_URL}>
                 Apply Now and Experience the Difference
               </a>
             </Button>

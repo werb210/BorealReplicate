@@ -6,6 +6,7 @@ import { CheckCircle, Package, TrendingUp, Clock, Target } from "lucide-react";
 import { Seo } from "@/components/SEO";
 import { financialServiceJsonLd } from "@/lib/structured-data";
 import { SeoImage } from "@/components/SeoImage";
+import { APPLY_URL } from "@/config/site";
 
 export default function POFinancing() {
   return (
@@ -347,7 +348,7 @@ export default function POFinancing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild data-testid="button-apply-now">
-              <a href="/apply/step-1">
+              <a href={APPLY_URL}>
                 Apply for PO Financing
               </a>
             </Button>
