@@ -1,67 +1,55 @@
-import { useEffect } from "react";
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
 import { APPLY_URL } from "@/config/site";
-import { scrollToTop } from "@/utils/scrollToTop";
-
-const verticals = [
-  {
-    title: "Distribution",
-    description: "Inventory, receivables, and order-flow structuring for fast-moving operations.",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
-    link: "/industries/distribution",
-  },
-  {
-    title: "Media",
-    description: "Campaign and production capital aligned to milestone-based delivery.",
-    image: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1200&q=80",
-    link: "/industries/media",
-  },
-  {
-    title: "Healthcare",
-    description: "Growth financing built around continuity, staffing, and equipment plans.",
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80",
-    link: "/industries/healthcare",
-  },
-];
+import { industries } from "@/data/industries";
+import { products } from "@/data/products";
 
 export default function Home() {
-  useEffect(() => {
-    scrollToTop();
-  }, []);
-
   return (
     <>
       <SEO title="Boreal Financial | Boutique Capital Advisory" description="Boutique advisory capital structuring with AI-guided packaging." />
-      <main>
-        <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 md:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Boutique Capital Advisory</p>
-            <h1 className="mt-4 text-5xl font-semibold leading-tight text-slate-900">Strategic financing, structured with precision.</h1>
-            <p className="mt-6 text-lg text-slate-600">We build lender-ready files for complex business capital needs.</p>
+      <main className="bg-[#020817] text-white">
+        <section className="relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=80" alt="Capital advisory team" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-[#06152f]/85 to-black/45" />
+          <div className="relative mx-auto max-w-7xl px-6 py-24">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">Boutique Capital Advisory</p>
+            <h1 className="mt-4 max-w-4xl text-5xl font-bold leading-tight md:text-6xl">Strategic financing structured with precision.</h1>
+            <p className="mt-6 max-w-2xl text-lg text-slate-200">Institutional-grade financing strategy built for growth-stage and mature operators.</p>
             <div className="mt-8 flex gap-3">
-              <a href={APPLY_URL} className="rounded-lg bg-slate-900 px-6 py-3 text-white">Apply Now</a>
-              <Link href="/contact" className="rounded-lg border border-slate-300 px-6 py-3 text-slate-900">Speak With Advisor</Link>
+              <a href={APPLY_URL} className="rounded-full bg-blue-600 px-6 py-3 font-semibold text-white">Apply Now</a>
+              <Link href="/contact" className="rounded-full border border-white/35 px-6 py-3 font-semibold">Speak With Advisor</Link>
             </div>
           </div>
-          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80" alt="Capital advisory team" className="h-[420px] w-full rounded-2xl object-cover shadow-xl" />
         </section>
 
-        <section className="bg-slate-50 py-16">
-          <div className="mx-auto max-w-7xl px-6">
-            <h2 className="text-4xl font-semibold text-slate-900">Industry expertise, advisory execution.</h2>
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
-              {verticals.map((vertical) => (
-                <article key={vertical.title} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                  <img src={vertical.image} alt={vertical.title} className="h-48 w-full object-cover" />
-                  <div className="p-6">
-                    <h3 className="text-2xl font-semibold text-slate-900">{vertical.title}</h3>
-                    <p className="mt-3 text-slate-600">{vertical.description}</p>
-                    <Link href={vertical.link} className="mt-5 inline-block text-sm font-semibold text-slate-900">View Industry →</Link>
-                  </div>
-                </article>
-              ))}
-            </div>
+        <section className="mx-auto max-w-7xl px-6 py-20">
+          <h2 className="text-4xl font-bold">Industries</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {industries.map((industry) => (
+              <Link key={industry.slug} href={`/industries/${industry.slug}`} className="group relative overflow-hidden rounded-2xl">
+                <img src={industry.heroImage} alt={industry.title} className="h-64 w-full object-cover transition group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+                <div className="absolute bottom-0 p-5"><h3 className="text-2xl font-bold">{industry.title}</h3></div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-6 pb-24">
+          <h2 className="text-4xl font-bold">Products</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {products.map((product) => (
+              <article key={product.slug} className="relative overflow-hidden rounded-2xl">
+                <img src={product.heroImage} alt={product.title} className="h-60 w-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-end p-5">
+                  <h3 className="text-2xl font-bold">{product.title}</h3>
+                  <p className="mt-1 text-sm text-slate-200">{product.tagline}</p>
+                  <Link href="/products" className="mt-4 inline-flex w-fit rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold">Explore Product</Link>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
       </main>
