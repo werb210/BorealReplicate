@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { useChatbot } from "@/hooks/use-chatbot";
 import { ReactNode } from "react";
 import { trackEvent } from "@/utils/analytics";
+import { APPLY_URL } from "@/config/site";
 
-const APPLY_URL = "/apply/step-1";
 
 type CTAProps = {
   children?: ReactNode;

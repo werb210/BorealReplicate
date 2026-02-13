@@ -3,21 +3,24 @@ import { Route, Switch, useLocation } from "wouter";
 import Home from "@/pages/Home";
 import Apply from "@/pages/Apply";
 import HowItWorks from "@/pages/HowItWorks";
-import ProductPage from "@/pages/ProductPage";
-import IndustryPage from "@/pages/IndustryPage";
 import Industries from "@/pages/industries";
 import Contact from "@/pages/Contact";
-import StaffLogin from "@/pages/StaffLogin";
 import PartnerLogin from "@/pages/PartnerLogin";
 import NotFound from "@/pages/NotFound";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ChatWidget } from "@/components/ChatWidget";
 import { initGA, trackPageView } from "@/analytics/ga";
 import { scrollToTop } from "@/utils/scrollToTop";
-import Construction from "@/pages/construction";
-import Manufacturing from "@/pages/manufacturing";
-import Logistics from "@/pages/logistics";
+import TermLoans from "@/pages/products/TermLoans";
+import LineOfCredit from "@/pages/products/LineOfCredit";
+import Factoring from "@/pages/products/Factoring";
+import Equipment from "@/pages/products/Equipment";
+import PurchaseOrder from "@/pages/products/PurchaseOrder";
+import Distribution from "@/pages/industries/Distribution";
+import Media from "@/pages/industries/Media";
+import Healthcare from "@/pages/industries/Healthcare";
+import ProductComparison from "@/pages/ProductComparison";
+import CapitalReadinessScore from "@/pages/CapitalReadinessScore";
 
 function AnalyticsListener() {
   const [location] = useLocation();
@@ -37,9 +40,6 @@ function AnalyticsListener() {
 export function AppRouter() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      <a href="#main-content" className="sr-only rounded bg-slate-900 px-3 py-2 text-white focus:not-sr-only focus:absolute focus:left-3 focus:top-3">
-        Skip to content
-      </a>
       <AnalyticsListener />
       <Navbar />
       <main id="main-content">
@@ -47,24 +47,26 @@ export function AppRouter() {
           <Route path="/" component={Home} />
           <Route path="/apply" component={Apply} />
           <Route path="/how-it-works" component={HowItWorks} />
-          <Route path="/products/:slug" component={ProductPage} />
+
+          <Route path="/products/term-loans" component={TermLoans} />
+          <Route path="/products/line-of-credit" component={LineOfCredit} />
+          <Route path="/products/factoring" component={Factoring} />
+          <Route path="/products/equipment-financing" component={Equipment} />
+          <Route path="/products/purchase-order-financing" component={PurchaseOrder} />
+
           <Route path="/industries" component={Industries} />
-          <Route path="/industries/:slug" component={IndustryPage} />
+          <Route path="/industries/distribution" component={Distribution} />
+          <Route path="/industries/media" component={Media} />
+          <Route path="/industries/healthcare" component={Healthcare} />
+
+          <Route path="/product-comparison" component={ProductComparison} />
+          <Route path="/capital-readiness-score" component={CapitalReadinessScore} />
           <Route path="/contact" component={Contact} />
-          <Route path="/construction" component={Construction} />
-          <Route path="/manufacturing" component={Manufacturing} />
-          <Route path="/logistics" component={Logistics} />
-          <Route path="/staff-login" component={StaffLogin} />
-          <Route path="/partner-login" component={PartnerLogin} />
           <Route path="/lender-login" component={PartnerLogin} />
           <Route path="*" component={NotFound} />
         </Switch>
       </main>
       <Footer />
-      <ChatWidget />
-      <div className="sticky-apply">
-        <a href="/apply" style={{ color: "white" }}>Apply Now</a>
-      </div>
     </div>
   );
 }

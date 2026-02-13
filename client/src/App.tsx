@@ -4,6 +4,7 @@ import { queryClient } from "@/lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRouter } from "@/router/AppRouter";
+import AIChatWidget from "@/components/AIChatWidget";
 import { trackEvent } from "@/utils/analytics";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <AppRouter />
+        <AIChatWidget context="website" />
       </TooltipProvider>
     </QueryClientProvider>
   );
