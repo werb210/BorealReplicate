@@ -1,4 +1,4 @@
-import { APPLY_URL } from "@/config/site";
+import { Link } from "wouter";
 import { products } from "@/data/products";
 
 export default function Products() {
@@ -22,7 +22,9 @@ export default function Products() {
                   <li key={item} className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-blue-400" />{item}</li>
                 ))}
               </ul>
-              <a href={APPLY_URL} className="mt-6 inline-flex rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-500">{product.ctaLabel}</a>
+              <Link href={product.href} className="mt-6 inline-block rounded-full bg-blue-600 px-6 py-3">
+                Learn More
+              </Link>
             </div>
           </article>
         ))}
