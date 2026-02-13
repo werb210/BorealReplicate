@@ -1,30 +1,38 @@
 import { Link } from "wouter";
-
-const industries = [
-  { slug: "construction", name: "Construction", overview: "Project-based cash cycles, equipment spends, and draw-driven working capital." },
-  { slug: "manufacturing", name: "Manufacturing", overview: "Inventory turns, machinery upgrades, and PO-backed production liquidity." },
-  { slug: "logistics", name: "Logistics", overview: "Freight cycle timing, fleet capacity growth, and dispatch-aligned capital." },
-  { slug: "distribution", name: "Distribution", overview: "Inventory velocity, supplier timing, and receivable-cycle financing." },
-  { slug: "media", name: "Media", overview: "Campaign-backed projects, production cycles, and contract-timed funding." },
-  { slug: "healthcare", name: "Healthcare", overview: "Practice growth, equipment requirements, and continuity-focused capital." },
-];
+import { industries } from "@/data/industries";
 
 export default function Industries() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="text-3xl font-bold">Industries</h1>
-      <p className="mt-3 max-w-3xl text-slate-600">Select an industry to view boutique advisory financing examples.</p>
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {industries.map((industry) => (
-          <article key={industry.slug} className="rounded-lg border p-5">
-            <h2 className="text-xl font-semibold">{industry.name}</h2>
-            <p className="mt-2 text-sm text-slate-600">{industry.overview}</p>
-            <Link href={`/industries/${industry.slug}`} className="mt-3 inline-block text-sm font-semibold underline underline-offset-4">
-              Learn more
-            </Link>
-          </article>
-        ))}
-      </div>
-    </section>
+    <div className="bg-slate-50">
+      <section className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Industries Served</p>
+        <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">Built for the realities of your sector</h1>
+        <p className="mt-5 max-w-3xl text-lg text-slate-600">
+          Explore industry-specific financing pathways designed around cash cycles, growth plans, and operational timing.
+        </p>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {industries.map((industry) => (
+            <article
+              key={industry.slug}
+              className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+            >
+              <img src={industry.heroImage} alt={industry.name} className="h-52 w-full object-cover" loading="lazy" />
+              <div className="p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{industry.subtitle}</p>
+                <h2 className="mt-2 text-2xl font-semibold text-slate-900">{industry.name}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{industry.heroTagline}</p>
+                <Link
+                  href={`/industries/${industry.slug}`}
+                  className="mt-5 inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition group-hover:bg-blue-600"
+                >
+                  View Industry
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
