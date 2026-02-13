@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { getIndustryBySlug } from "@/router/content";
 import NotFound from "@/pages/NotFound";
 import { SEO } from "@/seo/SEO";
+import { APPLY_URL } from "@/config/site";
 
 export default function IndustryPage() {
   const params = useParams();
@@ -30,7 +31,7 @@ export default function IndustryPage() {
           {industry.examples.map((item) => <li key={item}>{item}</li>)}
         </ul>
       </section>
-      <a href="/apply" className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white">Apply Now</a>
+      <a href={APPLY_URL} className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white">Apply Now</a>
     </section>
   );
 }

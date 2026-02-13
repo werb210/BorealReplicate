@@ -17,23 +17,17 @@ export default function AIChat() {
     const trimmed = message.trim();
     if (!trimmed) return;
 
-    const res = await fetch(`${API_BASE_URL}/api/chat`, {
+    const res = await fetch(`${API_BASE_URL}/api/ai/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: trimmed }),
+      body: JSON.stringify({ message: trimmed, source: "website" }),
     });
     const data = await res.json();
     setResponse(data.response ?? "No response available right now.");
-
-    await fetch(`${API_BASE_URL}/api/support/event`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "ai_chat_message", source: "website" }),
-    });
   }
 
   async function escalate() {
-    await fetch(`${API_BASE_URL}/api/support/live`, {
+    await fetch(`${API_BASE_URL}/api/ai/escalate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -41,12 +35,6 @@ export default function AIChat() {
         sessionId: Date.now().toString(),
         trigger: shouldEscalate ? "keyword" : "manual",
       }),
-    });
-
-    await fetch(`${API_BASE_URL}/api/support/event`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "support_escalation", source: "website" }),
     });
 
     alert("A human will join shortly.");
@@ -58,10 +46,10 @@ export default function AIChat() {
 
     const screenshot = await html2canvas(document.body).then((canvas) => canvas.toDataURL());
 
-    await fetch(`${API_BASE_URL}/api/support/report`, {
+    await fetch(`${API_BASE_URL}/api/ai/report`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ description, screenshot }),
+      body: JSON.stringify({ description, screenshot, source: "website" }),
     });
 
     alert("Issue reported.");
@@ -77,11 +65,8 @@ export default function AIChat() {
       />
       <div className="flex flex-wrap gap-2">
         <button onClick={sendMessage} className="rounded bg-slate-900 px-3 py-2 text-sm font-semibold text-white">Ask AI</button>
-        <button onClick={escalate} className="rounded bg-blue-600 px-3 py-2 text-sm font-semibold text-white">Talk to a Human</button>
-        {shouldEscalate ? (
-          <button onClick={escalate} className="rounded bg-red-600 px-3 py-2 text-sm font-semibold text-white">Escalate Now</button>
-        ) : null}
-        <button onClick={reportIssue} className="rounded bg-slate-200 px-3 py-2 text-sm font-semibold text-slate-800">Report an Issue</button>
+        <button onClick={escalate} className="rounded bg-blue-600 px-3 py-2 text-sm font-semibold text-white">Talk to a human</button>
+        <button onClick={reportIssue} className="rounded bg-slate-200 px-3 py-2 text-sm font-semibold text-slate-800">Report an issue</button>
       </div>
       <div className="rounded-md bg-slate-50 p-2 text-sm text-slate-700">{response}</div>
     </div>

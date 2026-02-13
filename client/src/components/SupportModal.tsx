@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { API_BASE_URL } from "@/config/env";
+import { APPLY_URL } from "@/config/site";
 
 type SupportModalProps = {
   open: boolean;
@@ -15,8 +16,8 @@ type Message = {
 };
 
 const quickActions = [
-  { label: "Start Application", href: "/apply" },
-  { label: "Upload Documents", href: "/apply" },
+  { label: "Start Application", href: APPLY_URL },
+  { label: "Upload Documents", href: APPLY_URL },
   { label: "Book Meeting", href: "/how-it-works" },
   { label: "Talk to Human", href: "/how-it-works" },
   { label: "Report Issue", href: "/how-it-works" },

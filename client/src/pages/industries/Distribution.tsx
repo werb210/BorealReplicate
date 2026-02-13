@@ -1,13 +1,12 @@
-import { APPLY_URL } from "@/config/site";
+import IndustryAdvisoryTemplate from "@/pages/industries/IndustryAdvisoryTemplate";
 
 export default function Distribution() {
   return (
-    <div className="bg-slate-900 py-24 text-white">
-      <div className="mx-auto max-w-6xl px-6">
-        <h1 className="mb-6 text-5xl font-semibold">Capital Built for Distribution Velocity</h1>
-        <p className="text-lg text-gray-300">Inventory lines. PO funding. Receivables acceleration.</p>
-        <a href={APPLY_URL} className="mt-8 inline-block rounded-md bg-white px-6 py-3 text-black">Apply Now</a>
-      </div>
-    </div>
+    <IndustryAdvisoryTemplate
+      title="Distribution"
+      headline="Capital Built for Distribution Velocity"
+      description="Inventory lines, supplier timing, and receivable acceleration structured for margin protection."
+      bullets={['Inventory-cycle lines designed for fast-moving SKUs', 'PO and supplier-pay support for large fulfillment runs', 'Receivables acceleration to smooth cash conversion']}
+    />
   );
 }

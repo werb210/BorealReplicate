@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { APPLY_URL } from "@/config/site";
 
 const products = [
   { label: "Term Loans", href: "/products/term-loan" },
@@ -13,7 +14,7 @@ export function ProductGrid() {
     <section className="mx-auto max-w-6xl px-4 py-8 md:py-10">
       <div className="flex items-end justify-between gap-3">
         <h2 className="text-2xl font-semibold">Products</h2>
-        <Link href="/apply" className="text-sm font-semibold underline underline-offset-4">Apply Now</Link>
+        <a href={APPLY_URL} className="text-sm font-semibold underline underline-offset-4">Apply Now</a>
       </div>
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (

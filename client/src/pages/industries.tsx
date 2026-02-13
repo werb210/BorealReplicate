@@ -1,6 +1,9 @@
 import { Link } from "wouter";
 
 const industries = [
+  { slug: "construction", name: "Construction", overview: "Project-based cash cycles, equipment spends, and draw-driven working capital." },
+  { slug: "manufacturing", name: "Manufacturing", overview: "Inventory turns, machinery upgrades, and PO-backed production liquidity." },
+  { slug: "logistics", name: "Logistics", overview: "Freight cycle timing, fleet capacity growth, and dispatch-aligned capital." },
   { slug: "distribution", name: "Distribution", overview: "Inventory velocity, supplier timing, and receivable-cycle financing." },
   { slug: "media", name: "Media", overview: "Campaign-backed projects, production cycles, and contract-timed funding." },
   { slug: "healthcare", name: "Healthcare", overview: "Practice growth, equipment requirements, and continuity-focused capital." },

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Modal from "../../components/ui/Modal";
+import { APPLY_URL } from "@/config/site";
 
 export default function ExitIntentModal() {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function ExitIntentModal() {
     <Modal open={open} onClose={() => setOpen(false)}>
       <h2>Before You Go…</h2>
       <p>Want a quick capital assessment?</p>
-      <button onClick={() => (window.location.href = "/apply")}>Start Application</button>
+      <button onClick={() => (window.location.href = APPLY_URL)}>Start Application</button>
     </Modal>
   );
 }

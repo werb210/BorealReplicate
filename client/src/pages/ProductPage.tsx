@@ -1,10 +1,11 @@
-import { Link, useParams } from "wouter";
+import { useParams } from "wouter";
 import { useEffect } from "react";
 import { getProductBySlug } from "@/router/content";
 import NotFound from "@/pages/NotFound";
 import { SEO } from "@/seo/SEO";
 import { breadcrumbSchema, financialServiceSchema } from "@/seo/structuredData";
 import { trackEvent } from "@/utils/analytics";
+import { APPLY_URL } from "@/config/site";
 
 export default function ProductPage() {
   const params = useParams();
@@ -81,7 +82,7 @@ export default function ProductPage() {
         <p className="mt-2 text-slate-700">Specialty lenders often provide greater speed, flexibility, and structuring advantages for asset-heavy or complex cash-flow situations.</p>
       </section>
 
-      <Link href="/apply" className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white" onClick={() => trackEvent("apply_clicked", { source: "product_page", product: product.slug })}>Apply Now</Link>
+      <a href={APPLY_URL} className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white" onClick={() => trackEvent("apply_clicked", { source: "product_page", product: product.slug })}>Apply Now</a>
     </section>
   );
 }

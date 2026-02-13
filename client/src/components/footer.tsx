@@ -2,6 +2,7 @@ import { useState } from "react";
 import ContactModal from "@/components/ContactModal";
 import CapitalReadinessModal from "@/components/CapitalReadinessModal";
 import ProductComparisonModal from "@/components/ProductComparisonModal";
+import { APPLY_URL } from "@/config/site";
 
 export function Footer() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -29,7 +30,7 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wide">Start</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
-              <li><a href="/apply">Start Application</a></li>
+              <li><a href={APPLY_URL}>Start Application</a></li>
               <li><button className="text-left" onClick={() => setContactOpen(true)}>Contact Us</button></li>
               <li><button className="text-left" onClick={() => setScoreOpen(true)}>Credit Readiness Score</button></li>
               <li><button className="text-left" onClick={() => setComparisonOpen(true)}>Compare Financing Options</button></li>

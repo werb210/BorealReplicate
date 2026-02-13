@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import Home from "@/pages/Home";
-import Apply from "@/pages/Apply";
 import HowItWorks from "@/pages/HowItWorks";
 import Industries from "@/pages/industries";
 import Contact from "@/pages/Contact";
@@ -16,6 +15,9 @@ import LineOfCredit from "@/pages/products/LineOfCredit";
 import Factoring from "@/pages/products/Factoring";
 import Equipment from "@/pages/products/Equipment";
 import PurchaseOrder from "@/pages/products/PurchaseOrder";
+import Construction from "@/pages/industries/Construction";
+import Manufacturing from "@/pages/industries/Manufacturing";
+import Logistics from "@/pages/industries/Logistics";
 import Distribution from "@/pages/industries/Distribution";
 import Media from "@/pages/industries/Media";
 import Healthcare from "@/pages/industries/Healthcare";
@@ -45,7 +47,6 @@ export function AppRouter() {
       <main id="main-content">
         <Switch>
           <Route path="/" component={Home} />
-          <Route path="/apply" component={Apply} />
           <Route path="/how-it-works" component={HowItWorks} />
 
           <Route path="/products/term-loans" component={TermLoans} />
@@ -55,6 +56,9 @@ export function AppRouter() {
           <Route path="/products/purchase-order-financing" component={PurchaseOrder} />
 
           <Route path="/industries" component={Industries} />
+          <Route path="/industries/construction" component={Construction} />
+          <Route path="/industries/manufacturing" component={Manufacturing} />
+          <Route path="/industries/logistics" component={Logistics} />
           <Route path="/industries/distribution" component={Distribution} />
           <Route path="/industries/media" component={Media} />
           <Route path="/industries/healthcare" component={Healthcare} />
