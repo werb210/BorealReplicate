@@ -1,9 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { useChatbot } from "@/hooks/use-chatbot";
 import { ReactNode } from "react";
-import { trackEvent } from "@/utils/analytics";
+import { Button } from "@/components/ui/button";
 import { APPLY_URL } from "@/config/site";
-
+import { trackEvent } from "@/utils/analytics";
 
 type CTAProps = {
   children?: ReactNode;
@@ -21,20 +19,9 @@ export function ApplyNowButton({ children, className, variant = "cta", size = "l
 }
 
 export function AskQuestionButton({ children, className, variant = "outline", size = "lg" }: CTAProps) {
-  const { openChatbot, resetChatbot } = useChatbot();
-
   return (
-    <Button
-      className={className}
-      variant={variant}
-      size={size}
-      onClick={() => {
-        resetChatbot();
-        openChatbot();
-        trackEvent("chat_opened", { source: "cta_button" });
-      }}
-    >
-      {children ?? "Talk to an expert"}
+    <Button asChild className={className} variant={variant} size={size}>
+      <a href="/contact">{children ?? "Talk to an expert"}</a>
     </Button>
   );
 }
