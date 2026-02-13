@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { X, MessageCircle, Loader2, Send } from "lucide-react";
+import { APPLY_URL } from "@/config/site";
 
 const industryOptions = ["Construction", "Manufacturing", "Logistics", "Other"];
 
@@ -27,7 +28,6 @@ const faqOptions = [
 ];
 
 const HUMAN_CONTACT = "mailto:info@boreal.financial";
-const APPLY_URL = "/apply/step-1";
 
 function recommendProduct(industry: string, issue: string) {
   if (issue === "invoice-gaps") return "Factoring";
