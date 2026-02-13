@@ -2,11 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { APPLY_URL } from "@/config/site";
 
-type NavbarProps = {
-  onOpenSupport: () => void;
-};
-
-export function Navbar({ onOpenSupport }: NavbarProps) {
+export function Navbar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -35,7 +31,7 @@ export function Navbar({ onOpenSupport }: NavbarProps) {
                 <a href="/products/line-of-credit">Line of Credit</a>
                 <a href="/products/factoring">Factoring</a>
                 <a href="/products/equipment-financing">Equipment</a>
-                <a href="/products/purchase-order">Purchase Order</a>
+                <a href="/products/purchase-order-financing">Purchase Order Financing</a>
               </div>
             )}
           </div>
@@ -58,16 +54,15 @@ export function Navbar({ onOpenSupport }: NavbarProps) {
             )}
           </div>
 
-          <a href="/lender-login" className="login-btn text-sm font-medium text-secondary hover:text-primary">
-            Lender / Referrer Login
+          <a href="/capital-readiness-score" className="text-sm font-medium text-secondary hover:text-primary">
+            Capital Readiness Score
           </a>
-          <button
-            type="button"
-            onClick={onOpenSupport}
-            className="rounded-md border border-border px-3 py-2 text-sm font-medium text-secondary hover:bg-muted"
-          >
-            Talk to Expert
-          </button>
+          <a href="/product-comparison" className="text-sm font-medium text-secondary hover:text-primary">
+            Product Comparison
+          </a>
+          <a href="/contact" className="text-sm font-medium text-secondary hover:text-primary">
+            Contact Us
+          </a>
         </div>
 
         <button

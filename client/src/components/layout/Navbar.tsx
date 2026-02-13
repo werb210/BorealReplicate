@@ -66,7 +66,9 @@ export function Navbar() {
             )}
           </div>
 
-          <Link href="/lender-login">Lender / Referrer Login</Link>
+          <Link href="/capital-readiness-score">Capital Readiness Score</Link>
+          <Link href="/product-comparison">Product Comparison</Link>
+          <Link href="/contact">Contact Us</Link>
 
           <a href={APPLY_URL} className="rounded-md bg-blue-600 px-5 py-2 text-white">
             Apply Now

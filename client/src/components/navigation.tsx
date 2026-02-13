@@ -44,7 +44,7 @@ export function Navigation() {
                 </Link>
               ))}
               <AskQuestionButton size="sm" variant="outline">
-                Contact / Chat
+                Contact Us
               </AskQuestionButton>
               <ApplyNowButton size="sm">Apply Now</ApplyNowButton>
             </div>
@@ -82,7 +82,7 @@ export function Navigation() {
               ))}
               <div className="px-3 py-2 space-y-2">
                 <AskQuestionButton className="w-full" size="sm" variant="outline">
-                  Contact / Chat
+                  Contact Us
                 </AskQuestionButton>
                 <ApplyNowButton className="w-full" size="sm">
                   Apply Now

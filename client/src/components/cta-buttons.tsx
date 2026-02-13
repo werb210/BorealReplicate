@@ -21,7 +21,7 @@ export function ApplyNowButton({ children, className, variant = "cta", size = "l
 export function AskQuestionButton({ children, className, variant = "outline", size = "lg" }: CTAProps) {
   return (
     <Button asChild className={className} variant={variant} size={size}>
-      <a href="/contact">{children ?? "Talk to an expert"}</a>
+      <a href="/contact">{children ?? "Speak With Advisor"}</a>
     </Button>
   );
 }
