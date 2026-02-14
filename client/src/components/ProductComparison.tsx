@@ -9,36 +9,38 @@ const categoryValueMap: Record<(typeof categories)[number], keyof (typeof produc
   Collateral: "collateral",
 };
 
-export default function ProductComparison() {
-  return (
-    <section className="bg-black px-8 py-12 text-white">
-      <h2 className="mb-10 text-3xl font-bold">Compare Financing Options</h2>
+const orderedSlugs = ["loc", "term-loan", "factoring", "po-financing", "asset-based-lending"];
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-sm">
-          <thead>
-            <tr>
-              <th className="p-4 text-left"></th>
-              {products.map((product) => (
-                <th key={product.slug} className="p-4 text-center">
-                  {product.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((category) => (
-              <tr key={category} className="border-t border-gray-700">
-                <td className="p-4 font-semibold">{category}</td>
-                {products.map((product) => (
-                  <td key={`${product.slug}-${category}`} className="p-4 text-center text-gray-300">
-                    {product[categoryValueMap[category]]}
-                  </td>
+export default function ProductComparison() {
+  const orderedProducts = orderedSlugs.map((slug) => products.find((product) => product.slug === slug)).filter(Boolean);
+
+  return (
+    <section className="bg-[#020817] px-5 py-10 text-white md:px-6 md:py-12">
+      <div className="mx-auto max-w-7xl">
+        <h2 className="mb-6 text-3xl font-bold">Compare Financing Options</h2>
+
+        <div className="overflow-x-auto rounded-2xl border border-white/10">
+          <table className="min-w-[760px] w-full border-collapse text-sm">
+            <thead className="bg-[#08132a]">
+              <tr>
+                <th className="p-4 text-left">Product</th>
+                {categories.map((category) => (
+                  <th key={category} className="p-4 text-left">{category}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {orderedProducts.map((product) => (
+                <tr key={product!.slug} className="border-t border-white/10 bg-[#040b1a] align-top">
+                  <td className="p-4 font-semibold">{product!.name}</td>
+                  {categories.map((category) => (
+                    <td key={`${product!.slug}-${category}`} className="p-4 text-slate-300">{product![categoryValueMap[category]]}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   );
