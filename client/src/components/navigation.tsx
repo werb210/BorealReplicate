@@ -18,12 +18,12 @@ export function Navigation() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/">
-              <h1
-                className="text-xl font-semibold tracking-tight text-secondary hover:text-primary transition-colors cursor-pointer"
+              <img
+                src="/images/Header.png"
+                alt="Boreal Financial"
+                className="h-10 w-auto object-contain"
                 data-testid="logo-boreal-financial"
-              >
-                Boreal Financial
-              </h1>
+              />
             </Link>
           </div>
 
