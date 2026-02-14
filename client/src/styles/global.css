@@ -31,3 +31,16 @@ img {
     padding: 72px 24px;
   }
 }
+
+
+.hero-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}

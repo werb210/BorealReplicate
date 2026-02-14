@@ -177,9 +177,9 @@ export const industries: Industry[] = [
   {
     slug: "construction",
     name: "Construction",
-    heroImage: "/images/68b6a8f361e1aadb77072041_excavator-loan-vs-lease.webp",
+    heroImage: "/images/industries/construction.jpg",
     overview:
-      "Construction businesses operate in milestone-based billing cycles with retainage, mobilization costs, and heavy equipment demands. Boreal helps structure financing that aligns to project cash-flow timing and contract complexity.",
+      "Equipment financing, progress billing support, and working capital structured for project-based cash flow.",
     examples: [
       "General contractors managing multiple active project timelines",
       "Specialty trades financing labor peaks, mobilization, and material deposits",
@@ -189,9 +189,9 @@ export const industries: Industry[] = [
   {
     slug: "manufacturing",
     name: "Manufacturing",
-    heroImage: "/images/premium_photo-1661962673986-dcffa2a05e07.jpg",
+    heroImage: "/images/industries/manufacturing.jpg",
     overview:
-      "Manufacturing operators must balance raw-material procurement, production timelines, and delayed customer collections. Boreal supports facilities that keep production running while protecting liquidity and margin stability.",
+      "Inventory lines, asset-based lending, and equipment facilities aligned with production cycles.",
     examples: [
       "Food and beverage producers funding packaging, ingredient, and distribution cycles",
       "Light industrial manufacturers modernizing machinery and throughput",
@@ -199,27 +199,51 @@ export const industries: Industry[] = [
     ],
   },
   {
-    slug: "logistics",
-    name: "Logistics",
-    heroImage: "/images/BICyMkoEnUVpYgcZk4VT2XaB9gjh5CyaQGfWXnRHf-eF3dxmXhrTn0WwPuM82qYpJujUu6SjbpnF7LFGnnBX8NilsMf2U4neXl3oR5aGwX4.jpg",
+    slug: "retail",
+    name: "Retail",
+    heroImage: "/images/industries/retail.jpg",
     overview:
-      "Logistics companies face fuel volatility, fleet maintenance demands, and contract payment delays. Boreal structures financing for transportation operators that need reliable working capital across dynamic route and freight schedules.",
+      "Seasonal working capital, inventory financing, and growth funding for brick-and-mortar and ecommerce.",
     examples: [
-      "Freight carriers bridging broker payment delays and driver payroll timing",
-      "Warehouse operators financing inventory flow and facility expansion",
-      "Distribution businesses replacing fleet assets while supporting contract growth",
+      "Multi-location retailers stocking inventory ahead of peak seasons",
+      "Ecommerce brands balancing ad spend, inventory, and shipping cycles",
+      "Consumer goods operators launching new product lines",
     ],
   },
   {
-    slug: "other",
-    name: "Other Industries",
-    heroImage: "/images/business-handshake-close-up.jpg",
+    slug: "distribution",
+    name: "Distribution",
+    heroImage: "/images/industries/distribution.jpg",
     overview:
-      "Beyond featured sectors, Boreal supports a broad range of B2B industries that need strategic deal structuring and lender matching across secured and unsecured funding solutions.",
+      "PO financing, A/R facilities, and revolving lines for supply-chain-driven businesses.",
     examples: [
-      "Professional services firms with uneven contract receivable timing",
-      "Wholesale businesses scaling inventory and supplier payment programs",
-      "Technology-enabled operators requiring growth capital with flexible structures",
+      "Wholesalers managing supplier prepayments and receivable delays",
+      "Import/export distributors financing inventory in transit",
+      "Regional distributors scaling contract volume with revolving facilities",
+    ],
+  },
+  {
+    slug: "media",
+    name: "Media",
+    heroImage: "/images/industries/media.jpg",
+    overview:
+      "Revenue-based financing, contract-backed advances, and structured capital for agencies and creators.",
+    examples: [
+      "Agencies smoothing cash flow between campaign delivery and payment",
+      "Production studios funding project costs before milestone payouts",
+      "Creator-led businesses scaling teams and content output",
+    ],
+  },
+  {
+    slug: "healthcare",
+    name: "Healthcare",
+    heroImage: "/images/industries/healthcare.jpg",
+    overview:
+      "Equipment, receivables, and operating capital for clinics, practices, and service providers.",
+    examples: [
+      "Clinics investing in diagnostic and treatment equipment",
+      "Practices bridging insurer and payer receivable timing",
+      "Healthcare operators expanding to new locations",
     ],
   },
 ];
