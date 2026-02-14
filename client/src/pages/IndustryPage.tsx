@@ -1,24 +1,27 @@
+import { industries } from "@/data/industries";
 import { useParams } from "wouter";
 
 export default function IndustryPage() {
   const params = useParams();
-  const industry = params?.slug ?? "industry";
+  const slug = params?.slug ?? "";
+  const industry = industries.find((item) => item.slug === slug);
+
+  if (!industry) {
+    return <div className="bg-black px-6 py-16 text-white">Industry not found.</div>;
+  }
 
   return (
-    <section className="bg-black py-16 text-white">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-2">
+    <section className="bg-black py-20 text-white">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-2">
         <div>
-          <h1 className="mb-6 text-4xl font-bold">{industry}</h1>
-          <p className="mb-4 text-lg">
-            Businesses in {industry} face liquidity pressure, growth constraints, and capital access complexity.
-          </p>
-          <p>
-            Boreal structures tailored facilities including Lines of Credit, Term Loans, Factoring, PO Financing and
-            Asset Based Lending.
+          <h1 className="mb-6 text-4xl font-bold">Financing Solutions for {industry.name}</h1>
+          <p className="text-lg leading-relaxed text-gray-300">
+            Businesses in {industry.name} face liquidity pressure, growth constraints, and capital access complexity.
+            Boreal builds financing strategies aligned to industry-specific operating cycles.
           </p>
         </div>
 
-        <img src={`/images/industries/${industry}.jpg`} className="rounded shadow-lg" alt={industry} />
+        <img src={industry.image} className="rounded shadow-xl" alt={industry.name} />
       </div>
     </section>
   );

@@ -14,37 +14,25 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
   return (
     <div className="min-h-screen bg-black pb-16 pt-24 text-white">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="grid items-center gap-10 md:grid-cols-2">
-          <div>
-            <h1 className="mb-6 text-4xl font-bold">{product.name}</h1>
+        <img src={product.image} alt={product.name} className="mb-8 w-full rounded" onError={(event) => {
+          event.currentTarget.src = "/images/products/term-loan.jpg";
+        }} />
 
-            <p className="mb-6 text-gray-300">{product.description}</p>
+        <h1 className="mb-6 text-4xl font-bold">{product.name}</h1>
 
-            <ul className="space-y-2 text-gray-400">
-              <li>• Fast underwriting and responsive execution</li>
-              <li>• Flexible facility design aligned to cash flow</li>
-              <li>• Structured for growth, liquidity, and stability</li>
-              <li>• Advisory support through funding and beyond</li>
-            </ul>
+        <p className="mb-6 text-lg text-gray-300">{product.description}</p>
 
-            <div className="mt-8">
-              <a href="https://client.boreal.financial" className="rounded bg-blue-600 px-6 py-3">
-                Apply Now
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <img
-              src={product.image}
-              alt={product.name}
-              onError={(event) => {
-                event.currentTarget.src = "/images/products/term-loan.jpg";
-              }}
-              className="rounded-xl shadow-2xl"
-            />
-          </div>
-        </div>
+        <ul className="space-y-2 text-gray-300">
+          <li>
+            <strong>Term:</strong> {product.term}
+          </li>
+          <li>
+            <strong>Rates:</strong> {product.rateRange}
+          </li>
+          <li>
+            <strong>Best For:</strong> {product.bestFor}
+          </li>
+        </ul>
       </div>
     </div>
   );

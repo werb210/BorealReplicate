@@ -7,23 +7,13 @@ export default function CreditReadiness() {
     event.preventDefault();
     setLoading(true);
 
-    const formState = Object.fromEntries(new FormData(event.currentTarget));
+    const formData = Object.fromEntries(new FormData(event.currentTarget));
 
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/api/public/application/create-from-website`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formState),
-      },
-    );
-
-    const data = await res.json();
-
-    if (data.applicationId) {
-      window.location.href = `https://client.boreal.financial/apply/${data.applicationId}`;
-      return;
-    }
+    await fetch("/api/pre-intake", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
     setLoading(false);
   }
@@ -34,16 +24,12 @@ export default function CreditReadiness() {
       <input name="fullName" placeholder="Full Name" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" required />
       <input name="phone" placeholder="Phone" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" required />
       <input name="email" placeholder="Email" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" required />
+      <input name="industry" placeholder="Industry" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" required />
       <input name="yearsInBusiness" placeholder="Years in Business" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" />
-      <input name="annualRevenue" placeholder="Annual Revenue" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" />
       <input name="monthlyRevenue" placeholder="Monthly Revenue" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" />
-      <input name="requestedAmount" placeholder="Requested Amount" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" />
-      <select name="creditScoreRange" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white">
-        <option>Credit Score Range</option>
-        <option>650+</option>
-        <option>600–649</option>
-        <option>Below 600</option>
-      </select>
+      <input name="annualRevenue" placeholder="Annual Revenue" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" />
+      <input name="arOutstanding" placeholder="A/R Outstanding" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" />
+      <input name="existingDebt" placeholder="Existing Debt" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" />
       <button className="w-full rounded bg-blue-600 px-6 py-3 text-white" disabled={loading}>
         {loading ? "Submitting..." : "Check Credit Readiness"}
       </button>

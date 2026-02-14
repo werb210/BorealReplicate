@@ -20,7 +20,7 @@ export function ProductGrid() {
         {products.map((product) => (
           <article key={product.label} className="rounded-lg border p-4">
             <h3 className="text-sm font-semibold">{product.label}</h3>
-            <Link href={product.href} className="mt-2 inline-block text-sm text-slate-700 underline underline-offset-4">Learn more</Link>
+            <Link href={product.href} className="mt-2 inline-block text-sm text-slate-700 underline underline-offset-4">Learn More</Link>
           </article>
         ))}
       </div>
