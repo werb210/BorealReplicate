@@ -1,20 +1,19 @@
 import { products } from "@/data/products";
 
-const categories = ["Speed", "Best Use", "Repayment", "Collateral", "Typical Range"] as const;
+const categories = ["Speed", "Best Use", "Repayment", "Collateral"] as const;
 
 const categoryValueMap: Record<(typeof categories)[number], keyof (typeof products)[number]> = {
   Speed: "speed",
   "Best Use": "bestUse",
   Repayment: "repayment",
   Collateral: "collateral",
-  "Typical Range": "typicalRange",
 };
 
 const orderedSlugs = [
   "loc",
   "term-loan",
   "equipment-financing",
-  "accounts-receivable-financing",
+  "invoice-factoring",
   "po-financing",
   "asset-based-lending",
 ];
@@ -28,7 +27,7 @@ export default function ProductComparison() {
         <h2 className="mb-6 text-3xl font-bold">Compare Financing Options</h2>
 
         <div className="overflow-x-auto rounded-2xl border border-white/10">
-          <table className="min-w-[760px] w-full border-collapse text-sm">
+          <table className="w-full min-w-[640px] border-collapse text-sm">
             <thead className="bg-[#08132a]">
               <tr>
                 <th className="p-4 text-left">Product</th>

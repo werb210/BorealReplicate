@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { storage } from "../storage";
 
 type ContactPayload = {
   company?: string;
@@ -17,6 +18,10 @@ async function sendTwilioSms(messageBody: string) {
   const fromPhone = process.env.TWILIO_PHONE;
 
   if (!accountSid || !authToken || !fromPhone) {
+    if (process.env.NODE_ENV !== "production") {
+      console.log("Skipping Twilio SMS: Twilio environment variables are not configured");
+      return;
+    }
     throw new Error("Twilio environment variables are not configured");
   }
 
@@ -50,20 +55,33 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    await sendTwilioSms(`Website Lead:\nCompany: ${company}\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nUTM: ${JSON.stringify(utm ?? {})}`);
-
-    if (process.env.NODE_ENV !== "production") console.log("Stored Web Lead:", {
-      company,
+    const { deduped } = await storage.createOrGetWebLead({
+      companyName: company,
       firstName,
       lastName,
       email,
       phone,
-      utm,
-      source: "Website Contact",
-      createdAt: new Date().toISOString(),
     });
 
-    return res.json({ success: true });
+    if (!deduped) {
+      await sendTwilioSms(`Website Lead:\nCompany: ${company}\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phone}\nUTM: ${JSON.stringify(utm ?? {})}`);
+    }
+
+    if (process.env.NODE_ENV !== "production") {
+      console.log("Stored Web Lead:", {
+        company,
+        firstName,
+        lastName,
+        email,
+        phone,
+        utm,
+        source: "Website Contact",
+        deduped,
+        createdAt: new Date().toISOString(),
+      });
+    }
+
+    return res.json({ success: true, deduped });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server error" });

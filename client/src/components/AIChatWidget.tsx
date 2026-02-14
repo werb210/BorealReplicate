@@ -1,116 +1,105 @@
-import { useEffect, useState } from "react";
-import html2canvas from "html2canvas";
-import {
-  startAiSession,
-  sendAiMessage,
-  escalateToHuman,
-  reportIssue,
-} from "@/services/aiService";
+import { FormEvent, useMemo, useRef, useState } from "react";
 
 type ChatMessage = {
-  role: "user" | "assistant";
+  role: "user" | "system";
   content: string;
 };
 
+const CHAT_SESSION_KEY = "boreal_chat_session_id";
+
+function getSessionId() {
+  const existing = window.localStorage.getItem(CHAT_SESSION_KEY);
+  if (existing) return existing;
+  const generated = crypto.randomUUID();
+  window.localStorage.setItem(CHAT_SESSION_KEY, generated);
+  return generated;
+}
+
 export default function AIChatWidget() {
   const [open, setOpen] = useState(false);
-  const [sessionId, setSessionId] = useState<string | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [connecting, setConnecting] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const wsRef = useRef<WebSocket | null>(null);
+  const sessionId = useMemo(() => getSessionId(), []);
 
-  useEffect(() => {
-    if (!open || sessionId) return;
+  const openChat = () => {
+    setOpen((current) => {
+      const next = !current;
+      if (next && !wsRef.current) {
+        const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+        const socket = new WebSocket(`${protocol}://${window.location.host}/ws/chat`);
+        wsRef.current = socket;
+        setConnecting(true);
 
-    startAiSession({ context: "website" }).then((res) => {
-      setSessionId(res.sessionId);
+        socket.onopen = () => {
+          setConnecting(false);
+          setConnected(true);
+          socket.send(JSON.stringify({ type: "session.start", sessionId }));
+        };
+
+        socket.onmessage = (event) => {
+          setMessages((prev) => [...prev, { role: "system", content: String(event.data) }]);
+        };
+
+        socket.onerror = () => {
+          setMessages((prev) => [...prev, { role: "system", content: "Chat connection encountered an error." }]);
+        };
+
+        socket.onclose = () => {
+          setConnected(false);
+          setConnecting(false);
+          wsRef.current = null;
+        };
+      }
+      return next;
     });
-  }, [open, sessionId]);
+  };
 
-  async function send() {
-    if (!input || !sessionId) return;
+  const sendMessage = (event: FormEvent) => {
+    event.preventDefault();
+    if (!input.trim() || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
 
-    setMessages((prev) => [...prev, { role: "user", content: input }]);
-    setLoading(true);
-
-    const res = await sendAiMessage(sessionId, input);
-
-    setMessages((prev) => [...prev, { role: "assistant", content: res.reply }]);
-
+    const payload = { type: "chat.message", sessionId, message: input.trim() };
+    wsRef.current.send(JSON.stringify(payload));
+    setMessages((prev) => [...prev, { role: "user", content: input.trim() }]);
     setInput("");
-    setLoading(false);
-  }
-
-  async function talkToHuman() {
-    if (!sessionId) return;
-    await escalateToHuman(sessionId);
-    alert("Transferring you to a Boreal specialist.");
-  }
-
-  async function captureScreenshot() {
-    const canvas = await html2canvas(document.body);
-    return canvas.toDataURL("image/png");
-  }
-
-  async function handleReport() {
-    if (!sessionId) return;
-    const screenshot = await captureScreenshot();
-    await reportIssue(sessionId, input || "Issue reported", screenshot);
-    alert("Issue submitted.");
-  }
+  };
 
   return (
     <>
       <button
-        onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 rounded-full bg-black px-4 py-3 text-white shadow-lg"
+        type="button"
+        onClick={openChat}
+        className="fixed bottom-6 right-6 z-[60] inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#0b2d6b] text-white shadow-[0_10px_30px_rgba(11,45,107,0.55)] transition hover:bg-[#123b89]"
+        aria-label="Open chat"
       >
-        AI
+        Chat
       </button>
 
-      {open && (
-        <div className="fixed bottom-20 right-6 z-50 flex w-96 flex-col rounded border bg-white shadow-xl">
-          <div className="border-b p-3 font-semibold">Maya — Boreal AI</div>
-
-          <div className="flex-1 space-y-2 overflow-auto p-3 text-sm">
-            {messages.map((message, i) => (
-              <div key={`${message.role}-${i}`} className={message.role === "user" ? "text-right" : ""}>
-                {message.content}
-              </div>
+      {open ? (
+        <section className="fixed bottom-24 right-4 z-[60] flex h-[26rem] w-[calc(100%-2rem)] max-w-sm flex-col rounded-2xl border border-white/20 bg-[#040b1a] text-white shadow-xl md:right-6">
+          <header className="border-b border-white/10 px-4 py-3 text-sm font-semibold">Boreal Chat</header>
+          <div className="flex-1 space-y-2 overflow-y-auto px-4 py-3 text-sm">
+            {connecting ? <p className="text-slate-300">Connecting...</p> : null}
+            {!connecting && !connected ? <p className="text-slate-300">Disconnected.</p> : null}
+            {messages.map((message, index) => (
+              <p key={`${message.role}-${index}`} className={message.role === "user" ? "text-right text-blue-200" : "text-slate-200"}>{message.content}</p>
             ))}
-            {loading && <div>Typing...</div>}
           </div>
-
-          <div className="space-y-2 border-t p-3">
+          <form onSubmit={sendMessage} className="border-t border-white/10 p-3">
+            <label htmlFor="chat-message" className="sr-only">Message</label>
             <input
+              id="chat-message"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="w-full border p-2"
-              placeholder="Ask about financing..."
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Type a message"
+              className="w-full rounded border border-white/20 bg-[#08132a] px-3 py-2 text-sm"
             />
-
-            <button onClick={send} className="w-full rounded bg-black py-2 text-white">
-              Ask Maya
-            </button>
-
-            <div className="flex gap-2">
-              <button
-                onClick={talkToHuman}
-                className="flex-1 rounded bg-green-600 py-2 text-xs text-white"
-              >
-                Talk to a Human
-              </button>
-
-              <button
-                onClick={handleReport}
-                className="flex-1 rounded bg-red-600 py-2 text-xs text-white"
-              >
-                Report Issue
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+          </form>
+        </section>
+      ) : null}
     </>
   );
 }

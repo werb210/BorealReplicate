@@ -17,20 +17,38 @@ export type CapitalReadinessLead = {
   createdAt: string;
 };
 
+export type WebLead = {
+  id: string;
+  companyName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  createdAt: string;
+};
+
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   createCapitalReadinessLead(lead: Omit<CapitalReadinessLead, "id" | "sessionToken" | "createdAt">): Promise<CapitalReadinessLead>;
+  findCapitalReadinessLeadByContact(email: string, phone: string): Promise<CapitalReadinessLead | undefined>;
+  createOrGetWebLead(lead: Omit<WebLead, "id" | "createdAt">): Promise<{ lead: WebLead; deduped: boolean }>;
+}
+
+function normalize(value: string) {
+  return value.trim().toLowerCase();
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private readinessLeads: Map<string, CapitalReadinessLead>;
+  private webLeads: Map<string, WebLead>;
 
   constructor() {
     this.users = new Map();
     this.readinessLeads = new Map();
+    this.webLeads = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -48,6 +66,12 @@ export class MemStorage implements IStorage {
     return user;
   }
 
+  async findCapitalReadinessLeadByContact(email: string, phone: string): Promise<CapitalReadinessLead | undefined> {
+    const normalizedEmail = normalize(email);
+    const normalizedPhone = normalize(phone);
+    return Array.from(this.readinessLeads.values()).find((lead) => normalize(lead.email) === normalizedEmail || normalize(lead.phone) === normalizedPhone);
+  }
+
   async createCapitalReadinessLead(lead: Omit<CapitalReadinessLead, "id" | "sessionToken" | "createdAt">): Promise<CapitalReadinessLead> {
     const id = randomUUID();
     const createdAt = new Date().toISOString();
@@ -55,6 +79,22 @@ export class MemStorage implements IStorage {
     const record: CapitalReadinessLead = { ...lead, id, sessionToken, createdAt };
     this.readinessLeads.set(id, record);
     return record;
+  }
+
+  async createOrGetWebLead(lead: Omit<WebLead, "id" | "createdAt">): Promise<{ lead: WebLead; deduped: boolean }> {
+    const normalizedEmail = normalize(lead.email);
+    const normalizedPhone = normalize(lead.phone);
+    const existing = Array.from(this.webLeads.values()).find((item) => normalize(item.email) === normalizedEmail || normalize(item.phone) === normalizedPhone);
+
+    if (existing) {
+      return { lead: existing, deduped: true };
+    }
+
+    const id = randomUUID();
+    const createdAt = new Date().toISOString();
+    const record: WebLead = { ...lead, id, createdAt };
+    this.webLeads.set(id, record);
+    return { lead: record, deduped: false };
   }
 }
 

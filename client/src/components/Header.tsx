@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/95 text-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 md:px-4 md:py-3">
         <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <img
             src="/images/Header.png"
@@ -41,11 +41,11 @@ export default function Header() {
           <a href={applyHref} className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700">{applyLabel}</a>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <Link href="/contact" className="rounded border border-white/40 px-3 py-2 text-xs font-medium">
+        <div className="flex flex-wrap items-center justify-end gap-1.5 lg:hidden">
+          <Link href="/contact" className="rounded border border-white/40 px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap">
             Contact
           </Link>
-          <a href={applyHref} className="rounded bg-white px-3 py-2 text-xs font-semibold text-black">{applyLabel}</a>
+          <a href={applyHref} className="rounded bg-white px-2.5 py-1.5 text-[11px] font-semibold text-black whitespace-nowrap">{applyLabel}</a>
           <button
             onClick={() => setOpen((value) => !value)}
             className="rounded border border-white/30 p-2"
@@ -57,8 +57,8 @@ export default function Header() {
         </div>
       </div>
 
-      <div className={`overflow-hidden border-t border-white/10 bg-[#040b1a] transition-all duration-300 lg:hidden ${open ? "max-h-[85vh]" : "max-h-0"}`}>
-        <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3">
+      <div className={`overflow-hidden border-t border-white/10 bg-[#040b1a] transition-all duration-300 lg:hidden ${open ? "max-h-[75vh]" : "max-h-0"}`}>
+        <nav className="mx-auto flex max-w-7xl flex-col gap-1 overflow-y-auto px-3 py-3">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
               {item.label}

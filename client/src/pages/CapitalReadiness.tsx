@@ -1,18 +1,24 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { APPLY_URL } from "@/config/site";
-import { buildApplyUrl, setReadinessSessionToken } from "@/utils/session";
+import { buildApplyUrl, getReadinessSessionToken, setReadinessSessionToken } from "@/utils/session";
 
 type ReadinessResponse = {
   leadId: string;
   sessionToken: string;
+  deduped?: boolean;
 };
 
 export default function CapitalReadiness() {
+  const existingToken = useMemo(() => getReadinessSessionToken(), []);
+  const [readinessToken, setReadinessToken] = useState<string | null>(existingToken);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(Boolean(existingToken));
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submitting) return;
+
     setSubmitting(true);
     setError(null);
 
@@ -31,15 +37,24 @@ export default function CapitalReadiness() {
 
       const data = (await response.json()) as ReadinessResponse;
       setReadinessSessionToken(data.sessionToken);
-      window.location.href = buildApplyUrl(APPLY_URL, data.sessionToken);
+      setReadinessToken(data.sessionToken);
+      setSubmitted(true);
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "An unexpected error occurred.");
+    } finally {
       setSubmitting(false);
     }
   }
 
   return (
     <div className="bg-[#020817] px-5 py-10 text-white md:px-6 md:py-12">
+      {submitted && readinessToken ? (
+        <div className="mx-auto mb-6 flex max-w-4xl flex-col items-start justify-between gap-4 rounded-2xl border border-blue-200/30 bg-blue-900/30 px-5 py-4 md:flex-row md:items-center">
+          <p className="text-base font-semibold text-blue-100">Continue your application</p>
+          <a href={buildApplyUrl(APPLY_URL, readinessToken)} className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black">Continue</a>
+        </div>
+      ) : null}
+
       <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-[#08132a] p-5 md:p-8">
         <h1 className="mb-3 text-3xl font-bold text-white md:text-5xl">Credit Readiness</h1>
         <p className="mb-6 text-xl font-semibold text-white md:text-2xl">Tell us about your business</p>
@@ -56,7 +71,7 @@ export default function CapitalReadiness() {
           <input name="arOutstanding" placeholder="A/R Outstanding" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
           <input name="existingDebt" placeholder="Existing Debt" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
 
-          <button disabled={submitting} className="mt-2 rounded bg-white py-3 font-semibold text-black md:col-span-2">
+          <button disabled={submitting} className="mt-2 rounded bg-white py-3 font-semibold text-black disabled:opacity-70 md:col-span-2">
             {submitting ? "Submitting..." : "Continue Application"}
           </button>
           {error ? <p className="text-sm text-red-300 md:col-span-2">{error}</p> : null}
