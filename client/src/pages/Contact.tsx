@@ -19,7 +19,6 @@ const initialForm: ContactFormData = {
 };
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>(initialForm);
 
   useEffect(() => {
@@ -32,7 +31,8 @@ export default function Contact() {
       source: "contact_page",
       company: formData.companyName,
     });
-    setSubmitted(true);
+    alert("A Boreal Intake Specialist will contact you shortly");
+    window.location.href = "/";
   };
 
   return (
@@ -41,7 +41,6 @@ export default function Contact() {
       <h1 className="text-4xl font-semibold text-white">Contact Boreal</h1>
       <h2 className="text-4xl font-bold text-white mt-3">Tell us about your business and an advisor will follow up.</h2>
 
-      {submitted ? <p className="mt-6 rounded-lg border border-white/20 bg-white/5 p-4">Thanks — your request has been submitted.</p> : null}
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4 rounded-xl border border-white/20 bg-[#0a1731] p-6 shadow-sm">
         <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" placeholder="Company Name" required value={formData.companyName} onChange={(e) => setFormData((prev) => ({ ...prev, companyName: e.target.value }))} />

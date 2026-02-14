@@ -1,48 +1,38 @@
-import { useState } from "react";
-
-type CreditReadinessForm = {
-  companyName?: string;
-  fullName?: string;
-};
+import { FormEvent } from "react";
 
 export default function CapitalReadiness() {
-  const [formData, setFormData] = useState<CreditReadinessForm>({});
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
 
-  async function submit() {
-    const res = await fetch("/api/credit-readiness", {
+    const res = await fetch("/api/continuation/start", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(Object.fromEntries(form.entries())),
     });
 
     const data = await res.json();
-
-    window.location.href = `https://client.boreal.financial?continue=${data.continuationToken}`;
+    window.location.href = `https://client.boreal.financial/resume/${data.resumeToken}`;
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-xl px-4 pb-16 pt-24">
-        <h1 className="mb-6 text-3xl font-semibold">Credit Readiness Check</h1>
+    <div className="bg-black px-8 py-16 text-white">
+      <h1 className="mb-6 text-4xl">Capital Readiness Check</h1>
 
-        <div className="space-y-4 rounded-xl border border-white/10 bg-[#0a1731] p-5">
-          <input
-            placeholder="Company Name"
-            className="w-full rounded border border-white/20 bg-black/30 p-3"
-            onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-          />
+      <form onSubmit={submit} className="grid max-w-xl gap-4">
+        <input name="companyName" placeholder="Company Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="fullName" placeholder="Full Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="email" placeholder="Email" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="phone" placeholder="Phone" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="industry" placeholder="Industry" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="yearsInBusiness" placeholder="Years in Business" className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="monthlyRevenue" placeholder="Monthly Revenue" className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="annualRevenue" placeholder="Annual Revenue" className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="arOutstanding" placeholder="A/R Outstanding" className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="existingDebt" placeholder="Existing Debt?" className="rounded border border-white/20 bg-[#050B1A] p-3" />
 
-          <input
-            placeholder="Full Name"
-            className="w-full rounded border border-white/20 bg-black/30 p-3"
-            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-          />
-
-          <button onClick={submit} className="w-full rounded bg-blue-600 py-3 text-white">
-            Continue Application
-          </button>
-        </div>
-      </div>
+        <button className="mt-4 rounded bg-white py-3 text-black">See My Score</button>
+      </form>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
+import FloatingAI from "@/components/FloatingAI";
 
 function App() {
   const trackedDepthRef = useRef({ fifty: false, seventyFive: false });
@@ -33,9 +34,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <AppRouter />
-        <button className="fixed bottom-6 right-6 z-50 rounded-full bg-blue-600 px-4 py-3 text-white shadow-lg">
-          AI Assistant
-        </button>
+        <FloatingAI />
       </TooltipProvider>
     </QueryClientProvider>
   );
