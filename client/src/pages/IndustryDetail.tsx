@@ -1,3 +1,4 @@
+import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
 
 type Props = { slug: string };
@@ -8,44 +9,31 @@ export default function IndustryDetail({ slug }: Props) {
   if (!industry) return <div className="p-20">Not found</div>;
 
   return (
-    <div>
-      <div
-        className="h-[60vh] flex items-center justify-center text-white"
-        style={{
-          backgroundImage: `url(${industry.heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="bg-black/50 w-full h-full flex items-center justify-center">
-          <h1 className="text-5xl font-semibold text-center">
-            {industry.name} Financing
-          </h1>
+    <div className="text-white">
+      <section className="bg-black px-6 py-16">
+        <div className="mx-auto max-w-5xl">
+          <h1 className="mb-6 text-4xl font-semibold">Capital Solutions for {industry.name}</h1>
+          <p className="max-w-2xl text-lg text-gray-300">
+            Industry-specific financing strategies designed for growth.
+          </p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-5xl mx-auto px-6 py-16 space-y-12">
-        <p className="text-lg text-gray-200 leading-relaxed">{industry.summary}</p>
+      <section className="section mx-auto max-w-5xl">
+        <h2 className="mb-4 text-2xl font-semibold">Industry Pain Points</h2>
+        <p className="text-gray-300">{industry.problems}</p>
+      </section>
 
-        <div>
-          <h2 className="text-2xl font-semibold mb-6">Products Available</h2>
-          <ul className="grid md:grid-cols-2 gap-6 text-gray-200">
-            <li>• Line of Credit</li>
-            <li>• Term Loan</li>
-            <li>• Equipment Financing</li>
-            <li>• Accounts Receivable Financing</li>
-          </ul>
-        </div>
+      <section className="section mx-auto max-w-5xl border-t border-white/10">
+        <h2 className="mb-4 text-2xl font-semibold">Product Solutions</h2>
+        <p className="text-gray-300">{industry.solutions}</p>
+      </section>
 
-        <div className="pt-8">
-          <a
-            href="https://client.boreal.financial"
-            className="inline-block bg-black text-white px-6 py-3 rounded"
-          >
-            Apply Now
-          </a>
-        </div>
-      </div>
+      <section className="section mx-auto max-w-5xl border-t border-white/10">
+        <a href={APPLY_URL} className="inline-block rounded bg-white px-6 py-3 font-semibold text-black">
+          Apply Now
+        </a>
+      </section>
     </div>
   );
 }

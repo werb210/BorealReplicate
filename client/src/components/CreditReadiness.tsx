@@ -1,34 +1,35 @@
 import { FormEvent, useState } from "react";
 
 export default function CreditReadiness() {
-  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setLoading(true);
 
-    await fetch("/api/crm/lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(event.currentTarget))),
-    });
+    const formState = Object.fromEntries(new FormData(event.currentTarget));
 
-    setSubmitted(true);
-  }
-
-  if (submitted)
-    return (
-      <div className="p-10 text-center">
-        <h3 className="text-xl font-semibold text-white">
-          A Boreal Intake Specialist will contact you shortly.
-        </h3>
-        <a href="/" className="mt-4 block underline text-white">
-          Continue
-        </a>
-      </div>
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/public/application/create-from-website`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      },
     );
 
+    const data = await res.json();
+
+    if (data.applicationId) {
+      window.location.href = `https://client.boreal.financial/apply/${data.applicationId}`;
+      return;
+    }
+
+    setLoading(false);
+  }
+
   return (
-    <form onSubmit={submit} className="max-w-2xl space-y-4 rounded-2xl bg-[#0a1731] p-6 ring-1 ring-white/10">
+    <form onSubmit={handleSubmit} className="max-w-2xl space-y-4 rounded-2xl bg-[#0a1731] p-6 ring-1 ring-white/10">
       <input name="companyName" placeholder="Company Name" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" required />
       <input name="fullName" placeholder="Full Name" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" required />
       <input name="phone" placeholder="Phone" className="w-full rounded border border-white/20 bg-[#050B1A] p-3 text-white" required />
@@ -43,7 +44,9 @@ export default function CreditReadiness() {
         <option>600–649</option>
         <option>Below 600</option>
       </select>
-      <button className="w-full rounded bg-blue-600 px-6 py-3 text-white">Check Capital Readiness</button>
+      <button className="w-full rounded bg-blue-600 px-6 py-3 text-white" disabled={loading}>
+        {loading ? "Submitting..." : "Check Credit Readiness"}
+      </button>
     </form>
   );
 }
