@@ -1,33 +1,42 @@
-import { products } from "@/data/products";
-
 export default function ProductComparison() {
-  const categories = ["Speed", "Best Use", "Repayment", "Collateral"];
+  const products = [
+    "Line of Credit",
+    "Term Loan",
+    "Invoice Financing",
+    "PO Financing",
+    "Asset Based Lending",
+  ];
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full border-collapse text-sm text-white">
-        <thead>
-          <tr>
-            <th className="border border-neutral-700 p-4" />
-            {categories.map((category) => (
-              <th key={category} className="border border-neutral-700 p-4 text-left">
-                {category}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.slug}>
-              <td className="border border-neutral-700 p-4 font-semibold">{product.name}</td>
-              <td className="border border-neutral-700 p-4">Fast to Moderate</td>
-              <td className="border border-neutral-700 p-4">Working Capital / Growth</td>
-              <td className="border border-neutral-700 p-4">Structured</td>
-              <td className="border border-neutral-700 p-4">Varies</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="bg-neutral-100 py-20 text-black">
+      <div className="mx-auto max-w-6xl px-4">
+        <h2 className="mb-12 text-center text-3xl font-semibold">Compare Financing Solutions</h2>
+
+        <div className="overflow-auto">
+          <table className="min-w-full rounded bg-white shadow">
+            <thead>
+              <tr>
+                <th className="p-4 text-left">Category</th>
+                {products.map((product) => (
+                  <th key={product} className="p-4 text-left">
+                    {product}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-4 font-medium">Best Use</td>
+                <td className="p-4">Working Capital</td>
+                <td className="p-4">Expansion</td>
+                <td className="p-4">A/R Liquidity</td>
+                <td className="p-4">Purchase Orders</td>
+                <td className="p-4">Asset Growth</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

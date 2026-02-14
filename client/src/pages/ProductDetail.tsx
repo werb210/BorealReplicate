@@ -6,28 +6,40 @@ type ProductDetailProps = {
 
 export default function ProductDetail({ slug }: ProductDetailProps) {
   const normalizedSlug = slug === "po-financing" ? "purchase-order-financing" : slug;
-  const product = products.find((p) => p.slug === normalizedSlug);
-
-  if (!product) return null;
+  const product = products.find((item) => item.slug === normalizedSlug);
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-16 text-white">
-      <h1 className="mb-6 text-4xl font-semibold">{product.title}</h1>
+    <div className="min-h-screen bg-white text-black">
+      <div className="mx-auto max-w-6xl px-4 py-16">
+        <img
+          src={product?.heroImage ?? `/images/products/${normalizedSlug}.jpg`}
+          alt={product?.name ?? normalizedSlug}
+          onError={(event) => {
+            event.currentTarget.src = "/images/products/term.jpg";
+          }}
+          className="mb-10 h-72 w-full rounded object-cover"
+        />
 
-      <img src={product.image} className="mb-8 rounded-xl" alt={product.title} loading="lazy" />
+        <h1 className="mb-6 text-4xl font-semibold capitalize">{normalizedSlug.replaceAll("-", " ")}</h1>
 
-      <p className="mb-6 text-white/70">{product.summary}</p>
+        <div className="grid gap-10 md:grid-cols-2">
+          <div>
+            <h3 className="mb-4 text-xl font-semibold">What This Product Does</h3>
+            <p className="leading-relaxed text-neutral-700">
+              Flexible capital designed to improve liquidity, stabilize cash flow, and accelerate growth.
+            </p>
+          </div>
 
-      <div className="space-y-4 rounded-xl bg-[#0B1C33] p-8">
-        <div>
-          <span className="text-white/60">Typical Term:</span>
-          <div>{product.term}</div>
-        </div>
-        <div>
-          <span className="text-white/60">Rates:</span>
-          <div>{product.rates}</div>
+          <div>
+            <h3 className="mb-4 text-xl font-semibold">Typical Structure</h3>
+            <ul className="space-y-2 text-neutral-700">
+              <li>• Competitive market rates</li>
+              <li>• Flexible repayment structures</li>
+              <li>• Structured to match cash flow cycles</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

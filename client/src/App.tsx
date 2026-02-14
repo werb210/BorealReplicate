@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
-import AIChatWidget from "@/components/AIChatWidget";
 
 function App() {
   const trackedDepthRef = useRef({ fifty: false, seventyFive: false });
@@ -34,7 +33,9 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <AppRouter />
-        <AIChatWidget />
+        <div className="fixed bottom-6 right-6 rounded-full bg-black px-4 py-3 text-white shadow-lg">
+          AI Assistant
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );

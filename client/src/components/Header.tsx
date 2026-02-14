@@ -1,35 +1,53 @@
+import { useState } from "react";
 import { Link } from "wouter";
 
+const APPLY_PATH = "/credit-readiness";
+
 export default function Header() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-black text-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+    <header className="bg-black text-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-3">
-          <img src="/logo.svg" alt="Boreal Financial" className="h-8 w-auto" />
-          <span className="text-lg font-semibold tracking-wide">Boreal Financial</span>
+          <img src="/logo.svg" alt="Boreal Financial" className="h-8 w-auto sm:h-10" />
+          <span className="text-lg font-semibold sm:text-xl">Boreal Financial</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 text-sm md:flex">
-          <Link href="/products">Products</Link>
+        <button className="sm:hidden" onClick={() => setOpen(!open)} aria-label="Toggle navigation menu">
+          ☰
+        </button>
+
+        <nav className="hidden items-center gap-6 text-sm sm:flex">
           <Link href="/industries">Industries</Link>
-          <Link href="/capital-readiness">Credit Readiness</Link>
-          <a href="https://client.boreal.financial" className="rounded bg-white px-4 py-2 text-black">
+          <Link href="/products">Products</Link>
+          <Link href="/credit-readiness">Credit Check</Link>
+          <Link href={APPLY_PATH} className="rounded bg-white px-4 py-2 font-medium text-black">
             Apply Now
-          </a>
-          <Link href="/contact" className="rounded border border-white px-4 py-2">
-            Contact
           </Link>
         </nav>
+      </div>
 
-        <div className="flex gap-3 md:hidden">
-          <a href="https://client.boreal.financial" className="rounded bg-white px-3 py-2 text-xs text-black">
-            Apply
-          </a>
-          <Link href="/contact" className="rounded border border-white px-3 py-2 text-xs">
-            Contact
+      {open && (
+        <div className="space-y-3 px-4 pb-4 text-sm sm:hidden">
+          <Link href="/industries" onClick={() => setOpen(false)}>
+            Industries
+          </Link>
+          <Link href="/products" onClick={() => setOpen(false)}>
+            Products
+          </Link>
+          <Link href="/credit-readiness" onClick={() => setOpen(false)}>
+            Credit Check
+          </Link>
+          <Link
+            href={APPLY_PATH}
+            className="block rounded bg-white px-4 py-2 text-center text-black"
+            onClick={() => setOpen(false)}
+          >
+            Apply Now
           </Link>
         </div>
-      </div>
+      )}
     </header>
   );
 }
