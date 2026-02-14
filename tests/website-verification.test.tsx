@@ -6,6 +6,8 @@ import { Router } from "wouter";
 import Header from "../client/src/components/Header";
 import ProductComparison from "../client/src/components/ProductComparison";
 import IndustryDetail from "../client/src/pages/IndustryDetail";
+import ProductDetail from "../client/src/pages/ProductDetail";
+import FloatingChat from "../client/src/components/FloatingChat";
 import { industries } from "../client/src/data/industries";
 import { products } from "../client/src/data/products";
 
@@ -84,4 +86,28 @@ test("required industries and products exist in canonical data", () => {
     assert.ok(product.rateRange.length > 0);
     assert.ok(product.useCases.length > 0);
   }
+});
+
+
+test("product detail pages include required sections and CTA", () => {
+  for (const slug of requiredProducts) {
+    const html = renderToStaticMarkup(withStaticRouter(<ProductDetail slug={slug} />));
+    assert.match(html, /What it is/);
+    assert.match(html, /Who it(?:&#x27;|')s for/);
+    assert.match(html, /Term and rate structure/);
+    assert.match(html, /Best use cases/);
+    assert.match(html, /https:\/\/client\.boreal\.financial/);
+  }
+});
+
+test("comparison table remains scrollable on mobile", () => {
+  const html = renderToStaticMarkup(<ProductComparison />);
+  assert.match(html, /overflow-x-auto/);
+  assert.match(html, /min-w-\[980px\]/);
+});
+
+test("floating chat renders connection foundation UI", () => {
+  const html = renderToStaticMarkup(<FloatingChat />);
+  assert.match(html, /Open support chat/);
+  assert.match(html, /fixed bottom-4 right-4/);
 });

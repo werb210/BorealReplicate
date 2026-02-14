@@ -1,3 +1,4 @@
+import React from "react";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, Send, X } from "lucide-react";
 import { getReadinessSessionToken } from "@/utils/session";
@@ -18,7 +19,10 @@ export default function FloatingChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [connecting, setConnecting] = useState(false);
   const [connected, setConnected] = useState(false);
+  const [reconnectTick, setReconnectTick] = useState(0);
   const wsRef = useRef<WebSocket | null>(null);
+  const reconnectAttemptsRef = useRef(0);
+  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sessionId = useMemo(() => getReadinessSessionToken() ?? createSessionId(), []);
 
   useEffect(() => {
@@ -32,6 +36,7 @@ export default function FloatingChat() {
     ws.onopen = () => {
       setConnecting(false);
       setConnected(true);
+      reconnectAttemptsRef.current = 0;
       ws.send(JSON.stringify({ type: "join", sessionId }));
     };
 
@@ -60,13 +65,28 @@ export default function FloatingChat() {
       setConnecting(false);
       setConnected(false);
       wsRef.current = null;
+
+      if (!open) return;
+
+      reconnectAttemptsRef.current += 1;
+      const cappedAttempt = Math.min(reconnectAttemptsRef.current, 3);
+      const delayMs = cappedAttempt * 1000;
+      reconnectTimerRef.current = setTimeout(() => {
+        if (open) {
+          setReconnectTick((value) => value + 1);
+        }
+      }, delayMs);
     };
 
     return () => {
+      if (reconnectTimerRef.current) {
+        clearTimeout(reconnectTimerRef.current);
+        reconnectTimerRef.current = null;
+      }
       ws.close();
       wsRef.current = null;
     };
-  }, [open, sessionId]);
+  }, [open, reconnectTick, sessionId]);
 
   function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

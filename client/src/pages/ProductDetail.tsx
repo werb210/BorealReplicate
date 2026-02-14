@@ -49,7 +49,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">Why it&apos;s a strong fit</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">Who it&apos;s for</h2>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-200">
           {product.goodFit.map((item) => (
             <li key={item}>{item}</li>
