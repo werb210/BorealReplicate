@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/95 text-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 md:px-4 md:py-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2 md:px-4 md:py-3">
         <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <img
             src="/images/Header.png"
@@ -41,7 +41,7 @@ export default function Header() {
           <a href={applyHref} className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700">{applyLabel}</a>
         </div>
 
-        <div className="flex flex-wrap items-center justify-end gap-1.5 lg:hidden">
+        <div className="flex items-center justify-end gap-1.5 lg:hidden">
           <Link href="/contact" className="rounded border border-white/40 px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap">
             Contact
           </Link>
@@ -57,20 +57,20 @@ export default function Header() {
         </div>
       </div>
 
-      <div className={`overflow-hidden border-t border-white/10 bg-[#040b1a] transition-all duration-300 lg:hidden ${open ? "max-h-[75vh]" : "max-h-0"}`}>
+      <div className={`overflow-hidden border-t border-white/10 bg-[#040b1a] transition-all duration-300 lg:hidden ${open ? "max-h-[85vh]" : "max-h-0"}`}>
         <nav className="mx-auto flex max-w-7xl flex-col gap-1 overflow-y-auto px-3 py-3">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
               {item.label}
             </Link>
           ))}
-          <a href={applyHref} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>{applyLabel}</a>
+          <a href={applyHref} className="rounded bg-white px-2 py-2 text-sm font-semibold text-black" onClick={() => setOpen(false)}>{applyLabel}</a>
           <Link href="/contact" className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
             Contact
           </Link>
           <div className="my-1 border-t border-white/10 pt-2">
             <p className="px-2 py-1 text-xs uppercase tracking-[0.2em] text-slate-400">Industries</p>
-            <div className="grid grid-cols-2 gap-1">
+            <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
               {industries.map((industry) => (
                 <Link key={`mobile-${industry.slug}`} href={`/industries/${industry.slug}`} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
                   {industry.name}

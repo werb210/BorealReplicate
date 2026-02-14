@@ -39,6 +39,7 @@ export default function CapitalReadiness() {
       setReadinessSessionToken(data.sessionToken);
       setReadinessToken(data.sessionToken);
       setSubmitted(true);
+      window.location.assign(buildApplyUrl(APPLY_URL, data.sessionToken));
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "An unexpected error occurred.");
     } finally {
@@ -59,7 +60,7 @@ export default function CapitalReadiness() {
         <h1 className="mb-3 text-3xl font-bold text-white md:text-5xl">Credit Readiness</h1>
         <p className="mb-6 text-xl font-semibold text-white md:text-2xl">Tell us about your business</p>
 
-        <form onSubmit={submit} className="grid gap-3 md:grid-cols-2">
+        {!readinessToken ? <form onSubmit={submit} className="grid gap-3 md:grid-cols-2">
           <input name="companyName" placeholder="Company Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
           <input name="fullName" placeholder="Full Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
           <input name="phone" placeholder="Phone" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
@@ -75,7 +76,7 @@ export default function CapitalReadiness() {
             {submitting ? "Submitting..." : "Continue Application"}
           </button>
           {error ? <p className="text-sm text-red-300 md:col-span-2">{error}</p> : null}
-        </form>
+        </form> : <p className="text-slate-300">A readiness session is already saved on this device. Continue your application to avoid duplicate submissions.</p>}
       </div>
     </div>
   );

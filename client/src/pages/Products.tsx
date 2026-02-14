@@ -16,7 +16,14 @@ export default function Products() {
             <div>
               <h2 className="mt-2 text-4xl font-bold">{product.name}</h2>
               <p className="mt-4 text-slate-300">{product.description}</p>
-              <Link href={`/products/${product.slug}`} className="mt-6 inline-block rounded bg-white px-4 py-2 text-black">
+              <div className="mt-4 space-y-2 text-sm text-slate-200">
+                <p><span className="font-semibold text-white">What it is:</span> {product.whatItDoes}</p>
+                <p><span className="font-semibold text-white">Best use case:</span> {product.bestUse}</p>
+                <p><span className="font-semibold text-white">Term range:</span> {product.term}</p>
+                <p><span className="font-semibold text-white">Rate range:</span> {product.rateRange}</p>
+                <p><span className="font-semibold text-white">Why it&apos;s useful:</span> {product.goodFit[0]}</p>
+              </div>
+              <Link href={`/products/${product.slug}`} className="mt-6 inline-block w-full rounded bg-white px-4 py-2 text-center text-black md:w-auto">
                 Learn More
               </Link>
             </div>

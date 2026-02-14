@@ -7,13 +7,11 @@ import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
 type Props = { slug: string };
 
-const productOrder = ["loc", "term-loan", "invoice-factoring", "po-financing", "asset-based-lending"];
-
 const challengeIcons = [AlertTriangle, CircleDollarSign, BarChart3, TrendingUp];
 
 export default function IndustryDetail({ slug }: Props) {
   const industry = industries.find((item) => item.slug === slug);
-  const industryProducts = productOrder.map((productSlug) => products.find((product) => product.slug === productSlug)).filter(Boolean);
+  const industryProducts = products.filter((product) => industry && product.relatedIndustries.includes(industry.name));
   const applyHref = buildApplyUrl(APPLY_URL, getReadinessSessionToken());
 
   if (!industry) return <div className="bg-black px-6 py-16 text-white">Industry not found.</div>;
@@ -31,7 +29,7 @@ export default function IndustryDetail({ slug }: Props) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">Industry pain points</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">Industry Challenges</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {industry.challenges.map((challenge, index) => {
             const Icon = challengeIcons[index] ?? AlertTriangle;
@@ -46,16 +44,16 @@ export default function IndustryDetail({ slug }: Props) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">How Boreal solves this</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">How Boreal Solves This</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {industryProducts.map((product) => (
-            <article key={product!.slug} className="overflow-hidden rounded-2xl border border-white/10 bg-[#08132a]">
-              <img src={product!.image} alt={product!.name} className="h-40 w-full object-cover" />
+            <article key={product.slug} className="overflow-hidden rounded-2xl border border-white/10 bg-[#08132a]">
+              <img src={product.image} alt={product.name} className="h-40 w-full object-cover" />
               <div className="p-4">
-                <h3 className="text-lg font-semibold">{product!.name}</h3>
-                <p className="mt-2 text-sm text-slate-300">{product!.description}</p>
-                <p className="mt-2 text-xs text-blue-200">Best for: {product!.bestUse}</p>
-                <Link href={`/products/${product!.slug}`} className="mt-4 inline-flex items-center gap-2 rounded bg-white px-3 py-2 text-xs font-semibold text-black">
+                <h3 className="text-lg font-semibold">{product.name}</h3>
+                <p className="mt-2 text-sm text-slate-300">{product.description}</p>
+                <p className="mt-2 text-xs text-blue-200">Best for: {product.bestUse}</p>
+                <Link href={`/products/${product.slug}`} className="mt-4 inline-flex items-center gap-2 rounded bg-white px-3 py-2 text-xs font-semibold text-black">
                   Learn More <ArrowRight size={14} />
                 </Link>
               </div>
@@ -68,8 +66,8 @@ export default function IndustryDetail({ slug }: Props) {
         <h2 className="text-2xl font-bold md:text-3xl">Products available</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {industryProducts.map((product) => (
-            <Link key={`${industry.slug}-${product!.slug}`} href={`/products/${product!.slug}`} className="rounded-full border border-white/20 bg-[#08132a] px-4 py-2 text-sm text-slate-200">
-              {product!.name}
+            <Link key={`${industry.slug}-${product.slug}`} href={`/products/${product.slug}`} className="rounded-full border border-white/20 bg-[#08132a] px-4 py-2 text-sm text-slate-200">
+              {product.name}
             </Link>
           ))}
         </div>

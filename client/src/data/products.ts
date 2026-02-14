@@ -63,13 +63,13 @@ export const products: Product[] = [
       "You value predictable repayment structure.",
       "You can document stable operating performance.",
     ],
-    relatedIndustries: ["Manufacturing", "Transportation", "Healthcare"],
+    relatedIndustries: ["Manufacturing", "Distribution", "Healthcare", "Technology"],
   },
   {
     slug: "equipment-financing",
     name: "Equipment Financing",
     category: "Asset Purchase Capital",
-    image: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1600&q=80",
+    image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1600&q=80",
     description: "Fund machinery, vehicles, and technology with repayment structured around asset life.",
     heroSummary: "Acquire productive assets while preserving operating liquidity.",
     whatItDoes: "Equipment Financing provides dedicated capital for business-critical equipment purchases so growth projects can move forward without full upfront cash deployment.",
@@ -109,11 +109,11 @@ export const products: Product[] = [
       "You need predictable liquidity tied to sales activity.",
       "You want capital that scales with receivable volume.",
     ],
-    relatedIndustries: ["Transportation", "Technology", "Manufacturing"],
+    relatedIndustries: ["Distribution", "Technology", "Manufacturing", "Healthcare"],
   },
   {
     slug: "po-financing",
-    name: "Purchase Order Financing",
+    name: "PO Financing",
     category: "Order Fulfillment Capital",
     image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1600&q=80",
     description: "Supplier and production funding aligned to confirmed customer purchase orders.",
@@ -132,7 +132,7 @@ export const products: Product[] = [
       "Supplier terms require prepayment or production deposits.",
       "You need to scale fulfillment capacity quickly.",
     ],
-    relatedIndustries: ["Transportation", "Retail", "Manufacturing"],
+    relatedIndustries: ["Distribution", "Retail", "Manufacturing", "Construction"],
   },
   {
     slug: "asset-based-lending",
@@ -155,7 +155,7 @@ export const products: Product[] = [
       "You need larger limits than unsecured facilities.",
       "Your cash cycle benefits from flexible draw capacity.",
     ],
-    relatedIndustries: ["Transportation", "Manufacturing", "Construction"],
+    relatedIndustries: ["Distribution", "Manufacturing", "Construction", "Healthcare"],
   },
 ];
 
