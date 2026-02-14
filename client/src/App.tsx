@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
+import AIChatWidget from "@/components/AIChatWidget";
 
 function App() {
   const trackedDepthRef = useRef({ fifty: false, seventyFive: false });
@@ -33,11 +34,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <AppRouter />
-        <div className="fixed bottom-6 right-6 z-50">
-          <button className="bg-black text-white px-5 py-3 rounded-full shadow-lg">
-            Chat with Maya
-          </button>
-        </div>
+        <AIChatWidget />
       </TooltipProvider>
     </QueryClientProvider>
   );

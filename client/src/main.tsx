@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
 import { useUTMCapture } from "@/hooks/useUTM";
+import AIChatWidget from "@/components/AIChatWidget";
 import "./index.css";
 import "./styles/global.css";
 
@@ -28,7 +29,12 @@ function RootApp() {
     window.dataLayer.push({ event: "page_view" });
   }, []);
 
-  return <AppRouter />;
+  return (
+    <>
+      <AppRouter />
+      <AIChatWidget />
+    </>
+  );
 }
 
 createRoot(document.getElementById("root")!).render(
