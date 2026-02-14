@@ -1,3 +1,4 @@
+import React from "react";
 import { AlertTriangle, ArrowRight, BarChart3, CircleDollarSign, TrendingUp } from "lucide-react";
 import { Link } from "wouter";
 import { APPLY_URL } from "@/config/site";

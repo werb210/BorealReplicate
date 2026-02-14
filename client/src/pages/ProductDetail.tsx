@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "wouter";
 import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
@@ -29,6 +30,10 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
 
   return (
     <div className="min-h-screen bg-[#020817] pb-12 pt-10 text-white md:pb-16">
+      <section className="mx-auto max-w-7xl px-5 py-4 md:px-6">
+        <Link href="/products" className="inline-flex items-center text-sm font-semibold text-blue-200 hover:text-white">← Back to Products</Link>
+      </section>
+
       <section className="relative overflow-hidden">
         <img src={product.image} alt={product.name} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/65" />
@@ -44,7 +49,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">Who it&apos;s for</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">Why it&apos;s a strong fit</h2>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-200">
           {product.goodFit.map((item) => (
             <li key={item}>{item}</li>
