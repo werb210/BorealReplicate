@@ -1,8 +1,8 @@
 export const INDUSTRIES = [
   "Construction",
   "Manufacturing",
-  "Transportation",
-  "Distribution",
-  "Media",
+  "Retail",
+  "Restaurant/Food Service",
+  "Technology",
   "Healthcare",
 ] as const;

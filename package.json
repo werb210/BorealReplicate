@@ -15,7 +15,7 @@
     "generate:sitemap": "ts-node scripts/generate-sitemap.ts",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
-    "test": "npm run check"
+    "test": "tsx --test tests/**/*.test.ts*"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
