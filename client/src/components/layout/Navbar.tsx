@@ -1,27 +1,25 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import logo from "/logo.svg";
+import { APPLY_URL } from "@/config/site";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#07122A]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-black px-4 py-3 text-white md:px-8">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <img src={logo} className="h-7 w-7" alt="Boreal Financial logo" />
-          <span className="text-lg font-semibold text-white">Boreal Financial</span>
+          <img src="/logo.png" className="h-8 object-contain md:h-10" alt="Boreal Financial" />
+          <span className="text-lg font-semibold tracking-wide text-white md:text-xl">Boreal Financial</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 text-white md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium text-white md:flex">
           <Link href="/products">Products</Link>
           <Link href="/industries">Industries</Link>
-          <Link href="/capital-readiness">Capital Readiness</Link>
-          <Link href="/product-comparison">Product Comparison</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/apply" className="rounded-full bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-500">
+          <Link href="/credit-readiness">Credit Readiness</Link>
+          <a href={APPLY_URL} className="rounded bg-white px-4 py-2 font-semibold text-black">
             Apply Now
-          </Link>
+          </a>
         </nav>
 
         <button onClick={() => setOpen(!open)} className="text-white md:hidden" aria-label="Toggle menu">
@@ -30,29 +28,23 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="space-y-4 bg-[#07122A] px-6 pb-6 text-white md:hidden">
+        <div className="absolute left-0 top-full w-full space-y-4 bg-black px-4 pb-6 pt-4 text-white md:hidden">
           <Link href="/products" onClick={() => setOpen(false)}>
             Products
           </Link>
           <Link href="/industries" onClick={() => setOpen(false)}>
             Industries
           </Link>
-          <Link href="/capital-readiness" onClick={() => setOpen(false)}>
-            Capital Readiness
+          <Link href="/credit-readiness" onClick={() => setOpen(false)}>
+            Credit Readiness
           </Link>
-          <Link href="/product-comparison" onClick={() => setOpen(false)}>
-            Product Comparison
-          </Link>
-          <Link href="/contact" onClick={() => setOpen(false)}>
-            Contact
-          </Link>
-          <Link
-            href="/apply"
-            className="block rounded-full bg-blue-600 py-3 text-center"
+          <a
+            href={APPLY_URL}
+            className="block rounded bg-white py-3 text-center font-semibold text-black"
             onClick={() => setOpen(false)}
           >
             Apply Now
-          </Link>
+          </a>
         </div>
       )}
     </header>

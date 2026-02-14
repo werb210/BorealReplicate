@@ -54,12 +54,14 @@ export function AppRouter() {
           <Route path="/products/factoring" component={Factoring} />
           <Route path="/products/equipment-financing" component={Equipment} />
           <Route path="/products/purchase-order-financing" component={PurchaseOrder} />
+          <Route path="/products/po-financing" component={PurchaseOrder} />
 
           <Route path="/industries" component={Industries} />
           <Route path="/industries/:slug">{(params) => <IndustryDetail slug={params.slug} />}</Route>
 
           <Route path="/product-comparison" component={ProductComparison} />
           <Route path="/capital-readiness" component={CapitalReadiness} />
+          <Route path="/credit-readiness" component={CapitalReadiness} />
           <Route path="/podcasts" component={Podcasts} />
           <Route path="/contact" component={Contact} />
           <Route path="/lender-login" component={PartnerLogin} />

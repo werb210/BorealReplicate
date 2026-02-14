@@ -3,7 +3,7 @@ export type ProductSlug =
   | "term-loan"
   | "equipment-financing"
   | "invoice-factoring"
-  | "purchase-order-financing"
+  | "po-financing"
   | "asset-based-lending";
 
 export type Product = {
@@ -94,7 +94,7 @@ export const products: Product[] = [
     href: "/products/invoice-factoring",
   },
   {
-    slug: "purchase-order-financing",
+    slug: "po-financing",
     name: "Purchase Order Financing",
     title: "Purchase Order Financing",
     image: "/images/An image of two groups of business people shaking hands over a meeting table celebrating signing a deal to merge.jpeg.webp",
@@ -109,7 +109,7 @@ export const products: Product[] = [
     tagline: "Fund supplier costs tied to confirmed demand",
     structureHighlights: ["Order-backed structure", "Supplier payment support", "Scales with demand"],
     ctaLabel: "Learn More",
-    href: "/products/purchase-order-financing",
+    href: "/products/po-financing",
   },
   {
     slug: "asset-based-lending",

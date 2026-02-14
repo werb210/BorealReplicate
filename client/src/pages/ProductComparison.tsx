@@ -1,62 +1,74 @@
+const products = [
+  {
+    name: "Line of Credit",
+    speed: "Fast",
+    bestUse: "Working Capital",
+    repayment: "Flexible",
+    collateral: "Sometimes",
+  },
+  {
+    name: "Term Loan",
+    speed: "Moderate",
+    bestUse: "Expansion",
+    repayment: "Fixed",
+    collateral: "Often",
+  },
+  {
+    name: "Equipment Financing",
+    speed: "Moderate",
+    bestUse: "Asset Purchase",
+    repayment: "Fixed",
+    collateral: "Equipment",
+  },
+  {
+    name: "Invoice Factoring",
+    speed: "Fast",
+    bestUse: "Cash Flow",
+    repayment: "Variable",
+    collateral: "Receivables",
+  },
+  {
+    name: "Purchase Order Financing",
+    speed: "Fast",
+    bestUse: "Supplier Funding",
+    repayment: "Transaction",
+    collateral: "Confirmed PO",
+  },
+  {
+    name: "Asset-Based Lending",
+    speed: "Moderate",
+    bestUse: "Balance Sheet Leverage",
+    repayment: "Flexible",
+    collateral: "Inventory + AR",
+  },
+];
+
 export default function ProductComparison() {
   return (
-    <div className="mx-auto max-w-6xl px-6 pt-28 text-white">
-      <h1 className="mb-10 text-4xl font-bold">Compare Financing Products</h1>
+    <div className="mx-auto max-w-6xl px-4 pb-16 pt-24 text-white md:px-6">
+      <h1 className="mb-8 text-4xl font-bold">Compare Financing Products</h1>
 
       <div className="overflow-x-auto">
-        <table className="w-full border border-white/20">
-          <thead className="bg-white text-black">
+        <table className="w-full border-collapse text-sm">
+          <thead>
             <tr>
-              <th className="p-4 text-left">Product</th>
-              <th className="p-4 text-left">Speed</th>
-              <th className="p-4 text-left">Best Use</th>
-              <th className="p-4 text-left">Repayment</th>
-              <th className="p-4 text-left">Collateral</th>
+              <th className="p-3 text-left"></th>
+              <th className="p-3">Speed</th>
+              <th className="p-3">Best Use</th>
+              <th className="p-3">Repayment</th>
+              <th className="p-3">Collateral</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-t border-white/20">
-              <td className="p-4">Line of Credit</td>
-              <td className="p-4">Fast</td>
-              <td className="p-4">Working Capital</td>
-              <td className="p-4">Flexible</td>
-              <td className="p-4">Sometimes</td>
-            </tr>
-            <tr className="border-t border-white/20">
-              <td className="p-4">Term Loan</td>
-              <td className="p-4">Moderate</td>
-              <td className="p-4">Expansion</td>
-              <td className="p-4">Fixed</td>
-              <td className="p-4">Often</td>
-            </tr>
-            <tr className="border-t border-white/20">
-              <td className="p-4">Equipment Financing</td>
-              <td className="p-4">Moderate</td>
-              <td className="p-4">Asset Purchase</td>
-              <td className="p-4">Fixed</td>
-              <td className="p-4">Equipment</td>
-            </tr>
-            <tr className="border-t border-white/20">
-              <td className="p-4">Invoice Factoring</td>
-              <td className="p-4">Fast</td>
-              <td className="p-4">Cash Flow</td>
-              <td className="p-4">Variable</td>
-              <td className="p-4">Receivables</td>
-            </tr>
-            <tr className="border-t border-white/20">
-              <td className="p-4">Purchase Order Financing</td>
-              <td className="p-4">Fast</td>
-              <td className="p-4">Supplier Funding</td>
-              <td className="p-4">Transaction</td>
-              <td className="p-4">Confirmed PO</td>
-            </tr>
-            <tr className="border-t border-white/20">
-              <td className="p-4">Asset Based Lending</td>
-              <td className="p-4">Moderate</td>
-              <td className="p-4">Balance Sheet Leverage</td>
-              <td className="p-4">Flexible</td>
-              <td className="p-4">Inventory + AR</td>
-            </tr>
+            {products.map((p) => (
+              <tr key={p.name} className="border-t border-gray-700">
+                <td className="p-3 font-semibold">{p.name}</td>
+                <td className="p-3">{p.speed}</td>
+                <td className="p-3">{p.bestUse}</td>
+                <td className="p-3">{p.repayment}</td>
+                <td className="p-3">{p.collateral}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
