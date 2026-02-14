@@ -49,6 +49,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ count: Number.isFinite(count) ? count : 40 });
   });
 
+
+
+  app.post("/api/public/readiness", async (req, res) => {
+    const {
+      companyName,
+      fullName,
+      phone,
+      email,
+      industry,
+      yearsInBusiness,
+      monthlyRevenue,
+      annualRevenue,
+      arOutstanding,
+      existingDebt,
+    } = req.body as Record<string, string>;
+
+    if (!companyName || !fullName || !phone || !email || !industry || !yearsInBusiness || !monthlyRevenue || !annualRevenue || !arOutstanding || !existingDebt) {
+      res.status(400).json({ error: "All readiness fields are required" });
+      return;
+    }
+
+    const score = calculateReadinessScore({ revenue: annualRevenue, yearsInBusiness, existingDebt });
+    const tier = getTier(score);
+
+    const lead = await storage.createCapitalReadinessLead({
+      name: fullName,
+      email,
+      phone,
+      industry,
+      revenue: annualRevenue,
+      yearsInBusiness,
+      existingDebt,
+      score,
+      tier,
+      tag: "capital_readiness",
+    });
+
+    if (process.env.NODE_ENV !== "production") {
+      console.log("Public Readiness Lead:", {
+        leadId: lead.id,
+        companyName,
+        fullName,
+        phone,
+        email,
+        industry,
+        yearsInBusiness,
+        monthlyRevenue,
+        annualRevenue,
+        arOutstanding,
+        existingDebt,
+      });
+    }
+
+    res.status(201).json({ leadId: lead.id });
+  });
   app.post("/api/capital-readiness", async (req, res) => {
     const { name, email, phone, industry, revenue, yearsInBusiness, existingDebt } = req.body as Record<string, string>;
 

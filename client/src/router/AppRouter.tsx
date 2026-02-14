@@ -43,7 +43,7 @@ export function AppRouter() {
     <div className="min-h-screen bg-[#020817] text-white">
       <AnalyticsListener />
       <Header />
-      <main id="main-content" className="pt-20">
+      <main id="main-content" className="pt-14 md:pt-16">
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/how-it-works" component={HowItWorks} />
@@ -51,11 +51,14 @@ export function AppRouter() {
           <Route path="/products" component={Products} />
           <Route path="/products/:slug">{(params) => <ProductDetail slug={params.slug} />}</Route>
           <Route path="/products/term-loans" component={TermLoans} />
+          <Route path="/products/term-loan">{() => <ProductDetail slug="term-loan" />}</Route>
           <Route path="/products/line-of-credit" component={LineOfCredit} />
+          <Route path="/products/loc">{() => <ProductDetail slug="loc" />}</Route>
           <Route path="/products/factoring" component={Factoring} />
+          <Route path="/products/po-financing">{() => <ProductDetail slug="po-financing" />}</Route>
+          <Route path="/products/asset-based-lending">{() => <ProductDetail slug="asset-based-lending" />}</Route>
           <Route path="/products/equipment-financing" component={Equipment} />
           <Route path="/products/purchase-order-financing" component={PurchaseOrder} />
-          <Route path="/products/po-financing" component={PurchaseOrder} />
 
           <Route path="/industries" component={Industries} />
           <Route path="/industries/:slug">{(params) => <IndustryDetail slug={params.slug} />}</Route>

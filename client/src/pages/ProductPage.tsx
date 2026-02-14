@@ -27,7 +27,7 @@ export default function ProductPage() {
             <strong>Rates:</strong> {product.rateRange}
           </li>
           <li>
-            <strong>Best For:</strong> {product.bestFor}
+            <strong>Best For:</strong> {product.bestUse}
           </li>
         </ul>
       </div>

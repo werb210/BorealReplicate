@@ -13,7 +13,8 @@
     "audit:alt": "node scripts/alt-audit.js",
     "generate:seo": "ts-node scripts/generate-seo-pages.ts",
     "generate:sitemap": "ts-node scripts/generate-sitemap.ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
