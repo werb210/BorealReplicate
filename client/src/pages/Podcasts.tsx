@@ -22,7 +22,7 @@ const episodes = [
 export default function Podcasts() {
   return (
     <div className="bg-slate-50">
-      <section className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+      <section className="mx-auto max-w-7xl px-6 py-20 md:py-12">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Lender Broadcast</p>
           <h1 className="mt-3 text-4xl font-bold text-slate-900 md:text-5xl">Insights from real funding conversations</h1>

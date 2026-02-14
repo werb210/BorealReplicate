@@ -95,7 +95,7 @@ export default function CapitalReadinessScore() {
 
   return (
     <div className="bg-slate-50">
-      <section className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+      <section className="mx-auto max-w-5xl px-6 py-20 md:py-12">
         <div className="mb-10 max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Capital Readiness Score</p>
           <h1 className="mt-3 text-4xl font-bold text-slate-900 md:text-5xl">Assess how prepared you are for financing</h1>

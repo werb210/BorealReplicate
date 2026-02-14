@@ -5,25 +5,26 @@ type ProductDetailProps = {
 };
 
 export default function ProductDetail({ slug }: ProductDetailProps) {
-  const normalizedSlug = slug === "po-financing" ? "purchase-order-financing" : slug;
-  const product = products.find((item) => item.slug === normalizedSlug);
+  const product = products.find((item) => item.slug === slug);
+
+  if (!product) {
+    return <div className="min-h-screen bg-black px-4 py-12 text-white">Product not found.</div>;
+  }
 
   return (
     <div className="min-h-screen bg-black pb-16 pt-24 text-white">
       <div className="mx-auto max-w-6xl px-4">
         <div className="grid items-center gap-10 md:grid-cols-2">
           <div>
-            <h1 className="mb-6 text-4xl font-bold capitalize">{normalizedSlug.replaceAll("-", " ")}</h1>
+            <h1 className="mb-6 text-4xl font-bold">{product.name}</h1>
 
-            <p className="mb-6 text-gray-300">
-              Designed to provide flexible capital aligned with operational needs and growth objectives.
-            </p>
+            <p className="mb-6 text-gray-300">{product.description}</p>
 
             <ul className="space-y-2 text-gray-400">
-              <li>• Typical Terms: 6–60 months</li>
-              <li>• Competitive market-based rates</li>
-              <li>• Structured around cash flow</li>
-              <li>• Fast underwriting</li>
+              <li>• Fast underwriting and responsive execution</li>
+              <li>• Flexible facility design aligned to cash flow</li>
+              <li>• Structured for growth, liquidity, and stability</li>
+              <li>• Advisory support through funding and beyond</li>
             </ul>
 
             <div className="mt-8">
@@ -35,10 +36,10 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
 
           <div>
             <img
-              src={product?.heroImage ?? `/images/products/${normalizedSlug}.jpg`}
-              alt={product?.name ?? normalizedSlug}
+              src={product.image}
+              alt={product.name}
               onError={(event) => {
-                event.currentTarget.src = "/images/products/term.jpg";
+                event.currentTarget.src = "/images/products/term-loan.jpg";
               }}
               className="rounded-xl shadow-2xl"
             />
