@@ -16,14 +16,14 @@ export default function CapitalReadiness() {
   }
 
   return (
-    <div className="bg-black px-8 py-16 text-white">
+    <div className="bg-black px-8 py-10 text-white">
       <h1 className="mb-6 text-4xl">Capital Readiness Check</h1>
 
-      <form onSubmit={submit} className="grid max-w-xl gap-4">
+      <form onSubmit={submit} className="grid max-w-xl space-y-4">
         <input name="companyName" placeholder="Company Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="fullName" placeholder="Full Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
-        <input name="email" placeholder="Email" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="phone" placeholder="Phone" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="email" placeholder="Email" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="industry" placeholder="Industry" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="yearsInBusiness" placeholder="Years in Business" className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="monthlyRevenue" placeholder="Monthly Revenue" className="rounded border border-white/20 bg-[#050B1A] p-3" />
@@ -31,7 +31,7 @@ export default function CapitalReadiness() {
         <input name="arOutstanding" placeholder="A/R Outstanding" className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="existingDebt" placeholder="Existing Debt?" className="rounded border border-white/20 bg-[#050B1A] p-3" />
 
-        <button className="mt-4 rounded bg-white py-3 text-black">See My Score</button>
+        <button className="mt-2 rounded bg-white py-3 text-black">See My Score</button>
       </form>
     </div>
   );

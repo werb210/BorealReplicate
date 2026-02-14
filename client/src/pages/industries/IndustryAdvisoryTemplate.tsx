@@ -10,7 +10,7 @@ type Props = {
 export default function IndustryAdvisoryTemplate({ title, headline, description, bullets }: Props) {
   return (
     <div className="bg-slate-950 text-white">
-      <section className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+      <section className="mx-auto max-w-6xl px-6 py-20 md:py-12">
         <p className="text-sm uppercase tracking-[0.2em] text-slate-400">{title} Advisory</p>
         <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight md:text-5xl">{headline}</h1>
         <p className="mt-6 max-w-3xl text-lg text-slate-300">{description}</p>
