@@ -5,7 +5,7 @@ const products = [
   { label: "Line of Credit", href: "/products/loc" },
   { label: "Term Loan", href: "/products/term-loan" },
   { label: "Equipment Financing", href: "/products/equipment-financing" },
-  { label: "Accounts Receivable Financing", href: "/products/accounts-receivable-financing" },
+  { label: "Invoice Factoring", href: "/products/invoice-factoring" },
   { label: "PO Financing", href: "/products/po-financing" },
   { label: "Asset Based Lending", href: "/products/asset-based-lending" },
 ];

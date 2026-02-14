@@ -11,11 +11,6 @@ import Header from "@/components/Header";
 import { Footer } from "@/components/layout/Footer";
 import { initGA, trackPageView } from "@/analytics/ga";
 import { scrollToTop } from "@/utils/scrollToTop";
-import TermLoans from "@/pages/products/TermLoans";
-import LineOfCredit from "@/pages/products/LineOfCredit";
-import Factoring from "@/pages/products/Factoring";
-import Equipment from "@/pages/products/Equipment";
-import PurchaseOrder from "@/pages/products/PurchaseOrder";
 import Compare from "@/pages/Compare";
 import CapitalReadiness from "@/pages/CapitalReadiness";
 import Podcasts from "@/pages/Podcasts";
@@ -50,15 +45,6 @@ export function AppRouter() {
 
           <Route path="/products" component={Products} />
           <Route path="/products/:slug">{(params) => <ProductDetail slug={params.slug} />}</Route>
-          <Route path="/products/term-loans" component={TermLoans} />
-          <Route path="/products/term-loan">{() => <ProductDetail slug="term-loan" />}</Route>
-          <Route path="/products/line-of-credit" component={LineOfCredit} />
-          <Route path="/products/loc">{() => <ProductDetail slug="loc" />}</Route>
-          <Route path="/products/factoring" component={Factoring} />
-          <Route path="/products/po-financing">{() => <ProductDetail slug="po-financing" />}</Route>
-          <Route path="/products/asset-based-lending">{() => <ProductDetail slug="asset-based-lending" />}</Route>
-          <Route path="/products/equipment-financing" component={Equipment} />
-          <Route path="/products/purchase-order-financing" component={PurchaseOrder} />
 
           <Route path="/industries" component={Industries} />
           <Route path="/industries/:slug">{(params) => <IndustryDetail slug={params.slug} />}</Route>

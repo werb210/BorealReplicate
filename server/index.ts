@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
 import { setupVite, serveStatic, log } from "./vite";
+import { WebSocketServer } from "ws";
 
 const app = express();
 app.use(express.json());
@@ -53,6 +54,39 @@ app.use((req, res, next) => {
 
 (async () => {
   const server = await registerRoutes(app);
+  const chatWss = new WebSocketServer({ noServer: true });
+
+  chatWss.on("connection", (socket) => {
+    socket.on("message", (raw) => {
+      try {
+        const payload = JSON.parse(raw.toString()) as { type?: string; sessionId?: string; message?: string };
+        if (payload.type === "session.start") {
+          socket.send(`Session connected: ${payload.sessionId ?? "unknown"}`);
+          return;
+        }
+
+        if (payload.type === "chat.message") {
+          socket.send(`Message received for session ${payload.sessionId ?? "unknown"}`);
+          return;
+        }
+
+        socket.send("Unsupported message type");
+      } catch {
+        socket.send("Invalid message payload");
+      }
+    });
+  });
+
+  server.on("upgrade", (request, socket, head) => {
+    if (request.url !== "/ws/chat") {
+      socket.destroy();
+      return;
+    }
+
+    chatWss.handleUpgrade(request, socket, head, (ws) => {
+      chatWss.emit("connection", ws, request);
+    });
+  });
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
@@ -66,25 +100,21 @@ app.use((req, res, next) => {
     res.status(status).json({ message });
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 8080 if not specified to align
-  // with Azure Web App and container expectations. This serves both the API
-  // and the client and is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || process.env.WEBSITES_PORT || "8080", 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  server.listen(
+    {
+      port,
+      host: "0.0.0.0",
+      reusePort: true,
+    },
+    () => {
+      log(`serving on port ${port}`);
+    },
+  );
 })();

@@ -29,6 +29,16 @@ function RootApp() {
     window.dataLayer.push({ event: "page_view" });
   }, []);
 
+  useEffect(() => {
+    if (!("serviceWorker" in navigator)) {
+      return;
+    }
+
+    navigator.serviceWorker.register("/sw.js").catch((error) => {
+      console.error("Service worker registration failed", error);
+    });
+  }, []);
+
   return (
     <>
       <AppRouter />

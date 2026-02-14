@@ -1,8 +1,6 @@
 import { Link } from "wouter";
-import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
 import { products } from "@/data/products";
-import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
 type ProductDetailProps = {
   slug: string;
@@ -18,7 +16,6 @@ const slugAliases: Record<string, string> = {
 export default function ProductDetail({ slug }: ProductDetailProps) {
   const resolvedSlug = slugAliases[slug] ?? slug;
   const product = products.find((item) => item.slug === resolvedSlug);
-  const applyHref = buildApplyUrl(APPLY_URL, getReadinessSessionToken());
 
   if (!product) {
     return <div className="min-h-screen bg-black px-4 py-12 text-white">Product not found.</div>;
@@ -38,7 +35,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">What it is</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">Clear explanation</h2>
         <p className="mt-4 max-w-4xl text-slate-200">{product.whatItDoes}</p>
       </section>
 
@@ -50,6 +47,15 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
               {useCase}
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
+        <h2 className="text-2xl font-bold md:text-3xl">How it works</h2>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4 text-sm text-slate-200">1. Share your operating profile and funding objectives.</div>
+          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4 text-sm text-slate-200">2. Boreal structures options aligned to cash-flow and collateral realities.</div>
+          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4 text-sm text-slate-200">3. Move forward with the best-fit facility and ongoing advisory support.</div>
         </div>
       </section>
 
@@ -87,8 +93,8 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
 
       <section className="mx-auto max-w-7xl px-5 pb-10 md:px-6 md:pb-12">
         <div className="rounded-2xl border border-white/10 bg-black/40 p-6 text-center md:p-8">
-          <h2 className="text-2xl font-bold">Ready to discuss your structure?</h2>
-          <a href={applyHref} className="mt-4 inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Apply Now</a>
+          <h2 className="text-2xl font-bold">Want to evaluate this structure in detail?</h2>
+          <a href="https://client.boreal.financial" className="mt-4 inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Learn More</a>
         </div>
       </section>
     </div>

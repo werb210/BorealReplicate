@@ -7,7 +7,7 @@ import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
 type Props = { slug: string };
 
-const productOrder = ["loc", "term-loan", "accounts-receivable-financing", "po-financing", "asset-based-lending"];
+const productOrder = ["loc", "term-loan", "invoice-factoring", "po-financing", "asset-based-lending"];
 
 const challengeIcons = [AlertTriangle, CircleDollarSign, BarChart3, TrendingUp];
 

@@ -40,7 +40,7 @@ export const products: Product[] = [
       "You need flexible access instead of one-time lump-sum funding.",
       "You want to preserve cash reserves during growth.",
     ],
-    relatedIndustries: ["Construction", "Retail", "Media", "Healthcare"],
+    relatedIndustries: ["Construction", "Retail", "Technology", "Healthcare"],
   },
   {
     slug: "term-loan",
@@ -63,7 +63,7 @@ export const products: Product[] = [
       "You value predictable repayment structure.",
       "You can document stable operating performance.",
     ],
-    relatedIndustries: ["Manufacturing", "Distribution", "Healthcare"],
+    relatedIndustries: ["Manufacturing", "Transportation", "Healthcare"],
   },
   {
     slug: "equipment-financing",
@@ -89,8 +89,8 @@ export const products: Product[] = [
     relatedIndustries: ["Construction", "Manufacturing", "Healthcare"],
   },
   {
-    slug: "accounts-receivable-financing",
-    name: "Accounts Receivable Financing",
+    slug: "invoice-factoring",
+    name: "Invoice Factoring",
     category: "Receivables Finance",
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80",
     description: "Advance capital against eligible invoices to convert receivables into immediate liquidity.",
@@ -109,7 +109,7 @@ export const products: Product[] = [
       "You need predictable liquidity tied to sales activity.",
       "You want capital that scales with receivable volume.",
     ],
-    relatedIndustries: ["Distribution", "Media", "Manufacturing"],
+    relatedIndustries: ["Transportation", "Technology", "Manufacturing"],
   },
   {
     slug: "po-financing",
@@ -132,7 +132,7 @@ export const products: Product[] = [
       "Supplier terms require prepayment or production deposits.",
       "You need to scale fulfillment capacity quickly.",
     ],
-    relatedIndustries: ["Distribution", "Retail", "Manufacturing"],
+    relatedIndustries: ["Transportation", "Retail", "Manufacturing"],
   },
   {
     slug: "asset-based-lending",
@@ -155,7 +155,7 @@ export const products: Product[] = [
       "You need larger limits than unsecured facilities.",
       "Your cash cycle benefits from flexible draw capacity.",
     ],
-    relatedIndustries: ["Distribution", "Manufacturing", "Construction"],
+    relatedIndustries: ["Transportation", "Manufacturing", "Construction"],
   },
 ];
 

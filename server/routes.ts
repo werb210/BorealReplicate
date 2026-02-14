@@ -49,46 +49,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ count: Number.isFinite(count) ? count : 40 });
   });
 
-
-
   app.post("/api/public/readiness", async (req, res) => {
-    const {
-      companyName,
-      fullName,
-      phone,
-      email,
-      industry,
-      yearsInBusiness,
-      monthlyRevenue,
-      annualRevenue,
-      arOutstanding,
-      existingDebt,
-    } = req.body as Record<string, string>;
-
-    if (!companyName || !fullName || !phone || !email || !industry || !yearsInBusiness || !monthlyRevenue || !annualRevenue || !arOutstanding || !existingDebt) {
-      res.status(400).json({ error: "All readiness fields are required" });
-      return;
-    }
-
-    const score = calculateReadinessScore({ revenue: annualRevenue, yearsInBusiness, existingDebt });
-    const tier = getTier(score);
-
-    const lead = await storage.createCapitalReadinessLead({
-      name: fullName,
-      email,
-      phone,
-      industry,
-      revenue: annualRevenue,
-      yearsInBusiness,
-      existingDebt,
-      score,
-      tier,
-      tag: "capital_readiness",
-    });
-
-    if (process.env.NODE_ENV !== "production") {
-      console.log("Public Readiness Lead:", {
-        leadId: lead.id,
+    try {
+      const {
         companyName,
         fullName,
         phone,
@@ -99,50 +62,100 @@ export async function registerRoutes(app: Express): Promise<Server> {
         annualRevenue,
         arOutstanding,
         existingDebt,
-      });
-    }
+      } = req.body as Record<string, string>;
 
-    res.status(201).json({ leadId: lead.id, sessionToken: lead.sessionToken });
-  });
-  app.post("/api/capital-readiness", async (req, res) => {
-    const { name, email, phone, industry, revenue, yearsInBusiness, existingDebt } = req.body as Record<string, string>;
+      if (!companyName || !fullName || !phone || !email || !industry || !yearsInBusiness || !monthlyRevenue || !annualRevenue || !arOutstanding || !existingDebt) {
+        res.status(400).json({ error: "All readiness fields are required" });
+        return;
+      }
 
-    if (!name || !email || !phone || !industry || !revenue || !yearsInBusiness || !existingDebt) {
-      res.status(400).json({ error: "All intake fields are required" });
-      return;
-    }
+      const existingLead = await storage.findCapitalReadinessLeadByContact(email, phone);
+      if (existingLead) {
+        res.status(200).json({ leadId: existingLead.id, sessionToken: existingLead.sessionToken, deduped: true });
+        return;
+      }
 
-    const score = calculateReadinessScore({ revenue, yearsInBusiness, existingDebt });
-    const tier = getTier(score);
-    const recommendedProducts = recommendedProductsForTier(tier);
+      const score = calculateReadinessScore({ revenue: annualRevenue, yearsInBusiness, existingDebt });
+      const tier = getTier(score);
 
-    const lead = await storage.createCapitalReadinessLead({
-      name,
-      email,
-      phone,
-      industry,
-      revenue,
-      yearsInBusiness,
-      existingDebt,
-      score,
-      tier,
-      tag: "capital_readiness",
-    });
-
-    if (process.env.NODE_ENV !== "production") {
-      console.log("CRM Lead Created:", {
-        leadId: lead.id,
-        name,
+      const lead = await storage.createCapitalReadinessLead({
+        name: fullName,
         email,
         phone,
         industry,
+        revenue: annualRevenue,
+        yearsInBusiness,
+        existingDebt,
         score,
         tier,
         tag: "capital_readiness",
       });
-    }
 
-    res.status(201).json({ score, tier, recommendedProducts, leadId: lead.id });
+      if (process.env.NODE_ENV !== "production") {
+        console.log("Public Readiness Lead:", {
+          leadId: lead.id,
+          companyName,
+          fullName,
+          phone,
+          email,
+          industry,
+          yearsInBusiness,
+          monthlyRevenue,
+          annualRevenue,
+          arOutstanding,
+          existingDebt,
+        });
+      }
+
+      res.status(201).json({ leadId: lead.id, sessionToken: lead.sessionToken, deduped: false });
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : "Readiness submission failed" });
+    }
+  });
+
+  app.post("/api/capital-readiness", async (req, res) => {
+    try {
+      const { name, email, phone, industry, revenue, yearsInBusiness, existingDebt } = req.body as Record<string, string>;
+
+      if (!name || !email || !phone || !industry || !revenue || !yearsInBusiness || !existingDebt) {
+        res.status(400).json({ error: "All intake fields are required" });
+        return;
+      }
+
+      const score = calculateReadinessScore({ revenue, yearsInBusiness, existingDebt });
+      const tier = getTier(score);
+      const recommendedProducts = recommendedProductsForTier(tier);
+
+      const lead = await storage.createCapitalReadinessLead({
+        name,
+        email,
+        phone,
+        industry,
+        revenue,
+        yearsInBusiness,
+        existingDebt,
+        score,
+        tier,
+        tag: "capital_readiness",
+      });
+
+      if (process.env.NODE_ENV !== "production") {
+        console.log("CRM Lead Created:", {
+          leadId: lead.id,
+          name,
+          email,
+          phone,
+          industry,
+          score,
+          tier,
+          tag: "capital_readiness",
+        });
+      }
+
+      res.status(201).json({ score, tier, recommendedProducts, leadId: lead.id });
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : "Capital readiness failed" });
+    }
   });
 
   app.post("/api/support/event", (req, res) => {
@@ -158,25 +171,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.status(202).json({ ok: true });
   });
 
-  app.post("/api/crm/web-leads", (req, res) => {
-    const { companyName, firstName, lastName, email, phone } = req.body as {
-      companyName?: string;
-      firstName?: string;
-      lastName?: string;
-      email?: string;
-      phone?: string;
-    };
+  app.post("/api/crm/web-leads", async (req, res) => {
+    try {
+      const { companyName, firstName, lastName, email, phone } = req.body as {
+        companyName?: string;
+        firstName?: string;
+        lastName?: string;
+        email?: string;
+        phone?: string;
+      };
 
-    if (!companyName || !firstName || !lastName || !email || !phone) {
-      res.status(400).json({ error: "All lead fields are required" });
-      return;
-    }
+      if (!companyName || !firstName || !lastName || !email || !phone) {
+        res.status(400).json({ error: "All lead fields are required" });
+        return;
+      }
 
-    if (process.env.NODE_ENV !== "production") {
-      console.log("CRM Web Lead:", { companyName, firstName, lastName, email, phone, channel: "website" });
-      console.log("SMS Dispatch:", { to: "+15878881837", message: `New lead from ${companyName} (${firstName} ${lastName})` });
+      const { deduped } = await storage.createOrGetWebLead({ companyName, firstName, lastName, email, phone });
+
+      if (process.env.NODE_ENV !== "production" && !deduped) {
+        console.log("CRM Web Lead:", { companyName, firstName, lastName, email, phone, channel: "website" });
+        console.log("SMS Dispatch:", { to: "+15878881837", message: `New lead from ${companyName} (${firstName} ${lastName})` });
+      }
+      res.status(202).json({ ok: true, deduped });
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : "Lead submission failed" });
     }
-    res.status(202).json({ ok: true });
   });
 
   app.post("/api/apply", (req, res) => {
