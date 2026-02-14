@@ -2,32 +2,32 @@ import { Link } from "wouter";
 
 export default function Header() {
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 bg-black/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Boreal Financial" className="h-8" />
-          <span className="text-lg font-semibold text-white">Boreal Financial</span>
+    <header className="bg-black px-6 py-4 text-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
+        <Link href="/" className="flex items-center gap-3">
+          <img src="/logo.png" className="h-10" alt="Boreal Financial" />
+          <span className="text-xl font-semibold">Boreal Financial</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm text-white md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           <Link href="/products">Products</Link>
           <Link href="/industries">Industries</Link>
-          <Link href="/credit-readiness">Capital Readiness</Link>
-          <a href="https://client.boreal.financial" className="rounded bg-blue-600 px-4 py-2 text-white">
+          <Link href="/capital-readiness">Capital Readiness</Link>
+          <a
+            href="https://client.boreal.financial"
+            className="rounded bg-white px-5 py-2 font-semibold text-black"
+          >
             Apply Now
           </a>
-          <Link href="/contact" className="rounded border px-4 py-2">
-            Contact Us
-          </Link>
-        </nav>
+        </div>
 
-        <div className="flex gap-2 md:hidden">
-          <a href="https://client.boreal.financial" className="rounded bg-blue-600 px-3 py-1 text-sm text-white">
+        <div className="md:hidden">
+          <a
+            href="https://client.boreal.financial"
+            className="rounded bg-white px-4 py-2 text-sm text-black"
+          >
             Apply
           </a>
-          <Link href="/contact" className="rounded border px-3 py-1 text-sm text-white">
-            Contact
-          </Link>
         </div>
       </div>
     </header>

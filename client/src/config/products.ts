@@ -1,0 +1,42 @@
+export const PRODUCTS = [
+  {
+    slug: "loc",
+    name: "Line of Credit",
+    short: "Flexible revolving capital",
+    bestFor: "Working capital, payroll, short-term gaps",
+    repayment: "Interest-only, revolving",
+    collateral: "Often unsecured",
+  },
+  {
+    slug: "term-loan",
+    name: "Term Loan",
+    short: "Structured lump sum financing",
+    bestFor: "Expansion, equipment, refinancing",
+    repayment: "Fixed term amortization",
+    collateral: "May require security",
+  },
+  {
+    slug: "factoring",
+    name: "Invoice Factoring",
+    short: "Unlock capital from receivables",
+    bestFor: "A/R based businesses",
+    repayment: "Collected from invoices",
+    collateral: "Accounts receivable",
+  },
+  {
+    slug: "po-financing",
+    name: "PO Financing",
+    short: "Fund purchase orders",
+    bestFor: "Large confirmed orders",
+    repayment: "Paid at invoice settlement",
+    collateral: "Purchase order",
+  },
+  {
+    slug: "abl",
+    name: "Asset Based Lending",
+    short: "Leverage business assets",
+    bestFor: "Inventory, equipment, receivables",
+    repayment: "Structured facility",
+    collateral: "Business assets",
+  },
+] as const;
