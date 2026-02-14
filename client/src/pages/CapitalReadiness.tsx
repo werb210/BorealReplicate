@@ -1,5 +1,11 @@
 import { FormEvent, useState } from "react";
 import { APPLY_URL } from "@/config/site";
+import { buildApplyUrl, setReadinessSessionToken } from "@/utils/session";
+
+type ReadinessResponse = {
+  leadId: string;
+  sessionToken: string;
+};
 
 export default function CapitalReadiness() {
   const [error, setError] = useState<string | null>(null);
@@ -23,8 +29,9 @@ export default function CapitalReadiness() {
         throw new Error("Unable to submit readiness form.");
       }
 
-      const data = await response.json() as { leadId: string };
-      window.location.href = `${APPLY_URL}/apply?lead=${data.leadId}`;
+      const data = (await response.json()) as ReadinessResponse;
+      setReadinessSessionToken(data.sessionToken);
+      window.location.href = buildApplyUrl(APPLY_URL, data.sessionToken);
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "An unexpected error occurred.");
       setSubmitting(false);
@@ -34,7 +41,7 @@ export default function CapitalReadiness() {
   return (
     <div className="bg-[#020817] px-5 py-10 text-white md:px-6 md:py-12">
       <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-[#08132a] p-5 md:p-8">
-        <h1 className="mb-3 text-3xl font-bold text-white md:text-5xl">Capital Readiness</h1>
+        <h1 className="mb-3 text-3xl font-bold text-white md:text-5xl">Credit Readiness</h1>
         <p className="mb-6 text-xl font-semibold text-white md:text-2xl">Tell us about your business</p>
 
         <form onSubmit={submit} className="grid gap-3 md:grid-cols-2">

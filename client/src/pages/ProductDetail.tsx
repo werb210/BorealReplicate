@@ -1,5 +1,8 @@
+import { Link } from "wouter";
 import { APPLY_URL } from "@/config/site";
+import { industries } from "@/data/industries";
 import { products } from "@/data/products";
+import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
 type ProductDetailProps = {
   slug: string;
@@ -15,10 +18,13 @@ const slugAliases: Record<string, string> = {
 export default function ProductDetail({ slug }: ProductDetailProps) {
   const resolvedSlug = slugAliases[slug] ?? slug;
   const product = products.find((item) => item.slug === resolvedSlug);
+  const applyHref = buildApplyUrl(APPLY_URL, getReadinessSessionToken());
 
   if (!product) {
     return <div className="min-h-screen bg-black px-4 py-12 text-white">Product not found.</div>;
   }
+
+  const relatedIndustries = industries.filter((industry) => product.relatedIndustries.includes(industry.name));
 
   return (
     <div className="min-h-screen bg-[#020817] pb-12 pt-10 text-white md:pb-16">
@@ -32,8 +38,12 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">What It Does</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">What it is</h2>
         <p className="mt-4 max-w-4xl text-slate-200">{product.whatItDoes}</p>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
+        <h2 className="text-2xl font-bold md:text-3xl">Best use cases</h2>
         <div className="mt-5 grid gap-3 md:grid-cols-3">
           {product.useCases.map((useCase) => (
             <div key={useCase} className="rounded-xl border border-white/10 bg-[#08132a] p-4 text-sm text-slate-200">
@@ -44,18 +54,18 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">Structure</h2>
-        <p className="mt-2 text-sm text-slate-300">Structured based on underwriting review.</p>
+        <h2 className="text-2xl font-bold md:text-3xl">Typical structure</h2>
+        <p className="mt-2 text-sm text-slate-300">Ranges shown are indicative and subject to underwriting.</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Typical range</p><p className="mt-2">{product.typicalRange}</p></div>
           <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Term range</p><p className="mt-2">{product.term}</p></div>
-          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Typical rate range</p><p className="mt-2">{product.rateRange}</p></div>
-          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Speed</p><p className="mt-2">{product.speed}</p></div>
+          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Repayment</p><p className="mt-2">{product.repayment}</p></div>
           <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Collateral</p><p className="mt-2">{product.collateral}</p></div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">Good Fit If:</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">Why it is a strong fit</h2>
         <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-200">
           {product.goodFit.map((item) => (
             <li key={item}>{item}</li>
@@ -63,10 +73,22 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
         </ul>
       </section>
 
+      <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
+        <h2 className="text-2xl font-bold md:text-3xl">Related industries</h2>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedIndustries.map((industry) => (
+            <Link key={industry.slug} href={`/industries/${industry.slug}`} className="rounded-2xl border border-white/10 bg-[#08132a] p-4 hover:bg-[#0f1d3a]">
+              <p className="text-lg font-semibold">{industry.name}</p>
+              <p className="mt-2 text-sm text-slate-300">{industry.summary}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-5 pb-10 md:px-6 md:pb-12">
         <div className="rounded-2xl border border-white/10 bg-black/40 p-6 text-center md:p-8">
           <h2 className="text-2xl font-bold">Ready to discuss your structure?</h2>
-          <a href={APPLY_URL} className="mt-4 inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Apply Now</a>
+          <a href={applyHref} className="mt-4 inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Apply Now</a>
         </div>
       </section>
     </div>

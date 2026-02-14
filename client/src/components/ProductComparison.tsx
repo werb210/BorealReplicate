@@ -1,12 +1,13 @@
 import { products } from "@/data/products";
 
-const categories = ["Speed", "Best Use", "Repayment", "Collateral"] as const;
+const categories = ["Speed", "Best Use", "Repayment", "Collateral", "Typical Range"] as const;
 
 const categoryValueMap: Record<(typeof categories)[number], keyof (typeof products)[number]> = {
   Speed: "speed",
   "Best Use": "bestUse",
   Repayment: "repayment",
   Collateral: "collateral",
+  "Typical Range": "typicalRange",
 };
 
 const orderedSlugs = [

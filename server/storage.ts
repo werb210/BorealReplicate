@@ -13,6 +13,7 @@ export type CapitalReadinessLead = {
   score: number;
   tier: string;
   tag: "capital_readiness";
+  sessionToken: string;
   createdAt: string;
 };
 
@@ -20,7 +21,7 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  createCapitalReadinessLead(lead: Omit<CapitalReadinessLead, "id" | "createdAt">): Promise<CapitalReadinessLead>;
+  createCapitalReadinessLead(lead: Omit<CapitalReadinessLead, "id" | "sessionToken" | "createdAt">): Promise<CapitalReadinessLead>;
 }
 
 export class MemStorage implements IStorage {
@@ -47,10 +48,11 @@ export class MemStorage implements IStorage {
     return user;
   }
 
-  async createCapitalReadinessLead(lead: Omit<CapitalReadinessLead, "id" | "createdAt">): Promise<CapitalReadinessLead> {
+  async createCapitalReadinessLead(lead: Omit<CapitalReadinessLead, "id" | "sessionToken" | "createdAt">): Promise<CapitalReadinessLead> {
     const id = randomUUID();
     const createdAt = new Date().toISOString();
-    const record: CapitalReadinessLead = { ...lead, id, createdAt };
+    const sessionToken = randomUUID();
+    const record: CapitalReadinessLead = { ...lead, id, sessionToken, createdAt };
     this.readinessLeads.set(id, record);
     return record;
   }

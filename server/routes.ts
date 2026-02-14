@@ -102,7 +102,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
 
-    res.status(201).json({ leadId: lead.id });
+    res.status(201).json({ leadId: lead.id, sessionToken: lead.sessionToken });
   });
   app.post("/api/capital-readiness", async (req, res) => {
     const { name, email, phone, industry, revenue, yearsInBusiness, existingDebt } = req.body as Record<string, string>;

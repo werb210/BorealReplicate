@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
-import FloatingAI from "@/components/FloatingAI";
+import FloatingChatButton from "@/components/FloatingChatButton";
 
 function App() {
   const trackedDepthRef = useRef({ fifty: false, seventyFive: false });
@@ -34,7 +34,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <AppRouter />
-        <FloatingAI />
+        <FloatingChatButton />
       </TooltipProvider>
     </QueryClientProvider>
   );
