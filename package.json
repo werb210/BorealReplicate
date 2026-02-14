@@ -14,7 +14,8 @@
     "generate:seo": "ts-node scripts/generate-seo-pages.ts",
     "generate:sitemap": "ts-node scripts/generate-sitemap.ts",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "npm run check"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
