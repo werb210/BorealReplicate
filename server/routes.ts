@@ -71,7 +71,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const existingLead = await storage.findCapitalReadinessLeadByContact(email, phone);
       if (existingLead) {
-        res.status(200).json({ leadId: existingLead.id, sessionToken: existingLead.sessionToken, deduped: true });
+        res.status(200).json({ leadId: existingLead.id, sessionId: existingLead.sessionToken, sessionToken: existingLead.sessionToken, deduped: true });
         return;
       }
 
@@ -107,7 +107,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      res.status(201).json({ leadId: lead.id, sessionToken: lead.sessionToken, deduped: false });
+      res.status(201).json({ leadId: lead.id, sessionId: lead.sessionToken, sessionToken: lead.sessionToken, deduped: false });
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : "Readiness submission failed" });
     }

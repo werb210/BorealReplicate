@@ -27,21 +27,21 @@ export default function ProductComparison() {
         <h2 className="mb-6 text-3xl font-bold">Compare Financing Options</h2>
 
         <div className="overflow-x-auto rounded-2xl border border-white/10">
-          <table className="w-full min-w-[640px] border-collapse text-sm">
+          <table className="w-full min-w-[700px] border-collapse text-sm">
             <thead className="bg-[#08132a]">
               <tr>
-                <th className="p-4 text-left">Product</th>
-                {categories.map((category) => (
-                  <th key={category} className="p-4 text-left">{category}</th>
+                <th className="p-4 text-left">Category</th>
+                {orderedProducts.map((product) => (
+                  <th key={product!.slug} className="p-4 text-left">{product!.name}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {orderedProducts.map((product) => (
-                <tr key={product!.slug} className="border-t border-white/10 bg-[#040b1a] align-top">
-                  <td className="p-4 font-semibold">{product!.name}</td>
-                  {categories.map((category) => (
-                    <td key={`${product!.slug}-${category}`} className="p-4 text-slate-300">{product![categoryValueMap[category]]}</td>
+              {categories.map((category) => (
+                <tr key={category} className="border-t border-white/10 bg-[#040b1a] align-top">
+                  <td className="p-4 font-semibold">{category}</td>
+                  {orderedProducts.map((product) => (
+                    <td key={`${category}-${product!.slug}`} className="p-4 text-slate-300">{product![categoryValueMap[category]]}</td>
                   ))}
                 </tr>
               ))}

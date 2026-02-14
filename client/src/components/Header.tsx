@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { APPLY_URL } from "@/config/site";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import { industries } from "@/data/industries";
+import { products } from "@/data/products";
 
 const navItems = [
   { href: "/industries", label: "Industries" },
@@ -11,22 +12,25 @@ const navItems = [
   { href: "/credit-readiness", label: "Credit Readiness" },
 ];
 
+const primaryProductSlugs = ["loc", "term-loan", "equipment-financing", "invoice-factoring", "po-financing", "asset-based-lending"];
+
 export default function Header() {
   const [open, setOpen] = useState(false);
   const readinessSessionToken = getReadinessSessionToken();
   const applyLabel = readinessSessionToken ? "Continue Application" : "Apply Now";
   const applyHref = buildApplyUrl(APPLY_URL, readinessSessionToken);
+  const primaryProducts = primaryProductSlugs.map((slug) => products.find((product) => product.slug === slug)).filter(Boolean);
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/95 text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2 md:px-4 md:py-3">
-        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+        <Link href="/" className="min-w-0 flex items-center gap-2 sm:gap-3" onClick={() => setOpen(false)}>
           <img
             src="/images/Header.png"
             alt="Boreal Financial"
-            className="h-10 w-auto object-contain"
+            className="h-9 w-auto shrink-0 object-contain sm:h-10"
           />
-          <span className="text-sm font-semibold tracking-wide text-white md:text-base">Boreal Financial</span>
+          <span className="truncate text-sm font-semibold tracking-wide text-white md:text-base">Boreal Financial</span>
         </Link>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -68,14 +72,28 @@ export default function Header() {
           <Link href="/contact" className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
             Contact
           </Link>
+
           <div className="my-1 border-t border-white/10 pt-2">
-            <p className="px-2 py-1 text-xs uppercase tracking-[0.2em] text-slate-400">Industries</p>
+            <p className="px-2 py-1 text-xs uppercase tracking-[0.2em] text-slate-400">Products</p>
             <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
-              {industries.map((industry) => (
-                <Link key={`mobile-${industry.slug}`} href={`/industries/${industry.slug}`} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
-                  {industry.name}
+              {primaryProducts.map((product) => (
+                <Link key={`mobile-product-${product!.slug}`} href={`/products/${product!.slug}`} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
+                  {product!.name}
                 </Link>
               ))}
+            </div>
+          </div>
+
+          <div className="my-1 border-t border-white/10 pt-2">
+            <p className="px-2 py-1 text-xs uppercase tracking-[0.2em] text-slate-400">Industries</p>
+            <div className="max-h-56 overflow-y-auto pr-1">
+              <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+                {industries.map((industry) => (
+                  <Link key={`mobile-${industry.slug}`} href={`/industries/${industry.slug}`} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
+                    {industry.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </nav>
