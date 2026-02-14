@@ -68,6 +68,11 @@ app.use((req, res, next) => {
           connectionSessionId = payload.sessionId;
         }
 
+        if (payload.type === "staff_joined") {
+          socket.send(JSON.stringify({ type: "staff_joined", message: "Transferring you…" }));
+          return;
+        }
+
         if (payload.type === "message" && payload.message) {
           socket.send(JSON.stringify({ message: `Received for session ${connectionSessionId}. A specialist will follow up shortly.` }));
         }

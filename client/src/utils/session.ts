@@ -13,6 +13,7 @@ export function setReadinessSessionToken(token: string) {
 export function buildApplyUrl(baseUrl: string, readinessSessionToken?: string | null) {
   if (!readinessSessionToken) return baseUrl;
   const url = new URL(baseUrl);
+  url.searchParams.set("sessionId", readinessSessionToken);
   url.searchParams.set("readinessSession", readinessSessionToken);
   return url.toString();
 }

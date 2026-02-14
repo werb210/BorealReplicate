@@ -35,7 +35,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
-        <h2 className="text-2xl font-bold md:text-3xl">Clear explanation</h2>
+        <h2 className="text-2xl font-bold md:text-3xl">Product overview</h2>
         <p className="mt-4 max-w-4xl text-slate-200">{product.whatItDoes}</p>
       </section>
 
@@ -96,7 +96,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
         <div className="rounded-2xl border border-white/10 bg-black/40 p-6 text-center md:p-8">
           <h2 className="text-2xl font-bold">Want to evaluate this structure in detail?</h2>
           <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a href="https://client.boreal.financial" className="inline-block rounded-full border border-white px-6 py-2.5 font-semibold text-white">Learn More</a>
+            <Link href="/credit-readiness" className="inline-block rounded-full border border-white px-6 py-2.5 font-semibold text-white">Check Capital Readiness</Link>
             <a href="https://client.boreal.financial" className="inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Apply Now</a>
           </div>
         </div>

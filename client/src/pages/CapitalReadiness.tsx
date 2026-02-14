@@ -4,7 +4,8 @@ import { buildApplyUrl, getReadinessSessionToken, setReadinessSessionToken } fro
 
 type ReadinessResponse = {
   leadId: string;
-  sessionToken: string;
+  sessionId: string;
+  sessionToken?: string;
   deduped?: boolean;
 };
 
@@ -36,10 +37,12 @@ export default function CapitalReadiness() {
       }
 
       const data = (await response.json()) as ReadinessResponse;
-      setReadinessSessionToken(data.sessionToken);
-      setReadinessToken(data.sessionToken);
+      const sessionId = data.sessionId ?? data.sessionToken;
+      if (!sessionId) throw new Error("No readiness session returned by server.");
+      setReadinessSessionToken(sessionId);
+      setReadinessToken(sessionId);
       setSubmitted(true);
-      window.location.assign(buildApplyUrl(APPLY_URL, data.sessionToken));
+      window.location.assign(buildApplyUrl(APPLY_URL, sessionId));
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "An unexpected error occurred.");
     } finally {
