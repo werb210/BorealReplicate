@@ -1,37 +1,55 @@
 import { useParams } from "wouter";
-import { getIndustryBySlug } from "@/router/content";
-import NotFound from "@/pages/NotFound";
-import { SEO } from "@/seo/SEO";
-import { APPLY_URL } from "@/config/site";
 
 export default function IndustryPage() {
   const params = useParams();
-  const industry = params?.slug ? getIndustryBySlug(params.slug) : undefined;
-
-  if (!industry) return <NotFound />;
+  const slug = params?.slug ?? "industry";
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-12">
-      <SEO
-        title={`${industry.name} Financing | Boreal Financial`}
-        description={`Learn how Boreal supports ${industry.name.toLowerCase()} businesses with marketplace lending options.`}
-      />
-      <img
-        src={industry.heroImage}
-        alt={industry.name}
-        className="w-full h-[420px] object-cover object-center rounded-xl"
-        loading="lazy"
-        style={{ objectFit: "cover" }}
-      />
-      <h1 className="mt-6 text-3xl font-bold">{industry.name}</h1>
-      <p className="mt-3 text-slate-600">{industry.overview}</p>
-      <section className="mt-6">
-        <h2 className="text-xl font-semibold">Examples</h2>
-        <ul className="mt-2 list-disc pl-5 text-slate-700">
-          {industry.examples.map((item) => <li key={item}>{item}</li>)}
-        </ul>
-      </section>
-      <a href={APPLY_URL} className="mt-8 inline-block rounded-md bg-slate-900 px-4 py-3 font-semibold text-white">Apply Now</a>
-    </section>
+    <div className="min-h-screen bg-black pb-16 pt-24 text-white">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="grid items-center gap-10 md:grid-cols-2">
+          <div>
+            <h1 className="mb-6 text-4xl font-bold">Financing Solutions for {slug}</h1>
+
+            <p className="mb-6 text-gray-300">
+              We understand the capital challenges facing the {slug} industry — working capital gaps, equipment
+              upgrades, receivables cycles, growth expansion and operational liquidity.
+            </p>
+
+            <p className="text-gray-400">
+              Boreal structures institutional, banking, and private capital solutions aligned with your cash flow
+              realities.
+            </p>
+          </div>
+
+          <div>
+            <img src={`/images/industries/${slug}.jpg`} alt={slug} className="rounded-xl shadow-2xl" />
+          </div>
+        </div>
+
+        <div className="mt-16 grid gap-12 md:grid-cols-2">
+          <div>
+            <h2 className="mb-4 text-2xl font-semibold">Common Challenges</h2>
+            <ul className="space-y-2 text-gray-400">
+              <li>• Cash flow timing gaps</li>
+              <li>• Equipment modernization</li>
+              <li>• Growth capital needs</li>
+              <li>• Supplier / A/R strain</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="mb-4 text-2xl font-semibold">Capital Solutions</h2>
+            <ul className="space-y-2 text-gray-400">
+              <li>• Lines of Credit</li>
+              <li>• Term Loans</li>
+              <li>• Equipment Financing</li>
+              <li>• PO Financing</li>
+              <li>• Asset-Based Lending</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

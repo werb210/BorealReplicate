@@ -6,38 +6,39 @@ type CreditReadinessForm = {
 };
 
 export default function CapitalReadiness() {
-  const [form, setForm] = useState<CreditReadinessForm>({});
+  const [formData, setFormData] = useState<CreditReadinessForm>({});
 
   async function submit() {
-    const res = await fetch("/api/ai/continue-application", {
+    const res = await fetch("/api/credit-readiness", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(formData),
     });
 
     const data = await res.json();
-    window.location.href = data.redirect;
+
+    window.location.href = `https://client.boreal.financial?continue=${data.continuationToken}`;
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="mx-auto max-w-xl px-4 py-16">
-        <h1 className="mb-8 text-3xl font-semibold">Credit Readiness Check</h1>
+    <div className="min-h-screen bg-black text-white">
+      <div className="mx-auto max-w-xl px-4 pb-16 pt-24">
+        <h1 className="mb-6 text-3xl font-semibold">Credit Readiness Check</h1>
 
-        <div className="space-y-4">
+        <div className="space-y-4 rounded-xl border border-white/10 bg-[#0a1731] p-5">
           <input
             placeholder="Company Name"
-            className="w-full border p-3"
-            onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+            className="w-full rounded border border-white/20 bg-black/30 p-3"
+            onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
           />
 
           <input
             placeholder="Full Name"
-            className="w-full border p-3"
-            onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+            className="w-full rounded border border-white/20 bg-black/30 p-3"
+            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
           />
 
-          <button onClick={submit} className="w-full bg-black py-3 text-white">
+          <button onClick={submit} className="w-full rounded bg-blue-600 py-3 text-white">
             Continue Application
           </button>
         </div>

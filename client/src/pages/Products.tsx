@@ -22,7 +22,7 @@ export default function Products() {
                   <li key={item} className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-blue-400" />{item}</li>
                 ))}
               </ul>
-              <Link href={product.href} className="mt-6 inline-block rounded-full bg-blue-600 px-6 py-3">
+              <Link href={product.href} className="mt-6 inline-block rounded border border-white px-4 py-2 text-white">
                 Learn More
               </Link>
             </div>
