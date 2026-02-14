@@ -40,7 +40,7 @@ export const products: Product[] = [
       "You need flexible access instead of one-time lump-sum funding.",
       "You want to preserve cash reserves during growth.",
     ],
-    relatedIndustries: ["Construction", "Retail", "Technology", "Healthcare"],
+    relatedIndustries: ["Construction", "Retail", "Restaurant/Food Service", "Technology", "Healthcare", "Transportation", "Professional Services", "Real Estate", "Agriculture", "Energy", "Other"],
   },
   {
     slug: "term-loan",
@@ -63,7 +63,7 @@ export const products: Product[] = [
       "You value predictable repayment structure.",
       "You can document stable operating performance.",
     ],
-    relatedIndustries: ["Manufacturing", "Distribution", "Healthcare", "Technology"],
+    relatedIndustries: ["Construction", "Manufacturing", "Retail", "Restaurant/Food Service", "Technology", "Healthcare", "Transportation", "Professional Services", "Real Estate", "Agriculture", "Energy", "Other"],
   },
   {
     slug: "equipment-financing",
@@ -86,7 +86,7 @@ export const products: Product[] = [
       "You want to preserve working capital for operations.",
       "You need terms aligned to asset useful life.",
     ],
-    relatedIndustries: ["Construction", "Manufacturing", "Healthcare"],
+    relatedIndustries: ["Construction", "Manufacturing", "Restaurant/Food Service", "Healthcare", "Transportation", "Agriculture", "Energy", "Other"],
   },
   {
     slug: "invoice-factoring",
@@ -109,7 +109,7 @@ export const products: Product[] = [
       "You need predictable liquidity tied to sales activity.",
       "You want capital that scales with receivable volume.",
     ],
-    relatedIndustries: ["Distribution", "Technology", "Manufacturing", "Healthcare"],
+    relatedIndustries: ["Construction", "Manufacturing", "Retail", "Restaurant/Food Service", "Technology", "Healthcare", "Transportation", "Professional Services", "Real Estate", "Agriculture", "Energy", "Other"],
   },
   {
     slug: "po-financing",
@@ -132,7 +132,7 @@ export const products: Product[] = [
       "Supplier terms require prepayment or production deposits.",
       "You need to scale fulfillment capacity quickly.",
     ],
-    relatedIndustries: ["Distribution", "Retail", "Manufacturing", "Construction"],
+    relatedIndustries: ["Construction", "Manufacturing", "Retail", "Restaurant/Food Service", "Technology", "Healthcare", "Transportation", "Professional Services", "Real Estate", "Agriculture", "Energy", "Other"],
   },
   {
     slug: "asset-based-lending",
@@ -155,7 +155,7 @@ export const products: Product[] = [
       "You need larger limits than unsecured facilities.",
       "Your cash cycle benefits from flexible draw capacity.",
     ],
-    relatedIndustries: ["Distribution", "Manufacturing", "Construction", "Healthcare"],
+    relatedIndustries: ["Construction", "Manufacturing", "Retail", "Restaurant/Food Service", "Technology", "Healthcare", "Transportation", "Professional Services", "Real Estate", "Agriculture", "Energy", "Other"],
   },
 ];
 

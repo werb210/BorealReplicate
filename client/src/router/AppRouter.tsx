@@ -17,6 +17,7 @@ import Podcasts from "@/pages/Podcasts";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
 import Apply from "@/pages/Apply";
+import FloatingChat from "@/components/FloatingChat";
 
 function AnalyticsListener() {
   const [location] = useLocation();
@@ -60,6 +61,7 @@ export function AppRouter() {
           <Route path="*" component={NotFound} />
         </Switch>
       </main>
+      <FloatingChat />
       <Footer />
     </div>
   );
