@@ -9,7 +9,14 @@ const categoryValueMap: Record<(typeof categories)[number], keyof (typeof produc
   Collateral: "collateral",
 };
 
-const orderedSlugs = ["loc", "term-loan", "factoring", "po-financing", "asset-based-lending"];
+const orderedSlugs = [
+  "loc",
+  "term-loan",
+  "equipment-financing",
+  "accounts-receivable-financing",
+  "po-financing",
+  "asset-based-lending",
+];
 
 export default function ProductComparison() {
   const orderedProducts = orderedSlugs.map((slug) => products.find((product) => product.slug === slug)).filter(Boolean);

@@ -2,11 +2,12 @@ import { Link } from "wouter";
 import { APPLY_URL } from "@/config/site";
 
 const products = [
-  { label: "Term Loans", href: "/products/term-loan" },
-  { label: "Lines of Credit", href: "/products/line-of-credit" },
-  { label: "Factoring", href: "/products/factoring" },
-  { label: "Purchase Order Financing", href: "/products/purchase-order-finance" },
-  { label: "Equipment Financing", href: "/products/equipment-finance" },
+  { label: "Line of Credit", href: "/products/loc" },
+  { label: "Term Loan", href: "/products/term-loan" },
+  { label: "Equipment Financing", href: "/products/equipment-financing" },
+  { label: "Accounts Receivable Financing", href: "/products/accounts-receivable-financing" },
+  { label: "PO Financing", href: "/products/po-financing" },
+  { label: "Asset Based Lending", href: "/products/asset-based-lending" },
 ];
 
 export function ProductGrid() {

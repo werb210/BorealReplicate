@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "wouter";
-import { APPLY_URL } from "@/config/site";
 
 const navItems = [
   { href: "/industries", label: "Industries" },
@@ -13,11 +12,14 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/95 text-white backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/95 text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <img src="/logo.png" className="h-8 md:h-10" alt="Boreal Financial" />
-          <span className="text-base font-semibold tracking-wide text-white md:text-lg">Boreal Financial</span>
+          <img
+            src="/images/Header.png"
+            alt="Boreal Financial"
+            className="h-10 w-auto object-contain md:h-12"
+          />
         </Link>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -29,18 +31,21 @@ export default function Header() {
           <Link href="/contact" className="rounded border border-white/40 px-4 py-2 text-sm">
             Contact
           </Link>
-          <a href={APPLY_URL} className="ml-2 rounded bg-white px-6 py-2 text-sm font-semibold text-black transition hover:opacity-90">
+          <Link
+            href="/apply"
+            className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700"
+          >
             Apply Now
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
           <Link href="/contact" className="rounded border border-white/40 px-3 py-2 text-xs font-medium">
             Contact
           </Link>
-          <a href={APPLY_URL} className="rounded bg-white px-3 py-2 text-xs font-semibold text-black">
+          <Link href="/apply" className="rounded bg-white px-3 py-2 text-xs font-semibold text-black">
             Apply Now
-          </a>
+          </Link>
           <button
             onClick={() => setOpen((value) => !value)}
             className="rounded border border-white/30 p-2"
@@ -59,9 +64,9 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <a href={APPLY_URL} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
+          <Link href="/apply" className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
             Apply Now
-          </a>
+          </Link>
           <Link href="/contact" className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
             Contact
           </Link>

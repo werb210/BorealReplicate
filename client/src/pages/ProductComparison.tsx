@@ -21,23 +21,23 @@ const products = [
     collateral: "Equipment",
   },
   {
-    name: "Invoice Factoring",
+    name: "Accounts Receivable Financing",
     speed: "Fast",
     bestUse: "Cash Flow",
     repayment: "Variable",
     collateral: "Receivables",
   },
   {
-    name: "Purchase Order Financing",
-    speed: "Fast",
-    bestUse: "Supplier Funding",
+    name: "PO Financing",
+    speed: "Moderate",
+    bestUse: "Large Purchase Orders",
     repayment: "Transaction",
     collateral: "Confirmed PO",
   },
   {
-    name: "Asset-Based Lending",
+    name: "Asset Based Lending",
     speed: "Moderate",
-    bestUse: "Balance Sheet Leverage",
+    bestUse: "Leverage Assets",
     repayment: "Flexible",
     collateral: "Inventory + AR",
   },
@@ -45,7 +45,7 @@ const products = [
 
 export default function ProductComparison() {
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-16 pt-24 text-white md:px-6">
+    <div className="mx-auto max-w-6xl px-4 pb-16 pt-12 text-white md:px-6">
       <h1 className="mb-8 text-4xl font-bold">Compare Financing Products</h1>
 
       <div className="overflow-x-auto">
