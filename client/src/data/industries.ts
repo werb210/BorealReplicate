@@ -20,7 +20,7 @@ export const industries: Industry[] = [
     summary: "Equipment financing, progress billing support, and working capital structured for project-based cash flow.",
     heroImage: "/images/industries/construction.jpg",
     problems: "Project mobilization costs and delayed draws can create near-term liquidity pressure.",
-    solutions: "Progress draw bridge facilities, equipment financing, and AR-backed working capital.",
+    solutions: "Progress draw bridge facilities, equipment financing, PO financing, and asset-based working capital.",
   },
   {
     slug: "manufacturing",
@@ -45,6 +45,17 @@ export const industries: Industry[] = [
     solutions: "Seasonal lines, inventory financing, and growth facilities sized to sales cycles.",
   },
   {
+    slug: "healthcare",
+    title: "Healthcare",
+    name: "Healthcare",
+    image: "/images/industries/healthcare.jpg",
+    description: "Equipment, receivables, and operating capital for clinics, practices, and service providers.",
+    summary: "Equipment, receivables, and operating capital for clinics, practices, and service providers.",
+    heroImage: "/images/industries/healthcare.jpg",
+    problems: "Delayed reimbursements and expansion costs can constrain growth.",
+    solutions: "Practice financing, equipment facilities, and working capital lines sized to receivables.",
+  },
+  {
     slug: "distribution",
     title: "Distribution",
     name: "Distribution",
@@ -65,17 +76,6 @@ export const industries: Industry[] = [
     heroImage: "/images/industries/media.jpg",
     problems: "Project-based revenue timing can cause uneven working capital availability.",
     solutions: "Production financing and receivable advances to smooth cash cycles.",
-  },
-  {
-    slug: "healthcare",
-    title: "Healthcare",
-    name: "Healthcare",
-    image: "/images/industries/healthcare.jpg",
-    description: "Equipment, receivables, and operating capital for clinics, practices, and service providers.",
-    summary: "Equipment, receivables, and operating capital for clinics, practices, and service providers.",
-    heroImage: "/images/industries/healthcare.jpg",
-    problems: "Delayed reimbursements and expansion costs can constrain growth.",
-    solutions: "Practice financing, equipment facilities, and working capital lines sized to receivables.",
   },
 ];
 
