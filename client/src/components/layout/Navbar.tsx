@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import logo from "/logo.svg";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#050B1A]">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#07122A]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-semibold text-white">
-          Boreal
+        <Link href="/" className="flex items-center gap-3">
+          <img src={logo} className="h-7 w-7" alt="Boreal Financial logo" />
+          <span className="text-lg font-semibold text-white">Boreal Financial</span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-white md:flex">
@@ -17,18 +19,18 @@ export function Navbar() {
           <Link href="/capital-readiness">Capital Readiness</Link>
           <Link href="/product-comparison">Product Comparison</Link>
           <Link href="/contact">Contact</Link>
-          <Link href="/contact" className="rounded-full bg-blue-600 px-5 py-2 text-white">
+          <Link href="/apply" className="rounded-full bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-500">
             Apply Now
           </Link>
         </nav>
 
-        <button className="text-white md:hidden" onClick={() => setOpen((prev) => !prev)} aria-label="Toggle menu">
+        <button onClick={() => setOpen(!open)} className="text-white md:hidden" aria-label="Toggle menu">
           ☰
         </button>
       </div>
 
       {open && (
-        <div className="flex flex-col gap-4 border-t border-white/10 bg-[#050B1A] px-6 pb-6 text-white md:hidden">
+        <div className="space-y-4 bg-[#07122A] px-6 pb-6 text-white md:hidden">
           <Link href="/products" onClick={() => setOpen(false)}>
             Products
           </Link>
@@ -45,9 +47,9 @@ export function Navbar() {
             Contact
           </Link>
           <Link
-            href="/contact"
+            href="/apply"
+            className="block rounded-full bg-blue-600 py-3 text-center"
             onClick={() => setOpen(false)}
-            className="rounded-full bg-blue-600 py-2 text-center"
           >
             Apply Now
           </Link>
