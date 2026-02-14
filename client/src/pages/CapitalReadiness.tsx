@@ -1,5 +1,5 @@
 import React from "react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useRef, useState } from "react";
 import { APPLY_URL } from "@/config/site";
 import { INDUSTRIES } from "@/config/industries";
 import { buildApplyUrl, getReadinessSessionToken, setReadinessSessionToken } from "@/utils/session";
@@ -22,10 +22,13 @@ export default function CapitalReadiness() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(Boolean(existingToken));
+  const lastSubmitAtRef = useRef(0);
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (submitting) return;
+    const now = Date.now();
+    if (submitting || now - lastSubmitAtRef.current < 1200) return;
+    lastSubmitAtRef.current = now;
 
     setSubmitting(true);
     setError(null);
