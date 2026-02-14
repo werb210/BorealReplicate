@@ -3,7 +3,6 @@ import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
 import { setupVite, serveStatic, log } from "./vite";
-import { WebSocketServer } from "ws";
 
 const app = express();
 app.use(express.json());
@@ -54,39 +53,6 @@ app.use((req, res, next) => {
 
 (async () => {
   const server = await registerRoutes(app);
-  const chatWss = new WebSocketServer({ noServer: true });
-
-  chatWss.on("connection", (socket) => {
-    socket.on("message", (raw) => {
-      try {
-        const payload = JSON.parse(raw.toString()) as { type?: string; sessionId?: string; message?: string };
-        if (payload.type === "session.start") {
-          socket.send(`Session connected: ${payload.sessionId ?? "unknown"}`);
-          return;
-        }
-
-        if (payload.type === "chat.message") {
-          socket.send(`Message received for session ${payload.sessionId ?? "unknown"}`);
-          return;
-        }
-
-        socket.send("Unsupported message type");
-      } catch {
-        socket.send("Invalid message payload");
-      }
-    });
-  });
-
-  server.on("upgrade", (request, socket, head) => {
-    if (request.url !== "/ws/chat") {
-      socket.destroy();
-      return;
-    }
-
-    chatWss.handleUpgrade(request, socket, head, (ws) => {
-      chatWss.emit("connection", ws, request);
-    });
-  });
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

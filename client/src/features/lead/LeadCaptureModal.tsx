@@ -8,15 +8,19 @@ export default function LeadCaptureModal({ onDone }: { onDone?: () => void }) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
 
-    await fetch(`${API_BASE_URL}/api/support/event`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        event: "lead_capture_submit",
-        source: "website",
-        email: form.get("email"),
-      }),
-    });
+    try {
+      await fetch(`${API_BASE_URL}/api/support/event`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event: "lead_capture_submit",
+          source: "website",
+          email: form.get("email"),
+        }),
+      });
+    } catch {
+      // best-effort analytics event
+    }
 
     setDone(true);
     onDone?.();

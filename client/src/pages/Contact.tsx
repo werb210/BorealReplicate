@@ -94,7 +94,7 @@ export default function Contact() {
       {showSuccess ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
           <div className="w-full max-w-md rounded-2xl border border-white/20 bg-[#0a1731] p-6 text-center">
-            <p className="text-lg font-semibold">A Boreal Intake Specialist will contact you shortly</p>
+            <p className="text-lg font-semibold">A Boreal Intake Specialist will contact you shortly.</p>
             <button onClick={() => { setShowSuccess(false); window.location.href = "/"; }} className="mt-5 rounded-full bg-white px-5 py-2.5 font-semibold text-black">Continue</button>
           </div>
         </div>

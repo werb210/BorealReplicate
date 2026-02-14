@@ -5,10 +5,17 @@ export function useLenderCount() {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/public/lender-count`)
-      .then((res) => res.json())
-      .then((data) => setCount(data.count))
-      .catch(() => setCount(null));
+    const loadCount = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/public/lender-count`);
+        const data = await res.json();
+        setCount(data.count);
+      } catch {
+        setCount(null);
+      }
+    };
+
+    void loadCount();
   }, []);
 
   return count;

@@ -29,11 +29,15 @@ export default function ReadinessModal() {
     });
     setScore(result);
 
-    await fetch(`${API_BASE_URL}/api/support/event`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "readiness_score_completed", source: "website" }),
-    });
+    try {
+      await fetch(`${API_BASE_URL}/api/support/event`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "readiness_score_completed", source: "website" }),
+      });
+    } catch {
+      // best-effort analytics event
+    }
   }
 
   return (
