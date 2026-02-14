@@ -24,6 +24,7 @@ const industryNames = [
   "Energy",
   "Distribution",
   "Media",
+  "Other",
 ];
 
 function toSlug(name: string) {

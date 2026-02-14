@@ -3,16 +3,13 @@ import { FormEvent } from "react";
 export default function CapitalReadiness() {
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
 
-    const res = await fetch("/api/continuation/start", {
+    await fetch("/api/pre-intake", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(form.entries())),
+      body: JSON.stringify(formData),
     });
-
-    const data = await res.json();
-    window.location.href = `https://client.boreal.financial/resume/${data.resumeToken}`;
   }
 
   return (
@@ -29,7 +26,7 @@ export default function CapitalReadiness() {
         <input name="monthlyRevenue" placeholder="Monthly Revenue" className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="annualRevenue" placeholder="Annual Revenue" className="rounded border border-white/20 bg-[#050B1A] p-3" />
         <input name="arOutstanding" placeholder="A/R Outstanding" className="rounded border border-white/20 bg-[#050B1A] p-3" />
-        <input name="existingDebt" placeholder="Existing Debt?" className="rounded border border-white/20 bg-[#050B1A] p-3" />
+        <input name="existingDebt" placeholder="Existing Debt" className="rounded border border-white/20 bg-[#050B1A] p-3" />
 
         <button className="mt-2 rounded bg-white py-3 text-black">See My Score</button>
       </form>
