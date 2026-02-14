@@ -34,8 +34,8 @@ function getTier(score: number): "Growth Ready" | "Near Ready" | "Foundation Sta
 
 function recommendedProductsForTier(tier: ReturnType<typeof getTier>) {
   if (tier === "Growth Ready") return ["Term Loan", "Equipment Financing", "Line of Credit"];
-  if (tier === "Near Ready") return ["Line of Credit", "Invoice Factoring", "Purchase Order Financing"];
-  return ["Invoice Factoring", "Line of Credit"];
+  if (tier === "Near Ready") return ["Line of Credit", "Factoring", "Purchase Order Financing"];
+  return ["Factoring", "Line of Credit"];
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {

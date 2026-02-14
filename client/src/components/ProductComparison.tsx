@@ -9,14 +9,7 @@ const categoryValueMap: Record<(typeof categories)[number], keyof (typeof produc
   Collateral: "collateral",
 };
 
-const orderedSlugs = [
-  "loc",
-  "term-loan",
-  "equipment-financing",
-  "invoice-factoring",
-  "po-financing",
-  "asset-based-lending",
-];
+const orderedSlugs = ["loc", "term-loan", "equipment-financing", "factoring", "po-financing", "asset-based-lending"];
 
 export default function ProductComparison() {
   const orderedProducts = orderedSlugs.map((slug) => products.find((product) => product.slug === slug)).filter(Boolean);
@@ -30,18 +23,18 @@ export default function ProductComparison() {
           <table className="w-full min-w-[700px] border-collapse text-sm">
             <thead className="bg-[#08132a]">
               <tr>
-                <th className="p-4 text-left">Category</th>
-                {orderedProducts.map((product) => (
-                  <th key={product!.slug} className="p-4 text-left">{product!.name}</th>
+                <th className="p-4 text-left">Product</th>
+                {categories.map((category) => (
+                  <th key={category} className="p-4 text-left">{category}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {categories.map((category) => (
-                <tr key={category} className="border-t border-white/10 bg-[#040b1a] align-top">
-                  <td className="p-4 font-semibold">{category}</td>
-                  {orderedProducts.map((product) => (
-                    <td key={`${category}-${product!.slug}`} className="p-4 text-slate-300">{product![categoryValueMap[category]]}</td>
+              {orderedProducts.map((product) => (
+                <tr key={product!.slug} className="border-t border-white/10 bg-[#040b1a] align-top">
+                  <td className="p-4 font-semibold">{product!.name}</td>
+                  {categories.map((category) => (
+                    <td key={`${product!.slug}-${category}`} className="p-4 text-slate-300">{product![categoryValueMap[category]]}</td>
                   ))}
                 </tr>
               ))}
