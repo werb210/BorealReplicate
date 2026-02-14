@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { SEO } from "@/seo/SEO";
 import { trackEvent } from "@/utils/analytics";
 import { scrollToTop } from "@/utils/scrollToTop";
+import { safeFetch } from "@/lib/safeFetch";
 
 type ContactFormData = {
   companyName: string;
@@ -46,7 +47,7 @@ export default function Contact() {
     const { firstName, lastName } = splitName(formData.fullName);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await safeFetch("/api/contact/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
