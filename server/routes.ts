@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
@@ -49,7 +49,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ count: Number.isFinite(count) ? count : 40 });
   });
 
-  app.post("/api/public/readiness", async (req, res) => {
+  const handleReadinessSubmit = async (req: Request, res: Response) => {
     try {
       const {
         companyName,
@@ -125,7 +125,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : "Readiness submission failed" });
     }
-  });
+  };
+
+  app.post("/api/public/readiness", handleReadinessSubmit);
+  app.post("/api/readiness/submit", handleReadinessSubmit);
 
   app.post("/api/capital-readiness", async (req, res) => {
     try {

@@ -6,6 +6,7 @@ import { queryClient } from "@/lib/queryClient";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useUTMCapture } from "@/hooks/useUTM";
 import "./index.css";
 import "./styles/global.css";
@@ -50,7 +51,9 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <RootApp />
+        <ErrorBoundary>
+          <RootApp />
+        </ErrorBoundary>
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>,

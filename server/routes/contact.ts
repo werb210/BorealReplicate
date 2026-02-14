@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 import { storage } from "../storage";
 
 type ContactPayload = {
@@ -47,7 +47,7 @@ async function sendTwilioSms(messageBody: string) {
   }
 }
 
-router.post("/", async (req, res) => {
+async function submitContact(req: Request, res: Response) {
   const { company, firstName, lastName, email, phone, utm } = req.body as ContactPayload;
 
   if (!company || !firstName || !lastName || !email || !phone) {
@@ -86,6 +86,9 @@ router.post("/", async (req, res) => {
     console.error(err);
     return res.status(500).json({ error: "Server error" });
   }
-});
+}
+
+router.post("/", submitContact);
+router.post("/submit", submitContact);
 
 export default router;

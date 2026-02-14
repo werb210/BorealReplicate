@@ -7,7 +7,7 @@ import contactRoute from "../server/routes/contact";
 test("contact form submission dedupes by email and phone", async () => {
   const app = express();
   app.use(express.json());
-  app.use("/api/contact", contactRoute);
+  app.use("/api/contact/submit", contactRoute);
 
   const server = app.listen(0);
   const port = (server.address() as AddressInfo).port;
@@ -21,7 +21,7 @@ test("contact form submission dedupes by email and phone", async () => {
       phone: "555-1000",
     };
 
-    const first = await fetch(`http://127.0.0.1:${port}/api/contact`, {
+    const first = await fetch(`http://127.0.0.1:${port}/api/contact/submit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -31,7 +31,7 @@ test("contact form submission dedupes by email and phone", async () => {
     assert.equal(firstJson.success, true);
     assert.equal(firstJson.deduped, false);
 
-    const second = await fetch(`http://127.0.0.1:${port}/api/contact`, {
+    const second = await fetch(`http://127.0.0.1:${port}/api/contact/submit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...payload, company: "North Star Holdings" }),

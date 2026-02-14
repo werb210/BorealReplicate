@@ -26,7 +26,7 @@ test("credit readiness submission returns session and dedupes by contact", async
       existingDebt: "no",
     };
 
-    const first = await fetch(`http://127.0.0.1:${port}/api/public/readiness`, {
+    const first = await fetch(`http://127.0.0.1:${port}/api/readiness/submit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -37,7 +37,7 @@ test("credit readiness submission returns session and dedupes by contact", async
     assert.ok(firstJson.sessionId);
     assert.ok(firstJson.score > 0);
 
-    const second = await fetch(`http://127.0.0.1:${port}/api/public/readiness`, {
+    const second = await fetch(`http://127.0.0.1:${port}/api/readiness/submit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...payload, companyName: "North Star Builders Ltd" }),

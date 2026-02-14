@@ -3,6 +3,7 @@ import { FormEvent, useMemo, useRef, useState } from "react";
 import { APPLY_URL } from "@/config/site";
 import { INDUSTRIES } from "@/config/industries";
 import { buildApplyUrl, getReadinessSessionToken, setReadinessSessionToken } from "@/utils/session";
+import { safeFetch } from "@/lib/safeFetch";
 
 type ReadinessResponse = {
   leadId: string;
@@ -36,7 +37,7 @@ export default function CapitalReadiness() {
     const formData = Object.fromEntries(new FormData(e.currentTarget));
 
     try {
-      const response = await fetch("/api/public/readiness", {
+      const response = await safeFetch("/api/readiness/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
