@@ -1,5 +1,6 @@
 import { FormEvent, useMemo, useState } from "react";
 import { APPLY_URL } from "@/config/site";
+import { INDUSTRIES } from "@/config/industries";
 import { buildApplyUrl, getReadinessSessionToken, setReadinessSessionToken } from "@/utils/session";
 
 type ReadinessResponse = {
@@ -68,7 +69,12 @@ export default function CapitalReadiness() {
           <input name="fullName" placeholder="Full Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
           <input name="phone" placeholder="Phone" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
           <input name="email" type="email" placeholder="Email" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
-          <input name="industry" placeholder="Industry" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+          <select name="industry" required defaultValue="" className="rounded border border-white/20 bg-[#050B1A] p-3">
+            <option value="" disabled>Select Industry</option>
+            {INDUSTRIES.map((industry) => (
+              <option key={industry} value={industry}>{industry}</option>
+            ))}
+          </select>
           <input name="yearsInBusiness" placeholder="Years in Business" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
           <input name="monthlyRevenue" placeholder="Monthly Revenue" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
           <input name="annualRevenue" placeholder="Annual Revenue" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
