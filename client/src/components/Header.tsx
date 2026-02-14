@@ -18,7 +18,7 @@ export default function Header() {
           <img
             src="/images/Header.png"
             alt="Boreal Financial"
-            className="h-10 w-auto object-contain md:h-12"
+            className="h-10 w-auto object-contain"
           />
         </Link>
 
