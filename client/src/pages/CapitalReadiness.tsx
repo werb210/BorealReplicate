@@ -1,45 +1,47 @@
 import { useState } from "react";
 
+type CreditReadinessForm = {
+  companyName?: string;
+  fullName?: string;
+};
+
 export default function CapitalReadiness() {
-  const [form, setForm] = useState({
-    companyName: "",
-    fullName: "",
-    email: "",
-    phone: "",
-    yearsInBusiness: "",
-    annualRevenue: "",
-    monthlyRevenue: "",
-    requestedAmount: "",
-    creditScoreRange: "",
-  });
+  const [form, setForm] = useState<CreditReadinessForm>({});
 
   async function submit() {
-    await fetch("/api/ai/continue-application", {
+    const res = await fetch("/api/ai/continue-application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-    window.location.href = "http://client-app-url/start";
+
+    const data = await res.json();
+    window.location.href = data.redirect;
   }
 
   return (
-    <section className="mx-auto max-w-xl px-6 py-12 text-white">
-      <h1 className="mb-8 text-3xl font-semibold">Credit Readiness</h1>
+    <div className="min-h-screen bg-white">
+      <div className="mx-auto max-w-xl px-4 py-16">
+        <h1 className="mb-8 text-3xl font-semibold">Credit Readiness Check</h1>
 
-      <div className="space-y-4">
-        {Object.keys(form).map((key) => (
+        <div className="space-y-4">
           <input
-            key={key}
-            placeholder={key}
-            className="w-full rounded-lg border border-white/10 bg-[#0B1C33] p-4"
-            onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+            placeholder="Company Name"
+            className="w-full border p-3"
+            onChange={(e) => setForm({ ...form, companyName: e.target.value })}
           />
-        ))}
 
-        <button onClick={submit} className="mt-6 w-full rounded-full bg-blue-600 py-4">
-          Continue Application
-        </button>
+          <input
+            placeholder="Full Name"
+            className="w-full border p-3"
+            onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+          />
+
+          <button onClick={submit} className="w-full bg-black py-3 text-white">
+            Continue Application
+          </button>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }

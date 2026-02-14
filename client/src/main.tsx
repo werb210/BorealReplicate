@@ -7,7 +7,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
 import { useUTMCapture } from "@/hooks/useUTM";
-import AIChatWidget from "@/components/AIChatWidget";
 import "./index.css";
 import "./styles/global.css";
 
@@ -32,7 +31,9 @@ function RootApp() {
   return (
     <>
       <AppRouter />
-      <AIChatWidget />
+      <div className="fixed bottom-6 right-6 rounded-full bg-black px-4 py-3 text-white shadow-lg">
+        AI Assistant
+      </div>
     </>
   );
 }

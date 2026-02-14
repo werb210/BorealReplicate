@@ -1,1 +1,1 @@
-export const APPLY_URL = "https://client.boreal.financial";
+export const APPLY_URL = "/credit-readiness";
