@@ -65,6 +65,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Typical range</p><p className="mt-2">{product.typicalRange}</p></div>
           <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Term range</p><p className="mt-2">{product.term}</p></div>
+          <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Rate range</p><p className="mt-2">{product.rateRange}</p></div>
           <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Repayment</p><p className="mt-2">{product.repayment}</p></div>
           <div className="rounded-xl border border-white/10 bg-[#08132a] p-4"><p className="text-xs uppercase text-blue-200">Collateral</p><p className="mt-2">{product.collateral}</p></div>
         </div>
@@ -94,7 +95,10 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       <section className="mx-auto max-w-7xl px-5 pb-10 md:px-6 md:pb-12">
         <div className="rounded-2xl border border-white/10 bg-black/40 p-6 text-center md:p-8">
           <h2 className="text-2xl font-bold">Want to evaluate this structure in detail?</h2>
-          <a href="https://client.boreal.financial" className="mt-4 inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Learn More</a>
+          <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a href="https://client.boreal.financial" className="inline-block rounded-full border border-white px-6 py-2.5 font-semibold text-white">Learn More</a>
+            <a href="https://client.boreal.financial" className="inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Apply Now</a>
+          </div>
         </div>
       </section>
     </div>

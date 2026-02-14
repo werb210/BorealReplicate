@@ -16,7 +16,7 @@ export default function Home() {
         {readinessToken ? (
           <section className="mx-auto max-w-7xl px-5 pt-4 md:px-6">
             <div className="flex flex-col gap-3 rounded-2xl border border-blue-200/30 bg-blue-900/30 px-4 py-3 md:flex-row md:items-center md:justify-between">
-              <p className="font-semibold text-blue-100">Continue your application</p>
+              <p className="font-semibold text-blue-100">Continuing your application</p>
               <a href={applyHref} className="w-full rounded-full bg-white px-5 py-2 text-center text-sm font-semibold text-black md:w-auto">Apply Now</a>
             </div>
           </section>

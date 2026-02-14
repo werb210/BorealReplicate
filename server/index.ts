@@ -1,4 +1,5 @@
 import express, { type Request, Response, NextFunction } from "express";
+import { WebSocketServer } from "ws";
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
@@ -53,6 +54,39 @@ app.use((req, res, next) => {
 
 (async () => {
   const server = await registerRoutes(app);
+  const chatServer = new WebSocketServer({ noServer: true });
+
+  chatServer.on("connection", (socket) => {
+    let connectionSessionId = "anonymous";
+
+    socket.send(JSON.stringify({ message: "Connected to Boreal support." }));
+
+    socket.on("message", (incoming) => {
+      try {
+        const payload = JSON.parse(incoming.toString()) as { type?: string; sessionId?: string; message?: string };
+        if (payload.sessionId) {
+          connectionSessionId = payload.sessionId;
+        }
+
+        if (payload.type === "message" && payload.message) {
+          socket.send(JSON.stringify({ message: `Received for session ${connectionSessionId}. A specialist will follow up shortly.` }));
+        }
+      } catch {
+        socket.send(JSON.stringify({ message: "Message received." }));
+      }
+    });
+  });
+
+  server.on("upgrade", (req, socket, head) => {
+    if (!req.url?.startsWith("/ws/chat")) {
+      socket.destroy();
+      return;
+    }
+
+    chatServer.handleUpgrade(req, socket, head, (client) => {
+      chatServer.emit("connection", client, req);
+    });
+  });
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
