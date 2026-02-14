@@ -3,8 +3,12 @@ import SEO from "@/components/SEO";
 import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
 import { products } from "@/data/products";
+import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
 export default function Home() {
+  const readinessToken = getReadinessSessionToken();
+  const applyHref = buildApplyUrl(APPLY_URL, readinessToken);
+
   return (
     <>
       <SEO title="Boreal Financial | Boutique Capital Advisory" description="Boutique advisory capital structuring with AI-guided packaging." />
@@ -17,7 +21,7 @@ export default function Home() {
             <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">Strategic financing structured with precision.</h1>
             <p className="mt-4 max-w-2xl text-base text-slate-200 md:text-lg">Institutional-grade financing strategy built for growth-stage and mature operators.</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href={APPLY_URL} className="rounded-full bg-blue-600 px-5 py-2.5 font-semibold text-white">Apply Now</a>
+              <a href={applyHref} className="rounded-full bg-blue-600 px-5 py-2.5 font-semibold text-white">{readinessToken ? "Continue Application" : "Apply Now"}</a>
               <Link href="/contact" className="rounded-full border border-white/35 px-5 py-2.5 font-semibold">Speak With Advisor</Link>
             </div>
           </div>

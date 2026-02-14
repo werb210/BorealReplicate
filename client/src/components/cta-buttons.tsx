@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { APPLY_URL } from "@/config/site";
 import { trackEvent } from "@/utils/analytics";
+import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
 type CTAProps = {
   children?: ReactNode;
@@ -11,9 +12,14 @@ type CTAProps = {
 };
 
 export function ApplyNowButton({ children, className, variant = "cta", size = "lg" }: CTAProps) {
+  const token = getReadinessSessionToken();
+  const href = buildApplyUrl(APPLY_URL, token);
+
   return (
     <Button asChild className={className} variant={variant} size={size}>
-      <a href={APPLY_URL} onClick={() => trackEvent("apply_clicked", { source: "homepage" })}>{children ?? "Apply Now"}</a>
+      <a href={href} onClick={() => trackEvent("apply_clicked", { source: "homepage", readinessSession: token ? "present" : "none" })}>
+        {children ?? (token ? "Continue Application" : "Apply Now")}
+      </a>
     </Button>
   );
 }

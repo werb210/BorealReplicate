@@ -75,9 +75,6 @@ export function AppRouter() {
         </Switch>
       </main>
       <Footer />
-      <button className="fixed bottom-6 right-6 z-50 rounded-full bg-white px-5 py-3 text-black shadow-xl">
-        Maya
-      </button>
     </div>
   );
 }

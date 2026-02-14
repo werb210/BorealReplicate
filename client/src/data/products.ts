@@ -8,12 +8,14 @@ export type Product = {
   whatItDoes: string;
   useCases: string[];
   term: string;
+  typicalRange: string;
   rateRange: string;
   speed: string;
   collateral: string;
   bestUse: string;
   repayment: string;
   goodFit: string[];
+  relatedIndustries: string[];
 };
 
 export const products: Product[] = [
@@ -27,6 +29,7 @@ export const products: Product[] = [
     whatItDoes: "Line of Credit gives your business flexible access to liquidity for payroll, vendor payments, and recurring operating costs while you wait on receivables.",
     useCases: ["Seasonal inventory purchases", "Payroll bridge during long AR cycles", "Short-term operating volatility"],
     term: "12–36 months",
+    typicalRange: "$100K–$2M",
     rateRange: "Structured range based on underwriting review",
     speed: "Fast",
     collateral: "May be required depending on underwriting",
@@ -37,6 +40,7 @@ export const products: Product[] = [
       "You need flexible access instead of one-time lump-sum funding.",
       "You want to preserve cash reserves during growth.",
     ],
+    relatedIndustries: ["Construction", "Retail", "Media", "Healthcare"],
   },
   {
     slug: "term-loan",
@@ -48,6 +52,7 @@ export const products: Product[] = [
     whatItDoes: "Term Loans provide fixed-amount capital with planned repayment over a defined horizon, helping businesses execute expansion projects with clearer budgeting.",
     useCases: ["Opening locations", "Debt consolidation", "Large project execution"],
     term: "24–84 months",
+    typicalRange: "$250K–$5M",
     rateRange: "Structured range based on underwriting review",
     speed: "Moderate",
     collateral: "Often required depending on structure",
@@ -58,6 +63,7 @@ export const products: Product[] = [
       "You value predictable repayment structure.",
       "You can document stable operating performance.",
     ],
+    relatedIndustries: ["Manufacturing", "Distribution", "Healthcare"],
   },
   {
     slug: "equipment-financing",
@@ -69,6 +75,7 @@ export const products: Product[] = [
     whatItDoes: "Equipment Financing provides dedicated capital for business-critical equipment purchases so growth projects can move forward without full upfront cash deployment.",
     useCases: ["Fleet upgrades", "Manufacturing machinery", "Medical and specialized equipment"],
     term: "24–84 months",
+    typicalRange: "$50K–$3M",
     rateRange: "Structured range based on underwriting review",
     speed: "Moderate",
     collateral: "Financed equipment",
@@ -79,6 +86,7 @@ export const products: Product[] = [
       "You want to preserve working capital for operations.",
       "You need terms aligned to asset useful life.",
     ],
+    relatedIndustries: ["Construction", "Manufacturing", "Healthcare"],
   },
   {
     slug: "accounts-receivable-financing",
@@ -90,6 +98,7 @@ export const products: Product[] = [
     whatItDoes: "Accounts Receivable Financing unlocks cash from approved invoices so businesses can fund payroll, supplier obligations, and growth while receivables remain outstanding.",
     useCases: ["Extended customer payment terms", "Rapidly growing invoice volume", "B2B cash-flow stabilization"],
     term: "Ongoing / revolving against eligible invoices",
+    typicalRange: "$100K–$10M",
     rateRange: "Structured range based on underwriting review",
     speed: "Fast",
     collateral: "Receivables",
@@ -100,10 +109,11 @@ export const products: Product[] = [
       "You need predictable liquidity tied to sales activity.",
       "You want capital that scales with receivable volume.",
     ],
+    relatedIndustries: ["Distribution", "Media", "Manufacturing"],
   },
   {
     slug: "po-financing",
-    name: "PO Financing",
+    name: "Purchase Order Financing",
     category: "Order Fulfillment Capital",
     image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1600&q=80",
     description: "Supplier and production funding aligned to confirmed customer purchase orders.",
@@ -111,6 +121,7 @@ export const products: Product[] = [
     whatItDoes: "PO Financing supports supplier and production costs tied to validated customer orders so your business can fulfill more volume without depleting cash reserves.",
     useCases: ["Large confirmed customer orders", "Supplier prepayment requirements", "Growth through larger contract volume"],
     term: "30–180 days per transaction",
+    typicalRange: "$50K–$2M per order",
     rateRange: "Structured range based on underwriting review",
     speed: "Moderate",
     collateral: "Confirmed purchase orders and transaction flow",
@@ -121,6 +132,7 @@ export const products: Product[] = [
       "Supplier terms require prepayment or production deposits.",
       "You need to scale fulfillment capacity quickly.",
     ],
+    relatedIndustries: ["Distribution", "Retail", "Manufacturing"],
   },
   {
     slug: "asset-based-lending",
@@ -132,6 +144,7 @@ export const products: Product[] = [
     whatItDoes: "Asset Based Lending uses eligible collateral pools such as A/R, inventory, and equipment to create scalable borrowing availability tied to asset values.",
     useCases: ["Higher credit limits tied to assets", "Complex working-capital cycles", "Growth with balance-sheet leverage"],
     term: "12–60 months",
+    typicalRange: "$500K–$15M",
     rateRange: "Structured range based on underwriting review",
     speed: "Moderate",
     collateral: "A/R, inventory, equipment, or mixed collateral pool",
@@ -142,6 +155,7 @@ export const products: Product[] = [
       "You need larger limits than unsecured facilities.",
       "Your cash cycle benefits from flexible draw capacity.",
     ],
+    relatedIndustries: ["Distribution", "Manufacturing", "Construction"],
   },
 ];
 
