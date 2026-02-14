@@ -42,11 +42,11 @@ export const products: ProductItem[] = [
       "PO financing helps fund supplier and production costs so businesses can deliver on high-value contracts with confidence.",
   },
   {
-    slug: "equipment-financing",
-    name: "Equipment Financing",
-    shortDescription: "Acquire or upgrade equipment while preserving working capital.",
+    slug: "asset-based-lending",
+    name: "Asset Based Lending",
+    shortDescription: "Leverage receivables, inventory, and equipment for larger credit facilities.",
     longDescription:
-      "Equipment financing supports machinery, fleet, and hard-asset purchases with payment structures aligned to usage and revenue cycles.",
+      "ABL facilities unlock borrowing capacity against working assets to support growth and complex cash-flow cycles.",
   },
 ];
 
@@ -54,26 +54,38 @@ export const industries: IndustryItem[] = [
   {
     slug: "construction",
     name: "Construction",
-    description: "Finance labor, materials, and project timing with lenders who understand progress billing.",
+    description: "Equipment financing, progress billing support, and working capital structured for project-based cash flow.",
     painPoints: ["Retainage delays", "Seasonal labor ramps", "Project mobilization costs"],
   },
   {
     slug: "manufacturing",
     name: "Manufacturing",
-    description: "Support production runs and inventory turns with marketplace lenders focused on industrial operations.",
+    description: "Inventory lines, asset-based lending, and equipment facilities aligned with production cycles.",
     painPoints: ["Raw material purchases", "Equipment modernization", "PO-led production cycles"],
   },
   {
-    slug: "logistics",
-    name: "Logistics",
-    description: "Stabilize fleet-heavy cash flow and contract payment gaps with tailored structures.",
-    painPoints: ["Fuel and maintenance volatility", "Broker receivable terms", "Fleet replacement cycles"],
+    slug: "retail",
+    name: "Retail",
+    description: "Seasonal working capital, inventory financing, and growth funding for brick-and-mortar and ecommerce.",
+    painPoints: ["Seasonal inventory ramps", "Promotion-driven demand spikes", "Receivables delays"],
   },
   {
-    slug: "other",
-    name: "Other Industries",
-    description: "Boreal supports additional B2B sectors that need structured commercial funding options.",
-    painPoints: ["Uneven receivable timing", "Rapid growth needs", "Complex deal structures"],
+    slug: "distribution",
+    name: "Distribution",
+    description: "PO financing, A/R facilities, and revolving lines for supply-chain-driven businesses.",
+    painPoints: ["Supplier prepayment pressure", "Long customer terms", "Inventory carrying costs"],
+  },
+  {
+    slug: "media",
+    name: "Media",
+    description: "Revenue-based financing, contract-backed advances, and structured capital for agencies and creators.",
+    painPoints: ["Project-based cash flow", "Client payment lag", "Production upfront costs"],
+  },
+  {
+    slug: "healthcare",
+    name: "Healthcare",
+    description: "Equipment, receivables, and operating capital for clinics, practices, and service providers.",
+    painPoints: ["Reimbursement timing", "Equipment upgrades", "Expansion overhead"],
   },
 ];
 
