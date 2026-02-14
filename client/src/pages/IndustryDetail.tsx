@@ -74,6 +74,34 @@ export default function IndustryDetail({ slug }: Props) {
         </div>
       </section>
 
+
+
+      <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
+        <h2 className="text-2xl font-bold md:text-3xl">Timeline</h2>
+        <div className="mt-5 grid gap-3 md:grid-cols-4">
+          {[
+            "Step 1 — Apply Now",
+            "Step 2 — Readiness review",
+            "Step 3 — Lender matching",
+            "Step 4 — Structured offer",
+          ].map((step) => (
+            <div key={step} className="rounded-xl border border-white/10 bg-[#08132a] p-4 text-sm text-slate-200">{step}</div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
+        <h2 className="text-2xl font-bold md:text-3xl">Mini readiness form</h2>
+        <p className="mt-2 text-sm text-slate-300">Start here, then complete full readiness in the next step.</p>
+        <form action="/credit-readiness" className="mt-5 grid gap-3 rounded-2xl border border-white/10 bg-[#08132a] p-4 md:grid-cols-2">
+          <input name="companyName" placeholder="Company Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+          <input name="fullName" placeholder="Full Name" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+          <input name="email" type="email" placeholder="Email" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+          <input name="phone" placeholder="Phone" required className="rounded border border-white/20 bg-[#050B1A] p-3" />
+          <button className="rounded bg-white px-4 py-3 font-semibold text-black md:col-span-2" type="submit">Continue to Full Readiness</button>
+        </form>
+      </section>
+
       <section className="border-y border-white/10 bg-black/40">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-5 py-8 md:flex-row md:items-center md:px-6">
           <div>

@@ -16,6 +16,13 @@ const requiredIndustries = [
   "restaurant-food-service",
   "technology",
   "healthcare",
+  "transportation",
+  "professional-services",
+  "real-estate",
+  "agriculture",
+  "energy",
+  "distribution",
+  "media",
 ];
 
 const requiredProducts = [

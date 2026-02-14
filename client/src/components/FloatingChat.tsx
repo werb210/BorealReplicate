@@ -1,0 +1,124 @@
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { MessageCircle, Send, X } from "lucide-react";
+import { getReadinessSessionToken } from "@/utils/session";
+
+type ChatMessage = {
+  id: string;
+  message: string;
+  from: "system" | "user";
+};
+
+function createSessionId() {
+  return `web-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+export default function FloatingChat() {
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [connecting, setConnecting] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const wsRef = useRef<WebSocket | null>(null);
+  const sessionId = useMemo(() => getReadinessSessionToken() ?? createSessionId(), []);
+
+  useEffect(() => {
+    if (!open || wsRef.current) return;
+
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const ws = new WebSocket(`${protocol}://${window.location.host}/ws/chat`);
+    wsRef.current = ws;
+    setConnecting(true);
+
+    ws.onopen = () => {
+      setConnecting(false);
+      setConnected(true);
+      ws.send(JSON.stringify({ type: "join", sessionId }));
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        const payload = JSON.parse(event.data) as { type?: string; message?: string };
+        if (payload.type === "staff_joined") {
+          setMessages((prev) => [...prev, { id: `${Date.now()}-staff`, from: "system", message: payload.message || "Transferring you…" }]);
+          return;
+        }
+        const systemMessage = payload.message;
+        if (systemMessage) {
+          setMessages((prev) => [...prev, { id: `${Date.now()}-system`, from: "system", message: systemMessage }]);
+        }
+      } catch {
+        setMessages((prev) => [...prev, { id: `${Date.now()}-fallback`, from: "system", message: "Message received." }]);
+      }
+    };
+
+    ws.onerror = () => {
+      setConnecting(false);
+      setConnected(false);
+    };
+
+    ws.onclose = () => {
+      setConnecting(false);
+      setConnected(false);
+      wsRef.current = null;
+    };
+
+    return () => {
+      ws.close();
+      wsRef.current = null;
+    };
+  }, [open, sessionId]);
+
+  function sendMessage(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmed = input.trim();
+    if (!trimmed || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+
+    wsRef.current.send(JSON.stringify({ type: "message", sessionId, message: trimmed }));
+    setMessages((prev) => [...prev, { id: `${Date.now()}-user`, from: "user", message: trimmed }]);
+    setInput("");
+  }
+
+  return (
+    <>
+      {open ? (
+        <div className="fixed bottom-20 right-4 z-50 w-[min(92vw,360px)] rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl">
+          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+            <p className="font-semibold">Boreal Support Chat</p>
+            <button aria-label="Close chat" onClick={() => setOpen(false)} className="rounded p-1 hover:bg-white/10">
+              <X size={16} />
+            </button>
+          </div>
+          <div className="max-h-80 space-y-2 overflow-y-auto p-4 text-sm">
+            {connecting ? <p className="text-slate-300">Connecting…</p> : null}
+            {!connecting && !connected ? <p className="text-amber-300">Connection unavailable. Please try again.</p> : null}
+            {messages.length === 0 ? <p className="text-slate-300">Ask a question and our team will follow up.</p> : null}
+            {messages.map((item) => (
+              <div key={item.id} className={`rounded-lg px-3 py-2 ${item.from === "user" ? "ml-8 bg-blue-600 text-white" : "mr-8 bg-[#0f1d3a] text-slate-100"}`}>
+                {item.message}
+              </div>
+            ))}
+          </div>
+          <form onSubmit={sendMessage} className="flex gap-2 border-t border-white/10 p-3">
+            <input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Type your message"
+              className="flex-1 rounded border border-white/20 bg-[#050B1A] px-3 py-2 text-sm"
+            />
+            <button type="submit" className="rounded bg-white px-3 py-2 text-black" aria-label="Send chat message">
+              <Send size={16} />
+            </button>
+          </form>
+        </div>
+      ) : null}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="fixed bottom-4 right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-xl hover:bg-blue-700"
+        aria-label="Open support chat"
+      >
+        <MessageCircle size={22} />
+      </button>
+    </>
+  );
+}
