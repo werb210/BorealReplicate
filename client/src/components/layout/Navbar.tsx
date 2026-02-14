@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { APPLY_URL } from "@/config/site";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,17 +8,16 @@ export function Navbar() {
     <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-black px-4 py-3 text-white md:px-8">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <img src="/logo.png" className="h-8 object-contain md:h-10" alt="Boreal Financial" />
-          <span className="text-lg font-semibold tracking-wide text-white md:text-xl">Boreal Financial</span>
+          <img src="/images/Header.png" className="h-10 w-auto object-contain md:h-12" alt="Boreal Financial" />
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-white md:flex">
           <Link href="/products">Products</Link>
           <Link href="/industries">Industries</Link>
           <Link href="/credit-readiness">Credit Readiness</Link>
-          <a href={APPLY_URL} className="rounded bg-white px-4 py-2 font-semibold text-black">
+          <Link href="/apply" className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700">
             Apply Now
-          </a>
+          </Link>
         </nav>
 
         <button onClick={() => setOpen(!open)} className="text-white md:hidden" aria-label="Toggle menu">
@@ -38,13 +36,13 @@ export function Navbar() {
           <Link href="/credit-readiness" onClick={() => setOpen(false)}>
             Credit Readiness
           </Link>
-          <a
-            href={APPLY_URL}
+          <Link
+            href="/apply"
             className="block rounded bg-white py-3 text-center font-semibold text-black"
             onClick={() => setOpen(false)}
           >
             Apply Now
-          </a>
+          </Link>
         </div>
       )}
     </header>

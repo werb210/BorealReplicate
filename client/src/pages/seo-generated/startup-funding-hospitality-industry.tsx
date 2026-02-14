@@ -11,7 +11,7 @@ export default function StartupFundingHospitalityIndustryPage() {
     "@type": "Organization",
     name: "Boreal Financial",
     url: BASE_URL,
-    logo: BASE_URL + "/images/logo.png"
+    logo: BASE_URL + "/images/300_300.png"
   };
 
   const financialServiceJsonLd = {

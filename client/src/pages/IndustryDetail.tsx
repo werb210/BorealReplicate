@@ -6,7 +6,7 @@ import { products } from "@/data/products";
 
 type Props = { slug: string };
 
-const productOrder = ["loc", "term-loan", "factoring", "po-financing", "asset-based-lending"];
+const productOrder = ["loc", "term-loan", "equipment-financing", "accounts-receivable-financing", "po-financing", "asset-based-lending"];
 
 const challengeIcons = [AlertTriangle, CircleDollarSign, BarChart3, TrendingUp];
 const steps = ["Capital Assessment", "Structuring", "Lender Match", "Funding"];

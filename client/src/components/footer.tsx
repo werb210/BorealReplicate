@@ -3,8 +3,9 @@ import { APPLY_URL } from "@/config/site";
 export function Footer() {
   return (
     <footer className="mt-16 bg-slate-950 text-slate-200">
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:px-6 lg:px-8 md:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:px-6 md:grid-cols-3 md:py-16 lg:px-8">
         <div>
+          <img src="/images/100_100.png" alt="Boreal Financial" className="h-12 w-auto object-contain" />
           <h2 className="text-lg font-semibold">Boreal Financial</h2>
           <p className="mt-2 text-sm text-slate-400">
             Structured lending marketplace helping businesses across Canada and the United States.
