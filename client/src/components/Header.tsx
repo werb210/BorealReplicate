@@ -12,7 +12,7 @@ const navItems = [
   { href: "/credit-readiness", label: "Credit Readiness" },
 ];
 
-const primaryProductSlugs = ["loc", "term-loan", "equipment-financing", "factoring", "po-financing", "asset-based-lending"];
+const primaryProductSlugs = ["loc", "term-loan", "equipment-financing", "factoring", "merchant-cash-advance", "po-financing", "asset-based-lending"];
 
 export default function Header() {
   const [open, setOpen] = useState(false);

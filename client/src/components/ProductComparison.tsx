@@ -1,15 +1,13 @@
 import React from "react";
 import { products } from "@/data/products";
 
-const orderedSlugs = ["loc", "term-loan", "equipment-financing", "factoring", "po-financing", "asset-based-lending"] as const;
+const orderedSlugs = ["loc", "term-loan", "equipment-financing", "factoring", "merchant-cash-advance", "po-financing", "asset-based-lending"] as const;
 
 const categories = [
   { label: "Speed", key: "speed" },
   { label: "Best Use", key: "bestUse" },
   { label: "Repayment", key: "repayment" },
   { label: "Collateral", key: "collateral" },
-  { label: "Typical Term", key: "term" },
-  { label: "Typical Cost Range", key: "rateRange" },
 ] as const;
 
 export default function ProductComparison() {
@@ -26,17 +24,17 @@ export default function ProductComparison() {
           <table className="w-full min-w-[980px] border-collapse text-sm">
             <thead className="bg-[#08132a]">
               <tr>
-                <th className="p-4 text-left">Category</th>
-                {orderedProducts.map((product) => (
-                  <th key={product.slug} className="p-4 text-left">{product.name}</th>
+                <th className="p-4 text-left">Product</th>
+                {categories.map((category) => (
+                  <th key={category.label} className="p-4 text-left">{category.label}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {categories.map((category) => (
-                <tr key={category.label} className="border-t border-white/10 bg-[#040b1a] align-top">
-                  <td className="p-4 font-semibold">{category.label}</td>
-                  {orderedProducts.map((product) => (
+              {orderedProducts.map((product) => (
+                <tr key={product.slug} className="border-t border-white/10 bg-[#040b1a] align-top">
+                  <td className="p-4 font-semibold">{product.name}</td>
+                  {categories.map((category) => (
                     <td key={`${product.slug}-${category.label}`} className="p-4 text-slate-300">{product[category.key]}</td>
                   ))}
                 </tr>

@@ -32,6 +32,7 @@ const requiredProducts = [
   "term-loan",
   "equipment-financing",
   "factoring",
+  "merchant-cash-advance",
   "po-financing",
   "asset-based-lending",
 ];
@@ -53,11 +54,13 @@ test("navigation renders products and industries links", () => {
   }
 });
 
-test("comparison table renders category-first layout with all products", () => {
+test("comparison table renders product rows with required comparison categories", () => {
   const html = renderToStaticMarkup(<ProductComparison />);
-  assert.match(html, /<th class="p-4 text-left">Category<\/th>/);
-  assert.match(html, /Typical Term/);
-  assert.match(html, /Typical Cost Range/);
+  assert.match(html, /<th class="p-4 text-left">Product<\/th>/);
+  assert.match(html, /Speed/);
+  assert.match(html, /Best Use/);
+  assert.match(html, /Repayment/);
+  assert.match(html, /Collateral/);
   for (const slug of requiredProducts) {
     const product = products.find((item) => item.slug === slug);
     assert.ok(product, `missing product ${slug}`);
