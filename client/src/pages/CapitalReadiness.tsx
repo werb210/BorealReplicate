@@ -68,11 +68,11 @@ export default function CapitalReadiness() {
       {submitted && readinessToken ? (
         <div className="mx-auto mb-6 flex max-w-4xl flex-col items-start gap-3 rounded-2xl border border-blue-200/30 bg-blue-900/30 px-5 py-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-base font-semibold text-blue-100">Preliminary readiness saved</p>
+            <p className="text-base font-semibold text-blue-100">Continuing your application</p>
             {preliminaryScore !== null ? <p className="text-sm text-blue-100/90">Preliminary score: {preliminaryScore}/100{tier ? ` · ${tier}` : ""}</p> : null}
             {wasDeduped ? <p className="text-xs text-blue-100/80">Existing lead reused to prevent duplicate submissions.</p> : null}
           </div>
-          <a href={buildApplyUrl(APPLY_URL, readinessToken)} className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black">Continue Application</a>
+          <a href={buildApplyUrl(APPLY_URL, readinessToken)} className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black">Apply Now</a>
         </div>
       ) : null}
 
