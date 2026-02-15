@@ -16,6 +16,7 @@ const primaryProductSlugs = ["loc", "term-loan", "equipment-financing", "factori
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const readinessSessionToken = getReadinessSessionToken();
   const applyLabel = readinessSessionToken ? "Continue Application" : "Apply Now";
   const applyHref = buildApplyUrl(APPLY_URL, readinessSessionToken);
@@ -58,7 +59,18 @@ export default function Header() {
             Contact
           </Link>
           <a href={applyHref} className="max-w-[9.25rem] truncate rounded bg-white px-2.5 py-1.5 text-[11px] font-semibold text-black whitespace-nowrap">{applyLabel}</a>
-          <button onClick={() => setOpen((value) => !value)} className="rounded border border-white/30 p-2" aria-expanded={open} aria-label="Toggle navigation menu">
+          <button
+            onClick={() => {
+              setOpen((value) => {
+                const nextOpen = !value;
+                if (!nextOpen) setMobileIndustriesOpen(false);
+                return nextOpen;
+              });
+            }}
+            className="rounded border border-white/30 p-2"
+            aria-expanded={open}
+            aria-label="Toggle navigation menu"
+          >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
@@ -91,11 +103,27 @@ export default function Header() {
           </div>
 
           <div className="my-1 border-t border-white/10 pt-2">
-            <p className="px-2 py-1 text-xs uppercase tracking-[0.2em] text-slate-400">Industries</p>
-            <div className="max-h-56 overflow-y-auto pr-1">
+            <button
+              type="button"
+              className="flex w-full items-center justify-between rounded px-2 py-2 text-left text-xs uppercase tracking-[0.2em] text-slate-400 hover:bg-white/5"
+              aria-expanded={mobileIndustriesOpen}
+              onClick={() => setMobileIndustriesOpen((value) => !value)}
+            >
+              Industries
+              <ChevronDown size={14} className={`transition-transform ${mobileIndustriesOpen ? "rotate-180" : ""}`} />
+            </button>
+            <div className={`${mobileIndustriesOpen ? "mt-2 max-h-56" : "max-h-0"} overflow-y-auto pr-1 transition-all`}>
               <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
                 {industries.map((industry) => (
-                  <Link key={`mobile-${industry.slug}`} href={`/industries/${industry.slug}`} className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10" onClick={() => setOpen(false)}>
+                  <Link
+                    key={`mobile-${industry.slug}`}
+                    href={`/industries/${industry.slug}`}
+                    className="rounded px-2 py-2 text-sm text-white/90 hover:bg-white/10"
+                    onClick={() => {
+                      setOpen(false);
+                      setMobileIndustriesOpen(false);
+                    }}
+                  >
                     {industry.name}
                   </Link>
                 ))}
