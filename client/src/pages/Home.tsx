@@ -4,6 +4,7 @@ import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
 import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
+import MarketplaceSection from "@/components/MarketplaceSection";
 
 export default function Home() {
   const readinessToken = getReadinessSessionToken();
@@ -34,6 +35,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+
+        <MarketplaceSection />
 
         <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
