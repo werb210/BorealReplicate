@@ -23,7 +23,19 @@ export default function FloatingChat() {
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttemptsRef = useRef(0);
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [staffEscalated, setStaffEscalated] = useState(false);
+  const staffEscalatedRef = useRef(false);
   const sessionId = useMemo(() => getReadinessSessionToken() ?? createSessionId(), []);
+
+  useEffect(() => {
+    staffEscalatedRef.current = staffEscalated;
+  }, [staffEscalated]);
+
+  useEffect(() => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [messages]);
 
   useEffect(() => {
     if (!open || wsRef.current) return;
@@ -44,9 +56,18 @@ export default function FloatingChat() {
       try {
         const payload = JSON.parse(event.data) as { type?: string; message?: string };
         if (payload.type === "staff_joined") {
-          setMessages((prev) => [...prev, { id: `${Date.now()}-staff`, from: "system", message: payload.message || "Transferring you…" }]);
+          setStaffEscalated(true);
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `${Date.now()}-staff`,
+              from: "system",
+              message: payload.message || "Transferring you to a specialist…",
+            },
+          ]);
           return;
         }
+        if (staffEscalatedRef.current) return;
         const systemMessage = payload.message;
         if (systemMessage) {
           setMessages((prev) => [...prev, { id: `${Date.now()}-system`, from: "system", message: systemMessage }]);
@@ -98,17 +119,37 @@ export default function FloatingChat() {
     setInput("");
   }
 
+  function requestHumanSupport() {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+    wsRef.current.send(JSON.stringify({ type: "staff_joined", sessionId }));
+  }
+
+  function reportIssue() {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+    wsRef.current.send(
+      JSON.stringify({
+        type: "message",
+        sessionId,
+        message: "I need to report an issue.",
+      }),
+    );
+    setMessages((prev) => [...prev, { id: `${Date.now()}-report`, from: "user", message: "I need to report an issue." }]);
+  }
+
   return (
     <>
       {open ? (
-        <div className="fixed bottom-20 right-4 z-50 w-[min(92vw,360px)] rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl">
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-            <p className="font-semibold">Boreal Support Chat</p>
+        <div className="chat-panel fixed bottom-20 right-4 z-50 flex w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
+          <div className="chat-header flex items-center justify-between border-b border-white/10 px-4">
+            <div>
+              <p className="text-sm font-semibold">Maya</p>
+              <p className="text-xs text-slate-300">{connected ? "Online" : connecting ? "Connecting..." : "Offline"}</p>
+            </div>
             <button aria-label="Close chat" onClick={() => setOpen(false)} className="rounded p-1 hover:bg-white/10">
               <X size={16} />
             </button>
           </div>
-          <div className="max-h-80 space-y-2 overflow-y-auto p-4 text-sm">
+          <div ref={scrollRef} className="chat-messages space-y-2 p-4 text-sm">
             {connecting ? <p className="text-slate-300">Connecting…</p> : null}
             {!connecting && !connected ? <p className="text-amber-300">Connection unavailable. Please try again.</p> : null}
             {messages.length === 0 ? <p className="text-slate-300">Ask a question and our team will follow up.</p> : null}
@@ -118,7 +159,23 @@ export default function FloatingChat() {
               </div>
             ))}
           </div>
-          <form onSubmit={sendMessage} className="flex gap-2 border-t border-white/10 p-3">
+          <div className="flex flex-col gap-2 border-t border-white/10 px-3 py-2 md:flex-row md:px-4">
+            <button
+              type="button"
+              onClick={requestHumanSupport}
+              className="w-full rounded-md border border-white/30 px-3 py-2 text-sm text-slate-100 transition-colors hover:bg-white/10"
+            >
+              Talk to a Human
+            </button>
+            <button
+              type="button"
+              onClick={reportIssue}
+              className="w-full rounded-md border border-white/30 px-3 py-2 text-sm text-slate-100 transition-colors hover:bg-white/10"
+            >
+              Report an Issue
+            </button>
+          </div>
+          <form onSubmit={sendMessage} className="chat-input flex gap-2 border-t border-white/10 px-3 md:px-4">
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
