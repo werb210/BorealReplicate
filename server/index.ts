@@ -69,7 +69,7 @@ app.use((req, res, next) => {
         }
 
         if (payload.type === "staff_joined") {
-          socket.send(JSON.stringify({ type: "staff_joined", message: "Transferring you…" }));
+          socket.send(JSON.stringify({ type: "staff_joined", message: "Transferring you to a specialist…" }));
           return;
         }
 

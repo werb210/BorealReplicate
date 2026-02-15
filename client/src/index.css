@@ -276,3 +276,38 @@ section {
     display: none;
   }
 }
+
+.chat-panel {
+  min-height: 80vh;
+  max-height: 750px;
+  height: auto;
+}
+
+.chat-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chat-header {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  height: 48px;
+}
+
+.chat-input {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+  .chat-header {
+    height: 56px;
+  }
+}
+
+@media (max-width: 767px) {
+  .chat-panel {
+    height: 90vh;
+  }
+}
