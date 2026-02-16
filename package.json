@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "vite build",
-    "start": "NODE_ENV=production node dist/index.js",
-    "check": "tsc",
+    "build": "npm run build:server && vite build",
+    "start": "NODE_ENV=production node dist/server/index.js",
+    "check": "tsc --build",
     "db:push": "drizzle-kit push",
     "sitemap": "tsx scripts/generate-sitemap.ts",
     "audit:alt": "node scripts/alt-audit.js",
@@ -15,7 +15,8 @@
     "generate:sitemap": "ts-node scripts/generate-sitemap.ts",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
-    "test": "tsx --test tests/**/*.test.ts*"
+    "test": "tsx --test tests/**/*.test.ts*",
+    "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server/index.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
