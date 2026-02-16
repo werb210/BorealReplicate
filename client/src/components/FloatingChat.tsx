@@ -151,9 +151,6 @@ export default function FloatingChat() {
     wsRef.current.send(JSON.stringify({ type: "staff_joined", sessionId }));
   }
 
-  function reportIssue() {
-    setMode("report");
-  }
 
   return (
     <>
@@ -178,33 +175,31 @@ export default function FloatingChat() {
               </div>
             ))}
           </div>
-          <div className="mt-4 flex gap-2 border-t border-white/10 px-3 py-2 md:px-4">
+          <div className="flex gap-2 border-t border-white/10 px-3 py-2 md:px-4">
             <button
               type="button"
               onClick={requestHumanSupport}
-              className="rounded border border-gray-500 px-3 py-2"
+              className="flex-1 border border-white/20 rounded px-3 py-2"
             >
               Talk to a Human
             </button>
+
             <button
               type="button"
-              onClick={reportIssue}
-              className="rounded border border-gray-500 px-3 py-2"
+              onClick={() => setMode("report")}
+              className="flex-1 border border-white/20 rounded px-3 py-2"
             >
               Report an Issue
             </button>
           </div>
           <form onSubmit={sendMessage} className="chat-input flex flex-col gap-2 border-t border-white/10 px-3 py-3 md:px-4">
             {mode === "report" && (
-              <div className="mt-1">
-                <textarea
-                  placeholder="Describe the issue..."
-                  value={issue}
-                  onChange={(e) => setIssue(e.target.value)}
-                  className="w-full p-2 rounded bg-[#0b213f] text-white border border-gray-600"
-                  required
-                />
-              </div>
+              <textarea
+                value={issue}
+                onChange={(e) => setIssue(e.target.value)}
+                placeholder="Describe the issue..."
+                className="w-full rounded bg-[#0f172a] border border-white/10 p-2"
+              />
             )}
             {mode === "chat" ? (
               <div className="flex items-center gap-2 rounded-lg bg-white p-2">

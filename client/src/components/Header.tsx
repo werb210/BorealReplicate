@@ -8,9 +8,9 @@ export default function Header() {
 
   return (
     <header className="border-b border-white/10 bg-[#071a2f]">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-6">
+      <div className="flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center">
-          <img src="/logo.svg" alt="Boreal Financial" className="h-28 w-auto md:h-32" />
+          <img src="/logo.svg" alt="Boreal Financial" className="h-14 md:h-20 w-auto object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-white md:flex">

@@ -14,7 +14,7 @@ export function Navbar() {
       <div className="hidden items-center gap-6 md:flex">
         <Link href="/products">Products</Link>
         <Link href="/industries">Industries</Link>
-        <Link href="/capital-readiness">Capital Readiness</Link>
+        <Link href="/credit-readiness">Credit Readiness</Link>
         <Link
           href="/apply"
           className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700"
