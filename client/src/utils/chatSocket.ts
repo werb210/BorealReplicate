@@ -1,9 +1,4 @@
-export function buildWebSocketUrl(path = "/ws/chat"): string {
-  // Always derive WS origin from the active window location.
-  const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-  const host = window.location.host;
-  return `${wsProtocol}//${host}${path}`;
-}
+import { buildWebSocketUrl } from "./buildWebSocketUrl";
 
 export function createSafeWebSocket(path: string) {
   return new WebSocket(buildWebSocketUrl(path));
@@ -17,8 +12,7 @@ export function getChatSocket(): WebSocket | null {
       return socket;
     }
 
-    const url = buildWebSocketUrl("/ws/chat");
-    socket = new WebSocket(url);
+    socket = new WebSocket(buildWebSocketUrl("/ws/chat"));
 
     socket.onerror = () => {
       console.warn("WebSocket failed — chat disabled.");
