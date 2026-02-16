@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { useEffect, useRef } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
@@ -26,10 +27,10 @@ function App() {
   }, []);
 
   return (
-    <>
+    <TooltipProvider>
       <Toaster />
       <AppRouter />
-    </>
+    </TooltipProvider>
   );
 }
 
