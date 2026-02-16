@@ -11,7 +11,7 @@ export default function CreditReadiness() {
     monthlyRevenue: "",
     annualRevenue: "",
     arOutstanding: "",
-    collateral: "",
+    collateralAvailable: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -123,18 +123,19 @@ export default function CreditReadiness() {
         <div>
           <label className="block mb-2 capitalize">Collateral Available</label>
           <select
-            name="collateral"
-            value={form.collateral}
+            name="collateralAvailable"
+            value={form.collateralAvailable}
             onChange={handleChange}
             className="w-full p-3 rounded bg-[#0b213f] text-white"
             required
           >
-            <option value="">Select collateral type</option>
-            <option value="Real Estate">Real Estate</option>
-            <option value="Equipment">Equipment</option>
-            <option value="Inventory">Inventory</option>
-            <option value="Receivables">Accounts Receivable</option>
-            <option value="None">None</option>
+            <option value="">Is there available collateral for security?</option>
+            <option>No Collateral Available</option>
+            <option>$1 to $100,000</option>
+            <option>$100,001 to $250,000</option>
+            <option>$250,001 to $500,000</option>
+            <option>$500,001 to $1 million</option>
+            <option>Over $1 million</option>
           </select>
         </div>
 

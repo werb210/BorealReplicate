@@ -7,15 +7,14 @@ export default function Header() {
   const applyHref = buildApplyUrl(APPLY_URL, readinessSessionToken);
 
   return (
-    <header className="border-b border-white/10 bg-[#071a2f] px-5 py-4 md:px-8">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-2">
+    <header className="border-b border-white/10 bg-[#071a2f]">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-6">
+        <Link href="/" className="flex items-center">
           <img
-            src="/images/header_white_transparent.png"
+            src="/logo.svg"
             alt="Boreal Financial"
-            className="h-14 w-auto"
+            className="h-24 w-auto"
           />
-          <span className="text-lg font-semibold tracking-wide text-white md:text-xl">Boreal Financial</span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-white md:flex">
