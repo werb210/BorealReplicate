@@ -40,8 +40,10 @@ export default function FloatingChat() {
   useEffect(() => {
     if (!open || wsRef.current) return;
 
-    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-    const ws = new WebSocket(`${protocol}://${window.location.host}/ws/chat`);
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const host = window.location.host;
+
+    const ws = new WebSocket(`${protocol}//${host}/ws/chat`);
     wsRef.current = ws;
     setConnecting(true);
 
