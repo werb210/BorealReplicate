@@ -6,6 +6,22 @@ import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import MarketplaceSection from "@/components/MarketplaceSection";
 
+const featuredIndustrySlugs = ["construction", "manufacturing", "transportation"];
+const orderedIndustries = [
+  ...featuredIndustrySlugs
+    .map((slug) => industries.find((industry) => industry.slug === slug))
+    .filter((industry): industry is NonNullable<typeof industry> => Boolean(industry)),
+  ...industries.filter((industry) => !featuredIndustrySlugs.includes(industry.slug)),
+];
+
+const featuredProductSlugs = ["loc", "term-loan", "equipment-financing"];
+const orderedProducts = [
+  ...featuredProductSlugs
+    .map((slug) => products.find((product) => product.slug === slug))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product)),
+  ...products.filter((product) => !featuredProductSlugs.includes(product.slug)),
+];
+
 export default function Home() {
   const readinessToken = getReadinessSessionToken();
   const applyHref = buildApplyUrl(APPLY_URL, readinessToken);
@@ -38,41 +54,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 py-24 max-w-7xl mx-auto px-5 md:px-6">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">How It Works</h2>
-            <ol className="space-y-6 text-gray-300">
-              <li><strong>1. Intelligent Structuring</strong> — We structure before it hits a lender.</li>
-              <li><strong>2. Targeted Matching</strong> — Only aligned lenders see your file.</li>
-              <li><strong>3. Competitive Offers</strong> — Structured terms, not blind approvals.</li>
-              <li><strong>4. Strategic Selection</strong> — Choose the right structure.</li>
-            </ol>
-          </div>
-
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Why This Matters</h2>
-            <ul className="space-y-4 text-gray-300">
-              <li>Multiple funding sources</li>
-              <li>Competitive leverage</li>
-              <li>Structured positioning</li>
-              <li>Faster timelines</li>
-              <li>Greater flexibility</li>
-            </ul>
-          </div>
-        </section>
-
-
-
         <MarketplaceSection />
 
         <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {industries.map((industry) => (
-              <Link key={industry.slug} href={`/industries/${industry.slug}`} className="group relative overflow-hidden rounded-2xl">
-                <img src={industry.image} alt={industry.name} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
-                <div className="absolute bottom-0 p-4"><h3 className="text-xl font-bold">{industry.name}</h3></div>
+          <div className="scroll-row mt-6">
+            {orderedIndustries.map((industry) => (
+              <Link key={industry.slug} href={`/industries/${industry.slug}`} className="scroll-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
+                <img src={industry.image} alt={industry.name} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25" />
+                <div className="absolute bottom-0 p-4">
+                  <h3 className="text-xl font-bold">{industry.name}</h3>
+                  <p className="mt-1 text-sm text-slate-200">{industry.description}</p>
+                </div>
               </Link>
             ))}
           </div>
@@ -80,11 +74,11 @@ export default function Home() {
 
         <section className="mx-auto max-w-7xl px-5 pb-10 md:px-6 md:pb-12">
           <h2 className="text-3xl font-bold md:text-4xl">Products</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {products.map((product) => (
-              <article key={product.slug} className="relative overflow-hidden rounded-2xl">
-                <img src={product.image} alt={product.name} className="h-56 w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+          <div className="scroll-row mt-6">
+            {orderedProducts.map((product) => (
+              <article key={product.slug} className="scroll-card relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
+                <img src={product.image} alt={product.name} className="h-56 w-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/20" />
                 <div className="absolute inset-0 flex flex-col justify-end p-4">
                   <h3 className="text-xl font-bold">{product.name}</h3>
                   <p className="mt-1 text-sm text-slate-200">{product.description}</p>

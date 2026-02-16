@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scroll-row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-card {
+  min-width: 320px;
+  scroll-snap-align: start;
+  flex: 0 0 min(320px, 82vw);
+}
+
+@media (min-width: 1024px) {
+  .scroll-card {
+    flex-basis: calc((100% - 40px) / 3);
+    min-width: calc((100% - 40px) / 3);
+  }
+}
