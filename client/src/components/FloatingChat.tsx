@@ -1,7 +1,7 @@
-import React from "react";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, Send, X } from "lucide-react";
 import { getReadinessSessionToken } from "@/utils/session";
+import { clearChatSocket, getChatSocket } from "@/utils/chatSocket";
 
 type ChatMessage = {
   id: string;
@@ -40,10 +40,10 @@ export default function FloatingChat() {
   useEffect(() => {
     if (!open || wsRef.current) return;
 
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const host = window.location.host;
+    const socket = getChatSocket();
+    if (!socket) return;
 
-    const ws = new WebSocket(`${protocol}//${host}/ws/chat`);
+    const ws = socket;
     wsRef.current = ws;
     setConnecting(true);
 
@@ -88,6 +88,7 @@ export default function FloatingChat() {
       setConnecting(false);
       setConnected(false);
       wsRef.current = null;
+      clearChatSocket();
 
       if (!open) return;
 
@@ -108,6 +109,7 @@ export default function FloatingChat() {
       }
       ws.close();
       wsRef.current = null;
+      clearChatSocket();
     };
   }, [open, reconnectTick, sessionId]);
 
