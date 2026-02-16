@@ -55,7 +55,6 @@ export function AppRouter() {
 
           <Route path="/product-comparison" component={Compare} />
           <Route path="/compare" component={Compare} />
-          <Route path="/capital-readiness" component={CreditReadiness} />
           <Route path="/credit-readiness" component={CreditReadiness} />
           <Route path="/credit-results" component={CreditResults} />
           <Route path="/podcasts" component={Podcasts} />
