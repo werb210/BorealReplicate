@@ -8,8 +8,8 @@ export default function MarketplaceSection() {
       <div className="mx-auto max-w-7xl px-5 md:px-6">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-10 lg:gap-[40px]">
           <div className="space-y-4 text-base leading-relaxed text-slate-200">
-            <h2 className="text-3xl font-semibold text-white">A Marketplace for Capital</h2>
-            <p>Boreal Financial is not a single-lender brokerage.</p>
+            <h2 className="text-3xl font-bold">A Marketplace for Capital</h2>
+            <p>Boreal Financial operates a structured capital marketplace.</p>
             <p>We operate a structured capital marketplace where multiple vetted lenders compete for your business.</p>
             <p>
               When you apply, your file is professionally structured using AI-assisted analysis and strategic review. It is then

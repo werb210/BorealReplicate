@@ -39,10 +39,12 @@ export default function Home() {
             </div>
           </section>
         ) : null}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[url('/images/Header_white.png')] bg-no-repeat bg-center bg-contain pointer-events-none"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-[#06152f]/85 to-black/45" />
-          <div className="relative mx-auto max-w-7xl px-5 py-12 md:px-6 md:py-20">
+        <section
+          className="relative bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/hero-office.jpg')" }}
+        >
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative z-10 mx-auto max-w-7xl px-5 py-28 text-white md:px-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">Boutique Capital Advisory</p>
             <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">Strategic financing structured with precision.</h1>
             <p className="mt-4 max-w-2xl text-base text-slate-200 md:text-lg">Institutional-grade financing strategy built for growth-stage and mature operators.</p>

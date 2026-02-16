@@ -146,7 +146,12 @@ export default function FloatingChat() {
     setInput("");
   }
 
+  function reportIssue() {
+    setMode("report");
+  }
+
   function requestHumanSupport() {
+    setMode("chat");
     if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
     wsRef.current.send(JSON.stringify({ type: "staff_joined", sessionId }));
   }
@@ -186,7 +191,7 @@ export default function FloatingChat() {
 
             <button
               type="button"
-              onClick={() => setMode("report")}
+              onClick={reportIssue}
               className="flex-1 border border-white/20 rounded px-3 py-2"
             >
               Report an Issue
