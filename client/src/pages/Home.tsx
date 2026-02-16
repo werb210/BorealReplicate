@@ -39,18 +39,35 @@ export default function Home() {
             </div>
           </section>
         ) : null}
-        <section
-          className="relative bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/hero-office.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 mx-auto max-w-7xl px-5 py-32 text-white md:px-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">Boutique Capital Advisory</p>
-            <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">Strategic financing structured with precision.</h1>
-            <p className="mt-4 max-w-2xl text-base text-slate-200 md:text-lg">Institutional-grade financing strategy built for growth-stage and mature operators.</p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a href={applyHref} className="w-full rounded-full bg-blue-600 px-5 py-2.5 text-center font-semibold text-white sm:w-auto">{readinessToken ? "Continue Application" : "Apply Now"}</a>
-              <Link href="/contact" className="w-full rounded-full border border-white/35 px-5 py-2.5 text-center font-semibold sm:w-auto">Speak With Advisor</Link>
+        <section className="relative flex min-h-[85vh] w-full items-center">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: "url('/images/whiteboard-hero.jpg')",
+            }}
+          />
+
+          <div className="absolute inset-0 bg-black/70" />
+
+          <div className="relative z-10 mx-auto max-w-7xl px-6 text-white">
+            <p className="mb-4 text-sm uppercase tracking-widest text-white/60">Boutique Capital Advisory</p>
+
+            <h1 className="mb-6 max-w-3xl text-4xl font-bold leading-tight md:text-6xl">Strategic financing structured with precision.</h1>
+
+            <p className="mb-8 max-w-2xl text-lg text-white/80">
+              Institutional-grade financing strategy built for growth-stage and mature operators.
+            </p>
+
+            <div className="flex gap-4">
+              <a href="/apply" className="rounded-full bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-700">
+                Apply Now
+              </a>
+              <a
+                href="/contact"
+                className="rounded-full border border-white/40 px-6 py-3 font-medium transition hover:border-white"
+              >
+                Speak With Advisor
+              </a>
             </div>
           </div>
         </section>

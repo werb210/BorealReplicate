@@ -5,7 +5,7 @@ export function Hero() {
     <section
       className="relative py-16 text-white md:py-20"
       style={{
-        backgroundImage: "url('/images/hero-office.jpg')",
+        backgroundImage: "url('/images/whiteboard-hero.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
