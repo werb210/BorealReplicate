@@ -95,10 +95,10 @@ export const industries: Industry[] = [
     slug: "healthcare",
     title: "Healthcare",
     name: "Healthcare",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?auto=format&fit=crop&w=1400&q=80",
+    image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1400&q=80",
     description: "Capital structures for clinics, providers, and healthcare service organizations.",
     summary: "Facilities built for reimbursement timing, staffing continuity, and equipment investment.",
-    heroImage: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1800&q=80",
+    heroImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
     advisory: "Healthcare providers balance staffing requirements, reimbursement delays, and specialized equipment costs. Boreal structures facilities that prioritize continuity of care and operational stability.",
     challenges: [
       "Reimbursement schedules can lag payroll and core operating expenses.",

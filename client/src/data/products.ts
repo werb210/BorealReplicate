@@ -180,6 +180,30 @@ export const products: Product[] = [
     ],
     relatedIndustries: ["Construction", "Manufacturing", "Retail", "Restaurant / Food Service", "Technology", "Healthcare", "Transportation", "Professional Services", "Real Estate", "Agriculture", "Energy", "Other"],
   },
+  {
+    slug: "media-financing",
+    name: "Media Financing",
+    category: "Structured Production Capital",
+    image: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1600&q=80",
+    description: "Structured funding for production, digital campaigns, and content-backed revenue.",
+    heroSummary: "Capital facilities designed for production timelines, campaign execution, and receivable pacing.",
+    whatItDoes: "Media Financing helps production and media teams fund project execution, talent, and distribution spend while cash conversion is still in process.",
+    useCases: ["Film and TV production", "Advertising campaign deployment", "Revenue-backed streaming advances"],
+    term: "6–36 months",
+    typicalRange: "$100K–$5M",
+    rateRange: "Varies by collateral quality and structure",
+    speed: "Moderate",
+    collateral: "Contracts, receivables, equipment, or mixed security",
+    bestUse: "Production and Campaign Funding",
+    repayment: "Structured by revenue cycle or contract collection milestones",
+    goodFit: [
+      "You need to fund production or campaign delivery before collections clear.",
+      "You work with contract-backed media or advertising revenue.",
+      "You need flexible structures that align to variable project cash timing.",
+    ],
+    relatedIndustries: ["Media", "Technology", "Professional Services", "Other"],
+  },
+
 ];
 
 export default products;
