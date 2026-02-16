@@ -57,6 +57,7 @@ export function AppRouter() {
           <Route path="/podcasts" component={Podcasts} />
           <Route path="/contact" component={Contact} />
           <Route path="/apply" component={Apply} />
+          <Route path="/apply/:rest*" component={Apply} />
           <Route path="/lender-login" component={PartnerLogin} />
           <Route path="*" component={NotFound} />
         </Switch>

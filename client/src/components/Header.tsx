@@ -26,7 +26,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/95 text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2 md:px-4 md:py-3">
         <Link href="/" className="min-w-0 flex items-center gap-2 sm:gap-3" onClick={() => setOpen(false)}>
-          <img src="/images/Header.png" alt="Boreal Financial" className="h-9 w-auto shrink-0 object-contain sm:h-10" />
+          <img src="/images/Header_white.png" alt="Boreal Financial" className="h-9 w-auto shrink-0 object-contain sm:h-10" />
           <span className="truncate text-sm font-semibold tracking-wide text-white md:text-base">Boreal Financial</span>
         </Link>
 
