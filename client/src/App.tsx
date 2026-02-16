@@ -27,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={200}>
       <Toaster />
       <AppRouter />
     </TooltipProvider>
