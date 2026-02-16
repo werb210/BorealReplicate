@@ -16,6 +16,8 @@ function createSessionId() {
 export default function FloatingChat() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [mode, setMode] = useState<"chat" | "report">("chat");
+  const [issue, setIssue] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [connecting, setConnecting] = useState(false);
   const [connected, setConnected] = useState(false);
@@ -115,9 +117,20 @@ export default function FloatingChat() {
 
   function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const trimmed = input.trim();
-    if (!trimmed || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
 
+    if (mode === "report") {
+      const issueText = issue.trim();
+      if (!issueText) return;
+      wsRef.current.send(JSON.stringify({ type: "message", sessionId, message: `Issue report: ${issueText}` }));
+      setMessages((prev) => [...prev, { id: `${Date.now()}-report`, from: "user", message: `Issue report: ${issueText}` }]);
+      setIssue("");
+      setMode("chat");
+      return;
+    }
+
+    const trimmed = input.trim();
+    if (!trimmed) return;
     wsRef.current.send(JSON.stringify({ type: "message", sessionId, message: trimmed }));
     setMessages((prev) => [...prev, { id: `${Date.now()}-user`, from: "user", message: trimmed }]);
     setInput("");
@@ -129,15 +142,7 @@ export default function FloatingChat() {
   }
 
   function reportIssue() {
-    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
-    wsRef.current.send(
-      JSON.stringify({
-        type: "message",
-        sessionId,
-        message: "I need to report an issue.",
-      }),
-    );
-    setMessages((prev) => [...prev, { id: `${Date.now()}-report`, from: "user", message: "I need to report an issue." }]);
+    setMode("report");
   }
 
   return (
@@ -179,13 +184,26 @@ export default function FloatingChat() {
               Report an Issue
             </button>
           </div>
-          <form onSubmit={sendMessage} className="chat-input flex gap-2 border-t border-white/10 px-3 md:px-4">
-            <input
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              placeholder="Type your message"
-              className="flex-1 rounded border border-white/20 bg-[#050B1A] px-3 py-2 text-sm"
-            />
+          <form onSubmit={sendMessage} className="chat-input flex flex-col gap-2 border-t border-white/10 px-3 py-3 md:px-4">
+            {mode === "report" && (
+              <div className="mt-1">
+                <textarea
+                  placeholder="Describe the issue..."
+                  value={issue}
+                  onChange={(e) => setIssue(e.target.value)}
+                  className="w-full p-2 rounded bg-[#0b213f] text-white border border-gray-600"
+                  required
+                />
+              </div>
+            )}
+            {mode === "chat" ? (
+              <input
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Type your message"
+                className="flex-1 rounded border border-white/20 bg-[#050B1A] px-3 py-2 text-sm"
+              />
+            ) : null}
             <button type="submit" className="rounded bg-white px-3 py-2 text-black" aria-label="Send chat message">
               <Send size={16} />
             </button>

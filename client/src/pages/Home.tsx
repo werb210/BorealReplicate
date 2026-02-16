@@ -22,8 +22,10 @@ export default function Home() {
             </div>
           </section>
         ) : null}
-        <section className="relative overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=80" alt="Capital advisory team" className="absolute inset-0 h-full w-full object-cover" />
+        <section
+          className="relative overflow-hidden bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/Header_white.png')" }}
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-[#06152f]/85 to-black/45" />
           <div className="relative mx-auto max-w-7xl px-5 py-12 md:px-6 md:py-20">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">Boutique Capital Advisory</p>
@@ -35,6 +37,30 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 py-24 max-w-7xl mx-auto px-5 md:px-6">
+          <div>
+            <h2 className="text-3xl font-bold mb-6">How It Works</h2>
+            <ol className="space-y-6 text-gray-300">
+              <li><strong>1. Intelligent Structuring</strong> — We structure before it hits a lender.</li>
+              <li><strong>2. Targeted Matching</strong> — Only aligned lenders see your file.</li>
+              <li><strong>3. Competitive Offers</strong> — Structured terms, not blind approvals.</li>
+              <li><strong>4. Strategic Selection</strong> — Choose the right structure.</li>
+            </ol>
+          </div>
+
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Why This Matters</h2>
+            <ul className="space-y-4 text-gray-300">
+              <li>Multiple funding sources</li>
+              <li>Competitive leverage</li>
+              <li>Structured positioning</li>
+              <li>Faster timelines</li>
+              <li>Greater flexibility</li>
+            </ul>
+          </div>
+        </section>
+
 
 
         <MarketplaceSection />

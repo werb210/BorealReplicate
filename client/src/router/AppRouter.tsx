@@ -8,7 +8,7 @@ import Contact from "@/pages/Contact";
 import PartnerLogin from "@/pages/PartnerLogin";
 import NotFound from "@/pages/NotFound";
 import Header from "@/components/Header";
-import { Footer } from "@/components/layout/Footer";
+import Footer from "@/components/layout/Footer";
 import { initGA, trackPageView } from "@/analytics/ga";
 import { scrollToTop } from "@/utils/scrollToTop";
 import Compare from "@/pages/Compare";
@@ -16,6 +16,7 @@ import CapitalReadiness from "@/pages/CapitalReadiness";
 import Podcasts from "@/pages/Podcasts";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
+import MediaFinancing from "@/pages/products/MediaFinancing";
 import Apply from "@/pages/Apply";
 import FloatingChat from "@/components/FloatingChat";
 
@@ -39,12 +40,13 @@ export function AppRouter() {
     <div className="min-h-screen bg-[#020817] text-white">
       <AnalyticsListener />
       <Header />
-      <main id="main-content" className="pt-14 md:pt-16">
+      <main id="main-content">
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/how-it-works" component={HowItWorks} />
 
           <Route path="/products" component={Products} />
+          <Route path="/products/media-financing" component={MediaFinancing} />
           <Route path="/products/:slug">{(params) => <ProductDetail slug={params.slug} />}</Route>
 
           <Route path="/industries" component={Industries} />

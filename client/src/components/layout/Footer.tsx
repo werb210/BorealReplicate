@@ -1,25 +1,27 @@
-export function Footer() {
+export default function Footer() {
   return (
-    <footer className="footer border-t border-slate-200 bg-slate-100 py-12 md:py-16">
-      <div className="container footer-grid">
+    <footer className="bg-[#071a2f] text-gray-300 py-16">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-8">
         <div>
-          <img src="/images/100_100.png" alt="Boreal Financial" className="h-12 w-auto object-contain" />
-          <h4 className="text-slate-900">Boreal Financial</h4>
-          <p className="mt-2 text-sm leading-6 text-slate-600">Structured non-bank financing for Canadian businesses.</p>
+          <h3 className="text-white font-semibold mb-4">Boreal Financial</h3>
+          <p>Structured non-bank financing for Canadian businesses.</p>
         </div>
 
         <div>
-          <h4 className="text-slate-900">Explore</h4>
-          <a href="/how-it-works">How it Works</a>
-          <a href="/industries">Industries</a>
-          <a href="/podcasts">Podcasts</a>
+          <h4 className="text-white mb-4">Explore</h4>
+          <ul className="space-y-2">
+            <li><a href="/products">Products</a></li>
+            <li><a href="/industries">Industries</a></li>
+            <li><a href="/credit-readiness">Credit Readiness</a></li>
+          </ul>
         </div>
 
         <div>
-          <h4 className="text-slate-900">Tools</h4>
-          <a href="/capital-readiness">Capital Readiness Score</a>
-          <a href="/product-comparison">Product Comparison</a>
-          <a href="/contact">Contact Us</a>
+          <h4 className="text-white mb-4">Contact</h4>
+          <ul className="space-y-2">
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/apply">Apply</a></li>
+          </ul>
         </div>
       </div>
     </footer>
