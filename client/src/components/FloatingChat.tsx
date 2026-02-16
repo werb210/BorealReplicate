@@ -178,18 +178,18 @@ export default function FloatingChat() {
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-2 border-t border-white/10 px-3 py-2 md:flex-row md:px-4">
+          <div className="mt-4 flex gap-2 border-t border-white/10 px-3 py-2 md:px-4">
             <button
               type="button"
               onClick={requestHumanSupport}
-              className="w-full rounded-md border border-white/30 px-3 py-2 text-sm text-slate-100 transition-colors hover:bg-white/10"
+              className="rounded border border-gray-500 px-3 py-2"
             >
               Talk to a Human
             </button>
             <button
               type="button"
               onClick={reportIssue}
-              className="w-full rounded-md border border-white/30 px-3 py-2 text-sm text-slate-100 transition-colors hover:bg-white/10"
+              className="rounded border border-gray-500 px-3 py-2"
             >
               Report an Issue
             </button>
