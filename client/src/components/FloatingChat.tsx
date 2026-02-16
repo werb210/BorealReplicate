@@ -31,6 +31,16 @@ export default function FloatingChat() {
   const sessionId = useMemo(() => getReadinessSessionToken() ?? createSessionId(), []);
 
   useEffect(() => {
+    setMessages([
+      {
+        id: "welcome-message",
+        from: "system",
+        message: "Hi — I’m Maya. How can I help you today?",
+      },
+    ]);
+  }, []);
+
+  useEffect(() => {
     staffEscalatedRef.current = staffEscalated;
   }, [staffEscalated]);
 
@@ -148,7 +158,7 @@ export default function FloatingChat() {
   return (
     <>
       {open ? (
-        <div className="chat-panel fixed bottom-20 right-4 z-50 flex w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
+        <div className="chat-panel fixed bottom-20 right-4 z-50 flex h-[600px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
           <div className="chat-header flex items-center justify-between border-b border-white/10 px-4">
             <div>
               <p className="text-sm font-semibold">Maya</p>
@@ -158,7 +168,7 @@ export default function FloatingChat() {
               <X size={16} />
             </button>
           </div>
-          <div ref={scrollRef} className="chat-messages space-y-2 p-4 text-sm">
+          <div ref={scrollRef} className="chat-messages flex-1 space-y-2 overflow-y-auto p-4 text-sm">
             {connecting ? <p className="text-slate-300">Connecting…</p> : null}
             {!connecting && !connected ? <p className="text-amber-300">Connection unavailable. Please try again.</p> : null}
             {messages.length === 0 ? <p className="text-slate-300">Ask a question and our team will follow up.</p> : null}
@@ -197,16 +207,22 @@ export default function FloatingChat() {
               </div>
             )}
             {mode === "chat" ? (
-              <input
-                value={input}
-                onChange={(event) => setInput(event.target.value)}
-                placeholder="Type your message"
-                className="flex-1 rounded border border-white/20 bg-[#050B1A] px-3 py-2 text-sm"
-              />
-            ) : null}
-            <button type="submit" className="rounded bg-white px-3 py-2 text-black" aria-label="Send chat message">
-              <Send size={16} />
-            </button>
+              <div className="flex items-center gap-2 rounded-lg bg-white p-2">
+                <input
+                  value={input}
+                  onChange={(event) => setInput(event.target.value)}
+                  placeholder="Type your message..."
+                  className="flex-1 bg-transparent text-black outline-none"
+                />
+                <button type="submit" className="rounded bg-blue-600 px-4 py-2 text-white" aria-label="Send chat message">
+                  Send
+                </button>
+              </div>
+            ) : (
+              <button type="submit" className="rounded bg-white px-3 py-2 text-black" aria-label="Send chat message">
+                <Send size={16} />
+              </button>
+            )}
           </form>
         </div>
       ) : null}

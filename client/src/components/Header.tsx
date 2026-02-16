@@ -9,11 +9,11 @@ export default function Header() {
   return (
     <header className="border-b border-white/10 bg-[#071a2f] px-5 py-4 md:px-8">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-2">
           <img
             src="/images/header_white_transparent.png"
             alt="Boreal Financial"
-            className="h-12 w-auto md:h-14"
+            className="h-14 w-auto"
           />
           <span className="text-lg font-semibold tracking-wide text-white md:text-xl">Boreal Financial</span>
         </Link>
