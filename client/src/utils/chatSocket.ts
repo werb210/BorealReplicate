@@ -1,7 +1,7 @@
-function buildWebSocketUrl(): string {
-  const { protocol, host } = window.location;
-  const wsProtocol = protocol === "https:" ? "wss:" : "ws:";
-  return `${wsProtocol}//${host}/ws/chat`;
+export function createSafeWebSocket(path: string) {
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  const host = window.location.host;
+  return new WebSocket(`${protocol}//${host}${path}`);
 }
 
 let socket: WebSocket | null = null;
@@ -12,7 +12,7 @@ export function getChatSocket(): WebSocket | null {
       return socket;
     }
 
-    socket = new WebSocket(buildWebSocketUrl());
+    socket = createSafeWebSocket("/ws/chat");
 
     socket.onerror = () => {
       console.warn("WebSocket failed — chat disabled.");
