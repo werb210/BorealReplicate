@@ -1,47 +1,147 @@
 import { FormEvent, useState } from "react";
 import { INDUSTRIES } from "@/config/industries";
+import { setReadinessSessionToken } from "@/utils/session";
+
+type ReadinessResult = {
+  score: number;
+  tier: string;
+  sessionToken: string;
+};
+
+type ReadinessForm = {
+  companyName: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  industry: string;
+  yearsInBusiness: string;
+  monthlyRevenue: string;
+  annualRevenue: string;
+  arOutstanding: string;
+  existingDebt: string;
+};
+
+const initialForm: ReadinessForm = {
+  companyName: "",
+  fullName: "",
+  phone: "",
+  email: "",
+  industry: "",
+  yearsInBusiness: "",
+  monthlyRevenue: "",
+  annualRevenue: "",
+  arOutstanding: "",
+  existingDebt: "",
+};
 
 export default function CreditReadiness() {
-  const [showScore, setShowScore] = useState(false);
+  const [form, setForm] = useState<ReadinessForm>(initialForm);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<ReadinessResult | null>(null);
 
-  function handleSubmit(e: FormEvent) {
+  function handleChange<K extends keyof ReadinessForm>(key: K, value: ReadinessForm[K]) {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setShowScore(true);
+    setError(null);
+
+    const requiredFields = Object.values(form).every((v) => v.trim() !== "");
+    if (!requiredFields) {
+      setError("All fields are required.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await fetch("/api/public/readiness", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Submission failed");
+      }
+
+      setReadinessSessionToken(data.sessionToken);
+      setResult({
+        score: data.score,
+        tier: data.tier,
+        sessionToken: data.sessionToken,
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Submission failed");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function continueToApplication() {
+    if (!result) return;
+    window.location.href = `https://client.boreal.financial?readinessSession=${encodeURIComponent(result.sessionToken)}`;
   }
 
   return (
     <section className="py-12">
       <div className="mx-auto max-w-5xl">
-        {!showScore ? (
+        {!result ? (
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <label className="mb-2 block font-medium">What are you looking for?</label>
-              <select className="w-full rounded border px-3 py-2">
-                <option value="">Select</option>
-                <option>Capital</option>
-                <option>Equipment Financing</option>
-                <option>Both Capital and Equipment</option>
-              </select>
+              <label className="mb-2 block font-medium">Company Name</label>
+              <input
+                type="text"
+                value={form.companyName}
+                onChange={(e) => handleChange("companyName", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
             </div>
 
             <div>
-              <label className="mb-2 block font-medium">How much funding are you seeking?</label>
-              <input type="text" placeholder="$ Enter amount" className="w-full rounded border px-3 py-2" />
+              <label className="mb-2 block font-medium">Full Name</label>
+              <input
+                type="text"
+                value={form.fullName}
+                onChange={(e) => handleChange("fullName", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
             </div>
 
             <div>
-              <label className="mb-2 block font-medium">Business Location</label>
-              <select className="w-full rounded border px-3 py-2">
-                <option value="">Select</option>
-                <option>Canada</option>
-                <option>United States</option>
-                <option>Neither</option>
-              </select>
+              <label className="mb-2 block font-medium">Phone</label>
+              <input
+                type="tel"
+                value={form.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">Email</label>
+              <input
+                type="email"
+                value={form.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
             </div>
 
             <div>
               <label className="mb-2 block font-medium">Industry</label>
-              <select className="w-full rounded border px-3 py-2">
+              <select
+                value={form.industry}
+                onChange={(e) => handleChange("industry", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              >
                 <option value="">Select industry</option>
                 {INDUSTRIES.map((industry) => (
                   <option key={industry} value={industry}>
@@ -52,90 +152,84 @@ export default function CreditReadiness() {
             </div>
 
             <div>
-              <label className="mb-2 block font-medium">Purpose of Funds</label>
-              <select className="w-full rounded border px-3 py-2">
-                <option value="">Select</option>
-                <option>Working Capital</option>
-                <option>Expansion</option>
-                <option>Inventory</option>
-                <option>Equipment</option>
-                <option>Marketing</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <div>
               <label className="mb-2 block font-medium">Years in Business</label>
-              <select className="w-full rounded border px-3 py-2">
+              <input
+                type="number"
+                min="0"
+                value={form.yearsInBusiness}
+                onChange={(e) => handleChange("yearsInBusiness", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">Monthly Revenue</label>
+              <input
+                type="text"
+                value={form.monthlyRevenue}
+                onChange={(e) => handleChange("monthlyRevenue", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">Annual Revenue</label>
+              <input
+                type="text"
+                value={form.annualRevenue}
+                onChange={(e) => handleChange("annualRevenue", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">Accounts Receivable Outstanding</label>
+              <input
+                type="text"
+                value={form.arOutstanding}
+                onChange={(e) => handleChange("arOutstanding", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">Existing Debt (Yes/No)</label>
+              <select
+                value={form.existingDebt}
+                onChange={(e) => handleChange("existingDebt", e.target.value)}
+                required
+                className="w-full rounded border px-3 py-2"
+              >
                 <option value="">Select</option>
-                <option>Zero</option>
-                <option>Under 1 Year</option>
-                <option>1 to 3 Years</option>
-                <option>Over 3 Years</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
 
-            <div>
-              <label className="mb-2 block font-medium">Revenue (Last 12 Months)</label>
-              <select className="w-full rounded border px-3 py-2">
-                <option value="">Select</option>
-                <option>Zero to $150,000</option>
-                <option>$150,001 to $500,000</option>
-                <option>$500,001 to $1,000,000</option>
-                <option>$1,000,001 to $3,000,000</option>
-                <option>Over $3,000,000</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-2 block font-medium">Average Monthly Revenue (Last 3 Months)</label>
-              <select className="w-full rounded border px-3 py-2">
-                <option value="">Select</option>
-                <option>Under $10,000</option>
-                <option>$10,001 to $30,000</option>
-                <option>$30,001 to $100,000</option>
-                <option>Over $100,000</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-2 block font-medium">Current Account Receivables</label>
-              <select className="w-full rounded border px-3 py-2">
-                <option>No Account Receivables</option>
-                <option>Zero to $100,000</option>
-                <option>$100,000 to $250,000</option>
-                <option>$250,000 to $500,000</option>
-                <option>$500,000 to $1,000,000</option>
-                <option>$1,000,000 to $3,000,000</option>
-                <option>Over $3,000,000</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-2 block font-medium">Fixed Assets Value</label>
-              <select className="w-full rounded border px-3 py-2">
-                <option>Zero</option>
-                <option>Zero to $100,000</option>
-                <option>$100,001 to $500,000</option>
-                <option>$500,001 to $1,000,000</option>
-                <option>$1,000,001 to $3,000,000</option>
-                <option>Over $3,000,000</option>
-              </select>
-            </div>
+            {error ? <div className="text-sm text-red-500 md:col-span-2">{error}</div> : null}
 
             <div className="text-right md:col-span-2">
-              <button type="submit" className="rounded bg-primary px-6 py-3 text-white">
-                Check Preliminary Score
+              <button type="submit" disabled={loading} className="rounded bg-primary px-6 py-3 text-white">
+                {loading ? "Calculating..." : "Check Capital Readiness"}
               </button>
             </div>
           </form>
         ) : (
           <div className="space-y-6 text-center">
-            <h3 className="text-2xl font-semibold">Preliminary Match Score</h3>
-            <div className="text-5xl font-bold">82%</div>
-            <a href="/apply/step-1" className="inline-block rounded bg-primary px-6 py-3 text-white">
+            <h3 className="text-2xl font-semibold">Capital Readiness Score</h3>
+            <div className="text-5xl font-bold">{result.score}%</div>
+            <p className="text-lg">{result.tier}</p>
+
+            <button
+              onClick={continueToApplication}
+              className="inline-block rounded bg-primary px-6 py-3 text-white"
+            >
               Continue Application
-            </a>
+            </button>
           </div>
         )}
       </div>

@@ -8,7 +8,7 @@ export function Navbar() {
     <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-black px-4 py-3 text-white md:px-8">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <img src="/images/Header.png" className="h-10 w-auto object-contain md:h-12" alt="Boreal Financial" />
+          <img src="/images/Header_white.png" className="h-10 w-auto object-contain md:h-12" alt="Boreal Financial" />
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-white md:flex">
