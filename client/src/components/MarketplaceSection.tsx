@@ -1,4 +1,8 @@
+import { useLocation } from "wouter";
+
 export default function MarketplaceSection() {
+  const [, navigate] = useLocation();
+
   return (
     <section className="bg-primary py-16 text-white">
       <div className="mx-auto max-w-7xl px-5 md:px-6">
@@ -67,6 +71,16 @@ export default function MarketplaceSection() {
           </div>
           <p className="mt-6 text-base text-slate-200">You gain leverage. You gain visibility. You gain optionality.</p>
         </div>
+
+        <section className="py-20 text-center">
+          <h2 className="mb-6 text-3xl font-semibold">Would you like to see if you are ready for financing?</h2>
+          <button
+            onClick={() => navigate("/credit-readiness")}
+            className="rounded-lg bg-white px-8 py-3 font-medium text-black"
+          >
+            Check Credit Readiness
+          </button>
+        </section>
       </div>
     </section>
   );

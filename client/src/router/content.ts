@@ -237,7 +237,7 @@ export const industries: Industry[] = [
   {
     slug: "healthcare",
     name: "Healthcare",
-    heroImage: "/images/industries/healthcare.jpg",
+    heroImage: "/images/premium_photo-1661962673986-dcffa2a05e07.jpg",
     overview:
       "Equipment, receivables, and operating capital for clinics, practices, and service providers.",
     examples: [

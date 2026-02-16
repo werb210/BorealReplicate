@@ -95,7 +95,7 @@ export const industries: Industry[] = [
     slug: "healthcare",
     title: "Healthcare",
     name: "Healthcare",
-    image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1400&q=80",
+    image: "/images/premium_photo-1661962673986-dcffa2a05e07.jpg",
     description: "Capital structures for clinics, providers, and healthcare service organizations.",
     summary: "Facilities built for reimbursement timing, staffing continuity, and equipment investment.",
     heroImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",

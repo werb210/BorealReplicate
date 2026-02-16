@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { MessageCircle, Send, X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import { getReadinessSessionToken } from "@/utils/session";
 import { clearChatSocket, getChatSocket } from "@/utils/chatSocket";
 
@@ -158,7 +158,7 @@ export default function FloatingChat() {
   return (
     <>
       {open ? (
-        <div className="chat-panel fixed bottom-20 right-4 z-50 flex h-[600px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
+        <div className="chat-panel fixed bottom-20 right-4 z-50 flex h-[720px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
           <div className="chat-header flex items-center justify-between border-b border-white/10 px-4">
             <div>
               <p className="text-sm font-semibold">Maya</p>
@@ -220,7 +220,7 @@ export default function FloatingChat() {
               </div>
             ) : (
               <button type="submit" className="rounded bg-white px-3 py-2 text-black" aria-label="Send chat message">
-                <Send size={16} />
+                Send
               </button>
             )}
           </form>
