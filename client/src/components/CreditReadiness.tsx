@@ -1,130 +1,143 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useLocation } from "wouter";
+
+type ReadinessForm = {
+  companyName: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  industry: string;
+  yearsInBusiness: string;
+  annualRevenue: string;
+  monthlyRevenue: string;
+  accountsReceivable: string;
+  availableCollateral: string;
+};
+
+const initialForm: ReadinessForm = {
+  companyName: "",
+  fullName: "",
+  email: "",
+  phone: "",
+  industry: "",
+  yearsInBusiness: "",
+  annualRevenue: "",
+  monthlyRevenue: "",
+  accountsReceivable: "",
+  availableCollateral: "",
+};
 
 export default function CreditReadiness() {
   const [, navigate] = useLocation();
-  const [form, setForm] = useState({
-    companyName: "",
-    fullName: "",
-    email: "",
-    phone: "",
-    industry: "",
-    yearsInBusiness: "",
-    annualRevenue: "",
-    monthlyRevenue: "",
-    accountsReceivable: "",
-    availableCollateral: "",
-  });
+  const [form, setForm] = useState<ReadinessForm>(initialForm);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  function update<K extends keyof ReadinessForm>(key: K, value: ReadinessForm[K]) {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     navigate("/credit-results");
-  };
+  }
 
   return (
     <section className="py-12">
-      <form className="grid grid-cols-1 gap-8 md:grid-cols-2" onSubmit={handleSubmit}>
-        <div>
-          <label className="mb-2 block capitalize">Company Name</label>
-          <input type="text" name="companyName" value={form.companyName} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required />
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border border-white/10 bg-[#08132a] p-6">
+        <input
+          required
+          value={form.companyName}
+          placeholder="Company Name"
+          onChange={(e) => update("companyName", e.target.value)}
+          className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white"
+        />
 
-        <div>
-          <label className="mb-2 block capitalize">Full Name</label>
-          <input type="text" name="fullName" value={form.fullName} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required />
-        </div>
+        <input
+          required
+          value={form.fullName}
+          placeholder="Full Name"
+          onChange={(e) => update("fullName", e.target.value)}
+          className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white"
+        />
 
-        <div>
-          <label className="mb-2 block capitalize">Email</label>
-          <input type="email" name="email" value={form.email} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required />
-        </div>
+        <input
+          required
+          type="email"
+          value={form.email}
+          placeholder="Email"
+          onChange={(e) => update("email", e.target.value)}
+          className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white"
+        />
 
-        <div>
-          <label className="mb-2 block capitalize">Phone</label>
-          <input type="text" name="phone" value={form.phone} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required />
-        </div>
+        <input
+          required
+          type="tel"
+          value={form.phone}
+          placeholder="Phone"
+          onChange={(e) => update("phone", e.target.value)}
+          className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white"
+        />
 
-        <hr className="my-8 md:col-span-2" />
+        <hr className="my-10" />
 
-        <div>
-          <label className="mb-2 block capitalize">Industry</label>
-          <select name="industry" value={form.industry} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required>
-            <option value="">Select industry</option>
-            <option>Construction</option>
-            <option>Manufacturing</option>
-            <option>Retail</option>
-            <option>Technology</option>
-            <option>Healthcare</option>
-            <option>Transportation</option>
-          </select>
-        </div>
+        <select required value={form.industry} onChange={(e) => update("industry", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white">
+          <option value="">Industry</option>
+          <option>Construction</option>
+          <option>Manufacturing</option>
+          <option>Retail</option>
+          <option>Technology</option>
+          <option>Healthcare</option>
+          <option>Transportation</option>
+        </select>
 
-        <div>
-          <label className="mb-2 block capitalize">Years in Business</label>
-          <select name="yearsInBusiness" value={form.yearsInBusiness} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required>
-            <option value="">Select range</option>
-            <option>0–1</option>
-            <option>1–2</option>
-            <option>2–3</option>
-            <option>3–5</option>
-            <option>5+</option>
-          </select>
-        </div>
+        <select required value={form.yearsInBusiness} onChange={(e)=>update("yearsInBusiness",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white">
+          <option value="">Years in business</option>
+          <option>Zero</option>
+          <option>Under 1 Year</option>
+          <option>1 to 3 Years</option>
+          <option>Over 3 Years</option>
+        </select>
 
-        <div>
-          <label className="mb-2 block capitalize">Annual Revenue</label>
-          <select name="annualRevenue" value={form.annualRevenue} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required>
-            <option value="">Select range</option>
-            <option>Under 250k</option>
-            <option>250k–500k</option>
-            <option>500k–1M</option>
-            <option>1M+</option>
-          </select>
-        </div>
+        <select required value={form.annualRevenue} onChange={(e)=>update("annualRevenue",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white">
+          <option value="">Annual Revenue</option>
+          <option>Zero to $150,000</option>
+          <option>$150,001 to $500,000</option>
+          <option>$500,001 to $1,000,000</option>
+          <option>$1,000,001 to $3,000,000</option>
+          <option>Over $3,000,000</option>
+        </select>
 
-        <div>
-          <label className="mb-2 block capitalize">Monthly Revenue</label>
-          <select name="monthlyRevenue" value={form.monthlyRevenue} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required>
-            <option value="">Select range</option>
-            <option>Under 25k</option>
-            <option>25k–50k</option>
-            <option>50k–100k</option>
-            <option>100k+</option>
-          </select>
-        </div>
+        <select required value={form.monthlyRevenue} onChange={(e)=>update("monthlyRevenue",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white">
+          <option value="">Monthly Revenue</option>
+          <option>Under $10,000</option>
+          <option>$10,001 to $30,000</option>
+          <option>$30,001 to $100,000</option>
+          <option>Over $100,000</option>
+        </select>
 
-        <div>
-          <label className="mb-2 block capitalize">Accounts Receivable</label>
-          <select name="accountsReceivable" value={form.accountsReceivable} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required>
-            <option value="">Select range</option>
-            <option>Under 50k</option>
-            <option>50k–100k</option>
-            <option>100k–250k</option>
-            <option>250k+</option>
-          </select>
-        </div>
+        <select required value={form.accountsReceivable} onChange={(e)=>update("accountsReceivable",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white">
+          <option value="">Accounts Receivable</option>
+          <option>No Account Receivables</option>
+          <option>Zero to $100,000</option>
+          <option>$100,000 to $250,000</option>
+          <option>$250,000 to $500,000</option>
+          <option>$500,000 to $1,000,000</option>
+          <option>$1,000,000 to $3,000,000</option>
+          <option>Over $3,000,000</option>
+        </select>
 
-        <div>
-          <label className="mb-2 block capitalize">Available Collateral</label>
-          <select name="availableCollateral" value={form.availableCollateral} onChange={handleChange} className="w-full rounded bg-[#0b213f] p-3 text-white" required>
-            <option value="">Select collateral</option>
-            <option>No Collateral Available</option>
-            <option>$1 to $100,000</option>
-            <option>$100,001 to $250,000</option>
-            <option>$250,001 to $500,000</option>
-            <option>Over $500,000</option>
-          </select>
-        </div>
+        <select required value={form.availableCollateral} onChange={(e)=>update("availableCollateral",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white">
+          <option value="">Available Collateral</option>
+          <option>No Collateral Available</option>
+          <option>$1 to $100,000</option>
+          <option>$100,001 to $250,000</option>
+          <option>$250,001 to $500,000</option>
+          <option>$500,001 to $1 million</option>
+          <option>Over $1 million</option>
+        </select>
 
-        <div className="md:col-span-2">
-          <button type="submit" className="btn-primary">
-            Check Readiness
-          </button>
-        </div>
+        <button type="submit" className="btn-primary w-full mt-6">
+          Check Readiness
+        </button>
       </form>
     </section>
   );

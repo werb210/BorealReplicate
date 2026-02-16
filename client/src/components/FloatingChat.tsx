@@ -160,7 +160,7 @@ export default function FloatingChat() {
   return (
     <>
       {open ? (
-        <div className="chat-panel fixed bottom-20 right-4 z-50 flex h-[720px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
+        <div className="chat-panel fixed bottom-20 right-4 z-50 flex h-[760px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
           <div className="chat-header flex items-center justify-between border-b border-white/10 px-4">
             <div>
               <p className="text-sm font-semibold">Maya</p>
@@ -202,7 +202,7 @@ export default function FloatingChat() {
               <textarea
                 value={issue}
                 onChange={(e) => setIssue(e.target.value)}
-                placeholder="Describe the issue..."
+                placeholder="Describe the issue you encountered"
                 className="w-full rounded bg-[#0f172a] border border-white/10 p-2"
               />
             )}
@@ -214,12 +214,12 @@ export default function FloatingChat() {
                   placeholder="Type your message..."
                   className="flex-1 bg-transparent text-black outline-none"
                 />
-                <button type="submit" className="rounded bg-blue-600 px-4 py-2 text-white" aria-label="Send chat message">
+                <button type="submit" className="btn-primary" aria-label="Send chat message">
                   Send
                 </button>
               </div>
             ) : (
-              <button type="submit" className="rounded bg-white px-3 py-2 text-black" aria-label="Send chat message">
+              <button type="submit" className="btn-primary" aria-label="Send chat message">
                 Send
               </button>
             )}
