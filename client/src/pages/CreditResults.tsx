@@ -1,7 +1,7 @@
-import { useLocation } from "wouter";
+import { getReadinessSessionToken } from "@/utils/session";
 
 export default function CreditResults() {
-  const [, navigate] = useLocation();
+  const sessionToken = getReadinessSessionToken() ?? "";
 
   return (
     <div className="py-24 text-center">
@@ -9,15 +9,9 @@ export default function CreditResults() {
 
       <p className="mb-10 text-slate-400">Based on your responses, you may qualify for structured financing options.</p>
 
-      <button
-        onClick={() => {
-          navigate("/");
-          window.location.href = "https://client.boreal.financial";
-        }}
-        className="rounded-lg bg-white px-8 py-3 text-black"
-      >
+      <a href={`https://client.boreal.financial/apply?readiness=${sessionToken}`} className="btn-primary">
         Continue to Full Application
-      </button>
+      </a>
     </div>
   );
 }
