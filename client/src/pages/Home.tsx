@@ -1,10 +1,11 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import SEO from "@/components/SEO";
 import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
 import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import MarketplaceSection from "@/components/MarketplaceSection";
+import HorizontalScroller from "@/components/HorizontalScroller";
 
 const featuredIndustrySlugs = ["construction", "manufacturing", "transportation"];
 const orderedIndustries = [
@@ -23,6 +24,7 @@ const orderedProducts = [
 ];
 
 export default function Home() {
+  const [, navigate] = useLocation();
   const readinessToken = getReadinessSessionToken();
   const applyHref = buildApplyUrl(APPLY_URL, readinessToken);
 
@@ -38,10 +40,8 @@ export default function Home() {
             </div>
           </section>
         ) : null}
-        <section
-          className="relative overflow-hidden bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/Header_white.png')" }}
-        >
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[url('/images/Header_white.png')] bg-no-repeat bg-center bg-contain pointer-events-none"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-[#06152f]/85 to-black/45" />
           <div className="relative mx-auto max-w-7xl px-5 py-12 md:px-6 md:py-20">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">Boutique Capital Advisory</p>
@@ -56,9 +56,20 @@ export default function Home() {
 
         <MarketplaceSection />
 
+        <section className="mx-auto mt-20 max-w-7xl px-5 text-center md:px-6">
+          <h2 className="mb-4 text-2xl font-semibold">Would you like to see if you are ready for financing?</h2>
+          <button
+            onClick={() => navigate("/credit-readiness")}
+            className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700"
+          >
+            Check Your Readiness
+          </button>
+        </section>
+
         <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
-          <div className="scroll-row mt-6">
+          <div className="mt-6">
+            <HorizontalScroller>
             {orderedIndustries.map((industry) => (
               <Link key={industry.slug} href={`/industries/${industry.slug}`} className="scroll-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
                 <img src={industry.image} alt={industry.name} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
@@ -69,12 +80,14 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+            </HorizontalScroller>
           </div>
         </section>
 
         <section className="mx-auto max-w-7xl px-5 pb-10 md:px-6 md:pb-12">
           <h2 className="text-3xl font-bold md:text-4xl">Products</h2>
-          <div className="scroll-row mt-6">
+          <div className="mt-6">
+            <HorizontalScroller>
             {orderedProducts.map((product) => (
               <article key={product.slug} className="scroll-card relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
                 <img src={product.image} alt={product.name} className="h-56 w-full object-cover" loading="lazy" />
@@ -86,6 +99,7 @@ export default function Home() {
                 </div>
               </article>
             ))}
+            </HorizontalScroller>
           </div>
         </section>
       </main>
