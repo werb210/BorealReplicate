@@ -7,7 +7,6 @@ export const INDUSTRIES = [
   "Healthcare",
   "Transportation",
   "Professional Services",
-  "Real Estate",
   "Agriculture",
   "Energy",
   "Distribution",

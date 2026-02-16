@@ -140,22 +140,6 @@ export const industries: Industry[] = [
     ],
   },
   {
-    slug: "real-estate",
-    title: "Real Estate",
-    name: "Real Estate",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1400&q=80",
-    description: "Structured funding for acquisition, stabilization, and value-add property strategies.",
-    summary: "Capital built for transaction speed, renovation pacing, and tenant-cycle timing.",
-    heroImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80",
-    advisory: "Real-estate operators navigate closing timelines, rehab spend, and lease-up risk. Boreal structures financing to match project milestones and portfolio objectives.",
-    challenges: [
-      "Bridge periods between acquisition and stabilized cash flow can be capital intensive.",
-      "Renovation and tenant improvement expenses arrive before NOI growth.",
-      "Refinance timing and rate changes can impact project viability.",
-      "Portfolio growth demands fast access to reliable capital.",
-    ],
-  },
-  {
     slug: "agriculture",
     title: "Agriculture",
     name: "Agriculture",
