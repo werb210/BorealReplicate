@@ -12,7 +12,8 @@ import Footer from "@/components/layout/Footer";
 import { initGA, trackPageView } from "@/analytics/ga";
 import { scrollToTop } from "@/utils/scrollToTop";
 import Compare from "@/pages/Compare";
-import CapitalReadiness from "@/pages/CapitalReadiness";
+import CreditReadiness from "@/pages/CreditReadiness";
+import CreditResults from "@/pages/CreditResults";
 import Podcasts from "@/pages/Podcasts";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
@@ -54,8 +55,9 @@ export function AppRouter() {
 
           <Route path="/product-comparison" component={Compare} />
           <Route path="/compare" component={Compare} />
-          <Route path="/capital-readiness" component={CapitalReadiness} />
-          <Route path="/credit-readiness" component={CapitalReadiness} />
+          <Route path="/capital-readiness" component={CreditReadiness} />
+          <Route path="/credit-readiness" component={CreditReadiness} />
+          <Route path="/credit-results" component={CreditResults} />
           <Route path="/podcasts" component={Podcasts} />
           <Route path="/contact" component={Contact} />
           <Route path="/apply" component={Apply} />

@@ -10,11 +10,7 @@ export default function Header() {
     <header className="border-b border-white/10 bg-[#071a2f]">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-6">
         <Link href="/" className="flex items-center">
-          <img
-            src="/logo.svg"
-            alt="Boreal Financial"
-            className="h-24 w-auto"
-          />
+          <img src="/logo.svg" alt="Boreal Financial" className="h-28 w-auto md:h-32" />
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-white md:flex">

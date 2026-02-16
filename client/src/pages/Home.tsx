@@ -1,4 +1,4 @@
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import SEO from "@/components/SEO";
 import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
@@ -24,7 +24,6 @@ const orderedProducts = [
 ];
 
 export default function Home() {
-  const [, navigate] = useLocation();
   const readinessToken = getReadinessSessionToken();
   const applyHref = buildApplyUrl(APPLY_URL, readinessToken);
 
@@ -56,15 +55,6 @@ export default function Home() {
 
         <MarketplaceSection />
 
-        <section className="mx-auto mt-20 max-w-7xl px-5 text-center md:px-6">
-          <h2 className="mb-4 text-2xl font-semibold">Would you like to see if you are ready for financing?</h2>
-          <button
-            onClick={() => navigate("/credit-readiness")}
-            className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700"
-          >
-            Check Your Readiness
-          </button>
-        </section>
 
         <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
