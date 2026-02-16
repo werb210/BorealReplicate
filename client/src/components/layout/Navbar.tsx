@@ -9,10 +9,10 @@ export function Navbar() {
     <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-between bg-black px-4 py-3 text-white md:px-8">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <img src={logo} alt="Boreal Financial" className="h-16 w-auto object-contain md:h-20" />
+          <img src={logo} alt="Boreal Financial" className="h-24 w-auto object-contain md:h-28" />
         </Link>
 
-        <nav className="w-full py-4 px-6 hidden items-center justify-between gap-6 text-sm font-medium text-white md:flex">
+        <nav className="hidden w-full items-center justify-between gap-6 px-6 py-6 text-sm font-medium text-white md:flex">
           <Link href="/products">Products</Link>
           <Link href="/industries">Industries</Link>
           <Link href="/credit-readiness">Credit Readiness</Link>

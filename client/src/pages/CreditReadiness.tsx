@@ -18,28 +18,28 @@ const industryOptions = [
 
 type ReadinessForm = {
   companyName: string;
-  contactName: string;
+  fullName: string;
   email: string;
   phone: string;
   industry: string;
   yearsInBusiness: string;
   annualRevenue: string;
   monthlyRevenue: string;
-  arBalance: string;
-  collateralAvailable: string;
+  accountsReceivable: string;
+  availableCollateral: string;
 };
 
 const initialForm: ReadinessForm = {
   companyName: "",
-  contactName: "",
+  fullName: "",
   email: "",
   phone: "",
   industry: "",
   yearsInBusiness: "",
   annualRevenue: "",
   monthlyRevenue: "",
-  arBalance: "",
-  collateralAvailable: "",
+  accountsReceivable: "",
+  availableCollateral: "",
 };
 
 export default function CreditReadiness() {
@@ -72,9 +72,9 @@ export default function CreditReadiness() {
 
           <input
             required
-            value={form.contactName}
+            value={form.fullName}
             placeholder="Full Name"
-            onChange={(e) => update("contactName", e.target.value)}
+            onChange={(e) => update("fullName", e.target.value)}
             className="w-full rounded border border-slate-700 bg-[#0b213f] p-3"
           />
 
@@ -96,7 +96,7 @@ export default function CreditReadiness() {
             className="w-full rounded border border-slate-700 bg-[#0b213f] p-3"
           />
 
-          <hr className="my-8 border-slate-700" />
+          <hr className="my-10" />
 
           <select required value={form.industry} onChange={(e) => update("industry", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
             <option value="">Industry</option>
@@ -107,7 +107,7 @@ export default function CreditReadiness() {
             ))}
           </select>
 
-          <select required value={form.yearsInBusiness} onChange={(e) => update("yearsInBusiness", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
+          <select required value={form.yearsInBusiness} onChange={(e)=>update("yearsInBusiness",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
             <option value="">Years in business</option>
             <option>Zero</option>
             <option>Under 1 Year</option>
@@ -115,8 +115,8 @@ export default function CreditReadiness() {
             <option>Over 3 Years</option>
           </select>
 
-          <select required value={form.annualRevenue} onChange={(e) => update("annualRevenue", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-            <option value="">Annual revenue</option>
+          <select required value={form.annualRevenue} onChange={(e)=>update("annualRevenue",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
+            <option value="">Annual Revenue</option>
             <option>Zero to $150,000</option>
             <option>$150,001 to $500,000</option>
             <option>$500,001 to $1,000,000</option>
@@ -124,16 +124,16 @@ export default function CreditReadiness() {
             <option>Over $3,000,000</option>
           </select>
 
-          <select required value={form.monthlyRevenue} onChange={(e) => update("monthlyRevenue", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-            <option value="">Average monthly revenue</option>
+          <select required value={form.monthlyRevenue} onChange={(e)=>update("monthlyRevenue",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
+            <option value="">Monthly Revenue</option>
             <option>Under $10,000</option>
             <option>$10,001 to $30,000</option>
             <option>$30,001 to $100,000</option>
             <option>Over $100,000</option>
           </select>
 
-          <select required value={form.arBalance} onChange={(e) => update("arBalance", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-            <option value="">Account Receivables</option>
+          <select required value={form.accountsReceivable} onChange={(e)=>update("accountsReceivable",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
+            <option value="">Accounts Receivable</option>
             <option>No Account Receivables</option>
             <option>Zero to $100,000</option>
             <option>$100,000 to $250,000</option>
@@ -143,8 +143,8 @@ export default function CreditReadiness() {
             <option>Over $3,000,000</option>
           </select>
 
-          <select required value={form.collateralAvailable} onChange={(e) => update("collateralAvailable", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-            <option value="">Is there available collateral for security?</option>
+          <select required value={form.availableCollateral} onChange={(e)=>update("availableCollateral",e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
+            <option value="">Available Collateral</option>
             <option>No Collateral Available</option>
             <option>$1 to $100,000</option>
             <option>$100,001 to $250,000</option>
@@ -153,7 +153,7 @@ export default function CreditReadiness() {
             <option>Over $1 million</option>
           </select>
 
-          <button type="submit" className="w-full rounded-lg bg-white px-8 py-3 text-black">
+          <button type="submit" className="btn-primary w-full mt-6">
             Check Readiness
           </button>
         </form>
