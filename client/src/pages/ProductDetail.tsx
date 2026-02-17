@@ -4,6 +4,7 @@ import { APPLY_URL } from "@/config/site";
 import { industries } from "@/data/industries";
 import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
+import ProductComparison from "@/components/ProductComparison";
 
 type ProductDetailProps = {
   slug: string;
@@ -91,6 +92,8 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
           ))}
         </div>
       </section>
+
+      <ProductComparison />
 
       <section className="mx-auto max-w-7xl px-5 pb-10 md:px-6 md:pb-12">
         <div className="rounded-2xl border border-white/10 bg-black/40 p-6 text-center md:p-8">

@@ -1,46 +1,21 @@
-import React from "react";
-import { products } from "@/data/products";
-
-const orderedSlugs = ["loc", "term-loan", "equipment-financing", "factoring", "merchant-cash-advance", "po-financing", "asset-based-lending"] as const;
-
-const categories = [
-  { label: "Speed", key: "speed" },
-  { label: "Best Use", key: "bestUse" },
-  { label: "Repayment", key: "repayment" },
-  { label: "Collateral", key: "collateral" },
-] as const;
-
 export default function ProductComparison() {
-  const orderedProducts = orderedSlugs
-    .map((slug) => products.find((product) => product.slug === slug))
-    .filter((product): product is (typeof products)[number] => Boolean(product));
-
   return (
-    <section className="bg-[#020817] px-5 py-10 text-white md:px-6 md:py-12">
-      <div className="mx-auto max-w-7xl">
-        <h2 className="mb-6 text-3xl font-bold">Compare Financing Options</h2>
-
-        <div className="overflow-x-auto rounded-2xl border border-white/10">
-          <table className="w-full min-w-[980px] border-collapse text-sm">
-            <thead className="bg-[#08132a]">
-              <tr>
-                <th className="p-4 text-left">Product</th>
-                {categories.map((category) => (
-                  <th key={category.label} className="p-4 text-left">{category.label}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {orderedProducts.map((product) => (
-                <tr key={product.slug} className="border-t border-white/10 bg-[#040b1a] align-top">
-                  <td className="p-4 font-semibold">{product.name}</td>
-                  {categories.map((category) => (
-                    <td key={`${product.slug}-${category.label}`} className="p-4 text-slate-300">{product[category.key]}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <section className="py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="mb-8 text-3xl font-bold">Product Comparison</h2>
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="rounded-xl bg-gray-900 p-6">
+            <h3 className="mb-4 font-semibold">Line of Credit</h3>
+            <p>Flexible revolving capital for ongoing needs.</p>
+          </div>
+          <div className="rounded-xl bg-gray-900 p-6">
+            <h3 className="mb-4 font-semibold">Term Loan</h3>
+            <p>Structured lump-sum financing with fixed repayment.</p>
+          </div>
+          <div className="rounded-xl bg-gray-900 p-6">
+            <h3 className="mb-4 font-semibold">Equipment Financing</h3>
+            <p>Asset-backed financing aligned to equipment life.</p>
+          </div>
         </div>
       </div>
     </section>
