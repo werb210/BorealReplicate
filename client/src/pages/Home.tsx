@@ -46,7 +46,10 @@ export default function Home() {
           <section className="mx-auto max-w-7xl px-5 pt-4 md:px-6">
             <div className="flex flex-col gap-3 rounded-2xl border border-blue-200/30 bg-blue-900/30 px-4 py-3 md:flex-row md:items-center md:justify-between">
               <p className="font-semibold text-blue-100">Continuing your application</p>
-              <a href={applyHref} className="w-full rounded-full bg-white px-5 py-2 text-center text-sm font-semibold text-black md:w-auto">Apply Now</a>
+              <div className="md:text-right">
+                <a href={applyHref} className="w-full rounded-full bg-white px-5 py-2 text-center text-sm font-semibold text-black md:w-auto">Start Capital Review</a>
+                <p className="cta-microcopy mt-2 text-xs text-blue-100">Confidential. No impact to credit. 2-minute intake.</p>
+              </div>
             </div>
           </section>
         ) : null}
@@ -73,7 +76,7 @@ export default function Home() {
 
             <div className="flex gap-4">
               <a href="/apply" className="rounded-full bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-700">
-                Apply Now
+                Access Structured Capital
               </a>
               <a
                 href="/contact"
@@ -81,6 +84,78 @@ export default function Home() {
               >
                 Speak With Advisor
               </a>
+            </div>
+            <p className="cta-microcopy mt-3 text-xs text-white/70">Confidential. No impact to credit. 2-minute intake.</p>
+          </div>
+        </section>
+
+        <section className="authority-block py-12">
+          <div className="mx-auto max-w-7xl px-5 md:px-6">
+            <h2 className="text-3xl font-bold md:text-4xl">Institutional-Grade Structuring. Not Rate Shopping.</h2>
+            <p className="mt-4 text-white/80">
+              80+ active lending institutions. 50+ years combined capital structuring experience. We arrange structured financing from $10,000 to $100,000,000.
+            </p>
+          </div>
+        </section>
+
+        <section className="how-it-works-section py-12">
+          <div className="mx-auto max-w-7xl px-5 md:px-6">
+            <h2 className="text-3xl font-bold md:text-4xl">How It Works</h2>
+            <div className="steps-grid mt-6 grid gap-6 md:grid-cols-2">
+              <div className="step rounded-2xl border border-white/10 bg-slate-900/60 p-6">
+                <h3 className="text-xl font-semibold">1. Analyze Financial Position</h3>
+                <p className="mt-2 text-white/80">We review financials, cash flow, and capital structure.</p>
+              </div>
+              <div className="step rounded-2xl border border-white/10 bg-slate-900/60 p-6">
+                <h3 className="text-xl font-semibold">2. Structure Capital Stack</h3>
+                <p className="mt-2 text-white/80">Institutional-grade structuring across debt instruments.</p>
+              </div>
+              <div className="step rounded-2xl border border-white/10 bg-slate-900/60 p-6">
+                <h3 className="text-xl font-semibold">3. Match to Institutional Lenders</h3>
+                <p className="mt-2 text-white/80">Access to 80+ active lending institutions across Canada.</p>
+              </div>
+              <div className="step rounded-2xl border border-white/10 bg-slate-900/60 p-6">
+                <h3 className="text-xl font-semibold">4. Execute &amp; Deploy Capital</h3>
+                <p className="mt-2 text-white/80">Efficient execution with full advisory oversight.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="comparison-section py-12">
+          <div className="mx-auto max-w-7xl px-5 md:px-6">
+            <h2 className="text-3xl font-bold md:text-4xl">How Boreal Differs</h2>
+            <div className="mt-6 overflow-x-auto">
+              <table className="comparison-table w-full min-w-[640px] border-collapse text-left">
+                <thead>
+                  <tr className="border-b border-white/20">
+                    <th className="px-4 py-3"></th>
+                    <th className="px-4 py-3">Boreal</th>
+                    <th className="px-4 py-3">Traditional Bank</th>
+                    <th className="px-4 py-3">Online Lender</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-white/10">
+                    <td className="px-4 py-3">Multi-Lender Structuring</td>
+                    <td className="px-4 py-3">✔</td>
+                    <td className="px-4 py-3">✖</td>
+                    <td className="px-4 py-3">✖</td>
+                  </tr>
+                  <tr className="border-b border-white/10">
+                    <td className="px-4 py-3">Capital Stack Advisory</td>
+                    <td className="px-4 py-3">✔</td>
+                    <td className="px-4 py-3">Limited</td>
+                    <td className="px-4 py-3">✖</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3">Institutional Underwriting</td>
+                    <td className="px-4 py-3">✔</td>
+                    <td className="px-4 py-3">✔</td>
+                    <td className="px-4 py-3">Automated</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>

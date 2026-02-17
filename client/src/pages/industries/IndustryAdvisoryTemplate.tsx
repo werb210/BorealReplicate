@@ -24,7 +24,7 @@ export default function IndustryAdvisoryTemplate({ title, headline, description,
         </div>
 
         <a href={APPLY_URL} className="mt-10 inline-flex rounded-md bg-white px-6 py-3 font-semibold text-slate-900">
-          Apply Now
+          Start Capital Review
         </a>
       </section>
     </div>

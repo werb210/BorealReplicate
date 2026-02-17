@@ -25,7 +25,7 @@ export default function Header() {
           <Link href="/industries">Industries</Link>
           <Link href="/credit-readiness">Credit Readiness</Link>
           <Link href="/contact">Contact</Link>
-          <a href={applyHref} className="rounded-full bg-blue-600 px-5 py-2 font-medium text-white">Apply Now</a>
+          <a href={applyHref} className="rounded-full bg-blue-600 px-5 py-2 font-medium text-white">Start Capital Review</a>
         </nav>
       </div>
     </header>

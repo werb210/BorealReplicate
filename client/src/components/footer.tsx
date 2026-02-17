@@ -22,7 +22,7 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide">Start</h3>
           <ul className="mt-3 space-y-2 text-sm text-slate-300">
-            <li><a href={APPLY_URL}>Apply Now</a></li>
+            <li><a href={APPLY_URL}>Start Capital Review</a></li>
             <li><a href="/contact">Contact Us</a></li>
             <li><a href="/capital-readiness-score">Capital Readiness Score</a></li>
             <li><a href="/product-comparison">Product Comparison</a></li>

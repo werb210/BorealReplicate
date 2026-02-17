@@ -46,7 +46,7 @@ export function Navigation() {
               <AskQuestionButton size="sm" variant="outline">
                 Contact Us
               </AskQuestionButton>
-              <ApplyNowButton size="sm">Apply Now</ApplyNowButton>
+              <ApplyNowButton size="sm">Start Capital Review</ApplyNowButton>
             </div>
           </div>
 
@@ -85,7 +85,7 @@ export function Navigation() {
                   Contact Us
                 </AskQuestionButton>
                 <ApplyNowButton className="w-full" size="sm">
-                  Apply Now
+                  Start Capital Review
                 </ApplyNowButton>
               </div>
             </div>

@@ -20,7 +20,7 @@ export default function ExitIntentModal() {
     <Modal open={open} onClose={() => setOpen(false)}>
       <h2>Before You Go…</h2>
       <p>Want a quick capital assessment?</p>
-      <button onClick={() => (window.location.href = APPLY_URL)}>Start Application</button>
+      <button onClick={() => (window.location.href = APPLY_URL)}>Access Structured Capital</button>
     </Modal>
   );
 }

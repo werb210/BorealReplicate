@@ -22,7 +22,7 @@ export default function Footer() {
           <h4 className="text-white mb-4">Contact</h4>
           <ul className="space-y-2">
             <li><a href="/contact">Contact Us</a></li>
-            <li><a href="/apply">Apply</a></li>
+            <li><a href="/apply">Assess Eligibility</a></li>
           </ul>
         </div>
       </div>

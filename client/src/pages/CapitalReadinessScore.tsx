@@ -224,7 +224,7 @@ export default function CapitalReadinessScore() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a href={APPLY_URL} className="inline-flex rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">
-                Apply Now
+                Start Capital Review
               </a>
               <a href="/contact" className="inline-flex rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
                 Contact Us
