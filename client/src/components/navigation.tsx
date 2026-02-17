@@ -16,16 +16,16 @@ export function Navigation() {
     <nav className="bg-background border-b border-border sticky top-0 z-50">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link href="/">
-              <img
-                src="/images/Header_white.png"
-                alt="Boreal Financial"
-                className="h-10 w-auto object-contain"
-                data-testid="logo-boreal-financial"
-              />
-            </Link>
-          </div>
+          <Link href="/" className="flex items-center gap-3" data-testid="logo-boreal-financial">
+            <img
+              src="/images/header_white_transparent.png"
+              alt="Boreal Financial"
+              className="h-10 w-auto object-contain"
+            />
+            <span className="text-white text-lg font-semibold tracking-wide">
+              Boreal Financial
+            </span>
+          </Link>
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
