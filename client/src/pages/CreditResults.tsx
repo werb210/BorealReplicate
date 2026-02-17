@@ -1,48 +1,45 @@
-import { getReadinessSessionToken } from "@/utils/session";
+import { Link } from "wouter";
 
 export default function CreditResults() {
-  const sessionToken = getReadinessSessionToken() ?? "";
+  const score = "green"; // green | yellow | red
+
+  const getColor = () => {
+    if (score === "green") return "bg-green-600";
+    if (score === "yellow") return "bg-yellow-500";
+    return "bg-red-600";
+  };
+
+  const getMessage = () => {
+    if (score === "green") {
+      return "You are a prime candidate for structured funding based on the information provided. While no guarantees are made, your profile aligns strongly with lender criteria.";
+    }
+
+    if (score === "yellow") {
+      return "You are likely eligible for funding, though certain structural or documentation considerations may need to be addressed. We can help position your file correctly.";
+    }
+
+    return "Your current profile may present challenges, but structured financing solutions may still be available. Strategic positioning will be important.";
+  };
 
   return (
-    <main className="mx-auto max-w-4xl px-5 py-16 text-white md:px-6 md:py-20">
-      <section className="rounded-2xl border border-white/10 bg-slate-900/60 p-8">
-        <h1 className="text-4xl font-bold md:text-5xl">You’re Closer Than You Think</h1>
-        <p className="mt-4 text-lg text-slate-300">
-          Your credit readiness snapshot shows meaningful momentum and clear pathways to structured financing.
-        </p>
-      </section>
+    <div className="flex min-h-screen items-center justify-center bg-[#0c1a2b] px-6 text-white">
+      <div className="w-full max-w-2xl rounded-2xl bg-[#111f35] p-10 shadow-xl">
+        <div className={`mb-6 h-3 w-full rounded-full ${getColor()}`} />
 
-      <section className="mt-8 rounded-2xl border border-white/10 bg-slate-900/60 p-8">
-        <h2 className="text-2xl font-semibold">Strength Indicators Based on Your Inputs</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-300">
-          <li>Business profile data gives lenders a clearer underwriting picture.</li>
-          <li>Revenue and operating history details help establish capacity and stability.</li>
-          <li>Receivables and collateral information can unlock additional structure options.</li>
-          <li>Your submission provides a strong starting point for tailored lender matching.</li>
-        </ul>
-      </section>
+        <h1 className="mb-4 text-3xl font-bold">Your Readiness Assessment</h1>
 
-      <section className="mt-8 rounded-2xl border border-white/10 bg-slate-900/60 p-8">
-        <h2 className="text-2xl font-semibold">What This Means For You</h2>
-        <p className="mt-4 text-slate-300">
-          Lenders evaluate risk using a blend of cash flow consistency, time in business, leverage position,
-          and asset support. A structured application organizes these factors so your strengths are easy to
-          understand, helping position your request for the right product, terms, and speed.
-        </p>
-      </section>
+        <p className="mb-8 text-white/80">{getMessage()}</p>
 
-      <section className="mt-8 rounded-2xl border border-blue-300/30 bg-blue-950/40 p-8 text-center">
-        <h2 className="text-2xl font-semibold">Start Your Structured Application</h2>
-        <p className="mt-3 text-slate-200">Continue now to convert this momentum into a complete financing recommendation.</p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a href={`https://client.boreal.financial/apply?readiness=${sessionToken}`} className="rounded-full bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700">
-            Start Your Structured Application
-          </a>
-          <a href="/contact" className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white transition hover:border-white">
-            Speak With an Advisor
-          </a>
+        <div className="flex gap-4">
+          <Link href="/apply" className="rounded-full bg-blue-600 px-6 py-3 hover:bg-blue-500">
+            Start Application
+          </Link>
+
+          <Link href="/contact" className="rounded-full border border-white/20 px-6 py-3">
+            Speak With Advisor
+          </Link>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }
