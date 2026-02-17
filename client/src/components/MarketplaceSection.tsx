@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 export default function MarketplaceSection() {
   return (
     <section className="bg-primary py-16 text-white">
@@ -50,9 +51,12 @@ export default function MarketplaceSection() {
 
         <section className="py-20 text-center">
           <h3 className="mb-6 text-2xl font-semibold">Would you like to see if you are ready for financing?</h3>
-          <a href="/credit-readiness" className="btn-primary">
+          <Link
+            href="/credit-readiness"
+            className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 font-semibold transition hover:bg-blue-700"
+          >
             Check Your Credit Readiness
-          </a>
+          </Link>
         </section>
       </div>
     </section>

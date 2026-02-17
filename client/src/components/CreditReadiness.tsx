@@ -42,7 +42,7 @@ export default function CreditReadiness() {
 
   return (
     <section className="py-12">
-      <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border border-white/10 bg-[#08132a] p-6">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 rounded-2xl border border-white/10 bg-[#08132a] p-6 md:grid-cols-2">
         <input
           required
           value={form.companyName}
@@ -77,7 +77,7 @@ export default function CreditReadiness() {
           className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white"
         />
 
-        <hr className="my-10" />
+        <div className="my-4 border-t border-gray-600 md:col-span-2" />
 
         <select required value={form.industry} onChange={(e) => update("industry", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3 text-white">
           <option value="">Industry</option>
@@ -135,9 +135,11 @@ export default function CreditReadiness() {
           <option>Over $1 million</option>
         </select>
 
-        <button type="submit" className="btn-primary w-full mt-6">
-          Check Readiness
-        </button>
+        <div className="md:col-span-2">
+          <button type="submit" className="w-full rounded-lg bg-blue-600 py-3 font-semibold transition hover:bg-blue-700">
+            Check Readiness
+          </button>
+        </div>
       </form>
     </section>
   );

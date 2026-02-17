@@ -197,32 +197,32 @@ export default function FloatingChat() {
               Report an Issue
             </button>
           </div>
-          <form onSubmit={sendMessage} className="chat-input flex flex-col gap-2 border-t border-white/10 px-3 py-3 md:px-4">
+          <form onSubmit={sendMessage} className="chat-input border-t border-white/10">
             {mode === "report" && (
-              <textarea
-                value={issue}
-                onChange={(e) => setIssue(e.target.value)}
-                placeholder="Describe the issue you encountered"
-                className="w-full rounded bg-[#0f172a] border border-white/10 p-2"
-              />
-            )}
-            {mode === "chat" ? (
-              <div className="flex items-center gap-2 rounded-lg bg-white p-2">
-                <input
-                  value={input}
-                  onChange={(event) => setInput(event.target.value)}
-                  placeholder="Type your message..."
-                  className="flex-1 bg-transparent text-black outline-none"
+              <div className="p-3">
+                <textarea
+                  value={issue}
+                  onChange={(e) => setIssue(e.target.value)}
+                  placeholder="Describe the issue you encountered"
+                  className="w-full rounded border border-gray-700 bg-gray-800 p-2"
                 />
-                <button type="submit" className="btn-primary" aria-label="Send chat message">
-                  Send
-                </button>
               </div>
-            ) : (
-              <button type="submit" className="btn-primary" aria-label="Send chat message">
+            )}
+            <div className="flex gap-2 p-3 border-t border-gray-700">
+              <input
+                value={mode === "report" ? issue : input}
+                onChange={(e) => (mode === "report" ? setIssue(e.target.value) : setInput(e.target.value))}
+                placeholder="Type your message..."
+                className="flex-1 rounded-lg bg-gray-800 px-3 py-2 outline-none"
+              />
+              <button
+                type="submit"
+                className="rounded-lg bg-blue-600 px-4 font-semibold hover:bg-blue-700"
+                aria-label="Send chat message"
+              >
                 Send
               </button>
-            )}
+            </div>
           </form>
         </div>
       ) : null}

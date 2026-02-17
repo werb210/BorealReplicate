@@ -5,7 +5,7 @@ export function Hero() {
     <section
       className="relative py-16 text-white md:py-20"
       style={{
-        backgroundImage: "url('/images/whiteboard-hero.jpg')",
+        backgroundImage: "url('/images/16x9 Concierge Private Banking Hero Image.jpeg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

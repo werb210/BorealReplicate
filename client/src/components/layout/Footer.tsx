@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 export default function Footer() {
   return (
     <footer className="bg-[#071a2f] text-gray-300 py-16">
@@ -13,6 +14,7 @@ export default function Footer() {
             <li><a href="/products">Products</a></li>
             <li><a href="/industries">Industries</a></li>
             <li><a href="/credit-readiness">Credit Readiness</a></li>
+            <li><Link href="/product-comparison" className="block hover:text-white">Product Comparison</Link></li>
           </ul>
         </div>
 

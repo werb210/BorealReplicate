@@ -6,6 +6,7 @@ import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import MarketplaceSection from "@/components/MarketplaceSection";
 import HorizontalScroller from "@/components/HorizontalScroller";
+import ProductComparison from "@/components/ProductComparison";
 
 const featuredIndustrySlugs = ["construction", "manufacturing", "transportation"];
 const orderedIndustries = [
@@ -43,7 +44,7 @@ export default function Home() {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: "url('/images/whiteboard-hero.jpg')",
+              backgroundImage: "url('/images/16x9 Concierge Private Banking Hero Image.jpeg')",
             }}
           />
 
@@ -111,6 +112,8 @@ export default function Home() {
             </HorizontalScroller>
           </div>
         </section>
+
+        <ProductComparison />
       </main>
     </>
   );
