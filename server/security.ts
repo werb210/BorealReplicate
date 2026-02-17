@@ -3,13 +3,13 @@ import { logger } from "./logger";
 
 const csp = [
   "default-src 'self'",
-  "script-src 'self' https://cdn.jsdelivr.net https://*.yourcdn.com",
-  "style-src 'self' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: https://images.unsplash.com",
-  "connect-src 'self' wss://your-websocket-domain",
+  "script-src 'self'",
+  "connect-src 'self' https://api.staff.boreal.financial",
+  "img-src 'self' data: https:",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
   "frame-ancestors 'self'",
-].join("; ");
+].join("; "");
 
 export const securityHeaders: RequestHandler[] = [
   (_req: Request, res: Response, next: NextFunction) => {

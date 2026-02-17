@@ -17,7 +17,7 @@ app.use((req, _res, next) => {
 });
 app.use(createRateLimiter({
   windowMs: 15 * 60 * 1000,
-  max: 200,
+  max: 300,
 }));
 app.use(express.json({ limit: "200kb" }));
 app.use(express.urlencoded({ extended: false, limit: "200kb" }));
