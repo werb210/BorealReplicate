@@ -1,14 +1,6 @@
 import { Router, type Request, type Response } from "express";
 import { storage } from "../storage";
-
-type ContactPayload = {
-  company?: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  phone?: string;
-  utm?: Record<string, string | null>;
-};
+import { contactFormSchema } from "../validation";
 
 const router = Router();
 
@@ -48,11 +40,12 @@ async function sendTwilioSms(messageBody: string) {
 }
 
 async function submitContact(req: Request, res: Response) {
-  const { company, firstName, lastName, email, phone, utm } = req.body as ContactPayload;
-
-  if (!company || !firstName || !lastName || !email || !phone) {
-    return res.status(400).json({ error: "All fields required" });
+  const parsed = contactFormSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: "Invalid request payload" });
   }
+
+  const { company, firstName, lastName, email, phone, utm } = parsed.data;
 
   try {
     const { deduped } = await storage.createOrGetWebLead({

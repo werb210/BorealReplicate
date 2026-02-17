@@ -3,11 +3,17 @@ import { WebSocketServer } from "ws";
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
+import { createRateLimiter, securityHeaders } from "./security";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(securityHeaders);
+app.use(createRateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+}));
+app.use(express.json({ limit: "200kb" }));
+app.use(express.urlencoded({ extended: false, limit: "200kb" }));
 app.use("/api/contact", contactRoute);
 app.use("/api/lead", leadRoute);
 
@@ -52,6 +58,36 @@ app.use((req, res, next) => {
   next();
 });
 
+const websocketWindowMs = 60 * 1000;
+const websocketMaxUpgradesPerWindow = 30;
+const websocketUpgradeStore = new Map<string, { count: number; resetAt: number }>();
+const allowedOrigins = (process.env.ALLOWED_WS_ORIGINS ?? "https://borealfinancial.com,http://localhost:8080,http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+function isAllowedOrigin(originHeader?: string) {
+  if (!originHeader) return false;
+  return allowedOrigins.includes(originHeader);
+}
+
+function isWebSocketRateLimited(ip: string) {
+  const now = Date.now();
+  const current = websocketUpgradeStore.get(ip);
+
+  if (!current || current.resetAt <= now) {
+    websocketUpgradeStore.set(ip, { count: 1, resetAt: now + websocketWindowMs });
+    return false;
+  }
+
+  if (current.count >= websocketMaxUpgradesPerWindow) {
+    return true;
+  }
+
+  current.count += 1;
+  return false;
+}
+
 (async () => {
   const server = await registerRoutes(app);
   const chatServer = new WebSocketServer({ noServer: true });
@@ -61,29 +97,57 @@ app.use((req, res, next) => {
 
     socket.send(JSON.stringify({ message: "Connected to Boreal support." }));
 
-    socket.on("message", (incoming) => {
+    socket.on("message", (incoming, isBinary) => {
+      if (isBinary) {
+        socket.close(1003, "Binary messages are not supported");
+        return;
+      }
+
+      const rawMessage = incoming.toString();
+      if (Buffer.byteLength(rawMessage, "utf8") > 4096) {
+        socket.close(1009, "Message too large");
+        return;
+      }
+
+      let payload: { type?: string; sessionId?: string; message?: string };
       try {
-        const payload = JSON.parse(incoming.toString()) as { type?: string; sessionId?: string; message?: string };
-        if (payload.sessionId) {
-          connectionSessionId = payload.sessionId;
-        }
-
-        if (payload.type === "staff_joined") {
-          socket.send(JSON.stringify({ type: "staff_joined", message: "Transferring you to a specialist…" }));
-          return;
-        }
-
-        if (payload.type === "message" && payload.message) {
-          socket.send(JSON.stringify({ message: `Received for session ${connectionSessionId}. A specialist will follow up shortly.` }));
-        }
+        payload = JSON.parse(rawMessage) as { type?: string; sessionId?: string; message?: string };
       } catch {
-        socket.send(JSON.stringify({ message: "Message received." }));
+        socket.close(1003, "Malformed JSON payload");
+        return;
+      }
+
+      if (payload.sessionId) {
+        connectionSessionId = payload.sessionId;
+      }
+
+      if (payload.type === "staff_joined") {
+        socket.send(JSON.stringify({ type: "staff_joined", message: "Transferring you to a specialist…" }));
+        return;
+      }
+
+      if (payload.type === "message" && payload.message) {
+        socket.send(JSON.stringify({ message: `Received for session ${connectionSessionId}. A specialist will follow up shortly.` }));
       }
     });
   });
 
   server.on("upgrade", (req, socket, head) => {
     if (!req.url?.startsWith("/ws/chat")) {
+      socket.destroy();
+      return;
+    }
+
+    const originHeader = req.headers.origin;
+    if (!isAllowedOrigin(originHeader)) {
+      socket.write("HTTP/1.1 403 Forbidden\r\n\r\n");
+      socket.destroy();
+      return;
+    }
+
+    const sourceIp = req.socket.remoteAddress || "unknown";
+    if (isWebSocketRateLimited(sourceIp)) {
+      socket.write("HTTP/1.1 429 Too Many Requests\r\n\r\n");
       socket.destroy();
       return;
     }

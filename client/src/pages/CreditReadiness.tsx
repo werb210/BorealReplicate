@@ -1,6 +1,19 @@
 import { FormEvent, useState } from "react";
 import { useLocation } from "wouter";
 
+type ReadinessForm = {
+  companyName: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  industry: string;
+  yearsInBusiness: string;
+  annualRevenue: string;
+  monthlyRevenue: string;
+  accountsReceivable: string;
+  availableCollateral: string;
+};
+
 const industryOptions = [
   "Construction",
   "Manufacturing",
@@ -16,19 +29,6 @@ const industryOptions = [
   "Media",
 ];
 
-type ReadinessForm = {
-  companyName: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  industry: string;
-  yearsInBusiness: string;
-  annualRevenue: string;
-  monthlyRevenue: string;
-  accountsReceivable: string;
-  availableCollateral: string;
-};
-
 const initialForm: ReadinessForm = {
   companyName: "",
   fullName: "",
@@ -42,6 +42,8 @@ const initialForm: ReadinessForm = {
   availableCollateral: "",
 };
 
+const CREDIT_RESULT_STORAGE_KEY = "boreal_credit_readiness_result";
+
 export default function CreditReadiness() {
   const [, navigate] = useLocation();
   const [form, setForm] = useState<ReadinessForm>(initialForm);
@@ -50,8 +52,35 @@ export default function CreditReadiness() {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const response = await fetch("/api/public/readiness", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        companyName: form.companyName,
+        fullName: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        industry: form.industry,
+        yearsInBusiness: form.yearsInBusiness,
+        annualRevenue: form.annualRevenue,
+        monthlyRevenue: form.monthlyRevenue,
+        arBalance: form.accountsReceivable,
+        collateral: form.availableCollateral,
+      }),
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const body = await response.json() as { score?: number; tier?: "green" | "yellow" | "red" };
+    if (typeof body.score === "number" && body.tier) {
+      sessionStorage.setItem(CREDIT_RESULT_STORAGE_KEY, JSON.stringify({ score: body.score, tier: body.tier }));
+    }
+
     navigate("/credit-results");
   }
 
@@ -63,99 +92,43 @@ export default function CreditReadiness() {
 
         <form onSubmit={handleSubmit} className="mt-10 rounded-2xl border border-white/10 bg-[#08132a] p-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <input
-              required
-              value={form.companyName}
-              placeholder="Company Name"
-              onChange={(e) => update("companyName", e.target.value)}
-              className="w-full rounded border border-slate-700 bg-[#0b213f] p-3"
-            />
-
-            <input
-              required
-              value={form.fullName}
-              placeholder="Full Name"
-              onChange={(e) => update("fullName", e.target.value)}
-              className="w-full rounded border border-slate-700 bg-[#0b213f] p-3"
-            />
-
-            <input
-              required
-              type="email"
-              value={form.email}
-              placeholder="Email"
-              onChange={(e) => update("email", e.target.value)}
-              className="w-full rounded border border-slate-700 bg-[#0b213f] p-3"
-            />
-
-            <input
-              required
-              type="tel"
-              value={form.phone}
-              placeholder="Phone"
-              onChange={(e) => update("phone", e.target.value)}
-              className="w-full rounded border border-slate-700 bg-[#0b213f] p-3"
-            />
+            <input required value={form.companyName} placeholder="Company Name" onChange={(e) => update("companyName", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+            <input required value={form.fullName} placeholder="Full Name" onChange={(e) => update("fullName", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+            <input required type="email" value={form.email} placeholder="Email" onChange={(e) => update("email", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+            <input required type="tel" value={form.phone} placeholder="Phone" onChange={(e) => update("phone", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
 
             <select required value={form.industry} onChange={(e) => update("industry", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
               <option value="">Industry</option>
-              {industryOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
+              {industryOptions.map((option) => <option key={option} value={option}>{option}</option>)}
             </select>
 
             <select required value={form.yearsInBusiness} onChange={(e) => update("yearsInBusiness", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
               <option value="">Years in business</option>
-              <option>Zero</option>
-              <option>Under 1 Year</option>
-              <option>1 to 3 Years</option>
-              <option>Over 3 Years</option>
+              <option>Zero</option><option>Under 1 Year</option><option>1 to 3 Years</option><option>Over 3 Years</option>
             </select>
 
             <select required value={form.annualRevenue} onChange={(e) => update("annualRevenue", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
               <option value="">Annual Revenue</option>
-              <option>Zero to $150,000</option>
-              <option>$150,001 to $500,000</option>
-              <option>$500,001 to $1,000,000</option>
-              <option>$1,000,001 to $3,000,000</option>
-              <option>Over $3,000,000</option>
+              <option>Zero to $150,000</option><option>$150,001 to $500,000</option><option>$500,001 to $1,000,000</option><option>$1,000,001 to $3,000,000</option><option>Over $3,000,000</option>
             </select>
 
             <select required value={form.monthlyRevenue} onChange={(e) => update("monthlyRevenue", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
               <option value="">Monthly Revenue</option>
-              <option>Under $10,000</option>
-              <option>$10,001 to $30,000</option>
-              <option>$30,001 to $100,000</option>
-              <option>Over $100,000</option>
+              <option>Under $10,000</option><option>$10,001 to $30,000</option><option>$30,001 to $100,000</option><option>Over $100,000</option>
             </select>
 
             <select required value={form.accountsReceivable} onChange={(e) => update("accountsReceivable", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
               <option value="">Accounts Receivable</option>
-              <option>No Account Receivables</option>
-              <option>Zero to $100,000</option>
-              <option>$100,000 to $250,000</option>
-              <option>$250,000 to $500,000</option>
-              <option>$500,000 to $1,000,000</option>
-              <option>$1,000,000 to $3,000,000</option>
-              <option>Over $3,000,000</option>
+              <option>No Account Receivables</option><option>Zero to $100,000</option><option>$100,000 to $250,000</option><option>$250,000 to $500,000</option><option>$500,000 to $1,000,000</option><option>$1,000,000 to $3,000,000</option><option>Over $3,000,000</option>
             </select>
 
             <select required value={form.availableCollateral} onChange={(e) => update("availableCollateral", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
               <option value="">Available Collateral</option>
-              <option>No Collateral Available</option>
-              <option>$1 to $100,000</option>
-              <option>$100,001 to $250,000</option>
-              <option>$250,001 to $500,000</option>
-              <option>$500,001 to $1 million</option>
-              <option>Over $1 million</option>
+              <option>No Collateral Available</option><option>$1 to $100,000</option><option>$100,001 to $250,000</option><option>$250,001 to $500,000</option><option>$500,001 to $1 million</option><option>Over $1 million</option>
             </select>
           </div>
 
-          <button type="submit" className="btn-primary mt-6 w-full">
-            Check Readiness
-          </button>
+          <button type="submit" className="btn-primary mt-6 w-full">Check Readiness</button>
         </form>
       </div>
     </main>

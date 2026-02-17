@@ -1,11 +1,27 @@
 import { Link } from "wouter";
 
-export default function CreditResults() {
-  const score = 72; // Replace with real logic
+const CREDIT_RESULT_STORAGE_KEY = "boreal_credit_readiness_result";
 
-  let status = "yellow";
-  if (score >= 80) status = "green";
-  if (score < 50) status = "red";
+function loadResult() {
+  const stored = sessionStorage.getItem(CREDIT_RESULT_STORAGE_KEY);
+  if (!stored) {
+    return { score: 72, status: "yellow" as const };
+  }
+
+  try {
+    const parsed = JSON.parse(stored) as { score?: number; tier?: "green" | "yellow" | "red" };
+    if (typeof parsed.score === "number" && parsed.tier) {
+      return { score: Math.max(0, Math.min(100, parsed.score)), status: parsed.tier };
+    }
+  } catch {
+    // noop
+  }
+
+  return { score: 72, status: "yellow" as const };
+}
+
+export default function CreditResults() {
+  const { score, status } = loadResult();
 
   const colors = {
     green: "bg-green-500",
@@ -25,28 +41,14 @@ export default function CreditResults() {
         <h1 className="text-3xl font-semibold">Credit Readiness Assessment</h1>
 
         <div className="w-full h-4 bg-white/10 rounded-full overflow-hidden">
-          <div
-            className={`${colors[status]} h-full`}
-            style={{ width: `${score}%` }}
-          />
+          <div className={`${colors[status]} h-full`} style={{ width: `${score}%` }} />
         </div>
 
         <p className="text-white/80">{messaging[status]}</p>
 
         <div className="flex gap-6 justify-center pt-6">
-          <Link
-            href="/apply"
-            className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full"
-          >
-            Start Application
-          </Link>
-
-          <Link
-            href="/contact"
-            className="border border-white/20 px-6 py-3 rounded-full"
-          >
-            Speak With Advisor
-          </Link>
+          <Link href="/apply" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full">Start Application</Link>
+          <Link href="/contact" className="border border-white/20 px-6 py-3 rounded-full">Speak With Advisor</Link>
         </div>
       </div>
     </div>
