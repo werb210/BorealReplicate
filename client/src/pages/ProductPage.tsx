@@ -13,7 +13,7 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen bg-black pb-16 pt-24 text-white">
       <div className="mx-auto max-w-6xl px-4">
-        <img src={product.image} alt={product.name} className="mb-8 w-full rounded" />
+        <img src={product.image} alt={product.name} className="mb-8 w-full rounded" loading="lazy" />
 
         <h1 className="mb-6 text-4xl font-bold">{product.name}</h1>
 

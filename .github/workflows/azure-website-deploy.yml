@@ -23,6 +23,9 @@ jobs:
       - name: Type check
         run: npm run check
 
+      - name: Dependency audit (prod)
+        run: npm run audit --omit=dev --audit-level=moderate
+
       - name: Build app
         run: npm run build
 

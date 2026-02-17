@@ -1,15 +1,29 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction, RequestHandler } from "express";
+import { logger } from "./logger";
 
-export function securityHeaders(req: Request, res: Response, next: NextFunction) {
-  res.setHeader("X-DNS-Prefetch-Control", "off");
-  res.setHeader("X-Frame-Options", "SAMEORIGIN");
-  res.setHeader("X-Download-Options", "noopen");
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("Referrer-Policy", "no-referrer");
-  res.setHeader("X-XSS-Protection", "0");
-  res.setHeader("Strict-Transport-Security", "max-age=15552000; includeSubDomains");
-  next();
-}
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' https://cdn.jsdelivr.net https://*.yourcdn.com",
+  "style-src 'self' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: https://images.unsplash.com",
+  "connect-src 'self' wss://your-websocket-domain",
+  "frame-ancestors 'self'",
+].join("; ");
+
+export const securityHeaders: RequestHandler[] = [
+  (_req: Request, res: Response, next: NextFunction) => {
+    res.setHeader("X-DNS-Prefetch-Control", "off");
+    res.setHeader("X-Frame-Options", "SAMEORIGIN");
+    res.setHeader("X-Download-Options", "noopen");
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Referrer-Policy", "no-referrer");
+    res.setHeader("X-XSS-Protection", "0");
+    res.setHeader("Strict-Transport-Security", "max-age=15552000; includeSubDomains");
+    res.setHeader("Content-Security-Policy", csp);
+    next();
+  },
+];
 
 export function createRateLimiter({ windowMs, max }: { windowMs: number; max: number }) {
   const store = new Map<string, { count: number; resetAt: number }>();
@@ -25,6 +39,7 @@ export function createRateLimiter({ windowMs, max }: { windowMs: number; max: nu
     }
 
     if (current.count >= max) {
+      logger.warn({ msg: "Rate limit exceeded", ip: req.ip, path: req.path, traceId: req.traceId });
       res.status(429).json({ error: "Too many requests" });
       return;
     }

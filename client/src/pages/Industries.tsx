@@ -19,7 +19,7 @@ export default function Industries() {
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {industries.map((industry) => (
           <Link key={industry.slug} href={`/industries/${industry.slug}`} className="group overflow-hidden rounded-2xl border border-white/10 bg-[#08132a]">
-            <img src={industry.image} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" alt={industry.name} />
+            <img src={industry.image} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" alt={industry.name} loading="lazy" />
             <div className="p-4">
               <h3 className="text-xl font-semibold">{industry.name}</h3>
               <p className="mt-2 text-sm text-slate-300">{industry.summary}</p>

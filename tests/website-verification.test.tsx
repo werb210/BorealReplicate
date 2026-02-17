@@ -114,3 +114,28 @@ test("floating chat renders connection foundation UI", () => {
   assert.match(html, /Open support chat/);
   assert.match(html, /fixed bottom-4 right-4/);
 });
+
+
+test("homepage hero copy remains present", async () => {
+  const { default: Home } = await import("../client/src/pages/Home");
+  const html = renderToStaticMarkup(withStaticRouter(<Home />));
+  assert.match(html, /Strategic Capital Advisory/i);
+});
+
+test("industries and products pages keep horizontal overflow classes", async () => {
+  const [{ default: Industries }, { default: Products }] = await Promise.all([
+    import("../client/src/pages/Industries"),
+    import("../client/src/pages/Products"),
+  ]);
+
+  const industriesHtml = renderToStaticMarkup(withStaticRouter(<Industries />));
+  const productsHtml = renderToStaticMarkup(withStaticRouter(<Products />));
+  assert.match(industriesHtml, /grid-cols-2/);
+  assert.match(productsHtml, /grid gap-8/);
+});
+
+test("product comparison sections are present and no empty state copy renders", () => {
+  const html = renderToStaticMarkup(<ProductComparison />);
+  assert.match(html, /Product/);
+  assert.doesNotMatch(html, /No products available/i);
+});

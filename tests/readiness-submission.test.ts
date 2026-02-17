@@ -51,3 +51,25 @@ test("credit readiness submission returns session and dedupes by contact", async
     server.close();
   }
 });
+
+
+test("credit readiness submission rejects invalid payload", async () => {
+  const app = express();
+  app.use(express.json());
+  const server = await registerRoutes(app);
+
+  await new Promise<void>((resolve) => server.listen(0, resolve));
+  const port = (server.address() as AddressInfo).port;
+
+  try {
+    const response = await fetch(`http://127.0.0.1:${port}/api/readiness/submit`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bad: "payload" }),
+    });
+
+    assert.equal(response.status, 400);
+  } finally {
+    server.close();
+  }
+});

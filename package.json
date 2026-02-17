@@ -17,7 +17,8 @@
     "lint": "tsc --noEmit",
     "test": "tsx --test tests/**/*.test.ts*",
     "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server/index.js",
-    "clean:cache": "rm -rf node_modules dist .vite client/.vite"
+    "clean:cache": "rm -rf node_modules dist .vite client/.vite",
+    "audit": "npm audit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
