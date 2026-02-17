@@ -53,3 +53,23 @@ export const publicLeadScoreSchema = z.object({
   phone: phoneField,
   utm: z.record(z.string().nullable()).optional(),
 }).strict();
+
+
+export const supportEventSchema = z.object({
+  event: z.string().trim().min(1).max(100),
+  source: z.string().trim().max(100).optional(),
+}).strict();
+
+export const applyRequestSchema = z.object({
+  product: z.string().trim().min(1).max(100).optional(),
+  company: z.string().trim().min(1).max(150).optional(),
+  amount: z.union([z.string(), z.number()]).optional(),
+  email: z.string().trim().email().max(254).optional(),
+  phone: phoneField.optional(),
+}).strict();
+
+export const chatMessageSchema = z.object({
+  type: z.enum(["join", "message", "staff_joined"]),
+  sessionId: z.string().trim().min(1).max(120).optional(),
+  message: z.string().trim().min(1).max(2000).optional(),
+}).strict();

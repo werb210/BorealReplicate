@@ -1,6 +1,7 @@
 import { Router, type Request, type Response } from "express";
 import { storage } from "../storage";
 import { contactFormSchema } from "../validation";
+import { getTraceId, logger } from "../logger";
 
 const router = Router();
 
@@ -76,8 +77,8 @@ async function submitContact(req: Request, res: Response) {
 
     return res.json({ success: true, deduped });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Server error" });
+    logger.error({ msg: "Contact submission failed", traceId: getTraceId(req), error: err instanceof Error ? err.message : String(err) });
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
 

@@ -36,7 +36,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
       </section>
 
       <section className="relative overflow-hidden">
-        <img src={product.image} alt={product.name} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={product.image} alt={product.name} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
         <div className="absolute inset-0 bg-black/65" />
         <div className="relative mx-auto max-w-7xl px-5 py-14 md:px-6 md:py-16">
           <h1 className="text-4xl font-bold md:text-6xl">{product.name}</h1>

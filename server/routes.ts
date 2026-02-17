@@ -3,7 +3,8 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { calculateReadinessScore, tierFromScore } from "./scoring";
 import { storage } from "./storage";
-import { capitalReadinessIntakeSchema, creditReadinessSchema, leadIngestionSchema } from "./validation";
+import { applyRequestSchema, capitalReadinessIntakeSchema, chatMessageSchema, creditReadinessSchema, leadIngestionSchema, supportEventSchema } from "./validation";
+import { logger, getTraceId } from "./logger";
 
 function recommendedProductsForTier(tier: "green" | "yellow" | "red") {
   if (tier === "green") return ["Term Loan", "Equipment Financing", "Line of Credit"];
@@ -97,7 +98,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         deduped: false,
       });
     } catch (error) {
-      res.status(500).json({ error: error instanceof Error ? error.message : "Readiness submission failed" });
+      logger.error({ msg: "Readiness submission failed", traceId: getTraceId(req), error: error instanceof Error ? error.message : String(error) });
+      res.status(500).json({ error: "Internal server error" });
     }
   };
 
@@ -138,20 +140,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.status(201).json({ score, tier, recommendedProducts, leadId: lead.id });
     } catch (error) {
-      res.status(500).json({ error: error instanceof Error ? error.message : "Capital readiness failed" });
+      logger.error({ msg: "Capital readiness failed", traceId: getTraceId(req), error: error instanceof Error ? error.message : String(error) });
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 
   app.post("/api/support/event", (req, res) => {
-    const { event, source } = req.body as { event?: string; source?: string };
-    if (!event) {
-      res.status(400).json({ error: "event is required" });
+    const parsed = supportEventSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ error: "Invalid request payload" });
       return;
     }
 
-    if (process.env.NODE_ENV !== "production") {
-      console.log("Support Event:", { event, source: source ?? "website", timestamp: new Date().toISOString() });
-    }
+    const { event, source } = parsed.data;
+    logger.info({ msg: "Support event", traceId: getTraceId(req), event, source: source ?? "website" });
     res.status(202).json({ ok: true });
   });
 
@@ -171,17 +173,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       res.status(202).json({ ok: true, deduped });
     } catch (error) {
-      res.status(500).json({ error: error instanceof Error ? error.message : "Lead submission failed" });
+      logger.error({ msg: "Lead submission failed", traceId: getTraceId(req), error: error instanceof Error ? error.message : String(error) });
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 
-  app.post("/api/apply", (_req, res) => {
+  app.post("/api/apply", (req, res) => {
+    const parsed = applyRequestSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: "Invalid request payload" });
+    }
+
     const requestId = crypto.randomUUID();
+    logger.info({ msg: "Apply request received", traceId: getTraceId(req), requestId, product: parsed.data.product ?? "unknown" });
 
     res.status(202).json({
       status: "received",
       requestId,
     });
+  });
+
+  app.post("/api/chat", (req, res) => {
+    const parsed = chatMessageSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: "Invalid request payload" });
+    }
+
+    return res.status(202).json({ accepted: true });
   });
 
   return createServer(app);
