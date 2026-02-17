@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
 import { APPLY_URL } from "@/config/site";
@@ -6,7 +7,9 @@ import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import MarketplaceSection from "@/components/MarketplaceSection";
 import HorizontalScroller from "@/components/HorizontalScroller";
-import ProductComparison from "@/components/ProductComparison";
+
+const primaryHeroImage = "/images/16x9 Concierge Private Banking Hero Image.jpeg";
+const fallbackHeroImage = "/images/An image of two groups of business people shaking hands over a meeting table celebrating signing a deal to merge.jpeg.webp";
 
 const featuredIndustrySlugs = ["construction", "manufacturing", "transportation"];
 const orderedIndustries = [
@@ -27,6 +30,13 @@ const orderedProducts = [
 export default function Home() {
   const readinessToken = getReadinessSessionToken();
   const applyHref = buildApplyUrl(APPLY_URL, readinessToken);
+  const [heroImage, setHeroImage] = useState(primaryHeroImage);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = primaryHeroImage;
+    image.onerror = () => setHeroImage(fallbackHeroImage);
+  }, []);
 
   return (
     <>
@@ -42,9 +52,11 @@ export default function Home() {
         ) : null}
         <section className="relative flex min-h-[85vh] w-full items-center">
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0"
             style={{
-              backgroundImage: "url('/images/16x9 Concierge Private Banking Hero Image.jpeg')",
+              backgroundImage: `url('${heroImage}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           />
 
@@ -75,21 +87,20 @@ export default function Home() {
 
         <MarketplaceSection />
 
-
         <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
           <div className="mt-6">
             <HorizontalScroller>
-            {orderedIndustries.map((industry) => (
-              <Link key={industry.slug} href={`/industries/${industry.slug}`} className="scroll-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
-                <img src={industry.image} alt={industry.name} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25" />
-                <div className="absolute bottom-0 p-4">
-                  <h3 className="text-xl font-bold">{industry.name}</h3>
-                  <p className="mt-1 text-sm text-slate-200">{industry.description}</p>
-                </div>
-              </Link>
-            ))}
+              {orderedIndustries.map((industry) => (
+                <Link key={industry.slug} href={`/industries/${industry.slug}`} className="scroll-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
+                  <img src={industry.image} alt={industry.name} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25" />
+                  <div className="absolute bottom-0 p-4">
+                    <h3 className="text-xl font-bold">{industry.name}</h3>
+                    <p className="mt-1 text-sm text-slate-200">{industry.description}</p>
+                  </div>
+                </Link>
+              ))}
             </HorizontalScroller>
           </div>
         </section>
@@ -98,22 +109,20 @@ export default function Home() {
           <h2 className="text-3xl font-bold md:text-4xl">Products</h2>
           <div className="mt-6">
             <HorizontalScroller>
-            {orderedProducts.map((product) => (
-              <article key={product.slug} className="scroll-card relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
-                <img src={product.image} alt={product.name} className="h-56 w-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/20" />
-                <div className="absolute inset-0 flex flex-col justify-end p-4">
-                  <h3 className="text-xl font-bold">{product.name}</h3>
-                  <p className="mt-1 text-sm text-slate-200">{product.description}</p>
-                  <Link href={`/products/${product.slug}`} className="mt-3 inline-flex w-fit rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold">Learn More</Link>
-                </div>
-              </article>
-            ))}
+              {orderedProducts.map((product) => (
+                <article key={product.slug} className="scroll-card relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
+                  <img src={product.image} alt={product.name} className="h-56 w-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/20" />
+                  <div className="absolute inset-0 flex flex-col justify-end p-4">
+                    <h3 className="text-xl font-bold">{product.name}</h3>
+                    <p className="mt-1 text-sm text-slate-200">{product.description}</p>
+                    <Link href={`/products/${product.slug}`} className="mt-3 inline-flex w-fit rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold">Learn More</Link>
+                  </div>
+                </article>
+              ))}
             </HorizontalScroller>
           </div>
         </section>
-
-        <ProductComparison />
       </main>
     </>
   );
