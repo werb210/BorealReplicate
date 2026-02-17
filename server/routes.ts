@@ -1,40 +1,13 @@
+import crypto from "node:crypto";
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
+import { calculateReadinessScore, tierFromScore } from "./scoring";
 import { storage } from "./storage";
+import { capitalReadinessIntakeSchema, creditReadinessSchema, leadIngestionSchema } from "./validation";
 
-function calculateReadinessScore(input: {
-  revenue: string;
-  yearsInBusiness: string;
-  existingDebt: string;
-}) {
-  let score = 30;
-  const revenue = Number(input.revenue.replace(/[^0-9.]/g, "")) || 0;
-  const years = Number(input.yearsInBusiness) || 0;
-
-  if (revenue >= 5000000) score += 35;
-  else if (revenue >= 1000000) score += 28;
-  else if (revenue >= 500000) score += 20;
-  else if (revenue >= 250000) score += 14;
-  else score += 8;
-
-  if (years >= 8) score += 20;
-  else if (years >= 4) score += 14;
-  else if (years >= 2) score += 10;
-  else score += 5;
-
-  score += input.existingDebt.toLowerCase() === "no" ? 15 : 8;
-  return Math.min(100, score);
-}
-
-function getTier(score: number): "Growth Ready" | "Near Ready" | "Foundation Stage" {
-  if (score >= 80) return "Growth Ready";
-  if (score >= 60) return "Near Ready";
-  return "Foundation Stage";
-}
-
-function recommendedProductsForTier(tier: ReturnType<typeof getTier>) {
-  if (tier === "Growth Ready") return ["Term Loan", "Equipment Financing", "Line of Credit"];
-  if (tier === "Near Ready") return ["Line of Credit", "Factoring", "Purchase Order Financing"];
+function recommendedProductsForTier(tier: "green" | "yellow" | "red") {
+  if (tier === "green") return ["Term Loan", "Equipment Financing", "Line of Credit"];
+  if (tier === "yellow") return ["Line of Credit", "Factoring", "Purchase Order Financing"];
   return ["Factoring", "Line of Credit"];
 }
 
@@ -51,23 +24,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   const handleReadinessSubmit = async (req: Request, res: Response) => {
     try {
-      const {
-        companyName,
-        fullName,
-        phone,
-        email,
-        industry,
-        yearsInBusiness,
-        monthlyRevenue,
-        annualRevenue,
-        arOutstanding,
-        existingDebt,
-      } = req.body as Record<string, string>;
+      const normalizedPayload = {
+        ...(req.body as Record<string, unknown>),
+        arBalance: (req.body as Record<string, unknown>).arBalance ?? (req.body as Record<string, unknown>).accountsReceivable,
+        collateral: (req.body as Record<string, unknown>).collateral ?? (req.body as Record<string, unknown>).availableCollateral,
+      };
 
-      if (!companyName || !fullName || !phone || !email || !industry || !yearsInBusiness || !monthlyRevenue || !annualRevenue || !arOutstanding || !existingDebt) {
-        res.status(400).json({ error: "All readiness fields are required" });
-        return;
+      const parsed = creditReadinessSchema.safeParse(normalizedPayload);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid request payload" });
       }
+
+      const { companyName, fullName, phone, email, industry, yearsInBusiness, monthlyRevenue, annualRevenue, arBalance, collateral } = parsed.data;
 
       const existingLead = await storage.findCapitalReadinessLeadByContact(email, phone);
       if (existingLead) {
@@ -82,8 +50,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return;
       }
 
-      const score = calculateReadinessScore({ revenue: annualRevenue, yearsInBusiness, existingDebt });
-      const tier = getTier(score);
+      const score = calculateReadinessScore({
+        yearsInBusiness,
+        annualRevenue,
+        monthlyRevenue,
+        arBalance,
+        collateral,
+      });
+      const tier = tierFromScore(score);
 
       const lead = await storage.createCapitalReadinessLead({
         name: fullName,
@@ -92,7 +66,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         industry,
         revenue: annualRevenue,
         yearsInBusiness,
-        existingDebt,
+        existingDebt: "unknown",
         score,
         tier,
         tag: "capital_readiness",
@@ -109,8 +83,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           yearsInBusiness,
           monthlyRevenue,
           annualRevenue,
-          arOutstanding,
-          existingDebt,
+          arBalance,
+          collateral,
         });
       }
 
@@ -132,15 +106,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/capital-readiness", async (req, res) => {
     try {
-      const { name, email, phone, industry, revenue, yearsInBusiness, existingDebt } = req.body as Record<string, string>;
-
-      if (!name || !email || !phone || !industry || !revenue || !yearsInBusiness || !existingDebt) {
-        res.status(400).json({ error: "All intake fields are required" });
-        return;
+      const parsed = capitalReadinessIntakeSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid request payload" });
       }
 
-      const score = calculateReadinessScore({ revenue, yearsInBusiness, existingDebt });
-      const tier = getTier(score);
+      const { name, email, phone, industry, revenue, yearsInBusiness } = parsed.data;
+
+      const score = calculateReadinessScore({
+        yearsInBusiness: yearsInBusiness === "0" ? "Zero" : yearsInBusiness,
+        annualRevenue: revenue,
+        monthlyRevenue: "Under $10,000",
+        arBalance: "No Account Receivables",
+        collateral: "No Collateral Available",
+      });
+      const tier = tierFromScore(score);
       const recommendedProducts = recommendedProductsForTier(tier);
 
       const lead = await storage.createCapitalReadinessLead({
@@ -150,24 +130,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         industry,
         revenue,
         yearsInBusiness,
-        existingDebt,
+        existingDebt: "unknown",
         score,
         tier,
         tag: "capital_readiness",
       });
-
-      if (process.env.NODE_ENV !== "production") {
-        console.log("CRM Lead Created:", {
-          leadId: lead.id,
-          name,
-          email,
-          phone,
-          industry,
-          score,
-          tier,
-          tag: "capital_readiness",
-        });
-      }
 
       res.status(201).json({ score, tier, recommendedProducts, leadId: lead.id });
     } catch (error) {
@@ -190,19 +157,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/crm/web-leads", async (req, res) => {
     try {
-      const { companyName, firstName, lastName, email, phone } = req.body as {
-        companyName?: string;
-        firstName?: string;
-        lastName?: string;
-        email?: string;
-        phone?: string;
-      };
-
-      if (!companyName || !firstName || !lastName || !email || !phone) {
-        res.status(400).json({ error: "All lead fields are required" });
-        return;
+      const parsed = leadIngestionSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid request payload" });
       }
 
+      const { companyName, firstName, lastName, email, phone } = parsed.data;
       const { deduped } = await storage.createOrGetWebLead({ companyName, firstName, lastName, email, phone });
 
       if (process.env.NODE_ENV !== "production" && !deduped) {
@@ -215,8 +175,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/apply", (req, res) => {
-    res.status(202).json({ status: "received", payload: req.body });
+  app.post("/api/apply", (_req, res) => {
+    const requestId = crypto.randomUUID();
+
+    res.status(202).json({
+      status: "received",
+      requestId,
+    });
   });
 
   return createServer(app);

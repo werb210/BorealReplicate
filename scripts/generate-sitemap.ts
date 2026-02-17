@@ -10,17 +10,18 @@ const outputPaths = [
 
 const routes = [
   "/",
+  "/how-it-works",
   "/products",
-  "/products/term-loans",
-  "/products/line-of-credit",
-  "/products/factoring",
-  "/products/equipment-financing",
-  "/products/purchase-order-financing",
+  "/products/media-financing",
   "/industries",
+  "/product-comparison",
+  "/compare",
+  "/credit-readiness",
+  "/credit-results",
+  "/podcasts",
+  "/contact",
   "/apply",
-  "/about",
-  "/privacy",
-  "/terms",
+  "/lender-login",
 ];
 
 async function run() {
