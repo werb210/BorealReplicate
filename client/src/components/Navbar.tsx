@@ -22,7 +22,7 @@ export function Navbar() {
           href="/apply"
           className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700"
         >
-          Apply Now
+          Start Capital Review
         </Link>
       </div>
 

@@ -19,9 +19,10 @@ export function Hero() {
         </p>
         <p className="text-sm text-slate-300">Canada first. U.S. supported.</p>
         <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-5">
-          <a href={APPLY_URL} className="rounded-md bg-white px-5 py-3 text-center font-semibold text-slate-900">Apply Now</a>
+          <a href={APPLY_URL} className="rounded-md bg-white px-5 py-3 text-center font-semibold text-slate-900">Start Capital Review</a>
           <a href="#how-it-works" className="text-sm font-semibold text-white underline underline-offset-4">How it works</a>
         </div>
+        <p className="cta-microcopy text-xs text-slate-300">Confidential. No impact to credit. 2-minute intake.</p>
       </div>
     </section>
   );

@@ -43,7 +43,7 @@ export default function ProductTemplate({
             <div>
               <p className="font-semibold">1. Apply</p>
               <a href={APPLY_URL} className="text-sm text-blue-600 underline">
-                Start Application
+                Access Structured Capital
               </a>
             </div>
             <div><p>2. AI Structuring</p></div>
@@ -55,7 +55,7 @@ export default function ProductTemplate({
 
         <div className="text-center">
           <a href={APPLY_URL} className="rounded-md bg-blue-600 px-6 py-3 text-white">
-            Apply Now
+            Start Capital Review
           </a>
         </div>
       </div>

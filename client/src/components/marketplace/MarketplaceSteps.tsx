@@ -1,6 +1,6 @@
 const steps = [
   {
-    title: "Apply",
+    title: "Assess Eligibility",
     detail: "Complete one smart intake with your business profile and funding goals.",
   },
   {

@@ -18,7 +18,7 @@ export function ApplyNowButton({ children, className, variant = "cta", size = "l
   return (
     <Button asChild className={className} variant={variant} size={size}>
       <a href={href} onClick={() => trackEvent("apply_clicked", { source: "homepage", readinessSession: token ? "present" : "none" })}>
-        {children ?? (token ? "Continue Application" : "Apply Now")}
+        {children ?? (token ? "Continue Application" : "Start Capital Review")}
       </a>
     </Button>
   );

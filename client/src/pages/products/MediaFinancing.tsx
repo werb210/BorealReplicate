@@ -32,7 +32,7 @@ export default function MediaFinancing() {
             Structured funding for production, digital campaigns, and content-backed revenue.
           </p>
           <a href={APPLY_URL} className="mt-7 inline-flex rounded-full bg-blue-600 px-6 py-2.5 font-semibold text-white">
-            Apply Now
+            Start Capital Review
           </a>
         </div>
       </section>
@@ -69,7 +69,7 @@ export default function MediaFinancing() {
           <h2 className="text-2xl font-semibold">Ready to structure your media facility?</h2>
           <p className="mt-3 text-slate-200">Talk with our team to align funding terms to your production and receivables cycle.</p>
           <a href={APPLY_URL} className="mt-6 inline-flex rounded-full bg-white px-6 py-2.5 font-semibold text-slate-900">
-            Apply Now
+            Start Capital Review
           </a>
         </div>
       </section>
