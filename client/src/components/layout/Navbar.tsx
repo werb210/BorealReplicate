@@ -7,13 +7,13 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-[#0b1220] border-b border-white/10">
       <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-3">
           <img
             src="/images/header_white_transparent.png"
             alt="Boreal Financial"
-            className="h-20 w-auto object-contain"
+            className="h-10 w-auto object-contain"
           />
-          <span className="text-2xl font-semibold tracking-wide text-white">
+          <span className="text-white text-lg font-semibold tracking-wide">
             Boreal Financial
           </span>
         </Link>

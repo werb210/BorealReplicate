@@ -128,7 +128,12 @@ export default function CreditReadiness() {
             </select>
           </div>
 
-          <button type="submit" className="btn-primary mt-6 w-full">Check Readiness</button>
+          <button
+            type="submit"
+            className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-200"
+          >
+            Check Readiness
+          </button>
         </form>
       </div>
     </main>

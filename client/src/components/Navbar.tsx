@@ -5,10 +5,13 @@ export function Navbar() {
     <header className="flex items-center justify-between bg-black px-6 py-4 text-white">
       <div className="flex items-center gap-3">
         <img
-          src="/images/Header_white.png"
+          src="/images/header_white_transparent.png"
           alt="Boreal Financial"
-          className="h-10 w-auto object-contain md:h-12"
+          className="h-10 w-auto object-contain"
         />
+        <span className="text-white text-lg font-semibold tracking-wide">
+          Boreal Financial
+        </span>
       </div>
 
       <div className="hidden items-center gap-6 md:flex">
