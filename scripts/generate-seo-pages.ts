@@ -84,7 +84,7 @@ export default function ${args.componentName}() {
     "@type": "Organization",
     name: "Boreal Financial",
     url: BASE_URL,
-    logo: BASE_URL + "/images/logo.png"
+    logo: BASE_URL + "/images/header_white_transparent.png"
   };
 
   const financialServiceJsonLd = {
