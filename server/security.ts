@@ -9,7 +9,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self'",
   "frame-ancestors 'self'",
-].join("; "");
+].join("; ");
 
 export const securityHeaders: RequestHandler[] = [
   (_req: Request, res: Response, next: NextFunction) => {
