@@ -87,7 +87,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="authority-block py-8">
+        <section className="authority-block py-12">
           <div className="mx-auto max-w-7xl px-5 md:px-6">
             <h2 className="text-3xl font-bold md:text-4xl">Institutional-Grade Structuring. Not Rate Shopping.</h2>
             <p className="mt-4 text-white/80">

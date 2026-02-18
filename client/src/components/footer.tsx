@@ -20,7 +20,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wide">Start</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wide">Apply Now</h3>
           <ul className="mt-3 space-y-2 text-sm text-slate-300">
             <li><a href={APPLY_URL}>Apply Now</a></li>
             <li><a href="/contact">Contact Us</a></li>
@@ -29,6 +29,12 @@ export function Footer() {
             <li><a href="/staff-login">Staff Login</a></li>
             <li><a href="/lender-login">Lender Login</a></li>
           </ul>
+          <a
+            href="/credit-readiness"
+            className="inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2 rounded-lg"
+          >
+            Check Your Credit Readiness
+          </a>
         </div>
       </div>
     </footer>

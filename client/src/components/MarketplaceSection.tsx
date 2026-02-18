@@ -3,7 +3,7 @@ export default function MarketplaceSection() {
   return (
     <section className="bg-primary py-16 text-white">
       <div className="mx-auto max-w-7xl px-5 md:px-6">
-        <section className="py-20 px-6">
+        <section className="py-12 px-6">
           <div className="mx-auto grid max-w-6xl gap-16 md:grid-cols-2">
             <div>
               <h2 className="mb-4 text-3xl font-bold">A Marketplace for Capital</h2>
@@ -23,7 +23,7 @@ export default function MarketplaceSection() {
           </div>
         </section>
 
-        <div className="mt-12 border-t border-white/20 pt-10">
+        <div className="mt-10 border-t border-white/20 pt-10">
           <h3 className="text-3xl font-semibold text-white">Why This Matters</h3>
           <div className="mt-6 grid gap-6 text-base text-slate-200 md:grid-cols-2">
             <div>
@@ -49,7 +49,7 @@ export default function MarketplaceSection() {
           <p className="mt-6 text-base text-slate-200">You gain leverage. You gain visibility. You gain optionality.</p>
         </div>
 
-        <section className="py-20 text-center">
+        <section className="py-12 text-center">
           <h3 className="mb-6 text-2xl font-semibold">Would you like to see if you are ready for financing?</h3>
           <Link
             href="/credit-readiness"
