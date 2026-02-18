@@ -1,8 +1,9 @@
 import crypto from "node:crypto";
-import path from "node:path";
 import fs from "node:fs";
-import express, { type Request, type Response, type NextFunction } from "express";
+import path from "node:path";
+import express, { type NextFunction, type Request, type Response } from "express";
 import { WebSocketServer } from "ws";
+
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
@@ -142,7 +143,6 @@ function isWebSocketMessageRateLimited(key: string) {
       }
 
       const raw = incoming.toString();
-
       if (Buffer.byteLength(raw, "utf8") > 4096) {
         socket.close(1009, "Message too large");
         return;
@@ -232,25 +232,25 @@ function isWebSocketMessageRateLimited(key: string) {
   const isProduction = process.env.NODE_ENV === "production";
 
   if (isProduction) {
-    // Resolve from repo root. No __dirname. No dist/dist.
+    // Serve built client output. Vite builds to dist/public.
     const clientBuildDir = path.resolve(process.cwd(), "dist/public");
+    const indexHtmlPath = path.join(clientBuildDir, "index.html");
 
-    if (!fs.existsSync(clientBuildDir)) {
-      throw new Error(
-        `Could not find the build directory: ${clientBuildDir}, make sure to build the client first`,
-      );
+    if (!fs.existsSync(indexHtmlPath)) {
+      throw new Error(`Could not find the build file: ${indexHtmlPath} (run: npm run build)`);
     }
 
     app.use(express.static(clientBuildDir));
 
+    // SPA fallback (exclude API routes)
     app.get("*", (req, res, next) => {
       if (req.path.startsWith("/api")) return next();
-      res.sendFile(path.join(clientBuildDir, "index.html"));
+      res.sendFile(indexHtmlPath);
     });
   } else {
-    // IMPORTANT: dynamic import so production never loads Vite code / config
-    const mod = await import("./vite");
-    await mod.setupVite(app, server);
+    // DEV ONLY: dynamic import so production never evaluates Vite/dev-only code (prevents ESM __dirname crash)
+    const { setupVite } = await import("./vite");
+    await setupVite(app, server);
   }
 
   const port = parseInt(process.env.PORT || process.env.WEBSITES_PORT || "8080", 10);
