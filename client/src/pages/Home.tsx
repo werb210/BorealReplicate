@@ -87,7 +87,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="authority-block py-12">
+        <section className="authority-block py-8">
           <div className="mx-auto max-w-7xl px-5 md:px-6">
             <h2 className="text-3xl font-bold md:text-4xl">Institutional-Grade Structuring. Not Rate Shopping.</h2>
             <p className="mt-4 text-white/80">
@@ -98,7 +98,7 @@ export default function Home() {
 
         <MarketplaceSection />
 
-        <section className="mx-auto max-w-7xl px-5 py-10 md:px-6 md:py-12">
+        <section className="mx-auto max-w-7xl px-5 py-6 md:px-6 md:py-8">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
           <div className="mt-6">
             <HorizontalScroller>

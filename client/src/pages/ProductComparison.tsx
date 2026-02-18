@@ -40,7 +40,7 @@ export default function ProductComparison() {
       name: "Asset Based Lending",
       bestFor: "Leveraging balance sheet assets",
       speed: "5–15 days",
-      collateral: "Assets (A/R, Inventory, Real Estate, Equipment)",
+      collateral: "Assets (A/R, Inventory, Equipment, or Real Estate)",
     },
     {
       name: "Media Financing",

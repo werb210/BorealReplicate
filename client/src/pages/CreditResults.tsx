@@ -1,56 +1,65 @@
-import { Link } from "wouter";
-
 const CREDIT_RESULT_STORAGE_KEY = "boreal_credit_readiness_result";
 
 function loadResult() {
   const stored = sessionStorage.getItem(CREDIT_RESULT_STORAGE_KEY);
   if (!stored) {
-    return { score: 72, status: "yellow" as const };
+    return { score: 72, tier: "yellow" as const };
   }
 
   try {
     const parsed = JSON.parse(stored) as { score?: number; tier?: "green" | "yellow" | "red" };
     if (typeof parsed.score === "number" && parsed.tier) {
-      return { score: Math.max(0, Math.min(100, parsed.score)), status: parsed.tier };
+      return { score: Math.max(0, Math.min(100, parsed.score)), tier: parsed.tier };
     }
   } catch {
-    // noop
+    // ignore malformed payloads
   }
 
-  return { score: 72, status: "yellow" as const };
+  return { score: 72, tier: "yellow" as const };
 }
 
 export default function CreditResults() {
-  const { score, status } = loadResult();
-
-  const colors = {
-    green: "bg-green-500",
-    yellow: "bg-yellow-500",
-    red: "bg-red-500"
-  };
-
-  const messaging = {
-    green: "You are a prime candidate for funding based on the information provided. While no approval is guaranteed, your profile aligns strongly with institutional underwriting standards.",
-    yellow: "You are positioned to apply. There may be areas we need to strengthen or clarify during underwriting, but structured capital options are available.",
-    red: "There are material weaknesses that may limit approval today. That said, we can identify corrective steps and position you for funding."
-  };
+  const { score, tier } = loadResult();
+  const isGreen = tier === "green" || score >= 80;
+  const isYellow = !isGreen && (tier === "yellow" || score >= 60);
 
   return (
-    <div className="h-screen flex items-center justify-center bg-[#0b1220] text-white px-6">
-      <div className="w-full max-w-2xl bg-[#111a2e] rounded-xl p-10 text-center space-y-8">
-        <h1 className="text-3xl font-semibold">Credit Readiness Assessment</h1>
+    <div className="flex min-h-[60vh] items-center justify-center bg-[#0b1220] px-6 text-white">
+      <div className="w-full max-w-xl rounded-2xl bg-[#0E1A2B] p-8 text-center">
+        <h2 className="mb-6 text-2xl font-semibold">Credit Readiness Assessment</h2>
 
-        <div className="w-full h-4 bg-white/10 rounded-full overflow-hidden">
-          <div className={`${colors[status]} h-full`} style={{ width: `${score}%` }} />
-        </div>
+        {isGreen && (
+          <p className="mb-6 text-white/80">
+            Congratulations. You are strongly positioned to apply for capital or equipment. Please proceed to the application form and we will begin the underwriting process and build your application package for funding.
+          </p>
+        )}
 
-        <p className="text-white/80">{messaging[status]}</p>
+        {isYellow && (
+          <p className="mb-6 text-white/80">
+            Congratulations. You are positioned to apply. There may be some areas we need to investigate further and clarify during underwriting, but structured capital options are available.
+          </p>
+        )}
 
-        <div className="flex gap-6 justify-center pt-6">
-          <div>
-            <Link href="/apply" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full">Access Structured Capital</Link>
-          </div>
-          <Link href="/contact" className="border border-white/20 px-6 py-3 rounded-full">Speak With Advisor</Link>
+        {!isGreen && !isYellow && (
+          <p className="mb-6 text-white/80">
+            Your profile may require additional strengthening before funding. Connect with an advisor and we will outline practical steps to improve readiness.
+          </p>
+        )}
+
+        <div className="flex justify-center gap-4">
+          <a
+            href="https://client.boreal.financial"
+            className="flex h-11 items-center rounded-full bg-blue-600 px-6 font-medium text-white transition hover:bg-blue-700"
+          >
+            Apply Now
+          </a>
+
+          <a
+            href="/contact"
+            className="flex h-11 items-center rounded-full border border-white/30 px-6 text-white/80 transition hover:bg-white/10"
+          >
+            Speak With Advisor
+          </a>
         </div>
       </div>
     </div>

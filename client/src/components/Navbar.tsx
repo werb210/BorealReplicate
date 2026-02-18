@@ -1,39 +1,26 @@
 import { Link } from "wouter";
-import logo from "../../public/images/Header.png";
 
 export function Navbar() {
   return (
-    <header className="flex items-center justify-between bg-black px-6 py-4 text-white">
-      <div className="flex items-center gap-3">
-        <img
-          src={logo}
-          alt="Boreal Financial"
-          className="h-12 w-auto object-contain"
-        />
-        <span className="text-white text-lg font-semibold tracking-wide">
-          Boreal Financial
-        </span>
-      </div>
-
-      <div className="hidden items-center gap-6 md:flex">
-        <Link href="/products">Products</Link>
-        <Link href="/industries">Industries</Link>
-        <Link href="/credit-readiness">Credit Readiness</Link>
-        <Link
-          href="/apply"
-          className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700"
-        >
-          Apply Now
+    <header className="w-full border-b border-white/5 bg-[#020C1C]">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+        <Link href="/" className="flex items-center">
+          <img src="/images/Header.png" alt="Boreal Financial" className="h-20 w-auto" />
         </Link>
-      </div>
 
-      <div className="md:hidden">
-        <a
-          href="https://client.boreal.financial"
-          className="rounded bg-white px-4 py-2 text-sm text-black"
-        >
-          Apply
-        </a>
+        <nav className="hidden items-center gap-8 text-sm text-white/80 md:flex">
+          <Link href="/products">Products</Link>
+          <Link href="/industries">Industries</Link>
+          <Link href="/credit-readiness">Credit Readiness</Link>
+          <Link href="/contact">Contact</Link>
+
+          <a
+            href="https://client.boreal.financial"
+            className="ml-4 rounded-full bg-blue-600 px-6 py-2 font-medium text-white transition hover:bg-blue-700"
+          >
+            Apply Now
+          </a>
+        </nav>
       </div>
     </header>
   );
