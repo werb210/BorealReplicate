@@ -30,13 +30,13 @@ export default function CreditResults() {
 
         {isGreen && (
           <p className="mb-6 text-white/80">
-            Congratulations. You are strongly positioned to apply for capital or equipment. Please proceed to the application form and we will begin the underwriting process and build your application package for funding.
+            Congratulations! You are strongly positioned to apply for capital or equipment. Please proceed to the application form and we will begin the underwriting process and build your application package for funding.
           </p>
         )}
 
         {isYellow && (
           <p className="mb-6 text-white/80">
-            Congratulations. You are positioned to apply. There may be some areas we need to investigate further and clarify during underwriting, but structured capital options are available.
+            Congratulations! You are positioned to apply. There may be some areas we need to investigate further and clarify during underwriting, but structured capital options are available.
           </p>
         )}
 
@@ -46,17 +46,17 @@ export default function CreditResults() {
           </p>
         )}
 
-        <div className="flex justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 mt-6">
           <a
             href="https://client.boreal.financial"
-            className="flex h-11 items-center rounded-full bg-blue-600 px-6 font-medium text-white transition hover:bg-blue-700"
+            className="h-11 px-6 flex items-center rounded-full bg-blue-600 font-medium text-white transition hover:bg-blue-700"
           >
             Apply Now
           </a>
 
           <a
             href="/contact"
-            className="flex h-11 items-center rounded-full border border-white/30 px-6 text-white/80 transition hover:bg-white/10"
+            className="h-11 px-6 flex items-center rounded-full border border-white/30 text-white/80 transition hover:bg-white/10"
           >
             Speak With Advisor
           </a>
