@@ -1,7 +1,8 @@
 import crypto from "node:crypto";
-import path from "path";
-import fs from "fs";
-import express, { type Request, Response, NextFunction } from "express";
+import path from "node:path";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+import express, { type Request, type Response, type NextFunction } from "express";
 import { WebSocketServer } from "ws";
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
@@ -11,11 +12,23 @@ import { setupVite } from "./vite";
 import { chatMessageSchema } from "./validation";
 import { logger } from "./logger";
 
+/* ===========================
+   ESM SAFE __dirname
+=========================== */
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/* ===========================
+   Express Setup
+=========================== */
+
 const app = express();
 
 app.use(securityHeaders);
 
 app.use((req, _res, next) => {
+  // @ts-ignore
   req.traceId = crypto.randomUUID();
   next();
 });
@@ -45,6 +58,10 @@ process.on("uncaughtException", (error) => {
   });
 });
 
+/* ===========================
+   API Logging
+=========================== */
+
 app.use((req, res, next) => {
   const start = Date.now();
   const requestPath = req.path;
@@ -52,6 +69,7 @@ app.use((req, res, next) => {
   res.on("finish", () => {
     const duration = Date.now() - start;
     if (requestPath.startsWith("/api")) {
+      // @ts-ignore
       logger.info({
         msg: "API request completed",
         traceId: req.traceId,
@@ -72,9 +90,10 @@ app.use((req, res, next) => {
 
 const websocketWindowMs = 60 * 1000;
 const websocketMaxUpgradesPerWindow = 30;
+const websocketMaxMessagesPerWindow = 60;
+
 const websocketUpgradeStore = new Map<string, { count: number; resetAt: number }>();
 const websocketMessageStore = new Map<string, { count: number; resetAt: number }>();
-const websocketMaxMessagesPerWindow = 60;
 
 const allowedOrigins = (
   process.env.ALLOWED_WS_ORIGINS ??
@@ -120,7 +139,7 @@ function isWebSocketMessageRateLimited(key: string) {
 }
 
 /* ===========================
-   Main Boot
+   Boot
 =========================== */
 
 (async () => {
@@ -128,8 +147,6 @@ function isWebSocketMessageRateLimited(key: string) {
   const chatServer = new WebSocketServer({ noServer: true });
 
   chatServer.on("connection", (socket, req) => {
-    const traceId =
-      req.headers["x-trace-id"]?.toString() ?? crypto.randomUUID();
     const sourceIp = req.socket.remoteAddress || "unknown";
     let connectionSessionId = "anonymous";
 
@@ -176,16 +193,6 @@ function isWebSocketMessageRateLimited(key: string) {
         connectionSessionId = payload.sessionId;
       }
 
-      if (payload.type === "staff_joined") {
-        socket.send(
-          JSON.stringify({
-            type: "staff_joined",
-            message: "Transferring you to a specialist…",
-          }),
-        );
-        return;
-      }
-
       if (payload.type === "message" && payload.message) {
         socket.send(
           JSON.stringify({
@@ -202,8 +209,6 @@ function isWebSocketMessageRateLimited(key: string) {
       return;
     }
 
-    const traceId = crypto.randomUUID();
-
     if (!isAllowedOrigin(req.headers.origin)) {
       socket.write("HTTP/1.1 403 Forbidden\r\n\r\n");
       socket.destroy();
@@ -218,8 +223,6 @@ function isWebSocketMessageRateLimited(key: string) {
       return;
     }
 
-    req.headers["x-trace-id"] = traceId;
-
     chatServer.handleUpgrade(req, socket, head, (client) => {
       chatServer.emit("connection", client, req);
     });
@@ -230,10 +233,9 @@ function isWebSocketMessageRateLimited(key: string) {
   =========================== */
 
   app.use(
-    (err: unknown, req: Request, res: Response, _next: NextFunction) => {
+    (err: unknown, _req: Request, res: Response, _next: NextFunction) => {
       logger.error({
         msg: "Server error",
-        traceId: req.traceId,
         error: err instanceof Error ? err.message : "Unknown",
       });
 
@@ -248,11 +250,7 @@ function isWebSocketMessageRateLimited(key: string) {
   const isProduction = process.env.NODE_ENV === "production";
 
   if (isProduction) {
-    // When running from dist/server/index.js,
-    // client build is located at dist/public
     const clientBuildDir = path.resolve(__dirname, "../public");
-
-    console.log("Serving static from:", clientBuildDir);
 
     if (!fs.existsSync(clientBuildDir)) {
       throw new Error(
