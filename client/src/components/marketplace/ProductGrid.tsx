@@ -16,7 +16,7 @@ export function ProductGrid() {
       <div className="flex items-end justify-between gap-3">
         <h2 className="text-2xl font-semibold">Products</h2>
         <div className="text-right">
-          <a href={APPLY_URL} className="text-sm font-semibold underline underline-offset-4">Start Capital Review</a>
+          <a href={APPLY_URL} className="text-sm font-semibold underline underline-offset-4">Apply Now</a>
         </div>
       </div>
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

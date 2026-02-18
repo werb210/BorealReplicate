@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import logo from "../../public/images/Header.png";
 import { APPLY_URL } from "@/config/site";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
@@ -7,17 +8,14 @@ export default function Header() {
   const applyHref = buildApplyUrl(APPLY_URL, readinessSessionToken);
 
   return (
-    <header className="border-b border-white/10 bg-[#071a2f]">
-      <div className="flex items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-3">
+    <header className="w-full bg-[#0B1320] border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <Link href="/" className="flex items-center">
           <img
-            src="/images/header_white_transparent.png"
+            src={logo}
             alt="Boreal Financial"
-            className="h-10 w-auto object-contain"
+            className="h-12 w-auto object-contain"
           />
-          <span className="text-white text-lg font-semibold tracking-wide">
-            Boreal Financial
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-white md:flex">
@@ -25,7 +23,7 @@ export default function Header() {
           <Link href="/industries">Industries</Link>
           <Link href="/credit-readiness">Credit Readiness</Link>
           <Link href="/contact">Contact</Link>
-          <a href={applyHref} className="rounded-full bg-blue-600 px-5 py-2 font-medium text-white">Start Capital Review</a>
+          <a href={applyHref} className="rounded-full bg-blue-600 px-5 py-2 font-medium text-white">Apply Now</a>
         </nav>
       </div>
     </header>
