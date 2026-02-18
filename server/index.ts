@@ -1,5 +1,4 @@
 import crypto from "node:crypto";
-import fs from "node:fs";
 import path from "node:path";
 import express, { type Request, Response, NextFunction } from "express";
 import { WebSocketServer } from "ws";
@@ -12,6 +11,7 @@ import { chatMessageSchema } from "./validation";
 import { logger } from "./logger";
 
 const app = express();
+const isProduction = process.env.NODE_ENV === "production";
 app.use(securityHeaders);
 app.use((req, _res, next) => {
   req.traceId = crypto.randomUUID();
@@ -203,26 +203,13 @@ function isWebSocketMessageRateLimited(key: string) {
     res.status(status).json({ error: "Internal server error" });
   });
 
-  if (app.get("env") === "development") {
+  if (!isProduction) {
     await setupVite(app, server);
   } else {
+    // __dirname = dist/server
     const clientBuildDir = path.resolve(__dirname, "../public");
 
-    if (!fs.existsSync(clientBuildDir)) {
-      logger.error({ msg: "Resolved client build directory missing", clientBuildDir });
-      throw new Error(
-        `Client build directory missing. Expected dist/public at: ${clientBuildDir}`,
-      );
-    }
-
-    app.use((req, res, next) => {
-      if (/(\.(js|css|png|jpg|jpeg|webp|svg|ico|woff2?))$/i.test(req.path)) {
-        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-      } else if (req.path === "/" || req.path.endsWith(".html")) {
-        res.setHeader("Cache-Control", "public, max-age=300");
-      }
-      next();
-    });
+    console.log("Serving static from:", clientBuildDir);
 
     app.use(express.static(clientBuildDir));
 
