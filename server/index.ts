@@ -209,8 +209,9 @@ function isWebSocketMessageRateLimited(key: string) {
     const clientBuildDir = path.resolve(__dirname, "../public");
 
     if (!fs.existsSync(clientBuildDir)) {
+      logger.error({ msg: "Resolved client build directory missing", clientBuildDir });
       throw new Error(
-        `Could not find the build directory: ${clientBuildDir}, make sure to build the client first`,
+        `Client build directory missing. Expected dist/public at: ${clientBuildDir}`,
       );
     }
 
