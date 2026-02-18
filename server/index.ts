@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
-import path from "node:path";
+import path from "path";
+import fs from "fs";
 import express, { type Request, Response, NextFunction } from "express";
 import { WebSocketServer } from "ws";
 import { registerRoutes } from "./routes";
@@ -11,7 +12,6 @@ import { chatMessageSchema } from "./validation";
 import { logger } from "./logger";
 
 const app = express();
-const isProduction = process.env.NODE_ENV === "production";
 app.use(securityHeaders);
 app.use((req, _res, next) => {
   req.traceId = crypto.randomUUID();
@@ -203,20 +203,31 @@ function isWebSocketMessageRateLimited(key: string) {
     res.status(status).json({ error: "Internal server error" });
   });
 
-  if (!isProduction) {
-    await setupVite(app, server);
-  } else {
-    // __dirname = dist/server
+  const isProduction = process.env.NODE_ENV === "production";
+
+  if (isProduction) {
     const clientBuildDir = path.resolve(__dirname, "../public");
 
-    console.log("Serving static from:", clientBuildDir);
+    console.log("Resolved client build dir:", clientBuildDir);
+
+    if (!fs.existsSync(clientBuildDir)) {
+      throw new Error(
+        `Client build directory missing: ${clientBuildDir}. Did you run npm run build?`
+      );
+    }
 
     app.use(express.static(clientBuildDir));
 
+    // SPA fallback (exclude API routes)
     app.get("*", (req, res, next) => {
-      if (req.path.startsWith("/api")) return next();
-      return res.sendFile(path.join(clientBuildDir, "index.html"));
+      if (req.path.startsWith("/api")) {
+        return next();
+      }
+
+      res.sendFile(path.join(clientBuildDir, "index.html"));
     });
+  } else {
+    await setupVite(app, server);
   }
 
   const port = parseInt(process.env.PORT || process.env.WEBSITES_PORT || "8080", 10);
