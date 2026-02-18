@@ -7,7 +7,6 @@ import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
 import { createRateLimiter, securityHeaders } from "./security";
-import { setupVite } from "./vite";
 import { chatMessageSchema } from "./validation";
 import { logger } from "./logger";
 
@@ -16,7 +15,7 @@ const app = express();
 app.use(securityHeaders);
 
 app.use((req, _res, next) => {
-  // @ts-expect-error runtime property
+  // @ts-expect-error traceId is attached at runtime
   req.traceId = crypto.randomUUID();
   next();
 });
@@ -53,7 +52,7 @@ app.use((req, res, next) => {
   res.on("finish", () => {
     const duration = Date.now() - start;
     if (requestPath.startsWith("/api")) {
-      // @ts-expect-error runtime property
+      // @ts-expect-error traceId is attached at runtime
       logger.info({
         msg: "API request completed",
         traceId: req.traceId,
@@ -175,17 +174,21 @@ function isWebSocketMessageRateLimited(key: string) {
       }
 
       if (payload.type === "staff_joined") {
-        socket.send(JSON.stringify({
-          type: "staff_joined",
-          message: "Transferring you to a specialist…",
-        }));
+        socket.send(
+          JSON.stringify({
+            type: "staff_joined",
+            message: "Transferring you to a specialist…",
+          }),
+        );
         return;
       }
 
       if (payload.type === "message" && payload.message) {
-        socket.send(JSON.stringify({
-          message: `Received for session ${connectionSessionId}. A specialist will follow up shortly.`,
-        }));
+        socket.send(
+          JSON.stringify({
+            message: `Received for session ${connectionSessionId}. A specialist will follow up shortly.`,
+          }),
+        );
       }
     });
   });
@@ -215,8 +218,11 @@ function isWebSocketMessageRateLimited(key: string) {
   });
 
   app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
+    // @ts-expect-error traceId is attached at runtime
+    const traceId = req.traceId;
     logger.error({
       msg: "Server error",
+      traceId,
       error: err instanceof Error ? err.message : "Unknown",
       stack: err instanceof Error ? err.stack : undefined,
     });
@@ -226,12 +232,12 @@ function isWebSocketMessageRateLimited(key: string) {
   const isProduction = process.env.NODE_ENV === "production";
 
   if (isProduction) {
-    // FIX: no __dirname — use process.cwd()
+    // Resolve from repo root. No __dirname. No dist/dist.
     const clientBuildDir = path.resolve(process.cwd(), "dist/public");
 
     if (!fs.existsSync(clientBuildDir)) {
       throw new Error(
-        `Could not find the build directory: ${clientBuildDir}, make sure to build the client first`
+        `Could not find the build directory: ${clientBuildDir}, make sure to build the client first`,
       );
     }
 
@@ -242,13 +248,12 @@ function isWebSocketMessageRateLimited(key: string) {
       res.sendFile(path.join(clientBuildDir, "index.html"));
     });
   } else {
-    await setupVite(app, server);
+    // IMPORTANT: dynamic import so production never loads Vite code / config
+    const mod = await import("./vite");
+    await mod.setupVite(app, server);
   }
 
-  const port = parseInt(
-    process.env.PORT || process.env.WEBSITES_PORT || "8080",
-    10,
-  );
+  const port = parseInt(process.env.PORT || process.env.WEBSITES_PORT || "8080", 10);
 
   server.listen(
     {
