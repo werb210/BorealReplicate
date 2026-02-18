@@ -102,7 +102,6 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
             <Link href="/credit-readiness" className="inline-block rounded-full border border-white px-6 py-2.5 font-semibold text-white">Check Capital Readiness</Link>
             <a href={applyHref} className="inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Start Capital Review</a>
           </div>
-          <p className="cta-microcopy mt-2 text-xs text-slate-300">Confidential. No impact to credit. 2-minute intake.</p>
         </div>
       </section>
     </div>

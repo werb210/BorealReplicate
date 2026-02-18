@@ -7,7 +7,7 @@ export function Navbar() {
         <img
           src="/images/header_white_transparent.png"
           alt="Boreal Financial"
-          className="h-10 w-auto object-contain"
+          className="h-14 w-auto"
         />
         <span className="text-white text-lg font-semibold tracking-wide">
           Boreal Financial

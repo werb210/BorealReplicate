@@ -49,7 +49,6 @@ export default function CreditResults() {
         <div className="flex gap-6 justify-center pt-6">
           <div>
             <Link href="/apply" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full">Access Structured Capital</Link>
-            <p className="cta-microcopy mt-2 text-xs text-white/70">Confidential. No impact to credit. 2-minute intake.</p>
           </div>
           <Link href="/contact" className="border border-white/20 px-6 py-3 rounded-full">Speak With Advisor</Link>
         </div>
