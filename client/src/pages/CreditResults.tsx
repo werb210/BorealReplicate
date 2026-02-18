@@ -23,10 +23,26 @@ export default function CreditResults() {
   const isGreen = tier === "green" || score >= 80;
   const isYellow = !isGreen && (tier === "yellow" || score >= 60);
 
+  const cardAccentClasses = isGreen
+    ? "border border-emerald-400/60 shadow-[0_0_40px_rgba(16,185,129,0.2)]"
+    : isYellow
+      ? "border border-amber-300/60 shadow-[0_0_28px_rgba(251,191,36,0.16)]"
+      : "border border-white/10";
+
+  const scoreBarClasses = isGreen
+    ? "bg-emerald-400"
+    : isYellow
+      ? "bg-amber-400"
+      : "bg-rose-400";
+
   return (
     <div className="flex min-h-[60vh] items-center justify-center bg-[#0b1220] px-6 text-white">
-      <div className="w-full max-w-xl rounded-2xl bg-[#0E1A2B] p-8 text-center">
-        <h2 className="mb-6 text-2xl font-semibold">Credit Readiness Assessment</h2>
+      <div className={`w-full max-w-xl rounded-2xl bg-[#0E1A2B] p-8 text-center ${cardAccentClasses}`}>
+        <h2 className="mb-4 text-2xl font-semibold">Credit Readiness Assessment</h2>
+        <div className="mb-6 overflow-hidden rounded-full bg-white/10">
+          <div className={`h-2 rounded-full transition-all ${scoreBarClasses}`} style={{ width: `${score}%` }} />
+        </div>
+
 
         {isGreen && (
           <p className="mb-6 text-white/80">
@@ -46,17 +62,17 @@ export default function CreditResults() {
           </p>
         )}
 
-        <div className="flex items-center justify-center gap-4 mt-6">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
           <a
             href="https://client.boreal.financial"
-            className="h-11 px-6 flex items-center rounded-full bg-blue-600 font-medium text-white transition hover:bg-blue-700"
+            className="flex h-11 min-w-[170px] items-center justify-center rounded-full bg-blue-600 px-6 font-medium text-white transition hover:bg-blue-700"
           >
             Apply Now
           </a>
 
           <a
             href="/contact"
-            className="h-11 px-6 flex items-center rounded-full border border-white/30 text-white/80 transition hover:bg-white/10"
+            className="flex h-11 min-w-[170px] items-center justify-center rounded-full border border-white/30 px-6 text-white/80 transition hover:bg-white/10"
           >
             Speak With Advisor
           </a>

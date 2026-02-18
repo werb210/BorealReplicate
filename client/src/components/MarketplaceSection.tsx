@@ -1,10 +1,10 @@
 import { Link } from "wouter";
 export default function MarketplaceSection() {
   return (
-    <section className="bg-primary py-16 text-white">
+    <section className="bg-primary py-8 text-white">
       <div className="mx-auto max-w-7xl px-5 md:px-6">
-        <section className="py-12 px-6">
-          <div className="mx-auto grid max-w-6xl gap-16 md:grid-cols-2">
+        <section className="px-6 py-6">
+          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
             <div>
               <h2 className="mb-4 text-3xl font-bold">A Marketplace for Capital</h2>
               <p className="text-gray-400">
@@ -23,12 +23,12 @@ export default function MarketplaceSection() {
           </div>
         </section>
 
-        <div className="mt-10 border-t border-white/20 pt-10">
+        <div className="mt-5 border-t border-white/20 pt-5">
           <h3 className="text-3xl font-semibold text-white">Why This Matters</h3>
-          <div className="mt-6 grid gap-6 text-base text-slate-200 md:grid-cols-2">
+          <div className="mt-4 grid gap-4 text-base text-slate-200 md:grid-cols-2">
             <div>
               <p className="font-semibold text-white">Traditional financing relies on:</p>
-              <ul className="mt-3 list-disc space-y-2 pl-5">
+              <ul className="mt-2 list-disc space-y-1.5 pl-5">
                 <li>One bank</li>
                 <li>One credit committee</li>
                 <li>One decision</li>
@@ -37,7 +37,7 @@ export default function MarketplaceSection() {
             </div>
             <div>
               <p className="font-semibold text-white">Our model creates:</p>
-              <ul className="mt-3 list-disc space-y-2 pl-5">
+              <ul className="mt-2 list-disc space-y-1.5 pl-5">
                 <li>Multiple funding sources</li>
                 <li>Competitive leverage</li>
                 <li>Structured positioning</li>
@@ -46,11 +46,11 @@ export default function MarketplaceSection() {
               </ul>
             </div>
           </div>
-          <p className="mt-6 text-base text-slate-200">You gain leverage. You gain visibility. You gain optionality.</p>
+          <p className="mt-4 text-base text-slate-200">You gain leverage. You gain visibility. You gain optionality.</p>
         </div>
 
-        <section className="py-12 text-center">
-          <h3 className="mb-6 text-2xl font-semibold">Would you like to see if you are ready for financing?</h3>
+        <section className="py-6 text-center">
+          <h3 className="mb-4 text-2xl font-semibold">Would you like to see if you are ready for financing?</h3>
           <Link
             href="/credit-readiness"
             className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 font-semibold transition hover:bg-blue-700"

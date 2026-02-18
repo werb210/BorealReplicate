@@ -87,10 +87,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="authority-block py-12">
+        <section className="authority-block py-6">
           <div className="mx-auto max-w-7xl px-5 md:px-6">
             <h2 className="text-3xl font-bold md:text-4xl">Institutional-Grade Structuring. Not Rate Shopping.</h2>
-            <p className="mt-4 text-white/80">
+            <p className="mt-2 text-white/80">
               80+ active lending institutions. 50+ years combined capital structuring experience. We arrange structured financing from $10,000 to $100,000,000.
             </p>
           </div>
@@ -98,9 +98,9 @@ export default function Home() {
 
         <MarketplaceSection />
 
-        <section className="mx-auto max-w-7xl px-5 py-6 md:px-6 md:py-8">
+        <section className="mx-auto max-w-7xl px-5 py-4 md:px-6 md:py-4">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
-          <div className="mt-6">
+          <div className="mt-4">
             <HorizontalScroller>
               {orderedIndustries.map((industry) => (
                 <Link key={industry.slug} href={`/industries/${industry.slug}`} className="scroll-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
@@ -116,9 +116,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-5 pb-10 md:px-6 md:pb-12">
+        <section className="mx-auto max-w-7xl px-5 pb-6 md:px-6 md:pb-6">
           <h2 className="text-3xl font-bold md:text-4xl">Products</h2>
-          <div className="mt-6">
+          <div className="mt-4">
             <HorizontalScroller>
               {orderedProducts.map((product) => (
                 <article key={product.slug} className="scroll-card relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">

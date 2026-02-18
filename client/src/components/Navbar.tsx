@@ -3,9 +3,15 @@ import { Link } from "wouter";
 export function Navbar() {
   return (
     <header className="w-full border-b border-white/5 bg-[#020C1C]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link href="/" className="flex items-center">
-          <img src="/images/Header.png" alt="Boreal Financial" className="h-20 w-auto" />
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-3">
+          <img
+            src="/images/header_white_transparent.png"
+            alt="Boreal Financial"
+            className="w-auto object-contain"
+            style={{ height: "54px" }}
+          />
+          <span className="text-xl font-semibold tracking-wide text-white">Boreal Financial</span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm text-white/80 md:flex">
