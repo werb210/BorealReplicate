@@ -13,10 +13,14 @@ import { logger } from "./logger";
 
 const app = express();
 
+/* ===========================
+   Core Middleware
+=========================== */
+
 app.use(securityHeaders);
 
 app.use((req, _res, next) => {
-  // @ts-expect-error traceId is attached at runtime
+  // @ts-expect-error runtime property
   req.traceId = crypto.randomUUID();
   next();
 });
@@ -46,14 +50,19 @@ process.on("uncaughtException", (error) => {
   });
 });
 
+/* ===========================
+   API Logging
+=========================== */
+
 app.use((req, res, next) => {
   const start = Date.now();
   const requestPath = req.path;
 
   res.on("finish", () => {
     const duration = Date.now() - start;
+
     if (requestPath.startsWith("/api")) {
-      // @ts-expect-error traceId is attached at runtime
+      // @ts-expect-error runtime property
       logger.info({
         msg: "API request completed",
         traceId: req.traceId,
@@ -218,26 +227,38 @@ function isWebSocketMessageRateLimited(key: string) {
     });
   });
 
+  /* ===========================
+     Error Middleware
+  =========================== */
+
   app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
-    // @ts-expect-error traceId is attached at runtime
+    // @ts-expect-error runtime property
     const traceId = req.traceId;
+
     logger.error({
       msg: "Server error",
       traceId,
       error: err instanceof Error ? err.message : "Unknown",
       stack: err instanceof Error ? err.stack : undefined,
     });
+
     res.status(500).json({ error: "Internal server error" });
   });
+
+  /* ===========================
+     Production Static Handling
+  =========================== */
 
   const isProduction = process.env.NODE_ENV === "production";
 
   if (isProduction) {
-    // Always resolve from repo root. This avoids ESM __dirname issues and fixes dist/dist/public.
+    // Always resolve from repository root
     const clientBuildDir = path.resolve(process.cwd(), "dist/public");
 
     if (!fs.existsSync(clientBuildDir)) {
-      throw new Error(`Could not find the build directory: ${clientBuildDir}, make sure to build the client first`);
+      throw new Error(
+        `Could not find the build directory: ${clientBuildDir}. Run npm run build first.`,
+      );
     }
 
     app.use(express.static(clientBuildDir));
@@ -250,7 +271,10 @@ function isWebSocketMessageRateLimited(key: string) {
     await setupVite(app, server);
   }
 
-  const port = parseInt(process.env.PORT || process.env.WEBSITES_PORT || "8080", 10);
+  const port = parseInt(
+    process.env.PORT || process.env.WEBSITES_PORT || "8080",
+    10,
+  );
 
   server.listen(
     {
