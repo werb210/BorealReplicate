@@ -54,7 +54,7 @@ export default function SeoLandingPage() {
             lender matching, and practical guidance tailored to local operating realities.
           </p>
           <a href={APPLY_URL}>
-            <Button size="lg">Start Your Application</Button>
+            <Button size="lg">Apply Now</Button>
           </a>
         </section>
 

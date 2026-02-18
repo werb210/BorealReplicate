@@ -349,7 +349,7 @@ export default function POFinancing() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild data-testid="button-apply-now">
               <a href={APPLY_URL}>
-                Apply for PO Financing
+                Apply Now
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild data-testid="button-discuss-order">

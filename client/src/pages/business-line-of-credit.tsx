@@ -194,7 +194,7 @@ export default function BusinessLineOfCredit() {
           <div className="space-y-4">
             <Button size="lg" variant="secondary" asChild data-testid="button-apply-now-main">
               <a href={APPLY_URL}>
-                Apply Now and Experience the Difference
+                Apply Now
               </a>
             </Button>
             <p className="text-sm text-blue-200" data-testid="disclaimer">
