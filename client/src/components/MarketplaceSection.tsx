@@ -1,9 +1,9 @@
 import { Link } from "wouter";
 export default function MarketplaceSection() {
   return (
-    <section className="bg-primary py-4 text-white">
+    <section className="bg-primary py-12 text-white">
       <div className="mx-auto max-w-7xl px-5 md:px-6">
-        <section className="px-6 py-3">
+        <section className="px-6 py-12">
           <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
             <div>
               <h2 className="mb-4 text-3xl font-bold">A Marketplace for Capital</h2>
@@ -49,7 +49,7 @@ export default function MarketplaceSection() {
           <p className="mt-4 text-base text-slate-200">You gain leverage. You gain visibility. You gain optionality.</p>
         </div>
 
-        <section className="py-3 text-center">
+        <section className="py-12 text-center">
           <h3 className="mb-4 text-2xl font-semibold">Would you like to see if you are ready for financing?</h3>
           <Link
             href="/credit-readiness"

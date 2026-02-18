@@ -166,7 +166,7 @@ export default function FloatingChat() {
               <p className="text-sm font-semibold">Maya</p>
               <p className="text-xs text-slate-300">{connected ? "Online" : connecting ? "Connecting..." : "Offline"}</p>
             </div>
-            <button aria-label="Close chat" onClick={() => setOpen(false)} className="rounded p-1 hover:bg-white/10">
+            <button aria-label="Close chat" onClick={() => setOpen((prev) => !prev)} className="rounded p-1 hover:bg-white/10">
               <X size={16} />
             </button>
           </div>
@@ -228,7 +228,7 @@ export default function FloatingChat() {
       ) : null}
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen((prev) => !prev)}
         className="fixed bottom-4 right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-xl hover:bg-blue-700"
         aria-label="Open support chat"
       >
