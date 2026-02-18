@@ -87,6 +87,8 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="section-divider" />
+
         <section className="authority-block py-12">
           <div className="mx-auto max-w-7xl px-5 md:px-6">
             <h2 className="text-3xl font-bold md:text-4xl">Institutional-Grade Structuring. Not Rate Shopping.</h2>
@@ -96,7 +98,11 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="section-divider" />
+
         <MarketplaceSection />
+
+        <div className="section-divider" />
 
         <section className="mx-auto max-w-7xl px-5 py-12 md:px-6">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
@@ -115,6 +121,8 @@ export default function Home() {
             </HorizontalScroller>
           </div>
         </section>
+
+        <div className="section-divider" />
 
         <section className="mx-auto max-w-7xl px-5 py-12 md:px-6">
           <h2 className="text-3xl font-bold md:text-4xl">Products</h2>
