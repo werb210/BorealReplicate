@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { useLocation } from "wouter";
 
 type ReadinessForm = {
-  companyName: string;
+  organization: string;
   fullName: string;
   email: string;
   phone: string;
@@ -30,7 +30,7 @@ const industryOptions = [
 ];
 
 const initialForm: ReadinessForm = {
-  companyName: "",
+  organization: "",
   fullName: "",
   email: "",
   phone: "",
@@ -59,7 +59,7 @@ export default function CreditReadiness() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        companyName: form.companyName,
+        companyName: form.organization,
         fullName: form.fullName,
         email: form.email,
         phone: form.phone,
@@ -90,12 +90,12 @@ export default function CreditReadiness() {
         <h1 className="mb-3 text-3xl font-bold md:text-5xl">Credit Readiness</h1>
         <p className="text-xl font-semibold md:text-2xl">Tell us about your business</p>
 
-        <form onSubmit={handleSubmit} className="mt-10 rounded-2xl border border-white/10 bg-[#08132a] p-6">
+        <form autoComplete="on" onSubmit={handleSubmit} className="mt-10 rounded-2xl border border-white/10 bg-[#08132a] p-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <input required id="companyName" name="companyName" type="text" autoComplete="organization" value={form.companyName} placeholder="Company Name" onChange={(e) => update("companyName", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
-            <input required id="fullName" name="fullName" type="text" autoComplete="name" value={form.fullName} placeholder="Full Name" onChange={(e) => update("fullName", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
-            <input required id="email" name="email" type="email" autoComplete="email" value={form.email} placeholder="Email" onChange={(e) => update("email", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
-            <input required id="phone" name="phone" type="tel" autoComplete="tel" value={form.phone} placeholder="Phone" onChange={(e) => update("phone", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+            <input required id="organization" name="organization" type="text" autoComplete="organization" value={form.organization} placeholder="Company Name" onChange={(e) => update("organization", e.target.value.replace(/\b\w/g, (l) => l.toUpperCase()))} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+            <input required id="fullName" name="fullName" type="text" autoComplete="name" value={form.fullName} placeholder="Full Name" onChange={(e) => update("fullName", e.target.value.replace(/\b\w/g, (l) => l.toUpperCase()))} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+            <input required id="email" name="email" type="email" autoComplete="email" inputMode="email" value={form.email} placeholder="Email" onChange={(e) => update("email", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+            <input required id="phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" value={form.phone} placeholder="Phone" onChange={(e) => { const numbers = e.target.value.replace(/\D/g, "").slice(0, 10); const formatted = numbers.length <= 3 ? numbers : numbers.length <= 6 ? `(${numbers.slice(0, 3)}) ${numbers.slice(3)}` : `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6)}`; update("phone", formatted); }} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
 
             <select required id="industry" name="industry" value={form.industry} onChange={(e) => update("industry", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
               <option value="">Industry</option>
