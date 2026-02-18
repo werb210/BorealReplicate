@@ -1,11 +1,13 @@
 import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 import express, { type Request, Response, NextFunction } from "express";
 import { WebSocketServer } from "ws";
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
 import { createRateLimiter, securityHeaders } from "./security";
-import { setupVite, serveStatic } from "./vite";
+import { setupVite } from "./vite";
 import { chatMessageSchema } from "./validation";
 import { logger } from "./logger";
 
@@ -204,7 +206,29 @@ function isWebSocketMessageRateLimited(key: string) {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    serveStatic(app);
+    const clientBuildDir = path.resolve(__dirname, "../public");
+
+    if (!fs.existsSync(clientBuildDir)) {
+      throw new Error(
+        `Could not find the build directory: ${clientBuildDir}, make sure to build the client first`,
+      );
+    }
+
+    app.use((req, res, next) => {
+      if (/(\.(js|css|png|jpg|jpeg|webp|svg|ico|woff2?))$/i.test(req.path)) {
+        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      } else if (req.path === "/" || req.path.endsWith(".html")) {
+        res.setHeader("Cache-Control", "public, max-age=300");
+      }
+      next();
+    });
+
+    app.use(express.static(clientBuildDir));
+
+    app.get("*", (req, res, next) => {
+      if (req.path.startsWith("/api")) return next();
+      return res.sendFile(path.join(clientBuildDir, "index.html"));
+    });
   }
 
   const port = parseInt(process.env.PORT || process.env.WEBSITES_PORT || "8080", 10);
