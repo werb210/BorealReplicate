@@ -1,3 +1,5 @@
+import { APPLY_URL } from "@/config/site";
+
 const CREDIT_RESULT_STORAGE_KEY = "boreal_credit_readiness_result";
 
 function loadResult() {
@@ -45,26 +47,26 @@ export default function CreditResults() {
 
 
         {isGreen && (
-          <p className="mb-6 text-white/80">
+          <p className="mb-6 text-lg leading-8 text-white/85 md:text-xl md:leading-9">
             Congratulations! You are strongly positioned to apply for capital or equipment. Please proceed to the application form and we will begin the underwriting process and build your application package for funding.
           </p>
         )}
 
         {isYellow && (
-          <p className="mb-6 text-white/80">
+          <p className="mb-6 text-lg leading-8 text-white/85 md:text-xl md:leading-9">
             Congratulations! You are positioned to apply. There may be some areas we need to investigate further and clarify during underwriting, but structured capital options are available.
           </p>
         )}
 
         {!isGreen && !isYellow && (
-          <p className="mb-6 text-white/80">
+          <p className="mb-6 text-lg leading-8 text-white/85 md:text-xl md:leading-9">
             Your profile may require additional strengthening before funding. Connect with an advisor and we will outline practical steps to improve readiness.
           </p>
         )}
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
           <a
-            href="https://client.boreal.financial"
+            href={APPLY_URL}
             className="flex h-11 min-w-[170px] items-center justify-center rounded-full bg-blue-600 px-6 font-medium text-white transition hover:bg-blue-700"
           >
             Apply Now

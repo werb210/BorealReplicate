@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { APPLY_URL } from "@/config/site";
 
 export function Navbar() {
   return (
@@ -21,7 +22,7 @@ export function Navbar() {
           <Link href="/contact">Contact</Link>
 
           <a
-            href="https://client.boreal.financial"
+            href={APPLY_URL}
             className="ml-4 rounded-full bg-blue-600 px-6 py-2 font-medium text-white transition hover:bg-blue-700"
           >
             Apply Now

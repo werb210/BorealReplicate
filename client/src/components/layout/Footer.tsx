@@ -1,4 +1,6 @@
 import { Link } from "wouter";
+import { APPLY_URL } from "@/config/site";
+
 export default function Footer() {
   return (
     <footer className="bg-[#071a2f] text-gray-300 py-16">
@@ -20,9 +22,16 @@ export default function Footer() {
 
         <div>
           <h4 className="text-white mb-4">Contact</h4>
+          <div className="mb-4 flex flex-col items-start gap-3">
+            <a href={APPLY_URL} className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700">
+              Apply Now
+            </a>
+            <a href="/credit-readiness" className="rounded-lg border border-blue-400/70 px-4 py-2 font-medium text-blue-200 transition hover:bg-blue-500/10">
+              Check your Credit Readiness
+            </a>
+          </div>
           <ul className="space-y-2">
             <li><a href="/contact">Contact Us</a></li>
-            <li><a href="/apply">Assess Eligibility</a></li>
           </ul>
         </div>
       </div>

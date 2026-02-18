@@ -203,7 +203,7 @@ export default function MediaFinancing() {
           </p>
           <Button size="lg" asChild data-testid="button-apply-media-financing">
             <a href={APPLY_URL}>
-              Apply for Media Financing
+              Apply Now
             </a>
           </Button>
         </div>

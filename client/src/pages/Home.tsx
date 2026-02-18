@@ -75,7 +75,7 @@ export default function Home() {
 
             <div className="flex gap-4">
               <a href="/apply" className="rounded-full bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-700">
-                Access Structured Capital
+                Apply Now
               </a>
               <a
                 href="/contact"
@@ -87,7 +87,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="authority-block py-6">
+        <section className="authority-block py-3">
           <div className="mx-auto max-w-7xl px-5 md:px-6">
             <h2 className="text-3xl font-bold md:text-4xl">Institutional-Grade Structuring. Not Rate Shopping.</h2>
             <p className="mt-2 text-white/80">
@@ -98,7 +98,7 @@ export default function Home() {
 
         <MarketplaceSection />
 
-        <section className="mx-auto max-w-7xl px-5 py-4 md:px-6 md:py-4">
+        <section className="mx-auto max-w-7xl px-5 py-2 md:px-6 md:py-2">
           <h2 className="text-3xl font-bold md:text-4xl">Industries</h2>
           <div className="mt-4">
             <HorizontalScroller>
@@ -116,7 +116,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-5 pb-6 md:px-6 md:pb-6">
+        <section className="mx-auto max-w-7xl px-5 pb-3 md:px-6 md:pb-3">
           <h2 className="text-3xl font-bold md:text-4xl">Products</h2>
           <div className="mt-4">
             <HorizontalScroller>

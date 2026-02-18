@@ -43,7 +43,7 @@ export default function ProductTemplate({
             <div>
               <p className="font-semibold">1. Apply</p>
               <a href={APPLY_URL} className="text-sm text-blue-600 underline">
-                Access Structured Capital
+                Apply Now
               </a>
             </div>
             <div><p>2. AI Structuring</p></div>
