@@ -100,7 +100,7 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
           <h2 className="text-2xl font-bold">Want to evaluate this structure in detail?</h2>
           <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link href="/credit-readiness" className="inline-block rounded-full border border-white px-6 py-2.5 font-semibold text-white">Check Capital Readiness</Link>
-            <a href={applyHref} className="inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Start Capital Review</a>
+            <a href={applyHref} className="inline-block rounded-full bg-white px-6 py-2.5 font-semibold text-black">Apply Now</a>
           </div>
         </div>
       </section>

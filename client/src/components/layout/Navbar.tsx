@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import logo from "../../../public/images/Header.png";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,9 +10,9 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-3">
           <img
-            src="/images/header_white_transparent.png"
+            src={logo}
             alt="Boreal Financial"
-            className="h-10 w-auto object-contain"
+            className="h-12 w-auto object-contain"
           />
           <span className="text-white text-lg font-semibold tracking-wide">
             Boreal Financial
@@ -27,7 +28,7 @@ export function Navbar() {
             href="/apply"
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition"
           >
-            Start Capital Review
+            Apply Now
           </Link>
         </nav>
       </div>

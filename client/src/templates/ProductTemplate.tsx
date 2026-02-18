@@ -55,7 +55,7 @@ export default function ProductTemplate({
 
         <div className="text-center">
           <a href={APPLY_URL} className="rounded-md bg-blue-600 px-6 py-3 text-white">
-            Start Capital Review
+            Apply Now
           </a>
         </div>
       </div>

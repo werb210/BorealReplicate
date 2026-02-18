@@ -1,13 +1,14 @@
 import { Link } from "wouter";
+import logo from "../../public/images/Header.png";
 
 export function Navbar() {
   return (
     <header className="flex items-center justify-between bg-black px-6 py-4 text-white">
       <div className="flex items-center gap-3">
         <img
-          src="/images/header_white_transparent.png"
+          src={logo}
           alt="Boreal Financial"
-          className="h-14 w-auto"
+          className="h-12 w-auto object-contain"
         />
         <span className="text-white text-lg font-semibold tracking-wide">
           Boreal Financial
@@ -22,7 +23,7 @@ export function Navbar() {
           href="/apply"
           className="ml-6 whitespace-nowrap rounded-full bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700"
         >
-          Start Capital Review
+          Apply Now
         </Link>
       </div>
 

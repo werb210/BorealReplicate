@@ -31,7 +31,7 @@ export function VerticalPage({ title, headline, subheadline, image, solutions }:
           <h1 className="mt-3 text-5xl font-semibold text-slate-900">{headline}</h1>
           <p className="mt-5 text-lg text-slate-600">{subheadline}</p>
           <div className="mt-8 flex gap-3">
-            <a href={APPLY_URL} className="rounded-lg bg-slate-900 px-6 py-3 text-white">Start Capital Review</a>
+            <a href={APPLY_URL} className="rounded-lg bg-slate-900 px-6 py-3 text-white">Apply Now</a>
             <Link href="/contact" className="rounded-lg border border-slate-300 px-6 py-3">Speak With Advisor</Link>
           </div>
         </div>
@@ -89,7 +89,7 @@ export function VerticalPage({ title, headline, subheadline, image, solutions }:
 
       <section className="bg-[#0f1f36] text-center text-white">
         <h2 className="text-4xl font-semibold">Capital clarity. Structured execution.</h2>
-        <a href={APPLY_URL} className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-slate-900">Start Capital Review</a>
+        <a href={APPLY_URL} className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-slate-900">Apply Now</a>
       </section>
     </main>
   );

@@ -47,7 +47,7 @@ export default function Home() {
             <div className="flex flex-col gap-3 rounded-2xl border border-blue-200/30 bg-blue-900/30 px-4 py-3 md:flex-row md:items-center md:justify-between">
               <p className="font-semibold text-blue-100">Continuing your application</p>
               <div className="md:text-right">
-                <a href={applyHref} className="w-full rounded-full bg-white px-5 py-2 text-center text-sm font-semibold text-black md:w-auto">Start Capital Review</a>
+                <a href={applyHref} className="w-full rounded-full bg-white px-5 py-2 text-center text-sm font-semibold text-black md:w-auto">Apply Now</a>
               </div>
             </div>
           </section>
