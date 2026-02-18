@@ -22,7 +22,6 @@ export function Hero() {
           <a href={APPLY_URL} className="rounded-md bg-white px-5 py-3 text-center font-semibold text-slate-900">Start Capital Review</a>
           <a href="#how-it-works" className="text-sm font-semibold text-white underline underline-offset-4">How it works</a>
         </div>
-        <p className="cta-microcopy text-xs text-slate-300">Confidential. No impact to credit. 2-minute intake.</p>
       </div>
     </section>
   );
