@@ -8,4 +8,16 @@
     <loc>https://boreal.financial/readiness</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://boreal.financial/services/asset-based-lending</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://boreal.financial/services/equipment-financing</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://boreal.financial/services/term-loans</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
