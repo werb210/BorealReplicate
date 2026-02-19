@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { APPLY_URL } from "@/config/site";
+import { trackEvent, trackConversion } from "@/main";
 
 const CREDIT_RESULT_STORAGE_KEY = "boreal_credit_readiness_result";
 
@@ -22,6 +24,12 @@ function loadResult() {
 
 export default function CreditResults() {
   const { score, tier } = loadResult();
+
+  useEffect(() => {
+    trackEvent("funnel_stage", {
+      stage: "results_page",
+    });
+  }, []);
   const isGreen = tier === "green" || score >= 80;
   const isYellow = !isGreen && (tier === "yellow" || score >= 60);
 
@@ -67,6 +75,12 @@ export default function CreditResults() {
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
           <a
             href={APPLY_URL}
+            onClick={() => {
+              trackConversion("apply_click", {
+                source: "website",
+                location: "results_page",
+              });
+            }}
             className="flex h-11 min-w-[170px] items-center justify-center rounded-full bg-blue-600 px-6 font-medium text-white transition hover:bg-blue-700"
           >
             Apply Now

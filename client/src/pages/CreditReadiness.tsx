@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { trackConversion, trackEvent } from "@/main";
 import { useLocation } from "wouter";
 
 type ReadinessForm = {
@@ -48,6 +49,12 @@ export default function CreditReadiness() {
   const [, navigate] = useLocation();
   const [form, setForm] = useState<ReadinessForm>(initialForm);
 
+  useEffect(() => {
+    trackEvent("funnel_stage", {
+      stage: "credit_readiness_start",
+    });
+  }, []);
+
   function update<K extends keyof ReadinessForm>(key: K, value: ReadinessForm[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
@@ -75,6 +82,14 @@ export default function CreditReadiness() {
     if (!response.ok) {
       return;
     }
+
+    trackEvent("funnel_stage", {
+      stage: "credit_readiness_completed",
+    });
+
+    trackConversion("qualified_lead", {
+      source: "website",
+    });
 
     const body = await response.json() as { score?: number; tier?: "green" | "yellow" | "red" };
     if (typeof body.score === "number" && body.tier) {

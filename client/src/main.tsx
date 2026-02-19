@@ -5,7 +5,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import "./index.css";
 import "./styles/globals.css";
 
-// ---- Global Tracking Helper ----
+// ---- Advanced Tracking Layer ----
 declare global {
   interface Window {
     dataLayer: any[];
@@ -13,13 +13,20 @@ declare global {
 }
 
 export const trackEvent = (eventName: string, payload: Record<string, any> = {}) => {
-  if (typeof window !== "undefined") {
-    window.dataLayer = window.dataLayer || [];
+  if (typeof window !== "undefined" && window.dataLayer) {
     window.dataLayer.push({
       event: eventName,
+      timestamp: Date.now(),
       ...payload,
     });
   }
+};
+
+export const trackConversion = (type: string, payload: Record<string, any> = {}) => {
+  trackEvent("conversion", {
+    conversion_type: type,
+    ...payload,
+  });
 };
 
 function resolveCtaLocation(element: Element): string {
@@ -84,7 +91,10 @@ function TrackingProvider() {
       const location = resolveCtaLocation(clickableElement);
 
       if (label.includes("apply now")) {
-        trackEvent("apply_click", { location });
+        trackConversion("apply_click", {
+          source: "website",
+          location,
+        });
       }
 
       if (label.includes("speak with advisor") || label.includes("advisor")) {
