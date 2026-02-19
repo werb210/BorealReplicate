@@ -2,7 +2,7 @@ import { Seo } from "@/components/SEO";
 import { SEOFAQ } from "@/components/SEOFAQ";
 import { getIndustryFaqs } from "@/data/faqs";
 
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = "https://borealfinancial.ca";
 
 export default function EquipmentFinancingHospitalityIndustryPage() {
   const faqs = getIndustryFaqs("Equipment Financing", "hospitality");

@@ -11,7 +11,7 @@ import { APPLY_URL } from "@/config/site";
 export default function RetailInventoryFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Seo title="Retail Inventory Financing | Boreal Financial" description="Retail inventory financing that helps businesses stock products, preserve cash flow, and scale sales." canonical="https://borealfinancial.com/retail-inventory-financing" jsonLd={financialServiceJsonLd("Retail Inventory Financing", "Finance inventory purchases and seasonal stock planning.", "/retail-inventory-financing")} />
+      <Seo title="Retail Inventory Financing | Boreal Financial" description="Retail inventory financing that helps businesses stock products, preserve cash flow, and scale sales." canonical="https://borealfinancial.ca/retail-inventory-financing" jsonLd={financialServiceJsonLd("Retail Inventory Financing", "Finance inventory purchases and seasonal stock planning.", "/retail-inventory-financing")} />
       <Navigation />
       
       {/* Hero Section */}

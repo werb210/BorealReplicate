@@ -11,7 +11,7 @@ import { APPLY_URL } from "@/config/site";
 export default function POFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Seo title="PO Financing | Boreal Financial" description="Purchase order financing options to fund supplier deposits and satisfy high-volume customer demand." canonical="https://borealfinancial.com/po-financing" jsonLd={financialServiceJsonLd("PO Financing", "Support supplier payments tied to purchase orders.", "/po-financing")} />
+      <Seo title="PO Financing | Boreal Financial" description="Purchase order financing options to fund supplier deposits and satisfy high-volume customer demand." canonical="https://borealfinancial.ca/po-financing" jsonLd={financialServiceJsonLd("PO Financing", "Support supplier payments tied to purchase orders.", "/po-financing")} />
       <Navigation />
       
       {/* Hero Section */}

@@ -18,7 +18,7 @@ const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
 
 function normalizeHref(href?: string) {
   if (!href) return href;
-  return href.replace("https://borealfinancial.com", SITE_URL);
+  return href.replace("https://borealfinancial.ca", SITE_URL);
 }
 
 export default function SEO({ title, description, canonical, url, noindex }: Props) {

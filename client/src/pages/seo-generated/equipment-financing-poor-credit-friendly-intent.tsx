@@ -2,7 +2,7 @@ import { Seo } from "@/components/SEO";
 import { SEOFAQ } from "@/components/SEOFAQ";
 import { getIntentFaqs } from "@/data/faqs";
 
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = "https://borealfinancial.ca";
 
 export default function EquipmentFinancingPoorCreditFriendlyIntentPage() {
   const faqs = getIntentFaqs("Equipment Financing", "poor credit friendly");

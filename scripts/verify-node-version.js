@@ -1,12 +1,12 @@
 import semver from "semver";
 
-const required = ">=20.10.0 <21.0.0";
+const requiredRange = ">=20.10.0 <21.0.0";
 
-if (!semver.satisfies(process.version, required)) {
+if (!semver.satisfies(process.version, requiredRange)) {
   console.error(
-    `❌ Node ${process.version} does not satisfy ${required}`
+    `❌ Node version ${process.version} does not satisfy ${requiredRange}`
   );
   process.exit(1);
 }
 
-console.log("✅ Node version valid:", process.version);
+console.log(`✅ Node version ${process.version} OK`);
