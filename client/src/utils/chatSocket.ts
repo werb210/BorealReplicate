@@ -15,12 +15,16 @@ export function getChatSocket(): WebSocket | null {
     socket = new WebSocket(buildWebSocketUrl("/ws/chat"));
 
     socket.onerror = () => {
-      console.warn("WebSocket failed — chat disabled.");
+      if (import.meta.env.DEV) {
+        console.warn("WebSocket failed — chat disabled.");
+      }
     };
 
     return socket;
   } catch (err) {
-    console.warn("WebSocket init error:", err);
+    if (import.meta.env.DEV) {
+      console.warn("WebSocket init error:", err);
+    }
     return null;
   }
 }

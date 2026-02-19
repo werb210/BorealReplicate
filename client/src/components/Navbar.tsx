@@ -11,7 +11,7 @@ export function Navbar() {
             alt="Boreal Financial"
             className="w-auto object-contain"
             style={{ height: "54px" }}
-          />
+          loading="lazy" decoding="async" />
           <span className="text-xl font-semibold tracking-wide text-white">Boreal Financial</span>
         </Link>
 

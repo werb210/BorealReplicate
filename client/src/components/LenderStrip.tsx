@@ -11,7 +11,7 @@ export default function LenderStrip() {
   return (
     <section style={container} aria-label="Lender partners">
       {logos.map((src, i) => (
-        <img key={i} src={src} alt="Lender partner" loading="lazy" style={{ ...imgStyle, objectFit: "cover" }} />
+        <img key={i} src={src} alt="Lender partner" loading="lazy" style={{ ...imgStyle, objectFit: "cover" }} decoding="async" />
       ))}
     </section>
   );

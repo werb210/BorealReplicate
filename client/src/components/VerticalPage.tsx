@@ -35,7 +35,7 @@ export function VerticalPage({ title, headline, subheadline, image, solutions }:
             <Link href="/contact" className="rounded-lg border border-slate-300 px-6 py-3">Speak With Advisor</Link>
           </div>
         </div>
-        <img src={image} alt={title} className="h-[430px] w-full rounded-2xl object-cover shadow-xl" loading="lazy" />
+        <img src={image} alt={title} className="h-[430px] w-full rounded-2xl object-cover shadow-xl" loading="lazy" decoding="async" />
       </section>
 
       <section className="bg-slate-50">
