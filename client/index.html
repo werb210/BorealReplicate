@@ -86,6 +86,37 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+        "@type": "Question",
+        "name": "How quickly can I access capital?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Qualified businesses can receive approvals within days depending on documentation and underwriting readiness."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What industries do you serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We serve established Canadian businesses across construction, transportation, manufacturing, retail, and more."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of collateral are accepted?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Assets (A/R, Inventory, Equipment, or Real Estate) may be used to structure capital solutions."
+        }
+      }
+    ]
+  }
+  </script>
 
 </head>
 
@@ -93,12 +124,39 @@
     <section>
       <h2>Capital Solutions</h2>
       <ul>
-        <li><a href="/services/asset-based-lending.html">Asset-Based Lending</a></li>
+        <li><a href="/services/asset-based-lending.html" title="Asset-Based Lending Canada">Asset-Based Lending</a></li>
         <li><a href="/services/equipment-financing.html">Equipment Financing</a></li>
         <li><a href="/services/term-loans.html">Business Term Loans</a></li>
       </ul>
     </section>
     <div id="root"></div>
+    <section style="background:#0c1f3a; padding:40px; text-align:center; color:white;">
+      <h2>Institutional-Grade Capital. Structured For Growth.</h2>
+      <p>
+        A marketplace for capital built for Canadian operators who need real funding solutions.
+      </p>
+      <a href="https://client.boreal.financial/apply"
+         onclick="appendAttribution(event, this)"
+         style="background:#00ff88; padding:12px 24px; color:#020C1C; text-decoration:none; font-weight:bold;">
+         Apply Now
+      </a>
+    </section>
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>How quickly can I access capital?</h3>
+      <p>Qualified businesses can receive approvals within days depending on documentation and underwriting readiness.</p>
+
+      <h3>What industries do you serve?</h3>
+      <p>We serve established Canadian businesses across construction, transportation, manufacturing, retail, and more.</p>
+
+      <h3>What types of collateral are accepted?</h3>
+      <p>Assets (A/R, Inventory, Equipment, or Real Estate) may be used to structure capital solutions.</p>
+
+      <a href="https://client.boreal.financial/apply" onclick="appendAttribution(event, this)">
+        Apply Now
+      </a>
+    </section>
     <div id="consent-banner" style="
       position: fixed;
       bottom: 0;
@@ -120,6 +178,29 @@
         <button id="reject-cookies">Reject</button>
       </div>
     </div>
+    <script>
+      window.appendAttribution = function(event, anchor) {
+        if (!anchor || !anchor.href) return;
+        const target = new URL(anchor.href, window.location.origin);
+        const current = new URLSearchParams(window.location.search);
+        const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"];
+
+        keys.forEach((key) => {
+          const localValue = window.localStorage ? localStorage.getItem(key) : null;
+          const value = current.get(key) || localValue;
+          if (value && !target.searchParams.has(key)) {
+            target.searchParams.set(key, value);
+          }
+        });
+
+        if (event) {
+          event.preventDefault();
+          window.location.href = target.toString();
+        } else {
+          anchor.href = target.toString();
+        }
+      };
+    </script>
     <script>
       (function() {
         const CONSENT_KEY = "boreal_cookie_consent";
