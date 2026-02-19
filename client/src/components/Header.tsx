@@ -15,7 +15,7 @@ export default function Header() {
             src={logo}
             alt="Boreal Financial"
             className="h-24 w-auto object-contain"
-          />
+          loading="lazy" decoding="async" />
           <span className="text-base font-semibold tracking-wide text-white sm:text-xl">Boreal Financial</span>
         </Link>
 

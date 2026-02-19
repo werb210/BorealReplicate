@@ -110,7 +110,7 @@ export default function Home() {
             <HorizontalScroller>
               {orderedIndustries.map((industry) => (
                 <Link key={industry.slug} href={`/industries/${industry.slug}`} className="scroll-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
-                  <img src={industry.image} alt={industry.name} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" />
+                  <img src={industry.image} alt={industry.name} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25" />
                   <div className="absolute bottom-0 p-4">
                     <h3 className="text-xl font-bold">{industry.name}</h3>
@@ -130,7 +130,7 @@ export default function Home() {
             <HorizontalScroller>
               {orderedProducts.map((product) => (
                 <article key={product.slug} className="scroll-card relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
-                  <img src={product.image} alt={product.name} className="h-56 w-full object-cover" loading="lazy" />
+                  <img src={product.image} alt={product.name} className="h-56 w-full object-cover" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/20" />
                   <div className="absolute inset-0 flex flex-col justify-end p-4">
                     <h3 className="text-xl font-bold">{product.name}</h3>

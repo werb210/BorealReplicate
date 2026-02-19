@@ -58,7 +58,9 @@ export default function ScoreModal({ open, onClose }: ScoreModalProps) {
       setResult(body.score ?? null);
       trackEvent("capital_score_submit", { score: body.score ?? null, ...utm });
     } catch (error) {
-      console.error(error);
+      if (import.meta.env.DEV) {
+        console.error(error);
+      }
       alert("Unable to submit right now.");
     } finally {
       setSubmitting(false);

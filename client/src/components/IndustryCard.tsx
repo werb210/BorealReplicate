@@ -8,7 +8,7 @@ export default function IndustryCard({ industry }: { industry: string }) {
           src={`/images/industries/${industry.toLowerCase()}.jpg`}
           alt={industry}
           className="h-48 w-full object-cover transition group-hover:scale-105"
-        />
+        loading="lazy" decoding="async" />
         <div className="p-6">
           <h2 className="mb-2 text-xl font-semibold">{industry}</h2>
           <p className="text-sm text-neutral-400">

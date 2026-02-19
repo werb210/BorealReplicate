@@ -21,7 +21,7 @@ export default function IndustryPage() {
           </p>
         </div>
 
-        <img src={industry.image} className="rounded shadow-xl" alt={industry.name} loading="lazy" />
+        <img src={industry.image} className="rounded shadow-xl" alt={industry.name} loading="lazy" decoding="async" />
       </div>
     </section>
   );

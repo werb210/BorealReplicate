@@ -38,7 +38,7 @@ export default function Podcasts() {
               className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="relative">
-                <img src={episode.image} alt={episode.title} className="h-52 w-full object-cover" loading="lazy" />
+                <img src={episode.image} alt={episode.title} className="h-52 w-full object-cover" loading="lazy" decoding="async" />
                 <span className="absolute left-4 top-4 rounded-full bg-slate-900/85 px-3 py-1 text-xs font-semibold text-white">{episode.duration}</span>
               </div>
               <div className="p-6">

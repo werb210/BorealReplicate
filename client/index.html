@@ -2,42 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/images/Favicon.png" />
-    <link rel="manifest" href="/manifest.json" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0B1F3A" />
-    <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://borealfinancial.ca/" />
 
-    <title>Boreal Financial | Structured Capital Advisory</title>
-    <meta
-      name="description"
-      content="Institutional-grade structured financing solutions for Canadian businesses. Lines of credit, term loans, equipment financing, and growth capital."
-    />
+    <!-- Title -->
+    <title>Boreal Financial | Strategic Capital Advisory</title>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Boreal Financial" />
-    <meta
-      property="og:description"
-      content="Institutional-grade structured financing for Canadian businesses."
-    />
-    <meta property="og:url" content="https://borealfinancial.ca/" />
-    <meta property="og:image" content="/images/header_white_transparent.png" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/Favicon.png" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Boreal Financial" />
-    <meta
-      name="twitter:description"
-      content="Structured capital advisory for Canadian businesses."
-    />
-    <meta name="twitter:image" content="/images/header_white_transparent.png" />
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
 
     <!-- Performance -->
     <link rel="preload" as="image" href="/images/hero.webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data:;
+      font-src 'self';
+      connect-src 'self';
+      frame-ancestors 'none';
+      base-uri 'self';
+      form-action 'self';
+      "
+    />
+
+    <meta name="robots" content="index, follow" />
   </head>
 
   <body>
