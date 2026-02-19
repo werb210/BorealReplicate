@@ -2,10 +2,10 @@ import { buildInfo } from "../buildInfo";
 
 export default function SystemStatus() {
   return (
-    <div style={{ padding: "40px", fontFamily: "sans-serif" }}>
-      <h1>Website Status</h1>
+    <div style={{ padding: 40 }}>
+      <h1>Website System Status</h1>
       <p>Mode: {buildInfo.mode}</p>
-      <p>Build Timestamp: {buildInfo.timestamp}</p>
+      <p>Build Time: {buildInfo.timestamp}</p>
       <p>Status: OK</p>
     </div>
   );

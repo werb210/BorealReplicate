@@ -11,7 +11,7 @@ import { APPLY_URL } from "@/config/site";
 export default function AccountReceivableFinancing() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Seo title="Accounts Receivable Financing | Boreal Financial" description="Turn unpaid invoices into immediate working capital with Boreal Financial accounts receivable financing." canonical="https://borealfinancial.com/account-receivable-financing" jsonLd={financialServiceJsonLd("Accounts Receivable Financing", "Convert receivables into fast working capital.", "/account-receivable-financing")} />
+      <Seo title="Accounts Receivable Financing | Boreal Financial" description="Turn unpaid invoices into immediate working capital with Boreal Financial accounts receivable financing." canonical="https://borealfinancial.ca/account-receivable-financing" jsonLd={financialServiceJsonLd("Accounts Receivable Financing", "Convert receivables into fast working capital.", "/account-receivable-financing")} />
       <Navigation />
       
       {/* Hero Section */}

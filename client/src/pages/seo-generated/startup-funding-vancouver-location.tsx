@@ -2,7 +2,7 @@ import { Seo } from "@/components/SEO";
 import { SEOFAQ } from "@/components/SEOFAQ";
 import { getLocationFaqs } from "@/data/faqs";
 
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = "https://borealfinancial.ca";
 
 export default function StartupFundingVancouverLocationPage() {
   const faqs = getLocationFaqs("Startup Business Funding", "Vancouver");

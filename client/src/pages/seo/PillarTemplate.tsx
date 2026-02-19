@@ -10,7 +10,7 @@ import {
   type SlugNameItem
 } from "@/data/seoFramework";
 
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = "https://borealfinancial.ca";
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
