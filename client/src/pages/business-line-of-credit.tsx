@@ -4,14 +4,34 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Users, Clock, DollarSign } from "lucide-react";
 import { Seo } from "@/components/SEO";
-import { financialServiceJsonLd } from "@/lib/structured-data";
 import { SeoImage } from "@/components/SeoImage";
 import { APPLY_URL } from "@/config/site";
+import SeoJsonLd from "@/components/SeoJsonLd";
+import { faqSchema, serviceSchema } from "@/seo/structuredData";
 
 export default function BusinessLineOfCredit() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Seo title="Business Line of Credit | Boreal Financial" description="A business line of credit that provides revolving access to capital as your cash flow needs change." canonical="https://borealfinancial.ca/business-line-of-credit" jsonLd={financialServiceJsonLd("Business Line of Credit", "Revolving credit access for ongoing business expenses.", "/business-line-of-credit")} />
+      <Seo title="Business Line of Credit | Boreal Financial" description="A business line of credit that provides revolving access to capital as your cash flow needs change." canonical="https://borealfinancial.ca/business-line-of-credit" />
+      <SeoJsonLd
+        data={serviceSchema(
+          "Business Line of Credit",
+          "Flexible working capital financing for Canadian businesses.",
+          "/line-of-credit"
+        )}
+      />
+      <SeoJsonLd
+        data={faqSchema([
+          {
+            question: "How fast can I get a business line of credit?",
+            answer: "Approvals can occur within 24–72 hours depending on documentation.",
+          },
+          {
+            question: "What credit score is required?",
+            answer: "Most lenders require 600+, but alternative options exist.",
+          },
+        ])}
+      />
       <Navigation />
       
       {/* Hero Section */}

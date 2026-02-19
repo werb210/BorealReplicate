@@ -1,46 +1,51 @@
-export type Schema = Record<string, unknown>;
+export const SITE_URL = import.meta.env.VITE_SITE_URL || "https://borealfinancial.ca";
 
-const baseUrl = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
+export const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Boreal Financial",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  sameAs: ["https://www.linkedin.com/company/boreal-financial"],
+};
 
-export function financialServiceSchema(serviceName: string, description: string): Schema {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FinancialService",
-    name: serviceName,
-    description,
-    areaServed: ["Canada", "United States"],
-    provider: {
-      "@type": "Organization",
-      name: "Boreal Financial",
-      url: baseUrl,
+export const financialServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  name: "Boreal Financial",
+  url: SITE_URL,
+  areaServed: {
+    "@type": "Country",
+    name: "Canada",
+  },
+  serviceType: ["Business Line of Credit", "Term Loans", "Invoice Factoring"],
+};
+
+export const serviceSchema = (name: string, description: string, path: string) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name,
+  description,
+  provider: {
+    "@type": "Organization",
+    name: "Boreal Financial",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Canada",
+  },
+  url: `${SITE_URL}${path}`,
+});
+
+export const faqSchema = (items: { question: string; answer: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
     },
-  };
-}
-
-export function breadcrumbSchema(items: Array<{ name: string; path: string }>): Schema {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: `${baseUrl}${item.path}`,
-    })),
-  };
-}
-
-export function faqSchema(faqs: Array<{ question: string; answer: string }>): Schema {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-}
+  })),
+});

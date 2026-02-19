@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
+import SeoJsonLd from "./components/SeoJsonLd";
+import { financialServiceSchema, organizationSchema } from "./seo/structuredData";
 
 function App() {
   const trackedDepthRef = useRef({ fifty: false, seventyFive: false });
@@ -28,6 +30,8 @@ function App() {
 
   return (
     <TooltipProvider delayDuration={200}>
+      <SeoJsonLd data={organizationSchema} />
+      <SeoJsonLd data={financialServiceSchema} />
       <Toaster />
       <AppRouter />
     </TooltipProvider>
