@@ -40,6 +40,29 @@ export const trackLeadProfile = (profile: {
   });
 };
 
+// ---- Revenue Value Modeling ----
+const COMMISSION_RATE = 0.03; // Adjust to real average later
+
+export const estimateCommissionValue = (
+  capitalRange: string
+): number => {
+  const ranges: Record<string, number> = {
+    "0-100k": 50000,
+    "100k-250k": 175000,
+    "250k-500k": 375000,
+    "500k-1m": 750000,
+    "1m+": 1500000,
+    "Zero to $150,000": 75000,
+    "$150,001 to $500,000": 325000,
+    "$500,001 to $1,000,000": 750000,
+    "$1,000,001 to $3,000,000": 2000000,
+    "Over $3,000,000": 3000000,
+  };
+
+  const midpoint = ranges[capitalRange] || 100000;
+  return midpoint * COMMISSION_RATE;
+};
+
 function resolveCtaLocation(element: Element): string {
   const locationHints: Array<{ selector: string; location: string }> = [
     { selector: "header, nav, [class*='nav']", location: "nav" },

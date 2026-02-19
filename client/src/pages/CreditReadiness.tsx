@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { trackConversion, trackEvent, trackLeadProfile } from "@/main";
+import { estimateCommissionValue, trackConversion, trackEvent, trackLeadProfile } from "@/main";
 import { useLocation } from "wouter";
 
 type ReadinessForm = {
@@ -87,13 +87,17 @@ export default function CreditReadiness() {
       stage: "credit_readiness_completed",
     });
 
+    const estimatedValue = estimateCommissionValue(form.annualRevenue);
+
     trackConversion("qualified_lead", {
       source: "website",
+      estimated_commission_value: estimatedValue,
+      capital_range: form.annualRevenue,
     });
 
     const body = await response.json() as { score?: number; tier?: "green" | "yellow" | "red" };
     if (typeof body.score === "number" && body.tier) {
-      sessionStorage.setItem(CREDIT_RESULT_STORAGE_KEY, JSON.stringify({ score: body.score, tier: body.tier }));
+      sessionStorage.setItem(CREDIT_RESULT_STORAGE_KEY, JSON.stringify({ score: body.score, tier: body.tier, capitalRange: form.annualRevenue }));
     }
 
     const calculatedStrength: "strong" | "moderate" | "weak" = body.tier === "green" ? "strong" : body.tier === "yellow" ? "moderate" : "weak";

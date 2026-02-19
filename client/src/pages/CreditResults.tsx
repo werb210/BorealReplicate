@@ -1,29 +1,29 @@
 import { useEffect } from "react";
 import { APPLY_URL } from "@/config/site";
-import { trackEvent, trackConversion, trackLeadProfile } from "@/main";
+import { estimateCommissionValue, trackEvent, trackConversion, trackLeadProfile } from "@/main";
 
 const CREDIT_RESULT_STORAGE_KEY = "boreal_credit_readiness_result";
 
 function loadResult() {
   const stored = sessionStorage.getItem(CREDIT_RESULT_STORAGE_KEY);
   if (!stored) {
-    return { score: 72, tier: "yellow" as const };
+    return { score: 72, tier: "yellow" as const, capitalRange: "" };
   }
 
   try {
-    const parsed = JSON.parse(stored) as { score?: number; tier?: "green" | "yellow" | "red" };
+    const parsed = JSON.parse(stored) as { score?: number; tier?: "green" | "yellow" | "red"; capitalRange?: string };
     if (typeof parsed.score === "number" && parsed.tier) {
-      return { score: Math.max(0, Math.min(100, parsed.score)), tier: parsed.tier };
+      return { score: Math.max(0, Math.min(100, parsed.score)), tier: parsed.tier, capitalRange: parsed.capitalRange ?? "" };
     }
   } catch {
     // ignore malformed payloads
   }
 
-  return { score: 72, tier: "yellow" as const };
+  return { score: 72, tier: "yellow" as const, capitalRange: "" };
 }
 
 export default function CreditResults() {
-  const { score, tier } = loadResult();
+  const { score, tier, capitalRange } = loadResult();
 
   const isGreen = tier === "green" || score >= 80;
   const isYellow = !isGreen && (tier === "yellow" || score >= 60);
@@ -59,6 +59,15 @@ export default function CreditResults() {
       stage: "results_weak",
     });
   }, [isGreen, isYellow]);
+
+
+  useEffect(() => {
+    const estimatedValue = estimateCommissionValue(capitalRange);
+
+    trackEvent("funnel_value_signal", {
+      estimated_commission_value: estimatedValue,
+    });
+  }, [capitalRange]);
 
   const cardAccentClasses = isGreen
     ? "border border-emerald-400/60 shadow-[0_0_40px_rgba(16,185,129,0.2)]"
@@ -103,9 +112,12 @@ export default function CreditResults() {
           <a
             href={APPLY_URL}
             onClick={() => {
+              const estimatedValue = estimateCommissionValue(capitalRange);
+
               trackConversion("apply_click", {
                 source: "website",
-                location: "results_page",
+                location: "results",
+                estimated_commission_value: estimatedValue,
               });
             }}
             className="flex h-11 min-w-[170px] items-center justify-center rounded-full bg-blue-600 px-6 font-medium text-white transition hover:bg-blue-700"
