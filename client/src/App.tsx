@@ -1,13 +1,26 @@
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { useEffect, useRef } from "react";
+import { useLocation } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
 import SeoJsonLd from "./components/SeoJsonLd";
 import { financialServiceSchema, organizationSchema } from "./seo/structuredData";
 
+function useRouteTracking() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    trackEvent("page_view", {
+      page_path: location,
+    });
+  }, [location]);
+}
+
 function App() {
   const trackedDepthRef = useRef({ fifty: false, seventyFive: false });
+
+  useRouteTracking();
 
   useEffect(() => {
     function handleScroll() {
