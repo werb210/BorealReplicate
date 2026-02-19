@@ -22,9 +22,46 @@ export const trackEvent = (eventName: string, payload: Record<string, any> = {})
   }
 };
 
+// ---- Attribution Layer ----
+const ATTRIBUTION_KEY = "boreal_attribution";
+
+export const captureAttribution = () => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+
+  const attribution = {
+    utm_source: params.get("utm_source"),
+    utm_medium: params.get("utm_medium"),
+    utm_campaign: params.get("utm_campaign"),
+    utm_term: params.get("utm_term"),
+    utm_content: params.get("utm_content"),
+    landing_page: window.location.pathname,
+    first_visit_timestamp: Date.now(),
+  };
+
+  if (!localStorage.getItem(ATTRIBUTION_KEY)) {
+    localStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(attribution));
+  }
+};
+
+export const getAttribution = () => {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  const stored = localStorage.getItem(ATTRIBUTION_KEY);
+  return stored ? JSON.parse(stored) : {};
+};
+
 export const trackConversion = (type: string, payload: Record<string, any> = {}) => {
+  const attribution = getAttribution();
+
   trackEvent("conversion", {
     conversion_type: type,
+    ...attribution,
     ...payload,
   });
 };
@@ -112,6 +149,10 @@ function TrackingProvider() {
   useScrollTracking();
 
   useEffect(() => {
+    captureAttribution();
+  }, []);
+
+  useEffect(() => {
     const onDocumentClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
       if (!target) {
@@ -128,8 +169,7 @@ function TrackingProvider() {
 
       if (label.includes("apply now")) {
         trackConversion("apply_click", {
-          source: "website",
-          location,
+          location: "hero",
         });
       }
 
