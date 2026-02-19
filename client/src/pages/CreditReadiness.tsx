@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { trackConversion, trackEvent } from "@/main";
+import { trackConversion, trackEvent, trackLeadProfile } from "@/main";
 import { useLocation } from "wouter";
 
 type ReadinessForm = {
@@ -95,6 +95,14 @@ export default function CreditReadiness() {
     if (typeof body.score === "number" && body.tier) {
       sessionStorage.setItem(CREDIT_RESULT_STORAGE_KEY, JSON.stringify({ score: body.score, tier: body.tier }));
     }
+
+    const calculatedStrength: "strong" | "moderate" | "weak" = body.tier === "green" ? "strong" : body.tier === "yellow" ? "moderate" : "weak";
+    trackLeadProfile({
+      strength: calculatedStrength,
+      industry: form.industry,
+      capital_range: form.annualRevenue,
+      collateral_type: form.availableCollateral,
+    });
 
     navigate("/credit-results");
   }
