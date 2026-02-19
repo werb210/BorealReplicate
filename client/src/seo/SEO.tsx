@@ -15,7 +15,7 @@ const DEFAULT_OG_IMAGE = "/images/business-handshake-close-up.jpg";
 
 function getCanonicalUrl(url?: string) {
   if (url) {
-    return url;
+    return url.replace("https://borealfinancial.ca", BASE_URL).replace("https://borealfinancial.com", BASE_URL);
   }
 
   const path = typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "/";

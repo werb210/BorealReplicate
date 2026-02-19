@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const base = "https://borealfinancial.ca";
+const base = process.env.VITE_SITE_URL || "https://borealfinancial.ca";
 
 const routes = [
   "",
