@@ -11,33 +11,21 @@
   <meta name="author" content="Boreal Financial" />
   <meta name="robots" content="index, follow" />
 
-  <!-- Content Security Policy -->
+  <!-- Security Policies -->
   <meta
     http-equiv="Content-Security-Policy"
     content="
       default-src 'self';
-      script-src 'self' 'unsafe-inline'
-        https://www.googletagmanager.com
-        https://www.google-analytics.com
-        https://www.clarity.ms
-        https://scripts.clarity.ms
-        https://www.bing.com
-        https://bat.bing.com;
-      connect-src 'self'
-        https://www.google-analytics.com
-        https://www.googletagmanager.com
-        https://www.clarity.ms
-        https://scripts.clarity.ms
-        https://c.clarity.ms
-        https://bat.bing.com;
+      script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms 'unsafe-inline';
+      connect-src 'self' https://www.google-analytics.com https://region1.analytics.google.com https://www.clarity.ms;
       img-src 'self' data: https:;
       style-src 'self' 'unsafe-inline';
-      font-src 'self';
       frame-src https://www.googletagmanager.com;
-      base-uri 'self';
-      form-action 'self';
     "
   />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Boreal Financial | Structured Capital Marketplace" />
@@ -64,6 +52,8 @@
 
   <!-- Preload Hero -->
   <link rel="preload" as="image" href="/images/hero.webp" />
+  <link rel="preload" as="image" href="/images/header_white_transparent.png" />
+  <link rel="preload" as="image" href="/images/favicon.png" />
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -193,6 +183,34 @@
           clarity("set", eventName, payload);
         }
       };
+    </script>
+    <script>
+      window.addEventListener("error", function (event) {
+        if (window.gtag && localStorage.getItem("boreal_cookie_consent") === "accepted") {
+          gtag("event", "website_js_error", {
+            message: event.message,
+            source: event.filename,
+            lineno: event.lineno
+          });
+        }
+      });
+    </script>
+    <script>
+      if ("PerformanceObserver" in window) {
+        const observer = new PerformanceObserver((list) => {
+          list.getEntries().forEach((entry) => {
+            if (entry.entryType === "largest-contentful-paint") {
+              if (window.gtag && localStorage.getItem("boreal_cookie_consent") === "accepted") {
+                gtag("event", "lcp_metric", {
+                  value: Math.round(entry.startTime)
+                });
+              }
+            }
+          });
+        });
+
+        observer.observe({ type: "largest-contentful-paint", buffered: true });
+      }
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
