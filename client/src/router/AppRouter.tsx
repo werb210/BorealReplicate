@@ -20,6 +20,7 @@ import ProductDetail from "@/pages/ProductDetail";
 import MediaFinancing from "@/pages/products/MediaFinancing";
 import Apply from "@/pages/Apply";
 import FloatingChat from "@/components/FloatingChat";
+import SystemStatus from "@/pages/SystemStatus";
 
 function AnalyticsListener() {
   const [location] = useLocation();
@@ -62,6 +63,7 @@ export function AppRouter() {
           <Route path="/apply" component={Apply} />
           <Route path="/apply/:rest*" component={Apply} />
           <Route path="/lender-login" component={PartnerLogin} />
+          <Route path="/system-status" component={SystemStatus} />
           <Route path="*" component={NotFound} />
         </Switch>
       </main>
