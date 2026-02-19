@@ -56,11 +56,27 @@ export const getAttribution = () => {
   return stored ? JSON.parse(stored) : {};
 };
 
+// ---- Session Quality Scoring ----
+let sessionScore = 0;
+
+export const incrementSessionScore = (points: number) => {
+  sessionScore += points;
+};
+
+export const classifySessionIntent = () => {
+  if (sessionScore >= 10) return "high_intent";
+  if (sessionScore >= 5) return "medium_intent";
+  return "low_intent";
+};
+
 export const trackConversion = (type: string, payload: Record<string, any> = {}) => {
   const attribution = getAttribution();
+  const intentLevel = classifySessionIntent();
 
   trackEvent("conversion", {
     conversion_type: type,
+    session_intent: intentLevel,
+    session_score: sessionScore,
     ...attribution,
     ...payload,
   });
@@ -133,6 +149,7 @@ function useScrollTracking() {
       milestones.forEach((m) => {
         if (scrollPercent >= m && !fired.includes(m)) {
           fired.push(m);
+          incrementSessionScore(1);
           trackEvent("engagement_score", {
             scroll_depth: m,
           });
@@ -153,6 +170,13 @@ function TrackingProvider() {
   }, []);
 
   useEffect(() => {
+    if (window.location.pathname.toLowerCase().includes("credit-results")) {
+      incrementSessionScore(4);
+      trackEvent("funnel_stage", {
+        stage: "credit_results_view",
+      });
+    }
+
     const onDocumentClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
       if (!target) {
@@ -168,6 +192,7 @@ function TrackingProvider() {
       const location = resolveCtaLocation(clickableElement);
 
       if (label.includes("apply now")) {
+        incrementSessionScore(5);
         trackConversion("apply_click", {
           location: "hero",
         });
@@ -189,6 +214,10 @@ function TrackingProvider() {
         ? "credit_readiness"
         : "generic_form";
 
+      if (inferredName === "credit_readiness") {
+        incrementSessionScore(3);
+      }
+
       trackEvent("form_submit", {
         form: configuredName || inferredName,
       });
@@ -200,6 +229,20 @@ function TrackingProvider() {
     return () => {
       document.removeEventListener("click", onDocumentClick);
       document.removeEventListener("submit", onFormSubmit);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      trackEvent("session_summary", {
+        session_intent: classifySessionIntent(),
+        session_score: sessionScore,
+      });
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
