@@ -14,8 +14,15 @@ function getSchema(props: Props) {
   return props.schema ?? props.jsonLd;
 }
 
+const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
+
+function normalizeHref(href?: string) {
+  if (!href) return href;
+  return href.replace("https://borealfinancial.com", SITE_URL);
+}
+
 export default function SEO({ title, description, canonical, url, noindex }: Props) {
-  const href = canonical ?? url ?? (typeof window !== "undefined" ? window.location.href : undefined);
+  const href = normalizeHref(canonical ?? url ?? (typeof window !== "undefined" ? window.location.href : undefined));
 
   return (
     <Helmet>

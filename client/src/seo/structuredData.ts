@@ -1,6 +1,6 @@
 export type Schema = Record<string, unknown>;
 
-const baseUrl = "https://borealfinancial.com";
+const baseUrl = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
 
 export function financialServiceSchema(serviceName: string, description: string): Schema {
   return {

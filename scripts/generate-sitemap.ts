@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { SitemapStream, streamToPromise } from "./sitemap-lib";
 
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = process.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
 const outputPaths = [
   path.resolve(process.cwd(), "public/sitemap.xml"),
   path.resolve(process.cwd(), "client/public/sitemap.xml"),

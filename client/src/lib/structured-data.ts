@@ -1,4 +1,4 @@
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
 
 export const organizationJsonLd = {
   "@context": "https://schema.org",

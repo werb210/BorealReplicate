@@ -4,8 +4,7 @@
   "type": "module",
   "license": "MIT",
   "engines": {
-    "node": ">=20 <23",
-    "npm": ">=10"
+    "node": ">=20.10.0 <21.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -27,7 +26,7 @@
     "optimize:images": "node scripts/optimize-images.js",
     "prestart": "node ./scripts/verify-node-version.js",
     "smoke": "node ./scripts/smoke-test.js",
-    "analyze": "vite build --mode production"
+    "analyze": "vite build --mode analyze"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
