@@ -5,6 +5,8 @@ import { industries } from "@/data/industries";
 import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import ProductComparison from "@/components/ProductComparison";
+import SeoJsonLd from "@/components/SeoJsonLd";
+import { faqSchema, serviceSchema } from "@/seo/structuredData";
 
 type ProductDetailProps = {
   slug: string;
@@ -28,9 +30,33 @@ export default function ProductDetail({ slug }: ProductDetailProps) {
   }
 
   const relatedIndustries = industries.filter((industry) => product.relatedIndustries.includes(industry.name));
+  const isLineOfCredit = resolvedSlug === "loc";
 
   return (
     <div className="min-h-screen bg-[#020817] pb-12 pt-10 text-white md:pb-16">
+      {isLineOfCredit && (
+        <>
+          <SeoJsonLd
+            data={serviceSchema(
+              "Business Line of Credit",
+              "Flexible working capital financing for Canadian businesses.",
+              "/line-of-credit"
+            )}
+          />
+          <SeoJsonLd
+            data={faqSchema([
+              {
+                question: "How fast can I get a business line of credit?",
+                answer: "Approvals can occur within 24–72 hours depending on documentation.",
+              },
+              {
+                question: "What credit score is required?",
+                answer: "Most lenders require 600+, but alternative options exist.",
+              },
+            ])}
+          />
+        </>
+      )}
       <section className="mx-auto max-w-7xl px-5 py-4 md:px-6">
         <Link href="/products" className="inline-flex items-center text-sm font-semibold text-blue-200 hover:text-white">← Back to Products</Link>
       </section>
