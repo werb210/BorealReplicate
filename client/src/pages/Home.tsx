@@ -7,6 +7,7 @@ import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import MarketplaceSection from "@/components/MarketplaceSection";
 import HorizontalScroller from "@/components/HorizontalScroller";
+import { trackConversion } from "@/main";
 
 const primaryHeroImage = "/images/16x9 Concierge Private Banking Hero Image.jpeg";
 const fallbackHeroImage = "/images/An image of two groups of business people shaking hands over a meeting table celebrating signing a deal to merge.jpeg.webp";
@@ -77,7 +78,19 @@ export default function Home() {
             </p>
 
             <div className="flex gap-4">
-              <a href="/apply" className="rounded-full bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-700">
+              <a
+                href="https://client.boreal.financial"
+                onClick={(event) => {
+                  event.preventDefault();
+                  trackConversion("apply_click", {
+                    source: "website",
+                    location: "hero",
+                  });
+
+                  window.location.href = "https://client.boreal.financial";
+                }}
+                className="rounded-full bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-700"
+              >
                 Apply Now
               </a>
               <a
