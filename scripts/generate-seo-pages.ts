@@ -10,7 +10,7 @@ interface GeneratedRouteEntry {
   changefreq: "weekly" | "monthly";
 }
 
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = process.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
 const generatedDir = path.resolve(process.cwd(), "client/src/pages/seo-generated");
 const routesJsonPath = path.resolve(process.cwd(), "client/src/data/generatedSeoRoutes.json");
 const routeManifestPath = path.resolve(generatedDir, "routeManifest.ts");

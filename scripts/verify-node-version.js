@@ -1,11 +1,12 @@
 import semver from "semver";
 
 const required = ">=20.10.0 <21.0.0";
-const current = process.version;
 
-if (!semver.satisfies(current, required)) {
-  console.error(`❌ Node version mismatch. Required ${required}, got ${current}`);
+if (!semver.satisfies(process.version, required)) {
+  console.error(
+    `❌ Node ${process.version} does not satisfy ${required}`
+  );
   process.exit(1);
 }
 
-console.log(`✅ Node version OK: ${current}`);
+console.log("✅ Node version valid:", process.version);

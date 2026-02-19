@@ -1,10 +1,10 @@
 import { execSync } from "node:child_process";
 
 try {
+  console.log("Running build...");
   execSync("npm run build", { stdio: "inherit" });
-  console.log("✅ Website build successful");
-  process.exit(0);
-} catch {
-  console.error("❌ Website build failed");
+  console.log("✅ Build successful");
+} catch (err) {
+  console.error("❌ Smoke test failed");
   process.exit(1);
 }

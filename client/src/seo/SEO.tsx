@@ -10,7 +10,7 @@ interface SEOProps {
 }
 
 const SITE_NAME = "Boreal Financial";
-const BASE_URL = "https://borealfinancial.com";
+const BASE_URL = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
 const DEFAULT_OG_IMAGE = "/images/business-handshake-close-up.jpg";
 
 function getCanonicalUrl(url?: string) {

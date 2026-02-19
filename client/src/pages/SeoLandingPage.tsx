@@ -27,7 +27,8 @@ export default function SeoLandingPage() {
 
   const title = `${product.name} in ${location} | Boreal Financial`;
   const description = `Apply for ${product.name} in ${location}. Fast approvals and flexible funding.`;
-  const canonical = `https://borealfinancial.com/${product.slug}/${location.toLowerCase()}`;
+  const siteUrl = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
+  const canonical = `${siteUrl}/${product.slug}/${location.toLowerCase()}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
