@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://borealfinancial.ca/sitemap.xml
+Sitemap: https://boreal.financial/sitemap.xml

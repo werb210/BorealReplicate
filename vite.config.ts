@@ -18,6 +18,7 @@ export default defineConfig({
     dedupe: ["react", "react-dom"],
   },
   build: {
+    minify: "esbuild",
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
   },
