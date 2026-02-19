@@ -50,7 +50,8 @@
   <meta name="twitter:image" content="https://boreal.financial/images/hero.webp" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" href="/images/Favicon.png" />
+  <link rel="canonical" href="https://boreal.financial/" />
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
   <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
 
@@ -64,8 +65,28 @@
     "@type": "FinancialService",
     "name": "Boreal Financial",
     "url": "https://boreal.financial",
-    "description": "Strategic capital advisory and institutional-grade financing solutions.",
-    "areaServed": "Canada"
+    "logo": "https://boreal.financial/images/header_white_transparent.png",
+    "description": "Institutional-grade capital marketplace for Canadian businesses.",
+    "areaServed": "CA",
+    "sameAs": []
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Business Financing Marketplace",
+    "provider": {
+      "@type": "Organization",
+      "name": "Boreal Financial"
+    },
+    "areaServed": "Canada",
+    "serviceType": [
+      "Asset-Based Lending",
+      "Equipment Financing",
+      "Term Loans",
+      "Lines of Credit"
+    ]
   }
   </script>
 
@@ -99,6 +120,24 @@
 <!-- End Google Tag Manager (noscript) -->
 
     <div id="root"></div>
+    <script>
+      window.borealTrackConversion = function(eventName, payload = {}) {
+        if (window.gtag) {
+          gtag("event", eventName, payload);
+        }
+
+        if (window.dataLayer) {
+          window.dataLayer.push({
+            event: eventName,
+            ...payload
+          });
+        }
+
+        if (window.clarity) {
+          clarity("set", eventName, payload);
+        }
+      };
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
