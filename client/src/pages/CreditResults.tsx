@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { APPLY_URL } from "@/config/site";
-import { trackEvent, trackConversion } from "@/main";
+import { trackEvent, trackConversion, trackLeadProfile } from "@/main";
 
 const CREDIT_RESULT_STORAGE_KEY = "boreal_credit_readiness_result";
 
@@ -25,13 +25,40 @@ function loadResult() {
 export default function CreditResults() {
   const { score, tier } = loadResult();
 
-  useEffect(() => {
-    trackEvent("funnel_stage", {
-      stage: "results_page",
-    });
-  }, []);
   const isGreen = tier === "green" || score >= 80;
   const isYellow = !isGreen && (tier === "yellow" || score >= 60);
+
+  useEffect(() => {
+    if (isGreen) {
+      trackLeadProfile({
+        strength: "strong",
+      });
+
+      trackEvent("funnel_stage", {
+        stage: "results_strong",
+      });
+      return;
+    }
+
+    if (isYellow) {
+      trackLeadProfile({
+        strength: "moderate",
+      });
+
+      trackEvent("funnel_stage", {
+        stage: "results_moderate",
+      });
+      return;
+    }
+
+    trackLeadProfile({
+      strength: "weak",
+    });
+
+    trackEvent("funnel_stage", {
+      stage: "results_weak",
+    });
+  }, [isGreen, isYellow]);
 
   const cardAccentClasses = isGreen
     ? "border border-emerald-400/60 shadow-[0_0_40px_rgba(16,185,129,0.2)]"

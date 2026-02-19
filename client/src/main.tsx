@@ -29,6 +29,17 @@ export const trackConversion = (type: string, payload: Record<string, any> = {})
   });
 };
 
+export const trackLeadProfile = (profile: {
+  strength: "strong" | "moderate" | "weak";
+  industry?: string;
+  capital_range?: string;
+  collateral_type?: string;
+}) => {
+  trackEvent("lead_profile", {
+    ...profile,
+  });
+};
+
 function resolveCtaLocation(element: Element): string {
   const locationHints: Array<{ selector: string; location: string }> = [
     { selector: "header, nav, [class*='nav']", location: "nav" },
@@ -62,7 +73,9 @@ function useScrollTracking() {
       milestones.forEach((m) => {
         if (scrollPercent >= m && !fired.includes(m)) {
           fired.push(m);
-          trackEvent("scroll_depth", { percent: m });
+          trackEvent("engagement_score", {
+            scroll_depth: m,
+          });
         }
       });
     };
