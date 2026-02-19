@@ -97,36 +97,85 @@
   }
   </script>
 
-  <!-- Google Tag Manager -->
-  <script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
-  j.src='https://www.googletagmanager.com/gtm.js?id=GTM-WJV6MTCZ'+dl;
-  f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WJV6MTCZ');
-  </script>
-
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function (c, l, a, r, i, t, y) {
-        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-        t = l.createElement(r); t.async = 1; t.src = "https://scripts.clarity.ms/tag/vjz4kr9hqu";
-        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", "vjz4kr9hqu");
-  </script>
-
 </head>
 
   <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJV6MTCZ"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
-
     <div id="root"></div>
+    <div id="consent-banner" style="
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #020C1C;
+      color: white;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+    ">
+      <span>
+        We use analytics and marketing cookies to improve performance and measure advertising ROI.
+      </span>
+      <div>
+        <button id="accept-cookies" style="margin-right:10px;">Accept</button>
+        <button id="reject-cookies">Reject</button>
+      </div>
+    </div>
+    <script>
+      (function() {
+        const CONSENT_KEY = "boreal_cookie_consent";
+
+        function loadTracking() {
+          if (window.trackingLoaded) return;
+          window.trackingLoaded = true;
+
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+          });
+
+          const gtmScript = document.createElement("script");
+          gtmScript.src = "https://www.googletagmanager.com/gtm.js?id=GTM-WJV6MTCZ";
+          gtmScript.async = true;
+          document.head.appendChild(gtmScript);
+
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;
+            t.src="https://www.clarity.ms/tag/vjz4kr9hqu";
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window,document,"clarity","script");
+        }
+
+        function handleConsent(choice) {
+          localStorage.setItem(CONSENT_KEY, choice);
+          document.getElementById("consent-banner").style.display = "none";
+
+          if (choice === "accepted") {
+            loadTracking();
+          }
+        }
+
+        const stored = localStorage.getItem(CONSENT_KEY);
+
+        if (stored === "accepted") {
+          document.getElementById("consent-banner").style.display = "none";
+          loadTracking();
+        } else if (stored === "rejected") {
+          document.getElementById("consent-banner").style.display = "none";
+        }
+
+        document.getElementById("accept-cookies").onclick = function() {
+          handleConsent("accepted");
+        };
+
+        document.getElementById("reject-cookies").onclick = function() {
+          handleConsent("rejected");
+        };
+      })();
+    </script>
     <script>
       window.borealTrackConversion = function(eventName, payload = {}) {
         if (window.gtag) {
