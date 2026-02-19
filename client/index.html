@@ -130,12 +130,24 @@
       </ul>
     </section>
     <div id="root"></div>
+    <script>
+      (function() {
+        const gclid = localStorage.getItem("gclid");
+        if (gclid) {
+          const hero = document.querySelector("h1");
+          if (hero) {
+            hero.innerText = "Access Structured Capital — Built for Serious Operators";
+          }
+        }
+      })();
+    </script>
     <section style="background:#0c1f3a; padding:40px; text-align:center; color:white;">
       <h2>Institutional-Grade Capital. Structured For Growth.</h2>
       <p>
         A marketplace for capital built for Canadian operators who need real funding solutions.
       </p>
       <a href="https://client.boreal.financial/apply"
+         class="dynamic-cta"
          onclick="appendAttribution(event, this)"
          style="background:#00ff88; padding:12px 24px; color:#020C1C; text-decoration:none; font-weight:bold;">
          Apply Now
@@ -153,7 +165,7 @@
       <h3>What types of collateral are accepted?</h3>
       <p>Assets (A/R, Inventory, Equipment, or Real Estate) may be used to structure capital solutions.</p>
 
-      <a href="https://client.boreal.financial/apply" onclick="appendAttribution(event, this)">
+      <a href="https://client.boreal.financial/apply" class="dynamic-cta" onclick="appendAttribution(event, this)">
         Apply Now
       </a>
     </section>
@@ -200,6 +212,25 @@
           anchor.href = target.toString();
         }
       };
+    </script>
+    <script>
+      (function() {
+        const source = localStorage.getItem("utm_source");
+
+        if (!source) return;
+
+        const ctas = document.querySelectorAll(".dynamic-cta");
+
+        ctas.forEach(btn => {
+          if (source.includes("google")) {
+            btn.innerText = "Apply for Capital Now";
+          } else if (source.includes("linkedin")) {
+            btn.innerText = "Request Institutional Funding";
+          } else {
+            btn.innerText = "Apply Now";
+          }
+        });
+      })();
     </script>
     <script>
       (function() {
@@ -300,6 +331,67 @@
 
         observer.observe({ type: "largest-contentful-paint", buffered: true });
       }
+    </script>
+    <script>
+      let exitShown = false;
+
+      document.addEventListener("mouseleave", function(e) {
+        if (e.clientY < 0 && !exitShown) {
+          exitShown = true;
+          showExitIntent();
+        }
+      });
+
+      function showExitIntent() {
+        const modal = document.createElement("div");
+        modal.innerHTML = `
+          <div style="
+            position:fixed;
+            top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,0.7);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:9999;
+          ">
+            <div style="
+              background:#020C1C;
+              padding:30px;
+              color:white;
+              text-align:center;
+              max-width:400px;
+            ">
+              <h2>Before You Go</h2>
+              <p>Institutional-grade capital is available. Don’t miss access to structured funding.</p>
+              <a href="https://client.boreal.financial/apply"
+                onclick="appendAttribution(event, this)"
+                style="background:#00ff88;padding:10px 20px;color:#020C1C;text-decoration:none;font-weight:bold;">
+                Apply Now
+              </a>
+              <br><br>
+              <button onclick="this.closest('div').parentElement.remove()">Close</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+    </script>
+    <script>
+      let scrollTracked = false;
+
+      window.addEventListener("scroll", function() {
+        const scrollPercent = (window.scrollY / document.body.scrollHeight) * 100;
+
+        if (scrollPercent > 70 && !scrollTracked) {
+          scrollTracked = true;
+
+          if (window.borealTrackConversion) {
+            borealTrackConversion("scroll_depth_70", {
+              page: window.location.pathname
+            });
+          }
+        }
+      });
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
