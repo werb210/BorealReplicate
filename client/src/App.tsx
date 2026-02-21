@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppRouter } from "@/router/AppRouter";
 import { trackEvent } from "@/utils/analytics";
 import SeoJsonLd from "./components/SeoJsonLd";
+import MayaWidget from "./components/MayaWidget";
 import { financialServiceSchema, organizationSchema } from "./seo/structuredData";
 
 function useRouteTracking() {
@@ -47,6 +48,7 @@ function App() {
       <SeoJsonLd data={financialServiceSchema} />
       <Toaster />
       <AppRouter />
+      <MayaWidget />
     </TooltipProvider>
   );
 }
