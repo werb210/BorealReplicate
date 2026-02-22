@@ -1,142 +1,137 @@
-import { useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { formatRateRange } from "@/core/rateFormatter";
+import {
+  escalateToFundingSpecialist,
+  fetchFaq,
+  joinStartupWaitlist,
+  sendMessage,
+  trackMarketingLead,
+  type MayaWebsiteResponse,
+} from "@/services/mayaService";
 
 type ChatMessage = {
   role: "user" | "assistant";
   content: string;
 };
 
-type MayaResponse = {
-  reply?: string;
-  escalated?: boolean;
-  requiresConfirmation?: boolean;
-  action?: string;
-};
+function StartupWaitlistForm() {
+  const [email, setEmail] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-export default function MayaWidget() {
-  const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState("");
-  const [sessionId, setSessionId] = useState<string>("");
-  const [escalated, setEscalated] = useState(false);
-  const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!email.trim()) return;
 
-  const marketing = useMemo(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    return {
-      utmSource: params.get("utm_source"),
-      utmCampaign: params.get("utm_campaign"),
-    };
-  }, []);
-
-  useEffect(() => {
-    const existingSessionId = localStorage.getItem("mayaWebsiteSession");
-    const nextSessionId = existingSessionId ?? crypto.randomUUID();
-
-    localStorage.setItem("mayaWebsiteSession", nextSessionId);
-    setSessionId(nextSessionId);
-  }, []);
-
-  async function sendMessage(confirmed = false) {
-    if (!input.trim() || !sessionId) return;
-
-    const message = input;
-    const userMsg: ChatMessage = { role: "user", content: message };
-
-    setMessages((prev) => [...prev, userMsg]);
-
-    const response = await fetch(`${import.meta.env.VITE_AGENT_URL}/maya`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        mode: "client",
-        sessionId,
-        message,
-        confirmed,
-        marketing,
-      }),
+    await joinStartupWaitlist({
+      email,
+      companyName,
     });
 
-    const data = (await response.json()) as MayaResponse;
+    setSubmitted(true);
+    setEmail("");
+    setCompanyName("");
+  }
 
-    if (data.reply) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: data.reply ?? "" },
-      ]);
-    }
-
-    setEscalated(Boolean(data.escalated));
-    setShowBookingConfirmation(
-      Boolean(data.requiresConfirmation) && data.action === "book",
-    );
-    setInput("");
+  if (submitted) {
+    return <p className="text-xs text-green-700 mt-2">Thanks — you have been added to the startup waitlist.</p>;
   }
 
   return (
-    <>
-      <button
-        onClick={() => setOpen(!open)}
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          padding: "12px",
-          borderRadius: "50%",
-          background: "#111",
-          color: "#fff",
-          zIndex: 1000,
-        }}
-      >
-        Maya
+    <form className="mt-2 space-y-2" onSubmit={(event) => void handleSubmit(event)}>
+      <input
+        className="w-full border rounded p-2 text-xs"
+        placeholder="Work email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      <input
+        className="w-full border rounded p-2 text-xs"
+        placeholder="Company name (optional)"
+        value={companyName}
+        onChange={(event) => setCompanyName(event.target.value)}
+      />
+      <button type="submit" className="w-full bg-slate-900 text-white rounded p-2 text-xs">
+        Join Startup Waitlist
       </button>
+    </form>
+  );
+}
 
-      {open && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: "80px",
-            right: "20px",
-            width: "350px",
-            height: "450px",
-            background: "#fff",
-            border: "1px solid #ddd",
-            borderRadius: "10px",
-            padding: "1rem",
-            zIndex: 1000,
-          }}
-        >
-          <h4>Maya — Funding Assistant</h4>
+export default function MayaWidget() {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState("");
+  const [response, setResponse] = useState<MayaWebsiteResponse | null>(null);
+  const [faq, setFaq] = useState<Array<{ question: string; answer: string }>>([]);
 
-          <div style={{ height: "300px", overflowY: "auto" }}>
-            {messages.map((m, i) => (
-              <div key={`${m.role}-${i}`}>
-                <strong>{m.role === "user" ? "You" : "Maya"}:</strong>
-                <div>{m.content}</div>
-              </div>
-            ))}
+  useEffect(() => {
+    fetch("/health").catch(() => null);
+    void trackMarketingLead();
+    void fetchFaq().then((result) => setFaq(result.data.faqs)).catch(() => setFaq([]));
+  }, []);
+
+  async function handleSend() {
+    if (!input.trim()) return;
+
+    const userInput = input;
+    setInput("");
+    setMessages((prev) => [...prev, { role: "user", content: userInput }]);
+
+    const res = await sendMessage(userInput);
+    setResponse(res.data);
+
+    const assistantReply = res.data.min_rate !== undefined && res.data.max_rate !== undefined
+      ? formatRateRange(res.data.min_rate, res.data.max_rate)
+      : res.data.reply;
+
+    setMessages((prev) => [...prev, { role: "assistant", content: assistantReply }]);
+  }
+
+  async function handleEscalation() {
+    await escalateToFundingSpecialist();
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", content: "A funding specialist has been notified and will follow up shortly." },
+    ]);
+  }
+
+  return (
+    <div className="fixed bottom-6 right-6 w-96 bg-white shadow-xl rounded-xl border z-50">
+      <div className="p-3 font-bold border-b">Ask Maya</div>
+
+      <div className="p-3 h-64 overflow-y-auto text-sm space-y-2">
+        {messages.map((m, i) => (
+          <div key={`${m.role}-${i}`} className={m.role === "assistant" ? "text-slate-700" : "text-slate-900"}>
+            {m.content}
           </div>
+        ))}
 
-          {escalated && (
-            <div style={{ color: "red" }}>
-              A Boreal funding specialist will reach out shortly.
-            </div>
-          )}
+        {response?.startup_unavailable && <StartupWaitlistForm />}
+      </div>
 
-          <div>
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              style={{ width: "70%" }}
-            />
-            <button onClick={() => void sendMessage()}>Send</button>
-          </div>
+      <div className="flex border-t">
+        <input
+          className="flex-1 p-2 text-sm"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="How can Maya help?"
+        />
+        <button onClick={() => void handleSend()} className="px-3">
+          Send
+        </button>
+      </div>
 
-          {showBookingConfirmation && (
-            <button onClick={() => void sendMessage(true)}>Confirm Booking</button>
-          )}
-        </div>
-      )}
-    </>
+      <div className="p-2 border-t space-y-2">
+        <button onClick={() => void handleEscalation()} className="w-full text-xs p-2 border rounded">
+          Speak With A Funding Specialist
+        </button>
+
+        <p className="text-xs text-gray-500 mt-2">
+          Maya provides general information and qualification guidance only. Final approvals are subject to lender review.
+        </p>
+
+        {faq.length > 0 && <p className="text-[11px] text-slate-500">Dynamic FAQ loaded ({faq.length} items).</p>}
+      </div>
+    </div>
   );
 }

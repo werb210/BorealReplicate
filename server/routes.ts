@@ -13,8 +13,80 @@ function recommendedProductsForTier(tier: "green" | "yellow" | "red") {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  app.get("/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
   app.get("/api/health", (_req, res) => {
     res.json({ status: "ok", uptime: process.uptime(), timestamp: new Date().toISOString() });
+  });
+
+  app.post("/api/maya/website-chat", (req, res) => {
+    const message = typeof req.body?.message === "string" ? req.body.message.trim() : "";
+
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+
+    const startupUnavailable = /startup|new business|pre-revenue/i.test(message);
+    const includeRates = /rate|interest|pricing/i.test(message);
+
+    return res.status(200).json({
+      reply: startupUnavailable
+        ? "Startup financing inventory is currently limited. You can join the startup waitlist for updates."
+        : "Thanks for your question — Maya can help with qualification guidance and next steps.",
+      startup_unavailable: startupUnavailable,
+      ...(includeRates ? { min_rate: 8.5, max_rate: 29.9 } : {}),
+    });
+  });
+
+  app.post("/api/maya/escalate", (req, res) => {
+    logger.info({ msg: "Maya escalation requested", traceId: getTraceId(req), source: "website" });
+    res.status(202).json({ ok: true });
+  });
+
+  app.post("/api/marketing/track-lead", (req, res) => {
+    logger.info({
+      msg: "Website lead attribution tracked",
+      traceId: getTraceId(req),
+      attribution: req.body?.utm,
+      channel: req.body?.channel ?? "website",
+      timestamp: req.body?.timestamp,
+    });
+    res.status(202).json({ ok: true });
+  });
+
+  app.post("/api/crm/startup-waitlist", (req, res) => {
+    const email = typeof req.body?.email === "string" ? req.body.email.trim() : "";
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+
+    logger.info({
+      msg: "Startup waitlist submission",
+      traceId: getTraceId(req),
+      email,
+      companyName: req.body?.companyName ?? null,
+      startup_interest: true,
+      channel: req.body?.channel ?? "website",
+      utm_source: req.body?.utm_source ?? null,
+    });
+    res.status(202).json({ ok: true });
+  });
+
+  app.get("/api/maya/faq", (_req, res) => {
+    res.json({
+      faqs: [
+        {
+          question: "What can Maya help with?",
+          answer: "Maya can share qualification guidance, product ranges, and route you to a specialist.",
+        },
+        {
+          question: "Can I speak to a person?",
+          answer: "Yes, you can escalate to a funding specialist anytime from the widget.",
+        },
+      ],
+    });
   });
 
   app.get("/api/public/lender-count", (_req, res) => {
