@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "@/config/env";
 
-export function track(event: string, metadata?: any) {
+export function track(event: string, metadata?: unknown) {
   const send = async () => {
     try {
       await fetch(`${API_BASE_URL}/api/support/track`, {
