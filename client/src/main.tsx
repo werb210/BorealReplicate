@@ -8,11 +8,11 @@ import "./styles/globals.css";
 // ---- Advanced Tracking Layer ----
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: unknown[];
   }
 }
 
-export const trackEvent = (eventName: string, payload: Record<string, any> = {}) => {
+export const trackEvent = (eventName: string, payload: Record<string, unknown> = {}) => {
   if (typeof window !== "undefined" && window.dataLayer) {
     window.dataLayer.push({
       event: eventName,
@@ -69,7 +69,7 @@ export const classifySessionIntent = () => {
   return "low_intent";
 };
 
-export const trackConversion = (type: string, payload: Record<string, any> = {}) => {
+export const trackConversion = (type: string, payload: Record<string, unknown> = {}) => {
   const attribution = getAttribution();
   const intentLevel = classifySessionIntent();
 
@@ -136,7 +136,7 @@ function resolveCtaLocation(element: Element): string {
 function useScrollTracking() {
   useEffect(() => {
     const milestones = [25, 50, 75, 100];
-    let fired: number[] = [];
+    const fired: number[] = [];
 
     const onScroll = () => {
       const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;

@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-export function trackEvent(name: string, data: any = {}) {
+export function trackEvent(name: string, data: AnalyticsParams = {}) {
   if (typeof window === "undefined") return;
 
   window.dataLayer = window.dataLayer || [];
