@@ -1,13 +1,15 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import compression from "compression";
 import express, { type NextFunction, type Request, type Response } from "express";
+import helmet from "helmet";
 import { WebSocketServer } from "ws";
 
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
-import { compressionMiddleware, createRateLimiter, securityHeaders } from "./security";
+import { createRateLimiter } from "./security";
 import { chatMessageSchema } from "./validation";
 import { logger } from "./logger";
 
@@ -15,8 +17,24 @@ const app = express();
 
 app.disable("x-powered-by");
 
-app.use(compressionMiddleware);
-app.use(securityHeaders);
+app.use(compression());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:"],
+        connectSrc: ["'self'"],
+        fontSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        frameAncestors: ["'none'"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+  }),
+);
 
 app.use((req, res, next) => {
   if (
@@ -154,7 +172,7 @@ function isWebSocketMessageRateLimited(key: string) {
     const required = ["PORT"];
     required.forEach((key) => {
       if (!process.env[key]) {
-        throw new Error(`Missing env var: ${key}`);
+        throw new Error(`Missing required env var: ${key}`);
       }
     });
   }
