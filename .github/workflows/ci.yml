@@ -1,0 +1,62 @@
+name: BF Website CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20.11.1
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.1
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify Node Version
+        run: node -v
+
+      - name: Type Check
+        run: |
+          if [ -f "tsconfig.json" ]; then
+            npx tsc --noEmit
+          else
+            echo "No TypeScript config found"
+          fi
+
+      - name: Lint
+        run: |
+          if npm run | grep -q "lint"; then
+            npm run lint
+          else
+            echo "No lint script found"
+          fi
+
+      - name: Run Tests
+        run: |
+          if npm run | grep -q "test"; then
+            npm test -- --run
+          else
+            echo "No test script found"
+          fi
+
+      - name: Build
+        run: |
+          if npm run | grep -q "build"; then
+            npm run build
+          else
+            echo "No build script found"
+          fi
+
+      - name: Production Audit (fail on high)
+        run: npm audit --omit=dev --audit-level=high
