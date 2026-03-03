@@ -38,12 +38,7 @@ jobs:
         run: npx eslint . --ext .js,.ts,.tsx --ignore-path .gitignore
 
       - name: Run Tests
-        run: |
-          if npm run | grep -q "test"; then
-            npm test -- --run
-          else
-            echo "No test script found"
-          fi
+        run: npm test
 
       - name: Build
         run: |
