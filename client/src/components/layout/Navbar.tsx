@@ -10,8 +10,10 @@ export function Navbar() {
             <img
               src="/images/header_white_transparent.png"
               alt="Boreal Financial"
+              width={512}
+              height={128}
               className="h-14 w-auto object-contain"
-            loading="lazy" decoding="async" />
+              loading="lazy" decoding="async" />
             <span className="text-white text-xl font-semibold tracking-wide">
               Boreal Financial
             </span>
