@@ -4,15 +4,15 @@ import path from "node:path";
 import compression from "compression";
 import express, { type NextFunction, type Request, type Response } from "express";
 import helmet from "helmet";
-import { WebSocketServer } from "ws";
 
 import { registerRoutes } from "./routes";
 import contactRoute from "./routes/contact";
 import leadRoute from "./routes/lead";
+import mayaRoutes from "./routes/maya";
 import { registerMarketingRoutes } from "./routes/marketing";
 import { createRateLimiter } from "./security";
-import { chatMessageSchema } from "./validation";
 import { logger } from "./logger";
+import { startChatServer } from "./ws";
 
 const app = express();
 
@@ -83,6 +83,7 @@ app.get("/health", (_req, res) => {
 
 app.use("/api/contact", contactRoute);
 app.use("/api/lead", leadRoute);
+app.use("/api/maya", mayaRoutes);
 registerMarketingRoutes(app);
 
 process.on("unhandledRejection", (reason) => {
@@ -119,60 +120,6 @@ app.use((req, res, next) => {
 });
 
 /* ===========================
-   WebSocket Setup
-=========================== */
-
-const websocketWindowMs = 60 * 1000;
-const websocketMaxUpgradesPerWindow = 30;
-const websocketMaxMessagesPerWindow = 60;
-
-const websocketUpgradeStore = new Map<string, { count: number; resetAt: number }>();
-const websocketMessageStore = new Map<string, { count: number; resetAt: number }>();
-
-const allowedOrigins = (
-  process.env.ALLOWED_WS_ORIGINS ??
-  "https://borealfinancial.com,http://localhost:8080,http://localhost:5173"
-)
-  .split(",")
-  .map((o) => o.trim())
-  .filter(Boolean);
-
-function isAllowedOrigin(originHeader?: string) {
-  if (!originHeader) return false;
-  return allowedOrigins.includes(originHeader);
-}
-
-function isWebSocketRateLimited(ip: string) {
-  const now = Date.now();
-  const current = websocketUpgradeStore.get(ip);
-
-  if (!current || current.resetAt <= now) {
-    websocketUpgradeStore.set(ip, { count: 1, resetAt: now + websocketWindowMs });
-    return false;
-  }
-
-  if (current.count >= websocketMaxUpgradesPerWindow) return true;
-
-  current.count += 1;
-  return false;
-}
-
-function isWebSocketMessageRateLimited(key: string) {
-  const now = Date.now();
-  const current = websocketMessageStore.get(key);
-
-  if (!current || current.resetAt <= now) {
-    websocketMessageStore.set(key, { count: 1, resetAt: now + websocketWindowMs });
-    return false;
-  }
-
-  if (current.count >= websocketMaxMessagesPerWindow) return true;
-
-  current.count += 1;
-  return false;
-}
-
-/* ===========================
    Main Boot
 =========================== */
 
@@ -187,95 +134,7 @@ function isWebSocketMessageRateLimited(key: string) {
   }
 
   const server = await registerRoutes(app);
-  const chatServer = new WebSocketServer({ noServer: true });
-
-  chatServer.on("connection", (socket, req) => {
-    const sourceIp = req.socket.remoteAddress || "unknown";
-    let connectionSessionId = "anonymous";
-
-    socket.send(JSON.stringify({ message: "Connected to Boreal support." }));
-
-    socket.on("message", (incoming, isBinary) => {
-      if (isBinary) {
-        socket.close(1003, "Binary not supported");
-        return;
-      }
-
-      const raw = incoming.toString();
-      if (Buffer.byteLength(raw, "utf8") > 4096) {
-        socket.close(1009, "Message too large");
-        return;
-      }
-
-      let parsedPayload: unknown;
-      try {
-        parsedPayload = JSON.parse(raw);
-      } catch {
-        socket.close(1007, "Malformed JSON");
-        return;
-      }
-
-      if (isWebSocketMessageRateLimited(`${sourceIp}:${connectionSessionId}`)) {
-        socket.close(1008, "Too many messages");
-        return;
-      }
-
-      const parsed = chatMessageSchema.safeParse(parsedPayload);
-      if (!parsed.success) {
-        socket.close(1007, "Invalid format");
-        return;
-      }
-
-      const payload = parsed.data;
-
-      if (payload.sessionId) {
-        connectionSessionId = payload.sessionId;
-      }
-
-      if (payload.type === "staff_joined") {
-        socket.send(
-          JSON.stringify({
-            type: "staff_joined",
-            message: "Transferring you to a specialist…",
-          }),
-        );
-        return;
-      }
-
-      if (payload.type === "message" && payload.message) {
-        socket.send(
-          JSON.stringify({
-            message: `Received for session ${connectionSessionId}. A specialist will follow up shortly.`,
-          }),
-        );
-      }
-    });
-  });
-
-  server.on("upgrade", (req, socket, head) => {
-    if (!req.url?.startsWith("/ws/chat")) {
-      socket.destroy();
-      return;
-    }
-
-    if (!isAllowedOrigin(req.headers.origin)) {
-      socket.write("HTTP/1.1 403 Forbidden\r\n\r\n");
-      socket.destroy();
-      return;
-    }
-
-    const sourceIp = req.socket.remoteAddress || "unknown";
-    if (isWebSocketRateLimited(sourceIp)) {
-      socket.write("HTTP/1.1 429 Too Many Requests\r\n\r\n");
-      socket.destroy();
-      return;
-    }
-
-    chatServer.handleUpgrade(req, socket, head, (client) => {
-      chatServer.emit("connection", client, req);
-    });
-  });
-
+  startChatServer(server);
   app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
     void _next;
     const traceId = req.traceId;
