@@ -1,104 +1,74 @@
-img {
-  max-width: 100%;
-  height: auto;
+:root{
+  --max-width:1200px;
+  --section-padding:80px;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+*{
+  box-sizing:border-box;
 }
 
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+body{
+  margin:0;
+  font-family:Inter,system-ui,Arial,sans-serif;
+  background:#0a1426;
+  color:#fff;
 }
 
-.section-image {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
+.container{
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:0 24px;
 }
 
-.section-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.section{
+  width:100%;
+  padding:var(--section-padding) 0;
 }
 
-
-.section {
-  padding: 80px 0;
+.section-dark{
+  background:#0a1426;
 }
 
-.section-dark {
-  background: #020c1c;
+.section-light{
+  background:#ffffff;
+  color:#111;
 }
 
-.section-light {
-  background: #0b1f3a;
+.hero{
+  position:relative;
+  min-height:520px;
+  display:flex;
+  align-items:center;
 }
 
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
-  margin-top: 40px;
+.hero-inner{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 24px;
 }
 
-.faq-item h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
+.faq{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  max-width:800px;
 }
 
-.faq-item p {
-  line-height: 1.6;
-  opacity: 0.85;
+.faq-item{
+  border-bottom:1px solid rgba(255,255,255,0.2);
+  padding-bottom:16px;
 }
 
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-@media (max-width: 900px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-  }
-}
-
-.maya-widget {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 360px;
-  z-index: 1000;
-}
-
-h1 {
-  line-height: 1.1;
-}
-
-h2 {
-  margin-bottom: 20px;
-}
-
-p {
-  margin-bottom: 16px;
-}
-
-
-.hero-section {
-  padding-top: 80px;
-  padding-bottom: 80px;
-}
-
-@media (max-width: 768px) {
-  .hero-section {
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
+.maya-widget{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:340px;
+  height:480px;
+  background:#0f1e3a;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
+  z-index:9999;
 }

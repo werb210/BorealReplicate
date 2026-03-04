@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/layout/Footer";
 import { initGA, trackPageView } from "@/analytics/ga";
 import { scrollToTop } from "@/utils/scrollToTop";
-import FloatingChat from "@/components/FloatingChat";
 
 const Home = lazy(() => import("@/pages/Home"));
 const HowItWorks = lazy(() => import("@/pages/HowItWorks"));
@@ -93,7 +92,6 @@ export function AppRouter() {
         </Suspense>
       </main>
       <Footer />
-      <FloatingChat />
     </div>
   );
 }

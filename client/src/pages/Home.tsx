@@ -7,6 +7,7 @@ import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 import MarketplaceSection from "@/components/MarketplaceSection";
 import HorizontalScroller from "@/components/HorizontalScroller";
+import FAQ from "@/components/FAQ";
 import { trackConversion } from "@/main";
 
 const primaryHeroImage = "/images/16x9 Concierge Private Banking Hero Image.jpeg";
@@ -105,17 +106,7 @@ export default function Home() {
 
         <div className="section-divider" />
 
-        <section>
-          <div className="financing-container">
-            <h2 className="text-2xl font-bold md:text-3xl">Explore financing options</h2>
-            <p className="text-slate-200">
-              Discover our most requested solutions including a
-              <Link href="/products/line-of-credit" className="mx-1 text-blue-300 underline underline-offset-2">Business Line of Credit</Link>,
-              <Link href="/products/equipment-financing" className="mx-1 text-blue-300 underline underline-offset-2">Equipment Financing</Link>, and learn more
-              <Link href="/how-it-works" className="ml-1 text-blue-300 underline underline-offset-2">about Boreal Financial</Link>.
-            </p>
-          </div>
-        </section>
+        <FAQ />
 
         <div className="section-divider" />
 
