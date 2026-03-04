@@ -1,13 +1,16 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { MessageCircle, X } from "lucide-react";
 import { getReadinessSessionToken } from "@/utils/session";
-import { clearChatSocket, getChatSocket } from "@/utils/chatSocket";
+import { buildMayaWebSocketUrl, checkMayaHealth, isMayaConfigured } from "@/lib/mayaClient";
 
 type ChatMessage = {
   id: string;
   message: string;
   from: "system" | "user";
 };
+
+const MAX_RECONNECT_ATTEMPTS = 5;
 
 function createSessionId() {
   return `web-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -21,10 +24,12 @@ export default function FloatingChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [connecting, setConnecting] = useState(false);
   const [connected, setConnected] = useState(false);
-  const [reconnectTick, setReconnectTick] = useState(0);
+  const [isOnline, setIsOnline] = useState<boolean | null>(null);
+  const [healthChecked, setHealthChecked] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttemptsRef = useRef(0);
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const healthAbortRef = useRef<AbortController | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [staffEscalated, setStaffEscalated] = useState(false);
   const staffEscalatedRef = useRef(false);
@@ -50,12 +55,45 @@ export default function FloatingChat() {
   }, [messages]);
 
   useEffect(() => {
-    if (!open || wsRef.current) return;
+    if (!open || healthChecked) {
+      return;
+    }
 
-    const socket = getChatSocket();
-    if (!socket) return;
+    if (!isMayaConfigured()) {
+      setIsOnline(false);
+      setHealthChecked(true);
+      return;
+    }
 
-    const ws = socket;
+    const controller = new AbortController();
+    healthAbortRef.current = controller;
+
+    void checkMayaHealth(controller.signal)
+      .then((healthy) => {
+        setIsOnline(healthy);
+      })
+      .finally(() => {
+        setHealthChecked(true);
+      });
+
+    return () => {
+      controller.abort();
+      healthAbortRef.current = null;
+    };
+  }, [open, healthChecked]);
+
+  useEffect(() => {
+    if (!open || isOnline !== true || wsRef.current || reconnectAttemptsRef.current >= MAX_RECONNECT_ATTEMPTS) {
+      return;
+    }
+
+    const wsUrl = buildMayaWebSocketUrl("/ws/chat");
+    if (!wsUrl) {
+      setIsOnline(false);
+      return;
+    }
+
+    const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
     setConnecting(true);
 
@@ -94,22 +132,28 @@ export default function FloatingChat() {
     ws.onerror = () => {
       setConnecting(false);
       setConnected(false);
+      setIsOnline(false);
     };
 
     ws.onclose = () => {
       setConnecting(false);
       setConnected(false);
       wsRef.current = null;
-      clearChatSocket();
 
-      if (!open) return;
+      if (!open || isOnline !== true) {
+        return;
+      }
 
       reconnectAttemptsRef.current += 1;
-      const cappedAttempt = Math.min(reconnectAttemptsRef.current, 3);
-      const delayMs = cappedAttempt * 1000;
+      if (reconnectAttemptsRef.current > MAX_RECONNECT_ATTEMPTS) {
+        setIsOnline(false);
+        return;
+      }
+
+      const delayMs = Math.min(1000 * 2 ** (reconnectAttemptsRef.current - 1), 10000);
       reconnectTimerRef.current = setTimeout(() => {
-        if (open) {
-          setReconnectTick((value) => value + 1);
+        if (open && wsRef.current == null) {
+          setHealthChecked(false);
         }
       }, delayMs);
     };
@@ -121,13 +165,15 @@ export default function FloatingChat() {
       }
       ws.close();
       wsRef.current = null;
-      clearChatSocket();
     };
-  }, [open, reconnectTick, sessionId]);
+  }, [open, isOnline, sessionId]);
 
   function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+
+    if (isOnline !== true || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
+      return;
+    }
 
     if (mode === "report") {
       const issueText = issue.trim();
@@ -156,24 +202,24 @@ export default function FloatingChat() {
     wsRef.current.send(JSON.stringify({ type: "staff_joined", sessionId }));
   }
 
-
-  return (
+  const chatUi = (
     <>
       {open ? (
-        <div className="chat-panel fixed bottom-20 right-4 z-50 flex h-[760px] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl transition-[opacity,transform] duration-200 ease-out md:w-[min(90vw,420px)]">
-          <div className="chat-header flex items-center justify-between border-b border-white/10 px-4">
+        <div className="chat-panel fixed bottom-20 right-4 z-[70] flex h-[min(75vh,620px)] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl md:w-[min(90vw,420px)]">
+          <div className="chat-header flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div>
               <p className="text-sm font-semibold">Maya</p>
-              <p className="text-xs text-slate-300">{connected ? "Online" : connecting ? "Connecting..." : "Offline"}</p>
+              <p className="text-xs text-slate-300">
+                {isOnline === false ? "Chat offline" : connected ? "Online" : connecting ? "Connecting..." : "Offline"}
+              </p>
             </div>
-            <button aria-label="Close chat" onClick={() => setOpen((prev) => !prev)} className="rounded p-1 hover:bg-white/10">
+            <button aria-label="Close chat" onClick={() => setOpen(false)} className="rounded p-1 hover:bg-white/10">
               <X size={16} />
             </button>
           </div>
           <div ref={scrollRef} className="chat-messages flex-1 space-y-2 overflow-y-auto p-4 text-sm">
+            {isOnline === false ? <p className="text-amber-300">Chat offline. Please contact us directly.</p> : null}
             {connecting ? <p className="text-slate-300">Connecting…</p> : null}
-            {!connecting && !connected ? <p className="text-amber-300">Connection unavailable. Please try again.</p> : null}
-            {messages.length === 0 ? <p className="text-slate-300">Ask a question and our team will follow up.</p> : null}
             {messages.map((item) => (
               <div key={item.id} className={`rounded-lg px-3 py-2 ${item.from === "user" ? "ml-8 bg-blue-600 text-white" : "mr-8 bg-[#0f1d3a] text-slate-100"}`}>
                 {item.message}
@@ -181,19 +227,10 @@ export default function FloatingChat() {
             ))}
           </div>
           <div className="flex gap-2 border-t border-white/10 px-3 py-2 md:px-4">
-            <button
-              type="button"
-              onClick={requestHumanSupport}
-              className="flex-1 border border-white/20 rounded px-3 py-2"
-            >
+            <button type="button" onClick={requestHumanSupport} className="flex-1 rounded border border-white/20 px-3 py-2" disabled={isOnline !== true}>
               Talk to a Human
             </button>
-
-            <button
-              type="button"
-              onClick={reportIssue}
-              className="flex-1 border border-white/20 rounded px-3 py-2"
-            >
+            <button type="button" onClick={reportIssue} className="flex-1 rounded border border-white/20 px-3 py-2" disabled={isOnline !== true}>
               Report an Issue
             </button>
           </div>
@@ -205,21 +242,19 @@ export default function FloatingChat() {
                   onChange={(e) => setIssue(e.target.value)}
                   placeholder="Describe the issue you encountered"
                   className="w-full rounded border border-gray-700 bg-gray-800 p-2"
+                  disabled={isOnline !== true}
                 />
               </div>
             )}
-            <div className="flex gap-2 p-3 border-t border-gray-700">
+            <div className="flex gap-2 border-t border-gray-700 p-3">
               <input
                 value={mode === "report" ? issue : input}
                 onChange={(e) => (mode === "report" ? setIssue(e.target.value) : setInput(e.target.value))}
-                placeholder="Type your message..."
+                placeholder={isOnline === false ? "Chat offline" : "Type your message..."}
                 className="flex-1 rounded-lg bg-gray-800 px-3 py-2 outline-none"
+                disabled={isOnline !== true}
               />
-              <button
-                type="submit"
-                className="rounded-lg bg-blue-600 px-4 font-semibold hover:bg-blue-700"
-                aria-label="Send chat message"
-              >
+              <button type="submit" className="rounded-lg bg-blue-600 px-4 font-semibold hover:bg-blue-700 disabled:opacity-50" aria-label="Send chat message" disabled={isOnline !== true}>
                 Send
               </button>
             </div>
@@ -229,11 +264,13 @@ export default function FloatingChat() {
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="fixed bottom-4 right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-xl hover:bg-blue-700"
+        className="fixed bottom-4 right-4 z-[70] inline-flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-xl hover:bg-blue-700"
         aria-label="Open support chat"
       >
         <MessageCircle size={22} />
       </button>
     </>
   );
+
+  return createPortal(chatUi, document.body);
 }
