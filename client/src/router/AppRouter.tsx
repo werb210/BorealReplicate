@@ -1,27 +1,28 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Route, Switch, useLocation } from "wouter";
-import Home from "@/pages/Home";
-import HowItWorks from "@/pages/HowItWorks";
-import Industries from "@/pages/Industries";
-import IndustryDetail from "@/pages/IndustryDetail";
-import Contact from "@/pages/Contact";
-import PartnerLogin from "@/pages/PartnerLogin";
-import NotFound from "@/pages/NotFound";
 import Header from "@/components/Header";
 import Footer from "@/components/layout/Footer";
 import { initGA, trackPageView } from "@/analytics/ga";
 import { scrollToTop } from "@/utils/scrollToTop";
-import Compare from "@/pages/Compare";
-import CreditReadiness from "@/pages/CreditReadiness";
-import CreditResults from "@/pages/CreditResults";
-import Podcasts from "@/pages/Podcasts";
-import Products from "@/pages/Products";
-import ProductDetail from "@/pages/ProductDetail";
-import MediaFinancing from "@/pages/products/MediaFinancing";
-import Apply from "@/pages/Apply";
 import FloatingChat from "@/components/FloatingChat";
-import SystemStatus from "@/pages/SystemStatus";
-import FaqPage from "@/pages/FaqPage";
+
+const Home = lazy(() => import("@/pages/Home"));
+const HowItWorks = lazy(() => import("@/pages/HowItWorks"));
+const Industries = lazy(() => import("@/pages/Industries"));
+const IndustryDetail = lazy(() => import("@/pages/IndustryDetail"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const PartnerLogin = lazy(() => import("@/pages/PartnerLogin"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const Compare = lazy(() => import("@/pages/Compare"));
+const CreditReadiness = lazy(() => import("@/pages/CreditReadiness"));
+const CreditResults = lazy(() => import("@/pages/CreditResults"));
+const Podcasts = lazy(() => import("@/pages/Podcasts"));
+const Products = lazy(() => import("@/pages/Products"));
+const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
+const MediaFinancing = lazy(() => import("@/pages/products/MediaFinancing"));
+const Apply = lazy(() => import("@/pages/Apply"));
+const SystemStatus = lazy(() => import("@/pages/SystemStatus"));
+const FaqPage = lazy(() => import("@/pages/FaqPage"));
 
 function AnalyticsListener() {
   const [location] = useLocation();
@@ -44,7 +45,8 @@ export function AppRouter() {
       <AnalyticsListener />
       <Header />
       <main id="main-content">
-        <Switch>
+        <Suspense fallback={<div className="px-4 py-8">Loading...</div>}>
+          <Switch>
           <Route path="/" component={Home} />
           <Route path="/how-it-works" component={HowItWorks} />
 
@@ -67,7 +69,8 @@ export function AppRouter() {
           <Route path="/system-status" component={SystemStatus} />
           <Route path="/faq" component={FaqPage} />
           <Route path="*" component={NotFound} />
-        </Switch>
+          </Switch>
+        </Suspense>
       </main>
       <Footer />
       <FloatingChat />
