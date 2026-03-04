@@ -20,8 +20,10 @@ export function Navigation() {
             <img
               src="/images/header_white_transparent.png"
               alt="Boreal Financial"
+              width={512}
+              height={128}
               className="h-10 w-auto object-contain"
-            loading="lazy" decoding="async" />
+              loading="lazy" decoding="async" />
             <span className="text-white text-lg font-semibold tracking-wide">
               Boreal Financial
             </span>

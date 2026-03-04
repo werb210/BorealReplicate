@@ -39,10 +39,27 @@ function AnalyticsListener() {
   return null;
 }
 
+
+function PrefetchRoutes() {
+  useEffect(() => {
+    const prefetchLink = document.createElement("link");
+    prefetchLink.rel = "prefetch";
+    prefetchLink.href = "/apply";
+    document.head.appendChild(prefetchLink);
+
+    return () => {
+      document.head.removeChild(prefetchLink);
+    };
+  }, []);
+
+  return null;
+}
+
 export function AppRouter() {
   return (
     <div className="min-h-screen bg-[#020817] text-white">
       <AnalyticsListener />
+      <PrefetchRoutes />
       <Header />
       <main id="main-content">
         <Suspense fallback={<div className="px-4 py-8">Loading...</div>}>
