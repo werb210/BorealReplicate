@@ -27,6 +27,7 @@ export default function FloatingChat() {
   const [isOnline, setIsOnline] = useState<boolean | null>(null);
   const [healthChecked, setHealthChecked] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
+  const intentionallyClosingRef = useRef(false);
   const reconnectAttemptsRef = useRef(0);
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const healthAbortRef = useRef<AbortController | null>(null);
@@ -93,6 +94,7 @@ export default function FloatingChat() {
       return;
     }
 
+    intentionallyClosingRef.current = false;
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
     setConnecting(true);
@@ -140,7 +142,8 @@ export default function FloatingChat() {
       setConnected(false);
       wsRef.current = null;
 
-      if (!open || isOnline !== true) {
+      if (intentionallyClosingRef.current || !open || isOnline !== true) {
+        intentionallyClosingRef.current = false;
         return;
       }
 
@@ -163,6 +166,7 @@ export default function FloatingChat() {
         clearTimeout(reconnectTimerRef.current);
         reconnectTimerRef.current = null;
       }
+      intentionallyClosingRef.current = true;
       ws.close();
       wsRef.current = null;
     };
@@ -235,26 +239,25 @@ export default function FloatingChat() {
             </button>
           </div>
           <form onSubmit={sendMessage} className="chat-input border-t border-white/10">
-            {mode === "report" && (
-              <div className="p-3">
+            <div className="flex gap-2 border-t border-gray-700 p-3">
+              {mode === "report" ? (
                 <textarea
                   value={issue}
                   onChange={(e) => setIssue(e.target.value)}
-                  placeholder="Describe the issue you encountered"
-                  className="w-full rounded border border-gray-700 bg-gray-800 p-2"
+                  placeholder={isOnline === false ? "Chat offline" : "Describe the issue you encountered"}
+                  className="min-h-24 flex-1 rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 outline-none"
                   disabled={isOnline !== true}
                 />
-              </div>
-            )}
-            <div className="flex gap-2 border-t border-gray-700 p-3">
-              <input
-                value={mode === "report" ? issue : input}
-                onChange={(e) => (mode === "report" ? setIssue(e.target.value) : setInput(e.target.value))}
-                placeholder={isOnline === false ? "Chat offline" : "Type your message..."}
-                className="flex-1 rounded-lg bg-gray-800 px-3 py-2 outline-none"
-                disabled={isOnline !== true}
-              />
-              <button type="submit" className="rounded-lg bg-blue-600 px-4 font-semibold hover:bg-blue-700 disabled:opacity-50" aria-label="Send chat message" disabled={isOnline !== true}>
+              ) : (
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder={isOnline === false ? "Chat offline" : "Type your message..."}
+                  className="flex-1 rounded-lg bg-gray-800 px-3 py-2 outline-none"
+                  disabled={isOnline !== true}
+                />
+              )}
+              <button type="submit" className="self-end rounded-lg bg-blue-600 px-4 py-2 font-semibold hover:bg-blue-700 disabled:opacity-50" aria-label="Send chat message" disabled={isOnline !== true}>
                 Send
               </button>
             </div>
