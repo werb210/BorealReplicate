@@ -79,7 +79,7 @@ export function AppRouter() {
           <Route path="/industries" component={Industries} />
           <Route path="/industries/construction">{() => <IndustryDetail slug="construction" />}</Route>
           <Route path="/industries/manufacturing">{() => <IndustryDetail slug="manufacturing" />}</Route>
-          <Route path="/industries/logistics">{() => <IndustryDetail slug="transportation" />}</Route>
+          <Route path="/industries/logistics">{() => <IndustryDetail slug="logistics" />}</Route>
           <Route path="/industries/:slug">{(params) => <IndustryDetail slug={params.slug} />}</Route>
 
           <Route path="/product-comparison" component={Compare} />
