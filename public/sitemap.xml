@@ -1,36 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://boreal.financial/</loc>
-  </url>
-
-  <url>
-    <loc>https://boreal.financial/contact</loc>
-  </url>
-
-  <url>
-    <loc>https://boreal.financial/privacy</loc>
-  </url>
-
-  <url>
-    <loc>https://boreal.financial/terms</loc>
-  </url>
-
-  <url>
-    <loc>https://boreal.financial/work-with-us</loc>
-  </url>
-
-  <url>
-    <loc>https://boreal.financial/industries/logistics</loc>
-  </url>
-
-  <url>
-    <loc>https://boreal.financial/industries/construction</loc>
-  </url>
-
-  <url>
-    <loc>https://boreal.financial/industries/manufacturing</loc>
-  </url>
-
+<url><loc>https://borealfinancial.com/</loc></url>
+<url><loc>https://borealfinancial.com/contact</loc></url>
+<url><loc>https://borealfinancial.com/compare</loc></url>
+<url><loc>https://borealfinancial.com/credit-readiness</loc></url>
+<url><loc>https://borealfinancial.com/credit-results</loc></url>
+<url><loc>https://borealfinancial.com/podcasts</loc></url>
+<url><loc>https://borealfinancial.com/industries/construction</loc></url>
+<url><loc>https://borealfinancial.com/industries/manufacturing</loc></url>
+<url><loc>https://borealfinancial.com/industries/logistics</loc></url>
 </urlset>

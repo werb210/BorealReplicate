@@ -29,7 +29,7 @@ export default function Header() {
             </Link>
           ))}
           <a
-            href="https://client.boreal.financial"
+            href="https://apply.borealfinancial.com"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full bg-blue-600 px-5 py-2 font-medium text-white hover:bg-blue-500"
@@ -60,7 +60,7 @@ export default function Header() {
                 </Link>
               ))}
               <a
-                href="https://client.boreal.financial"
+                href="https://apply.borealfinancial.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 inline-flex justify-center rounded-full bg-blue-600 px-5 py-3 font-medium text-white"
