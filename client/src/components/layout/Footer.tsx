@@ -15,7 +15,8 @@ export default function Footer() {
             <li><a href="/products">Products</a></li>
             <li><a href="/industries">Industries</a></li>
             <li><Link href="/faq" className="block hover:text-white">FAQ</Link></li>
-            <li><Link href="/product-comparison" className="block hover:text-white">Product Comparison</Link></li>
+            <li><Link href="/privacy" className="block hover:text-white">Privacy Policy</Link></li>
+            <li><Link href="/terms" className="block hover:text-white">Terms of Use</Link></li>
           </ul>
         </div>
 

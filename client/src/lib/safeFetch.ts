@@ -2,6 +2,8 @@ export type SafeFetchOptions = RequestInit & {
   retries?: number;
   retryDelayMs?: number;
   retryOnStatuses?: number[];
+  allowHttpError?: boolean;
+  httpErrorMessage?: string;
 };
 
 const DEFAULT_RETRYABLE_STATUSES = [408, 425, 429, 500, 502, 503, 504];
@@ -15,6 +17,8 @@ export async function safeFetch(input: RequestInfo | URL, options: SafeFetchOpti
     retries = 1,
     retryDelayMs = 250,
     retryOnStatuses = DEFAULT_RETRYABLE_STATUSES,
+    allowHttpError = false,
+    httpErrorMessage = "Request failed",
     ...fetchOptions
   } = options;
 
@@ -27,6 +31,13 @@ export async function safeFetch(input: RequestInfo | URL, options: SafeFetchOpti
         await sleep(retryDelayMs * (attempt + 1));
         continue;
       }
+
+      if (!response.ok && !allowHttpError) {
+        const requestError = new Error(httpErrorMessage);
+        (requestError as Error & { response?: Response }).response = response;
+        throw requestError;
+      }
+
       return response;
     } catch (error) {
       lastError = error;

@@ -14,6 +14,7 @@ function getSchema(props: Props) {
   return props.schema ?? props.jsonLd;
 }
 
+const SITE_NAME = "Boreal Financial";
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
 
 function normalizeHref(href?: string) {
@@ -21,18 +22,23 @@ function normalizeHref(href?: string) {
   return href.replace("https://borealfinancial.ca", SITE_URL);
 }
 
+function formatTitle(title: string) {
+  return title.includes(`| ${SITE_NAME}`) ? title : `${title} | ${SITE_NAME}`;
+}
+
 export default function SEO({ title, description, canonical, url, noindex }: Props) {
-  const href = normalizeHref(canonical ?? url ?? (typeof window !== "undefined" ? window.location.href : undefined));
+  const canonicalUrl = normalizeHref(canonical ?? url ?? (typeof window !== "undefined" ? window.location.href : undefined));
+  const fullTitle = formatTitle(title);
 
   return (
     <Helmet>
-      <title>{title}</title>
+      <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
       <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
-      {href ? <link rel="canonical" href={href} /> : null}
+      {canonicalUrl ? <link rel="canonical" href={canonicalUrl} /> : null}
     </Helmet>
   );
 }
