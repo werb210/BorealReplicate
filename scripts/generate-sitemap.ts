@@ -1,9 +1,4 @@
-import fs from "node:fs";
-import path from "node:path";
-import { SitemapStream, streamToPromise } from "./sitemap-lib";
-
-const BASE_URL = process.env.VITE_SITE_URL ?? "https://borealfinancial.ca";
-const outputPath = path.resolve(process.cwd(), "public/sitemap.xml");
+import fs from "fs"
 
 const routes = [
   "/",
@@ -11,27 +6,22 @@ const routes = [
   "/privacy",
   "/terms",
   "/work-with-us",
-  "/working-capital",
-  "/line-of-credit",
-  "/term-loans",
-  "/purchase-order-financing",
-  "/industries/construction",
-  "/industries/manufacturing",
   "/industries/logistics",
-];
+  "/industries/construction",
+  "/industries/manufacturing"
+]
 
-async function run() {
-  const sitemap = new SitemapStream({ hostname: BASE_URL });
+const base = "https://boreal.financial"
 
-  routes.forEach((url) => sitemap.write({ url }));
-  sitemap.end();
+const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes.map(r => `
+  <url>
+    <loc>${base}${r}</loc>
+  </url>
+`).join("")}
+</urlset>
+`
 
-  const xml = (await streamToPromise(sitemap)).toString();
-
-  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, xml, "utf8");
-
-  console.log(`Sitemap generated for ${routes.length} routes at ${outputPath}.`);
-}
-
-void run();
+fs.writeFileSync("public/sitemap.xml", xml)

@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://borealfinancial.ca/</loc>
+    <loc>https://boreal.financial/</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.ca/contact</loc>
+    <loc>https://boreal.financial/contact</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.ca/privacy</loc>
+    <loc>https://boreal.financial/privacy</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.ca/terms</loc>
+    <loc>https://boreal.financial/terms</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.ca/work-with-us</loc>
+    <loc>https://boreal.financial/work-with-us</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.ca/working-capital</loc>
+    <loc>https://boreal.financial/industries/logistics</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.ca/line-of-credit</loc>
+    <loc>https://boreal.financial/industries/construction</loc>
   </url>
+
   <url>
-    <loc>https://borealfinancial.ca/term-loans</loc>
+    <loc>https://boreal.financial/industries/manufacturing</loc>
   </url>
-  <url>
-    <loc>https://borealfinancial.ca/purchase-order-financing</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.ca/industries/construction</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.ca/industries/manufacturing</loc>
-  </url>
-  <url>
-    <loc>https://borealfinancial.ca/industries/logistics</loc>
-  </url>
+
 </urlset>
