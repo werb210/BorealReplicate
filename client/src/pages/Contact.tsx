@@ -9,6 +9,8 @@ type ContactFormData = {
   fullName: string;
   email: string;
   mobilePhone: string;
+  message: string;
+  website: string;
 };
 
 const initialForm: ContactFormData = {
@@ -16,6 +18,8 @@ const initialForm: ContactFormData = {
   fullName: "",
   email: "",
   mobilePhone: "",
+  message: "",
+  website: "",
 };
 
 function splitName(fullName: string) {
@@ -41,13 +45,38 @@ export default function Contact() {
     event.preventDefault();
     if (submitting) return;
 
-    setSubmitting(true);
     setError(null);
+
+    if (!formData.fullName.trim()) {
+      setError("Name is required");
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setError("Email is required");
+      return;
+    }
+
+    if (!formData.email.includes("@")) {
+      setError("Invalid email");
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      setError("Message is required");
+      return;
+    }
+
+    if (formData.website.trim()) {
+      return;
+    }
+
+    setSubmitting(true);
 
     const { firstName, lastName } = splitName(formData.fullName);
 
     try {
-      const response = await safeFetch("/api/contact/submit", {
+      await safeFetch("/api/contact/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -56,12 +85,9 @@ export default function Contact() {
           lastName,
           email: formData.email,
           phone: formData.mobilePhone,
+          message: formData.message,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error("Unable to submit contact form.");
-      }
 
       trackEvent("contact_form_submitted", {
         source: "contact_page",
@@ -70,8 +96,8 @@ export default function Contact() {
 
       setShowSuccess(true);
       setFormData(initialForm);
-    } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : "Submission failed");
+    } catch {
+      setError("Unable to submit request. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -79,7 +105,7 @@ export default function Contact() {
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-12 text-white">
-      <SEO title="Contact Boreal | Boreal Financial" description="Connect with Boreal for structured capital advisory." />
+      <SEO title="Contact Boreal" description="Connect with Boreal for structured capital advisory." />
       <h1 className="text-4xl font-semibold text-white">Contact Boreal</h1>
       <h2 className="mt-3 text-4xl font-bold text-white">Tell us about your business and an advisor will follow up.</h2>
 
@@ -88,6 +114,16 @@ export default function Contact() {
         <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" placeholder="Full Name" required value={formData.fullName} onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))} />
         <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" type="email" placeholder="Email" required value={formData.email} onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))} />
         <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" type="tel" placeholder="Mobile Phone" required value={formData.mobilePhone} onChange={(e) => setFormData((prev) => ({ ...prev, mobilePhone: e.target.value }))} />
+        <textarea className="min-h-[120px] w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" placeholder="How can we help?" required value={formData.message} onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))} />
+        <input
+          className="hidden"
+          aria-hidden="true"
+          tabIndex={-1}
+          autoComplete="off"
+          name="website"
+          value={formData.website}
+          onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
+        />
         <button type="submit" disabled={submitting} className="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white disabled:opacity-70">{submitting ? "Submitting..." : "Submit"}</button>
         {error ? <p className="text-sm text-red-300">{error}</p> : null}
       </form>
