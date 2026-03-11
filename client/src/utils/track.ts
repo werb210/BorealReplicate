@@ -1,9 +1,9 @@
-import { API_BASE_URL } from "@/config/env";
+import { apiUrl } from "@/config/api";
 
 export function track(event: string, metadata?: unknown) {
   const send = async () => {
     try {
-      await fetch(`${API_BASE_URL}/api/support/track`, {
+      await fetch(apiUrl("/api/support/track"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ event, metadata }),

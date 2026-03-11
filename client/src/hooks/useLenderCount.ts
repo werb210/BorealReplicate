@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "@/config/env";
+import { apiUrl } from "@/config/api";
 
 export function useLenderCount() {
   const [count, setCount] = useState<number | null>(null);
@@ -7,7 +7,7 @@ export function useLenderCount() {
   useEffect(() => {
     const loadCount = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/public/lender-count`);
+        const res = await fetch(apiUrl("/api/public/lender-count"));
         const data = await res.json();
         setCount(data.count);
       } catch {
