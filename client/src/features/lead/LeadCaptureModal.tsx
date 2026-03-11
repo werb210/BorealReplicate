@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { API_BASE_URL } from "@/config/env";
+import { apiUrl } from "@/config/api";
 
 export default function LeadCaptureModal({ onDone }: { onDone?: () => void }) {
   const [done, setDone] = useState(false);
@@ -9,7 +9,7 @@ export default function LeadCaptureModal({ onDone }: { onDone?: () => void }) {
     const form = new FormData(event.currentTarget);
 
     try {
-      await fetch(`${API_BASE_URL}/api/support/event`, {
+      await fetch(apiUrl("/api/support/event"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
