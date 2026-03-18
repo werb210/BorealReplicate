@@ -22,7 +22,7 @@
     "test": "tsx --test",
     "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server/index.js",
     "clean:cache": "rm -rf node_modules dist .vite client/.vite",
-    "audit": "npm audit",
+    "audit": "node scripts/audit-safe.js",
     "audit:enterprise": "node scripts/enterprise-audit.js",
     "optimize:images": "node scripts/optimize-images.js",
     "prestart": "node ./scripts/verify-node-version.js",
