@@ -8,7 +8,25 @@ export function startChatServer(server: Server) {
   });
 
   wss.on("connection", (ws) => {
-    ws.on("message", () => {
+    ws.on("message", (raw) => {
+      let messageType: string | undefined;
+      try {
+        const payload = JSON.parse(raw.toString()) as { type?: string };
+        messageType = payload.type;
+      } catch {
+        messageType = undefined;
+      }
+
+      if (messageType === "staff_joined") {
+        ws.send(
+          JSON.stringify({
+            type: "staff_joined",
+            message: "Transferring you to a specialist…",
+          }),
+        );
+        return;
+      }
+
       ws.send(
         JSON.stringify({
           message: "Maya connected",
