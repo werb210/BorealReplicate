@@ -31,7 +31,8 @@
     "typecheck": "tsc --noEmit",
     "repo:guard": "node scripts/repo-guard.js",
     "repo:size": "du -sh .git .",
-    "prepare-hooks": "git config core.hooksPath .githooks"
+    "prepare-hooks": "git config core.hooksPath .githooks",
+    "repo:audit": "./scripts/repo-audit.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
