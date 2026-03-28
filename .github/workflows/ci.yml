@@ -16,16 +16,27 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm ci
-      - name: Enforce .git size budget
-        run: |
-          CURRENT_SIZE=$(du -sm .git | cut -f1)
+      - run: npm run repo:guard
 
-          if [ "$CURRENT_SIZE" -gt 120 ]; then
+      - name: Fail if large blobs exist in git history
+        run: |
+          if git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize)' | awk '$1=="blob" && $3 > 1048576' | grep .; then
+            echo "FAIL: large blobs still exist in history"
+            exit 1
+          fi
+
+      - name: Enforce strict .git size budget
+        run: |
+          MAX_GIT_SIZE=80
+          CURRENT=$(du -sm .git | cut -f1)
+
+          if [ "$CURRENT" -gt "$MAX_GIT_SIZE" ]; then
             echo "FAIL: repo too large"
             exit 1
           fi
-      - run: npm run repo:guard
+
+      - run: ./scripts/repo-audit.sh
+      - run: npm ci
       - run: npm run check
       - run: npm run generate:sitemap
       - run: npm test

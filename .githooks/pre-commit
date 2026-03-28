@@ -1,4 +1,2 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
+#!/bin/sh
 node scripts/repo-guard.js || exit 1
