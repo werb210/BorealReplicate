@@ -4,7 +4,9 @@ declare global {
   namespace Express {
     interface Request {
       traceId?: string;
-      user?: Record<string, unknown>;
+      user?: {
+        id: string;
+      };
     }
   }
 }
