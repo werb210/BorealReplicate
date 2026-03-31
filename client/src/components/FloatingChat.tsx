@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MessageCircle, X } from "lucide-react";
 import { getReadinessSessionToken } from "@/utils/session";
-import { buildMayaWebSocketUrl, checkMayaHealth, isMayaConfigured } from "@/lib/mayaClient";
+import { buildMayaWebSocketUrl, checkMayaHealth, isMayaConfigured } from "@/api/maya";
 
 type ChatMessage = {
   id: string;
