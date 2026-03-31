@@ -13,16 +13,13 @@ import { registerMarketingRoutes } from "./routes/marketing";
 import { createRateLimiter } from "./security";
 import { logger } from "./logger";
 import { startChatServer } from "./ws";
-import { authMiddleware } from "./middleware/auth";
+import { createAuthMiddleware } from "./middleware/auth";
 
 const app = express();
 
 function requireJwtSecret() {
   if (!process.env.JWT_SECRET) {
-    if (process.env.NODE_ENV === "production") {
-      throw new Error("[JWT_SECRET MISSING]");
-    }
-    console.warn("[JWT DISABLED - NON PROD]");
+    throw new Error("[JWT_SECRET REQUIRED]");
   }
 }
 
@@ -131,11 +128,6 @@ app.get("/health", (_req, res) => {
 
 // Keep public intake routes mounted before all other API route groups.
 app.use("/api/public", publicRoutes);
-app.use("/api", authMiddleware);
-app.use("/api/contact", contactRoute);
-app.use("/api/lead", leadRoute);
-app.use("/api/maya", mayaRoutes);
-registerMarketingRoutes(app);
 
 process.on("unhandledRejection", (reason) => {
   logger.error({ msg: "Unhandled rejection", reason: String(reason) });
@@ -176,6 +168,7 @@ app.use((req, res, next) => {
 
 (async () => {
   requireJwtSecret();
+  const jwtSecret = process.env.JWT_SECRET as string;
 
   if (process.env.NODE_ENV === "production") {
     const required = ["PORT"];
@@ -185,6 +178,12 @@ app.use((req, res, next) => {
       }
     });
   }
+
+  app.use("/api", createAuthMiddleware(jwtSecret));
+  app.use("/api/contact", contactRoute);
+  app.use("/api/lead", leadRoute);
+  app.use("/api/maya", mayaRoutes);
+  registerMarketingRoutes(app);
 
   const server = await registerRoutes(app);
   app.use("/api", (_req, res) => {
