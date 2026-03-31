@@ -38,33 +38,35 @@ function verifyHs256Jwt(token: string, secret: string): Record<string, unknown> 
   return payload;
 }
 
-export function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  const secret = process.env.JWT_SECRET;
-  if (!secret) {
-    return res.status(500).json({ error: "SERVER_MISCONFIG" });
-  }
-
-  const header = req.headers.authorization;
-  if (!header) {
-    return res.status(401).json({ error: "UNAUTHORIZED" });
-  }
-
-  const [scheme, token] = header.trim().split(/\s+/, 2);
-  if (scheme !== "Bearer") {
-    return res.status(401).json({ error: "UNAUTHORIZED" });
-  }
-
-  if (!token || token === "undefined" || token === "null") {
-    return res.status(401).json({ error: "INVALID_TOKEN" });
-  }
-
-  try {
-    const decoded = verifyHs256Jwt(token, secret);
-    if (typeof decoded.id === "string") {
-      req.user = { id: decoded.id };
+export function createAuthMiddleware(secret: string) {
+  return function authMiddleware(req: Request, res: Response, next: NextFunction) {
+    if (!secret) {
+      return res.status(500).json({ error: "SERVER_MISCONFIG" });
     }
-    return next();
-  } catch {
-    return res.status(401).json({ error: "INVALID_TOKEN" });
-  }
+
+    const header = req.headers.authorization;
+    if (!header) {
+      return res.status(401).json({ error: "UNAUTHORIZED" });
+    }
+
+    const [scheme, token] = header.trim().split(/\s+/, 2);
+    if (scheme !== "Bearer") {
+      return res.status(401).json({ error: "UNAUTHORIZED" });
+    }
+
+    if (!token || token === "undefined" || token === "null") {
+      return res.status(401).json({ error: "INVALID_TOKEN" });
+    }
+
+    try {
+      const decoded = verifyHs256Jwt(token, secret);
+      if (typeof decoded.id !== "string") {
+        return res.status(401).json({ error: "UNAUTHORIZED" });
+      }
+      req.user = { id: decoded.id };
+      return next();
+    } catch {
+      return res.status(401).json({ error: "INVALID_TOKEN" });
+    }
+  };
 }

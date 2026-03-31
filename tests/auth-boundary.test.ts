@@ -24,13 +24,13 @@ async function withServer(
   run: (port: number) => Promise<void>,
 ) {
   process.env.JWT_SECRET = "test-secret";
-  const { authMiddleware } = await import("../server/middleware/auth");
+  const { createAuthMiddleware } = await import("../server/middleware/auth");
 
   const app = express();
   app.set("trust proxy", true);
   app.use(express.json());
   app.use("/api/public", publicRoutes);
-  configure(app, authMiddleware);
+  configure(app, createAuthMiddleware(process.env.JWT_SECRET));
 
   const server = app.listen(0);
   const port = (server.address() as AddressInfo).port;
@@ -118,6 +118,23 @@ test("/api/leads rejects malformed and expired JWTs", async () => {
       });
       assert.equal(expired.status, 401);
       assert.deepEqual(await expired.json(), { error: "INVALID_TOKEN" });
+    },
+  );
+});
+
+test("/api/leads rejects token signed with different secret", async () => {
+  await withServer(
+    (app, authMiddleware) => {
+      app.use("/api", authMiddleware);
+      app.get("/api/leads", (_req, res) => res.status(200).json({ ok: true }));
+    },
+    async (port) => {
+      const badToken = createHs256Jwt({ id: "user-1" }, "wrong-secret");
+      const response = await fetch(`http://127.0.0.1:${port}/api/leads`, {
+        headers: { Authorization: `Bearer ${badToken}` },
+      });
+      assert.equal(response.status, 401);
+      assert.deepEqual(await response.json(), { error: "INVALID_TOKEN" });
     },
   );
 });
