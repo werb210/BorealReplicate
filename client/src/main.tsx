@@ -4,8 +4,32 @@ import App from "./App";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { HelmetProvider } from "react-helmet-async";
 import "./styles/global.css";
+import { retryLeadSubmission } from "@/lib/retryLead";
+import { submitLead } from "@/utils/submitLead";
 
 // ---- Advanced Tracking Layer ----
+function parsePendingLeadData(data: Record<string, unknown>) {
+  const email = typeof data.email === "string" ? data.email.trim() : "";
+  const phone = typeof data.phone === "string" ? data.phone.trim() : "";
+  const businessName = typeof data.businessName === "string" ? data.businessName.trim() : "";
+  const productType = typeof data.productType === "string" ? data.productType.trim() : "general";
+
+  if (!email || !phone || !businessName) {
+    throw new Error("Missing lead fields for retry");
+  }
+
+  return {
+    email,
+    phone,
+    businessName,
+    productType,
+  };
+}
+
+async function sendLead(data: Record<string, unknown>) {
+  await submitLead(parsePendingLeadData(data));
+}
+
 declare global {
   interface Window {
     dataLayer: unknown[];
@@ -166,6 +190,20 @@ function TrackingProvider() {
 
   useEffect(() => {
     captureAttribution();
+  }, []);
+
+  useEffect(() => {
+    void retryLeadSubmission(sendLead);
+
+    const onOnline = () => {
+      void retryLeadSubmission(sendLead);
+    };
+
+    window.addEventListener("online", onOnline);
+
+    return () => {
+      window.removeEventListener("online", onOnline);
+    };
   }, []);
 
   useEffect(() => {

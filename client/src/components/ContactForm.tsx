@@ -1,5 +1,6 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { trackEvent } from "@/utils/analytics";
+import { saveLead, clearLead, getLead } from "@/lib/leadStorage";
 import { redirectToClientApply } from "@/utils/handoff";
 
 type ContactFormData = {
@@ -23,10 +24,41 @@ const initialForm: ContactFormData = {
 const isValidEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+const createLeadData = (data: ContactFormData) => ({
+  name: data.name.trim(),
+  email: data.email.trim(),
+  phone: data.mobilePhone.trim(),
+  businessName: data.companyName.trim(),
+  productType: "general",
+  message: data.message.trim(),
+});
+
 export default function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>(initialForm);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [leadSavedMessage, setLeadSavedMessage] = useState<string | null>(() =>
+    getLead() ? "We've saved your info and will complete submission shortly." : null
+  );
+  const draftLeadId = useMemo(() => crypto.randomUUID(), []);
+
+  const updateFormField = (field: keyof ContactFormData, value: string) => {
+    setFormData((prev) => {
+      const updated = { ...prev, [field]: value };
+
+      if (field === "name" || field === "email" || field === "mobilePhone" || field === "companyName") {
+        saveLead({
+          id: draftLeadId,
+          data: createLeadData(updated),
+          createdAt: Date.now(),
+          retryCount: 0,
+        });
+        setLeadSavedMessage("We've saved your info and will complete submission shortly.");
+      }
+
+      return updated;
+    });
+  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -64,6 +96,14 @@ export default function ContactForm() {
     const email = formData.email.trim();
     const phone = formData.mobilePhone.trim();
 
+    saveLead({
+      id: draftLeadId,
+      data: createLeadData(formData),
+      createdAt: Date.now(),
+      retryCount: 0,
+    });
+    setLeadSavedMessage("We've saved your info and will complete submission shortly.");
+
     try {
       trackEvent("contact_form_submitted", {
         source: "contact_page",
@@ -77,10 +117,18 @@ export default function ContactForm() {
         productType: "general",
       });
 
+      clearLead();
+      setLeadSavedMessage(null);
       setFormData(initialForm);
     } catch (err) {
       console.error("[FORM ERROR]", err);
       setError("Unable to continue right now. Please try again.");
+
+      void fetch("/api/fallback-email", {
+        method: "POST",
+        body: JSON.stringify(createLeadData(formData)),
+        headers: { "Content-Type": "application/json" },
+      }).catch(() => undefined);
     } finally {
       setSubmitting(false);
     }
@@ -88,10 +136,10 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-4 rounded-xl border border-white/20 bg-[#0a1731] p-6 shadow-sm">
-      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" placeholder="Company Name" required value={formData.companyName} onChange={(e) => setFormData((prev) => ({ ...prev, companyName: e.target.value }))} />
-      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" name="name" placeholder="Full Name" required value={formData.name} onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))} />
-      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" name="email" type="email" placeholder="Email" required value={formData.email} onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))} />
-      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" type="tel" placeholder="Mobile Phone" required value={formData.mobilePhone} onChange={(e) => setFormData((prev) => ({ ...prev, mobilePhone: e.target.value }))} />
+      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" placeholder="Company Name" required value={formData.companyName} onChange={(e) => updateFormField("companyName", e.target.value)} />
+      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" name="name" placeholder="Full Name" required value={formData.name} onChange={(e) => updateFormField("name", e.target.value)} />
+      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" name="email" type="email" placeholder="Email" required value={formData.email} onChange={(e) => updateFormField("email", e.target.value)} />
+      <input className="w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" type="tel" placeholder="Mobile Phone" required value={formData.mobilePhone} onChange={(e) => updateFormField("mobilePhone", e.target.value)} />
       <textarea className="min-h-[120px] w-full rounded-lg border border-white/20 bg-[#050B1A] px-3 py-3" name="message" placeholder="How can we help?" required value={formData.message} onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))} />
       <input
         className="hidden"
@@ -103,6 +151,7 @@ export default function ContactForm() {
         onChange={(e) => setFormData((prev) => ({ ...prev, website: e.target.value }))}
       />
       <button type="submit" disabled={submitting} className="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white disabled:opacity-70">{submitting ? "Continuing..." : "Continue"}</button>
+      {leadSavedMessage ? <p className="text-sm text-emerald-300">{leadSavedMessage}</p> : null}
       {error ? <p className="text-sm text-red-300">{error}</p> : null}
     </form>
   );
