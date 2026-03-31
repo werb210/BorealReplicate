@@ -8,10 +8,6 @@ const router = Router();
 const publicLeadLimiter = createRateLimiter({ windowMs: 60 * 1000, max: 10 });
 
 router.post("/lead", publicLeadLimiter, async (req, res) => {
-  if (!req.is("application/json")) {
-    return res.status(400).json({ error: "INVALID_CONTENT_TYPE" });
-  }
-
   const parsed = publicLeadIntakeSchema.safeParse(req.body);
   if (!parsed.success) {
     return res.status(400).json({ error: "INVALID_PAYLOAD" });
@@ -28,13 +24,9 @@ router.post("/lead", publicLeadLimiter, async (req, res) => {
       phone,
     });
 
-    if (!result) {
-      return res.status(500).json({ error: "EMPTY_RESPONSE" });
-    }
-
-    const { lead } = result;
-    if (!lead || !lead.id) {
-      throw new Error("LEAD_CREATION_FAILED");
+    const leadId = result?.lead?.id;
+    if (!leadId) {
+      return res.status(500).json({ error: "LEAD_CREATION_FAILED" });
     }
 
     logger.info({
@@ -48,21 +40,25 @@ router.post("/lead", publicLeadLimiter, async (req, res) => {
     logger.info({
       msg: "Public website lead created",
       traceId: getTraceId(req),
-      leadId: lead.id,
+      leadId,
       source: "website",
       requestedAmount: requestedAmount ?? null,
       productType: productType ?? null,
     });
 
-    return res.json({ leadId: lead.id });
+    return res.json({ leadId });
   } catch (error) {
     logger.error({
       msg: "Public lead intake failed",
       traceId: getTraceId(req),
       error: error instanceof Error ? error.message : String(error),
     });
-    return res.status(500).json({ error: "INTERNAL_ERROR" });
+    return res.status(500).json({ error: "LEAD_CREATION_FAILED" });
   }
+});
+
+router.all("/lead", (_req, res) => {
+  return res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
 });
 
 export default router;

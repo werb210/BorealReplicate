@@ -9,6 +9,16 @@ function createApp() {
   const app = express();
   app.set("trust proxy", true);
   app.use(express.json());
+  app.use((req, res, next) => {
+    if (
+      ["POST", "PUT", "PATCH"].includes(req.method) &&
+      req.headers["content-type"] &&
+      !req.is("application/json")
+    ) {
+      return res.status(400).json({ error: "INVALID_CONTENT_TYPE" });
+    }
+    next();
+  });
   app.use("/api/public", publicRoutes);
   return app;
 }
