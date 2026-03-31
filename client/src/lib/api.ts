@@ -1,31 +1,19 @@
-import { API_BASE_URL } from "../config/api";
+import axios from "axios";
 
-type RequestConfig = {
-  headers?: Record<string, string>;
-};
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "",
+  headers: { "Content-Type": "application/json" },
+});
 
-async function post<T>(path: string, payload: unknown, config?: RequestConfig): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...(config?.headers ?? {}),
-    },
-    body: JSON.stringify(payload),
+export async function apiRequest(
+  path: string,
+  options: { method?: "GET"|"POST"; body?: any } = {}
+) {
+  const res = await api.request({
+    url: path,
+    method: options.method || "GET",
+    data: options.body,
   });
 
-  if (!response.ok) {
-    const message = await response.text();
-    throw new Error(message || `Request failed with ${response.status}`);
-  }
-
-  if (response.status === 204) {
-    return undefined as T;
-  }
-
-  return (await response.json()) as T;
+  return res.data;
 }
-
-export const api = {
-  post,
-};
