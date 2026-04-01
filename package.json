@@ -25,7 +25,9 @@
     "optimize:images": "node scripts/optimize-images.js",
     "smoke": "node ./scripts/smoke-test.js",
     "analyze": "vite build --mode analyze",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "validate:no-express": "! rg -n \"express|app.listen\" src",
+    "validate:no-express:strict": "! rg -n \"express|app.listen\" src client"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
