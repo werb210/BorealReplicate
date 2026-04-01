@@ -37,6 +37,8 @@ export function AppRouter() {
         <Route path="/industries" element={<Industries />} />
 
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="*" element={<Home />} />
       </Routes>
     </MainLayout>
   )

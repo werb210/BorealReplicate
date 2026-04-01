@@ -18,32 +18,17 @@ export async function apiMutationRequest(
   return apiPost(url, data);
 }
 
-type UnauthorizedBehavior = "returnNull" | "throw";
-
-export function getQueryFn<T>(options: {
-  on401: UnauthorizedBehavior;
-}): QueryFunction<T> {
+export function getQueryFn<T>(): QueryFunction<T> {
   return async ({ queryKey }) => {
     const url = queryKey.join("/") as string;
-
-    const result = await apiRequest<T>(url, { method: "GET" });
-
-    if (!result.success) {
-      if (options.on401 === "returnNull" && result.status === 401) {
-        return null as T;
-      }
-
-      throw new Error(result.error);
-    }
-
-    return result.data;
+    return apiRequest<T>(url, { method: "GET" });
   };
 }
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      queryFn: getQueryFn({ on401: "throw" }),
+      queryFn: getQueryFn(),
       refetchInterval: false,
       refetchOnWindowFocus: false,
       staleTime: Infinity,

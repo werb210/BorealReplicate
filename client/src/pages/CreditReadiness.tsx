@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { estimateCommissionValue, trackConversion, trackEvent, trackLeadProfile } from "@/main";
 import { useLocation } from "wouter";
-import { apiPost } from "@/lib/apiClient";
+import { apiRequest } from "@/lib/api";
 
 type ReadinessForm = {
   organization: string;
@@ -78,7 +78,10 @@ export default function CreditReadiness() {
     let body: { score?: number; tier?: "green" | "yellow" | "red" };
 
     try {
-      body = await apiPost<{ score?: number; tier?: "green" | "yellow" | "red" }>("lead", payload);
+      body = await apiRequest<{ score?: number; tier?: "green" | "yellow" | "red" }>("/api/lead", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
     } catch (err) {
       console.error("WEBSITE ERROR:", err);
       alert(err instanceof Error ? err.message : "Unable to submit readiness form.");

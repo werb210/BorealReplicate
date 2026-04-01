@@ -1,4 +1,4 @@
-import { apiPost } from "@/lib/apiClient";
+import { apiRequest } from "@/lib/api";
 import { WebsiteLeadPayload } from "@/types/lead";
 
 export async function submitLead(payload: WebsiteLeadPayload) {
@@ -7,10 +7,12 @@ export async function submitLead(payload: WebsiteLeadPayload) {
   }
 
   try {
-    return await apiPost<{ leadId: string }>("lead", payload);
+    return await apiRequest<{ leadId: string }>("/api/lead", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
   } catch (err) {
-    console.error("LEAD_SUBMIT_ERROR:", err);
-    alert("Submission failed");
+    console.error("Lead submission failed", err);
     throw err;
   }
 }
