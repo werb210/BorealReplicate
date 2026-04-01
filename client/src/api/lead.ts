@@ -1,6 +1,9 @@
-import { apiPost } from "@/lib/apiClient";
+import { apiRequest } from "@/lib/api";
 import { WebsiteLeadPayload } from "@/types/lead";
 
 export async function submitLead(data: WebsiteLeadPayload) {
-  return apiPost<{ leadId: string }>("lead", data);
+  return apiRequest<{ leadId: string }>("/api/lead", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 }

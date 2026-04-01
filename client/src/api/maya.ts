@@ -1,4 +1,4 @@
-import { apiPost } from "@/lib/apiClient";
+import { apiRequest } from "@/lib/api";
 
 const mayaEnabled = import.meta.env.VITE_MAYA_ENABLED === "true";
 const mayaWsBase = (import.meta.env.VITE_MAYA_WS_BASE ?? "").trim().replace(/\/+$/, "");
@@ -21,5 +21,8 @@ export async function checkMayaHealth(_signal?: AbortSignal): Promise<boolean> {
 }
 
 export async function sendMayaMessage(message: string) {
-  return apiPost<{ reply?: string }>("maya-message", { message });
+  return apiRequest<{ reply?: string }>("/api/maya-message", {
+    method: "POST",
+    body: JSON.stringify({ message }),
+  });
 }
