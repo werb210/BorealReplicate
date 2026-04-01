@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { estimateCommissionValue, trackConversion, trackEvent, trackLeadProfile } from "@/main";
 import { useLocation } from "wouter";
-import { apiPost } from "@/lib/apiClient";
 
 type ReadinessForm = {
   organization: string;
@@ -61,29 +60,15 @@ export default function CreditReadiness() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const payload = {
-      companyName: form.organization,
-      revenue: form.annualRevenue,
-      fundingAmount: form.accountsReceivable,
-      productType: "credit-readiness",
-      fullName: form.fullName,
-      email: form.email,
-      phone: form.phone,
-      industry: form.industry,
-      yearsInBusiness: form.yearsInBusiness,
-      monthlyRevenue: form.monthlyRevenue,
-      collateral: form.availableCollateral,
+    const revenueWeight = form.annualRevenue.includes("Over") ? 40 : form.annualRevenue.includes("$1,000,001") ? 30 : form.annualRevenue.includes("$500,001") ? 24 : form.annualRevenue.includes("$150,001") ? 18 : 10;
+    const yearsWeight = form.yearsInBusiness === "Over 3 Years" ? 30 : form.yearsInBusiness === "1 to 3 Years" ? 22 : form.yearsInBusiness === "Under 1 Year" ? 14 : 8;
+    const collateralWeight = form.availableCollateral.includes("Over") ? 30 : form.availableCollateral.includes("$500,001") ? 24 : form.availableCollateral.includes("$250,001") ? 18 : form.availableCollateral.includes("$100,001") ? 12 : 8;
+    const score = Math.min(100, revenueWeight + yearsWeight + collateralWeight);
+
+    const body: { score?: number; tier?: "green" | "yellow" | "red" } = {
+      score,
+      tier: score >= 75 ? "green" : score >= 50 ? "yellow" : "red",
     };
-
-    let body: { score?: number; tier?: "green" | "yellow" | "red" };
-
-    try {
-      body = await apiPost<{ score?: number; tier?: "green" | "yellow" | "red" }>("/api/lead", payload);
-    } catch (err) {
-      console.error("WEBSITE ERROR:", err);
-      alert(err instanceof Error ? err.message : "Unable to submit readiness form.");
-      return;
-    }
 
     trackEvent("funnel_stage", {
       stage: "credit_readiness_completed",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sendMayaMessage } from "@/api/maya";
+import { sendMayaMessage } from "@/services/maya";
 
 type MayaMessage = {
   role: "user" | "maya";
