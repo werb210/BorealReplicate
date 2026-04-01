@@ -288,6 +288,21 @@ function TrackingProvider() {
   return <App />;
 }
 
+async function assertBackend() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  if (!apiUrl) {
+    throw new Error("VITE_API_URL is required");
+  }
+
+  const res = await fetch(`${apiUrl}/health`);
+  if (!res.ok) {
+    throw new Error("Backend not reachable");
+  }
+}
+
+await assertBackend();
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
