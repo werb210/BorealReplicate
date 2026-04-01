@@ -12,3 +12,8 @@ export function Route({ path, element }) {
 export function useParams() {
   return useWouterParams();
 }
+
+
+export function BrowserRouter({ children }) {
+  return React.createElement(React.Fragment, null, children ?? null);
+}

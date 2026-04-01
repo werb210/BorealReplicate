@@ -1,21 +1,22 @@
-export type ApiResponse<T> =
-  | { success: true; data: T }
-  | { success: false; error: string };
+import { apiRequest } from "@/lib/api";
 
-function createOfflineResponse<T>(payload: unknown): T {
-  const leadLikePayload = payload as { message?: string } | undefined;
-
-  if (leadLikePayload && typeof leadLikePayload.message === "string") {
-    return { reply: "Thanks for your message. Our team will follow up shortly." } as T;
+function normalizePath(path: string): string {
+  if (!path.startsWith("/")) {
+    return `/api/${path}`;
   }
 
-  return { leadId: `offline-${Date.now()}` } as T;
+  return path;
 }
 
-export async function apiPost<T>(_path: string, payload?: unknown): Promise<T> {
-  return createOfflineResponse<T>(payload);
+export async function apiPost<T>(path: string, payload?: unknown): Promise<T> {
+  return apiRequest<T>(normalizePath(path), {
+    method: "POST",
+    body: JSON.stringify(payload ?? {}),
+  });
 }
 
-export async function apiGet<T>(_path: string): Promise<T> {
-  return {} as T;
+export async function apiGet<T>(path: string): Promise<T> {
+  return apiRequest<T>(normalizePath(path), {
+    method: "GET",
+  });
 }

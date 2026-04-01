@@ -33,7 +33,7 @@
     ],
     "paths": {
       "@/*": [
-        "./client/src/*"
+        "src/*"
       ],
       "@shared/*": [
         "./shared/*"
