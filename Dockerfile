@@ -21,5 +21,5 @@ RUN npm ci --prefer-online --no-audit
 RUN npm cache clean --force
 COPY --from=build /app/dist ./dist
 EXPOSE 8080
-HEALTHCHECK CMD curl --fail http://127.0.0.1:8080/api/health || exit 1
+HEALTHCHECK CMD curl --fail http://0.0.0.0:8080/api/health || exit 1
 CMD ["npm", "start"]
