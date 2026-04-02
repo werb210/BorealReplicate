@@ -6,6 +6,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/global.css";
 import { apiRequest } from "@/api/request";
+import { validateEnv } from "./system/env";
 
 declare global {
   interface Window {
@@ -256,6 +257,7 @@ function TrackingProvider() {
 let started = false;
 
 async function bootstrap() {
+  validateEnv();
   if (started) {
     throw new Error("DOUBLE_BOOTSTRAP");
   }
