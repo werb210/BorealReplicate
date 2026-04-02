@@ -1,5 +1,5 @@
-import { getValidatedApiUrl } from "@/system/env";
+import { API_BASE } from "@/api/base";
 
 export function getApiBaseUrl() {
-  return getValidatedApiUrl();
+  return API_BASE;
 }

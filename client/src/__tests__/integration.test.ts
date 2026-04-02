@@ -20,6 +20,6 @@ test("backend must be reachable when configured", async () => {
     return;
   }
 
-  const status = await requestStatus(`${process.env.VITE_API_URL}/health`);
+  const status = await requestStatus(`${process.env.VITE_API_URL.replace(/\/$/, "")}/api/v1/health`);
   assert.equal(status, 200);
 });
