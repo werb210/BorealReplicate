@@ -4,10 +4,10 @@ export type ApiEnvelope<T> =
   | { status: "ok"; data: T }
   | { status: "error"; error: string };
 
-const API_BASE = getApiBaseUrl();
+const API = getApiBaseUrl();
 
 export async function api<T>(url: string, opts: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${API_BASE}${url}`, opts);
+  const res = await fetch(`${API}${url}`, opts);
   const json = (await res.json()) as ApiEnvelope<T>;
 
   if (json.status === "error") {

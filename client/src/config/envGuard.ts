@@ -1,13 +1,5 @@
+import { getValidatedApiUrl } from "@/system/env";
+
 export function getApiBaseUrl() {
-  const url = import.meta.env.VITE_API_URL;
-
-  if (!url) {
-    throw new Error("MISSING_API_URL");
-  }
-
-  if (!url.includes("/api/v1")) {
-    throw new Error("INVALID_API_VERSION");
-  }
-
-  return url.replace(/\/$/, "");
+  return getValidatedApiUrl();
 }
