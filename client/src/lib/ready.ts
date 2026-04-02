@@ -1,10 +1,10 @@
-import { apiFetch } from "@/lib/api";
+import { apiFetch } from "@/api/client";
 
 export async function waitForReady(retries = 10, delay = 500) {
   for (let i = 0; i < retries; i++) {
     try {
-      const res = await apiFetch("/ready");
-      if (res.status === 200) return;
+      await apiFetch("/ready");
+      return;
     } catch {}
 
     await new Promise((r) => setTimeout(r, delay));

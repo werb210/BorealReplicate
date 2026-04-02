@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./styles/global.css";
 import { env } from "@/config/env";
 import { waitForReady } from "@/lib/ready";
+import { checkBackend } from "./api/healthCheck";
 
 declare global {
   interface Window {
@@ -281,6 +282,12 @@ async function bootstrap() {
     console.error("BOOTSTRAP FAILED:", e);
     throw e;
   }
+
+  checkBackend().then((ok) => {
+    if (!ok) {
+      console.error("BACKEND NOT REACHABLE");
+    }
+  });
 
   renderApp();
 }
