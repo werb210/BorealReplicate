@@ -1,17 +1,19 @@
 import React from "react";
 import { AlertTriangle, ArrowRight, BarChart3, CircleDollarSign, TrendingUp } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "wouter";
 import { APPLY_URL } from "@/config/links";
 import { industries } from "@/data/industries";
 import { products } from "@/data/products";
 import { buildApplyUrl, getReadinessSessionToken } from "@/utils/session";
 
-type Props = { slug: string };
+type Props = { slug?: string };
 
 const challengeIcons = [AlertTriangle, CircleDollarSign, BarChart3, TrendingUp];
 
 export default function IndustryDetail({ slug }: Props) {
-  const industry = industries.find((item) => item.slug === slug);
+  const params = useParams();
+  const resolvedSlug = slug ?? params?.slug ?? "";
+  const industry = industries.find((item) => item.slug === resolvedSlug);
   const industryProducts = products.filter((product) => industry && product.relatedIndustries.includes(industry.name));
   const applyHref = buildApplyUrl(APPLY_URL, getReadinessSessionToken());
 
@@ -67,7 +69,7 @@ export default function IndustryDetail({ slug }: Props) {
         <h2 className="text-2xl font-bold md:text-3xl">Products available</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {industryProducts.map((product) => (
-            <Link key={`${industry.slug}-${product.slug}`} href={`/products/${product.slug}`} className="rounded-full border border-white/20 bg-[#08132a] px-4 py-2 text-sm text-slate-200">
+            <Link key={`${industry?.slug ?? resolvedSlug}-${product.slug}`} href={`/products/${product.slug}`} className="rounded-full border border-white/20 bg-[#08132a] px-4 py-2 text-sm text-slate-200">
               {product.name}
             </Link>
           ))}
