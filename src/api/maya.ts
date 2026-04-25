@@ -22,6 +22,15 @@ export async function sendMayaMessage(message: string) {
   });
 }
 
+
+export async function escalateToHuman(reason = 'user_requested_human') {
+  if (!mayaEnabled) throw new Error('Maya disabled');
+  return api('/api/maya/escalate', {
+    method: 'POST',
+    body: JSON.stringify({ reason }),
+  });
+}
+
 export async function checkMayaHealth(signal?: AbortSignal) {
   if (!mayaEnabled) return false;
 
