@@ -1,173 +1,124 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { api } from "@/api/client";
 import { estimateCommissionValue, trackConversion, trackEvent, trackLeadProfile } from "@/lib/analytics";
-import { useLocation } from "wouter";
-import { api } from "@/lib/api";
 
-type ReadinessForm = {
-  organization: string;
-  fullName: string;
+type FormState = {
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   industry: string;
   yearsInBusiness: string;
   annualRevenue: string;
   monthlyRevenue: string;
-  accountsReceivable: string;
-  availableCollateral: string;
+  arBalance: string;
+  collateral: string;
 };
 
-const industryOptions = [
-  "Construction",
-  "Manufacturing",
-  "Retail",
-  "Restaurant / Food Service",
-  "Technology",
-  "Healthcare",
-  "Transportation",
-  "Professional Services",
-  "Agriculture",
-  "Energy",
-  "Distribution",
-  "Media",
-];
-
-const initialForm: ReadinessForm = {
-  organization: "",
-  fullName: "",
+const initialState: FormState = {
+  firstName: "",
+  lastName: "",
   email: "",
   phone: "",
   industry: "",
   yearsInBusiness: "",
   annualRevenue: "",
   monthlyRevenue: "",
-  accountsReceivable: "",
-  availableCollateral: "",
+  arBalance: "",
+  collateral: "",
 };
 
 export default function CreditReadiness() {
-  const [, navigate] = useLocation();
-  const [form, setForm] = useState<ReadinessForm>(initialForm);
+  const navigate = useNavigate();
+  const [form, setForm] = useState<FormState>(initialState);
+  const [status, setStatus] = useState<"idle" | "sending">("idle");
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    trackEvent("funnel_stage", {
-      stage: "credit_readiness_start",
-    });
-  }, []);
-
-  function update<K extends keyof ReadinessForm>(key: K, value: ReadinessForm[K]) {
-    setForm((prev) => ({ ...prev, [key]: value }));
-  }
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const payload = {
-      companyName: form.organization,
-      revenue: form.annualRevenue,
-      fundingAmount: form.accountsReceivable,
-      productType: "credit-readiness",
-      fullName: form.fullName,
-      email: form.email,
-      phone: form.phone,
-      industry: form.industry,
-      yearsInBusiness: form.yearsInBusiness,
-      monthlyRevenue: form.monthlyRevenue,
-      collateral: form.availableCollateral,
-    };
-
-    let body: { score?: number; tier?: "green" | "yellow" | "red" };
+  async function submit(e: FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
+    setError("");
 
     try {
-      body = await api<{ score?: number; tier?: "green" | "yellow" | "red" }>("/api/crm/lead", {
+      const response = await api("/api/credit-readiness", {
         method: "POST",
-        body: payload,
+        body: JSON.stringify(form),
       });
-    } catch (err) {
-      console.error("WEBSITE ERROR:", err);
-      alert(err instanceof Error ? err.message : "Unable to submit readiness form.");
-      return;
+
+      trackEvent("funnel_stage", { stage: "credit_readiness_completed" });
+      trackConversion("qualified_lead", {
+        source: "website",
+        estimated_commission_value: estimateCommissionValue(form.annualRevenue),
+        capital_range: form.annualRevenue,
+      });
+
+      trackLeadProfile({
+        strength: "moderate",
+        industry: form.industry,
+        capital_range: form.annualRevenue,
+        collateral_type: form.collateral,
+      });
+
+      const params = new URLSearchParams();
+      if (typeof response === "object" && response) {
+        Object.entries(response as Record<string, unknown>).forEach(([k, v]) => {
+          if (v !== undefined && v !== null) params.set(k, String(v));
+        });
+      }
+
+      navigate(`/credit-readiness/results${params.toString() ? `?${params.toString()}` : ""}`);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Could not submit. Please try again.");
+    } finally {
+      setStatus("idle");
     }
-
-    trackEvent("funnel_stage", {
-      stage: "credit_readiness_completed",
-    });
-
-    const estimatedValue = estimateCommissionValue(form.annualRevenue);
-
-    trackConversion("qualified_lead", {
-      source: "website",
-      estimated_commission_value: estimatedValue,
-      capital_range: form.annualRevenue,
-    });
-
-    const calculatedStrength: "strong" | "moderate" | "weak" = body.tier === "green" ? "strong" : body.tier === "yellow" ? "moderate" : "weak";
-    trackLeadProfile({
-      strength: calculatedStrength,
-      industry: form.industry,
-      capital_range: form.annualRevenue,
-      collateral_type: form.availableCollateral,
-    });
-
-    const nextParams = new URLSearchParams();
-    if (typeof body.score === "number") nextParams.set("score", String(body.score));
-    if (body.tier) nextParams.set("tier", body.tier);
-    if (form.annualRevenue) nextParams.set("capitalRange", form.annualRevenue);
-
-    navigate(`/credit-results${nextParams.toString() ? `?${nextParams.toString()}` : ""}`);
   }
 
   return (
-    <main className="bg-[#020817] px-5 py-10 text-white md:px-6 md:py-12">
-      <div className="mx-auto max-w-4xl">
-        <h1 className="mb-3 text-3xl font-bold md:text-5xl">Credit Readiness</h1>
-        <p className="text-xl font-semibold md:text-2xl">Tell us about your business</p>
+    <section className="container-bf py-16 text-white">
+      <h1 className="text-4xl font-semibold md:text-5xl">Credit Readiness</h1>
+      <p className="mt-2 text-white/80">Tell us about your business and we’ll assess your readiness.</p>
 
-        <form autoComplete="on" onSubmit={handleSubmit} className="mt-10 rounded-2xl border border-white/10 bg-[#08132a] p-6">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <input required id="organization" name="organization" type="text" autoComplete="organization" value={form.organization} placeholder="Company Name" onChange={(e) => update("organization", e.target.value.replace(/\b\w/g, (l) => l.toUpperCase()))} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
-            <input required id="fullName" name="fullName" type="text" autoComplete="name" value={form.fullName} placeholder="Full Name" onChange={(e) => update("fullName", e.target.value.replace(/\b\w/g, (l) => l.toUpperCase()))} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
-            <input required id="email" name="email" type="email" autoComplete="email" inputMode="email" value={form.email} placeholder="Email" onChange={(e) => update("email", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
-            <input required id="phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" value={form.phone} placeholder="Phone" onChange={(e) => { const numbers = e.target.value.replace(/\D/g, "").slice(0, 10); const formatted = numbers.length <= 3 ? numbers : numbers.length <= 6 ? `(${numbers.slice(0, 3)}) ${numbers.slice(3)}` : `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6)}`; update("phone", formatted); }} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3" />
+      <form onSubmit={submit} className="mt-8 grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 md:grid-cols-2">
+        <Input label="First Name" value={form.firstName} onChange={(v) => setForm((f) => ({ ...f, firstName: v }))} required />
+        <Input label="Last Name" value={form.lastName} onChange={(v) => setForm((f) => ({ ...f, lastName: v }))} required />
+        <Input label="Email" type="email" value={form.email} onChange={(v) => setForm((f) => ({ ...f, email: v }))} required />
+        <Input label="Phone" value={form.phone} onChange={(v) => setForm((f) => ({ ...f, phone: v }))} required />
+        <Input label="Industry" value={form.industry} onChange={(v) => setForm((f) => ({ ...f, industry: v }))} required />
+        <Input label="Years In Business" value={form.yearsInBusiness} onChange={(v) => setForm((f) => ({ ...f, yearsInBusiness: v }))} required />
+        <Input label="Annual Revenue" value={form.annualRevenue} onChange={(v) => setForm((f) => ({ ...f, annualRevenue: v }))} required />
+        <Input label="Monthly Revenue" value={form.monthlyRevenue} onChange={(v) => setForm((f) => ({ ...f, monthlyRevenue: v }))} required />
+        <Input label="AR Balance" value={form.arBalance} onChange={(v) => setForm((f) => ({ ...f, arBalance: v }))} required />
+        <Input label="Collateral" value={form.collateral} onChange={(v) => setForm((f) => ({ ...f, collateral: v }))} required />
 
-            <select required id="industry" name="industry" value={form.industry} onChange={(e) => update("industry", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-              <option value="">Industry</option>
-              {industryOptions.map((option) => <option key={option} value={option}>{option}</option>)}
-            </select>
+        <button type="submit" disabled={status === "sending"} className="mt-2 w-fit rounded-md bg-blue-500 px-6 py-3 text-white hover:bg-blue-600 disabled:opacity-70 md:col-span-2">
+          {status === "sending" ? "Submitting…" : "Check Readiness"}
+        </button>
 
-            <select required id="yearsInBusiness" name="yearsInBusiness" value={form.yearsInBusiness} onChange={(e) => update("yearsInBusiness", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-              <option value="">Years in business</option>
-              <option>Zero</option><option>Under 1 Year</option><option>1 to 3 Years</option><option>Over 3 Years</option>
-            </select>
+        {error ? <div className="rounded-md border border-rose-500/30 bg-rose-500/10 p-3 text-rose-300 md:col-span-2">{error}</div> : null}
+      </form>
+    </section>
+  );
+}
 
-            <select required id="annualRevenue" name="annualRevenue" value={form.annualRevenue} onChange={(e) => update("annualRevenue", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-              <option value="">Annual Revenue</option>
-              <option>Zero to $150,000</option><option>$150,001 to $500,000</option><option>$500,001 to $1,000,000</option><option>$1,000,001 to $3,000,000</option><option>Over $3,000,000</option>
-            </select>
-
-            <select required id="monthlyRevenue" name="monthlyRevenue" value={form.monthlyRevenue} onChange={(e) => update("monthlyRevenue", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-              <option value="">Monthly Revenue</option>
-              <option>Under $10,000</option><option>$10,001 to $30,000</option><option>$30,001 to $100,000</option><option>Over $100,000</option>
-            </select>
-
-            <select required id="accountsReceivable" name="accountsReceivable" value={form.accountsReceivable} onChange={(e) => update("accountsReceivable", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-              <option value="">Accounts Receivable</option>
-              <option>No Account Receivables</option><option>Zero to $100,000</option><option>$100,000 to $250,000</option><option>$250,000 to $500,000</option><option>$500,000 to $1,000,000</option><option>$1,000,000 to $3,000,000</option><option>Over $3,000,000</option>
-            </select>
-
-            <select required id="availableCollateral" name="availableCollateral" value={form.availableCollateral} onChange={(e) => update("availableCollateral", e.target.value)} className="w-full rounded border border-slate-700 bg-[#0b213f] p-3">
-              <option value="">Available Collateral</option>
-              <option>No Collateral Available</option><option>$1 to $100,000</option><option>$100,001 to $250,000</option><option>$250,001 to $500,000</option><option>$500,001 to $1 million</option><option>Over $1 million</option>
-            </select>
-          </div>
-
-          <button
-            type="submit"
-            className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-200"
-          >
-            Check Readiness
-          </button>
-        </form>
-      </div>
-    </main>
+function Input({ label, value, onChange, type = "text", required }: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  required?: boolean;
+}) {
+  return (
+    <label className="grid gap-1">
+      <span className="text-sm text-white/80">{label}{required ? " *" : ""}</span>
+      <input
+        type={type}
+        required={required}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="rounded-md border border-white/15 bg-white/5 p-3 text-white"
+      />
+    </label>
   );
 }
