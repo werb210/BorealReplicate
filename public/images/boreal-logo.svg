@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" role="img" aria-label="Boreal Financial">
+  <rect width="240" height="48" rx="8" fill="#0b1530"/>
+  <circle cx="24" cy="24" r="11" fill="#3b82f6"/>
+  <text x="44" y="30" font-family="Inter,Arial,sans-serif" font-size="18" fill="#ffffff">Boreal Financial</text>
+</svg>

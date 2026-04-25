@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { APPLY_URL } from "@/config/links";
 
 export function Hero() {
@@ -5,7 +6,7 @@ export function Hero() {
     <section
       className="hero relative py-16 text-white md:py-20"
       style={{
-        backgroundImage: "url("")",
+        backgroundImage: "url(/images/hero-marketplace.webp)",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -20,7 +21,7 @@ export function Hero() {
           </p>
           <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-5">
             <a href={APPLY_URL} className="rounded-md bg-white px-5 py-3 text-center font-semibold text-slate-900">Apply Now</a>
-            <a href="#how-it-works" className="text-sm font-semibold text-white underline underline-offset-4">How it works</a>
+            <Link to="/contact" className="text-sm font-semibold text-white underline underline-offset-4">Talk to us</Link>
           </div>
         </div>
 

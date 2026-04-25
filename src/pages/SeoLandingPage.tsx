@@ -1,151 +1,95 @@
-import { Link, useRoute } from "wouter";
-import { Footer } from "@/components/footer";
-import { Navigation } from "@/components/navigation";
-import { Button } from "@/components/ui/button";
-import { LOCATIONS, PRODUCTS } from "@/data/seoLandingConfig";
-import { SEO } from "@/seo/SEO";
-import NotFound from "@/pages/NotFound";
-import { APPLY_URL } from "@/config/links";
-import { SITE_URL } from "@/config/links";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { SEOFAQ } from "@/components/SEOFAQ";
 
-function normalizeSlug(input: string): string {
-  return input.trim().toLowerCase();
+const APPLY_URL = (import.meta.env.VITE_APPLY_URL as string) ?? "https://client.boreal.financial";
+
+type LandingContent = {
+  title: string;
+  subtitle: string;
+  heroImage: string;
+  benefits?: string[];
+  faq?: { question: string; answer: string }[];
+};
+
+const CONTENT_BY_SLUG: Record<string, LandingContent> = {
+  trucking: base("Trucking Financing", "/images/hero-truck.jpg"),
+  construction: base("Construction Financing", "/images/hero-equipment.webp"),
+  manufacturing: base("Manufacturing Financing", "/images/hero-warehouse.jpg"),
+  retail: base("Retail Financing", "/images/hero-marketplace.webp"),
+  healthcare: base("Healthcare Financing", "/images/hero-financial-advisor.webp"),
+  hospitality: base("Hospitality Financing", "/images/hero-conference.jpg"),
+  agriculture: base("Agriculture Financing", "/images/hero-skyline.jpg"),
+  logistics: base("Logistics Financing", "/images/hero-team.jpg"),
+  "line-of-credit": base("Business Line of Credit", "/images/hero-handshake.png"),
+  "term-loan": base("Business Term Loans", "/images/hero-meeting.webp"),
+  "equipment-finance": base("Equipment Finance", "/images/hero-equipment.webp"),
+  factoring: base("Invoice Factoring", "/images/hero-laptop-graph.webp"),
+  "purchase-order-finance": base("Purchase Order Finance", "/images/hero-handshake.png"),
+  mca: base("Merchant Cash Advance", "/images/hero-marketplace.webp"),
+  "startup-capital": base("Startup Capital", "/images/hero-diverse-team.webp"),
+  "sba-government": base("SBA & Government Programs", "/images/hero-conference.jpg"),
+  "asset-based-lending": base("Asset Based Lending", "/images/hero-warehouse.jpg"),
+};
+
+function base(title: string, heroImage: string): LandingContent {
+  return {
+    title,
+    subtitle: `Flexible ${title.toLowerCase()} solutions for Canadian and US businesses.`,
+    heroImage,
+    benefits: [
+      "Fast approvals and lender matching",
+      "Structured terms built for your cash-flow cycle",
+      "Dedicated advisory support through funding",
+    ],
+    faq: [
+      {
+        question: `How quickly can I get approved for ${title.toLowerCase()}?`,
+        answer: "Many files can receive approvals within 24–72 hours once documentation is complete.",
+      },
+      {
+        question: "What documents are usually required?",
+        answer: "Typically recent financial statements, bank statements, and basic business details.",
+      },
+    ],
+  };
+}
+
+function FeatureGrid({ items }: { items: string[] }) {
+  return (
+    <div className="mt-10 grid gap-4 md:grid-cols-3">
+      {items.map((item) => (
+        <article key={item} className="rounded-xl border border-white/10 bg-white/5 p-4">
+          <p>{item}</p>
+        </article>
+      ))}
+    </div>
+  );
 }
 
 export default function SeoLandingPage() {
-  const [matched, params] = useRoute<{ productSlug: string; location: string }>("/:productSlug/:location");
+  const params = useParams();
+  const slug = (params.slug ?? "").toLowerCase();
+  const c = CONTENT_BY_SLUG[slug];
 
-  if (!matched || !params) {
-    return <NotFound />;
-  }
-
-  const product = PRODUCTS.find((item) => item.slug === normalizeSlug(params.productSlug));
-  const location = LOCATIONS.find((item) => item.toLowerCase() === normalizeSlug(params.location));
-
-  if (!product || !location) {
-    return <NotFound />;
-  }
-
-  const title = `${product.name} in ${location} | Boreal Financial`;
-  const description = `Apply for ${product.name} in ${location}. Fast approvals and flexible funding.`;
-  const siteUrl = SITE_URL;
-  const canonical = `${siteUrl}/${product.slug}/${location.toLowerCase()}`;
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FinancialService",
-    name: "Boreal Financial",
-    areaServed: location,
-    serviceType: product.name
-  };
-
-  const relatedLocations = LOCATIONS.filter((value) => value !== location);
-  const relatedProducts = PRODUCTS.filter((value) => value.slug !== product.slug);
+  if (!c) return <Navigate to="/" replace />;
 
   return (
-    <div className="min-h-screen bg-background">
-      <SEO title={title} description={description} url={canonical} schema={jsonLd} />
-      <Navigation />
-
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
-        <section className="space-y-4">
-          <p className="text-xs uppercase tracking-wider font-semibold text-primary">Local financing solutions</p>
-          <h1 className="text-3xl md:text-4xl font-semibold text-secondary">{product.name} in {location}</h1>
-          <p className="text-lg text-muted-foreground">
-            Boreal Financial helps companies secure {product.name.toLowerCase()} in {location} with fast underwriting,
-            lender matching, and practical guidance tailored to local operating realities.
-          </p>
-          <a href={APPLY_URL}>
-            <Button size="lg">Apply Now</Button>
+    <section className="container-bf py-16 text-white">
+      <div className="grid items-center gap-12 md:grid-cols-2">
+        <div>
+          <h1 className="text-4xl font-semibold md:text-5xl">{c.title}</h1>
+          <p className="mt-4 text-white/80">{c.subtitle}</p>
+          <a href={APPLY_URL} className="mt-6 inline-block rounded-md bg-blue-500 px-6 py-3">
+            Apply now
           </a>
-        </section>
-
-        <section className="prose prose-gray max-w-none text-foreground">
-          <p>
-            Businesses in {location} face a funding environment that rewards preparation, strong financial reporting,
-            and speed. Whether your company is balancing payroll, buying inventory, or preparing for growth,
-            access to structured financing can be the difference between maintaining momentum and missing strategic
-            opportunities. {product.name} gives businesses access to capital designed for day-to-day flexibility while
-            preserving long-term financial health.
-          </p>
-          <p>
-            At Boreal Financial, we work with founders, operators, and finance teams that need funding options aligned
-            with their real operating cycle. Many companies in {location} manage irregular inflows tied to customer
-            payment terms, project milestones, or seasonal demand. A tailored funding strategy allows leadership teams
-            to keep operations steady while confidently planning expansion.
-          </p>
-          <p>
-            Our process starts with a practical review of your objectives. We look at how quickly capital is needed,
-            how it will be deployed, and what repayment structure best supports your business model. This approach
-            helps ensure your financing supports growth instead of creating avoidable pressure. It also allows us to
-            match each file with lenders that understand your sector and local market conditions in {location}.
-          </p>
-          <p>
-            Companies use {product.name.toLowerCase()} for many reasons: stabilizing cash flow during rapid growth,
-            funding inventory before major contracts, modernizing equipment, hiring skilled staff, or covering short
-            operational gaps. The right facility can also create negotiating power with suppliers and customers by
-            allowing your team to move quickly when attractive opportunities appear.
-          </p>
-          <p>
-            Speed matters, but structure matters more. Boreal Financial emphasizes complete submissions, transparent
-            documentation requirements, and direct communication throughout underwriting. This reduces back-and-forth,
-            improves lender confidence, and shortens the timeline from initial inquiry to funded transaction. Many
-            clients can secure approvals quickly when required documentation is available and financials are current.
-          </p>
-          <p>
-            We also support businesses that are not served well by traditional banking channels. If your company is in
-            an early growth stage, transitioning ownership, recovering from temporary disruptions, or navigating a
-            specialized niche, there are often non-bank and alternative lenders open to strong opportunities. Our team
-            helps position these files effectively so decision-makers can evaluate them on the full business context.
-          </p>
-          <p>
-            Local knowledge is an advantage. Funding requirements in {location} can vary by industry concentration,
-            contract cycles, and workforce costs. Boreal Financial incorporates these factors when preparing your file,
-            so your financing recommendation reflects how your business actually operates in-market. This creates more
-            resilient outcomes and improves fit over the life of the facility.
-          </p>
-          <p>
-            Beyond initial funding, we help companies think in stages. The facility you need now may differ from the
-            structure you need six to twelve months from today. By planning financing in phases, organizations can
-            reduce friction, avoid unnecessary refinancing, and maintain strategic flexibility as revenue scales.
-            This long-view mindset is especially valuable for teams managing ambitious growth targets.
-          </p>
-          <p>
-            If you are exploring {product.name.toLowerCase()} in {location}, Boreal Financial can help you prepare a
-            lender-ready application and compare options with confidence. We combine responsive service, practical
-            guidance, and market access to help businesses secure capital that supports performance today while building
-            a stronger financing profile for the future.
-          </p>
-        </section>
-
-        <section className="grid gap-8 md:grid-cols-2">
-          <div className="space-y-3">
-            <h2 className="text-xl font-semibold text-secondary">Explore this product in other cities</h2>
-            <ul className="space-y-2">
-              {relatedLocations.map((item) => (
-                <li key={item}>
-                  <Link href={`/${product.slug}/${item.toLowerCase()}`} className="text-primary hover:underline">
-                    {product.name} in {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-3">
-            <h2 className="text-xl font-semibold text-secondary">Compare other products in {location}</h2>
-            <ul className="space-y-2">
-              {relatedProducts.map((item) => (
-                <li key={item.slug}>
-                  <Link href={`/${item.slug}/${location.toLowerCase()}`} className="text-primary hover:underline">
-                    {item.name} in {location}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+          <Link to="/contact" className="ml-3 mt-6 inline-block rounded-md border border-white/20 px-6 py-3">
+            Talk to us
+          </Link>
+        </div>
+        <img src={c.heroImage} alt={c.title} className="rounded-2xl" />
+      </div>
+      {c.benefits ? <FeatureGrid items={c.benefits} /> : null}
+      {c.faq ? <SEOFAQ faqs={c.faq} /> : null}
+    </section>
   );
 }

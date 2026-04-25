@@ -13,8 +13,7 @@ import MainLayout from "../layouts/MainLayout";
 import Apply from "../pages/Apply";
 import Privacy from "../pages/privacy";
 import Terms from "../pages/terms";
-
-import IndustryDetail from "../pages/industries/IndustryDetail";
+import SeoLandingPage from "../pages/SeoLandingPage";
 
 export function AppRouter() {
   return (
@@ -22,22 +21,20 @@ export function AppRouter() {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/industries/construction" element={<IndustryDetail slug="construction" />} />
-        <Route path="/industries/manufacturing" element={<IndustryDetail slug="manufacturing" />} />
-        <Route path="/industries/logistics" element={<IndustryDetail slug="logistics" />} />
-
-        <Route path="/industries/:slug" element={<IndustryDetail />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/products/:slug" element={<SeoLandingPage />} />
+        <Route path="/industries/:slug" element={<SeoLandingPage />} />
 
         <Route path="/product-comparison" element={<Compare />} />
         <Route path="/compare" element={<Compare />} />
 
         <Route path="/credit-readiness" element={<CreditReadiness />} />
+        <Route path="/credit-readiness/results" element={<CreditResults />} />
         <Route path="/credit-results" element={<CreditResults />} />
 
         <Route path="/podcasts" element={<Podcasts />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/industries" element={<Industries />} />
 
         <Route path="/contact" element={<Contact />} />
         <Route path="/apply" element={<Apply />} />
