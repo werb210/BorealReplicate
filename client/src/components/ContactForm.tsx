@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { safeFetch } from "@/lib/safeFetch";
 import { trackEvent } from "@/utils/analytics";
+import { WEBSITE_API_BASE } from "@/config/api";
 
 type ContactFormData = {
   companyName: string;
@@ -73,7 +74,7 @@ export default function ContactForm() {
     const { firstName, lastName } = splitName(formData.name);
 
     try {
-      await safeFetch("/api/website/contact", {
+      await safeFetch(`${WEBSITE_API_BASE}/api/website/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

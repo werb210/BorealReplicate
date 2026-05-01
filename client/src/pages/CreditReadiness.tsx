@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { estimateCommissionValue, trackConversion, trackEvent, trackLeadProfile } from "@/main";
 import { useLocation } from "wouter";
+import { WEBSITE_API_BASE } from "@/config/api";
 
 // BF_WEBSITE_BLOCK_1_13_V2 — V1 14-field form aligned with BF-client
 // Step1_KYC.tsx canonical schema (see client-app/src/schemas/v1WizardSchema.ts).
@@ -126,7 +127,7 @@ export default function CreditReadiness() {
     setSubmitting(true);
 
     try {
-      const response = await fetch("/api/website/credit-readiness", {
+      const response = await fetch(`${WEBSITE_API_BASE}/api/website/credit-readiness`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
