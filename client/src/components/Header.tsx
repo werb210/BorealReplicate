@@ -29,6 +29,10 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          {/* BF_WEBSITE_BLOCK_v81_BI_LINK */}
+          <a href="https://boreal.insure" rel="noopener noreferrer" className="text-sm font-semibold ml-4">
+            Visit Boreal Insurance
+          </a>
           <a
             href={APPLY_URL}
             target="_blank"
@@ -36,15 +40,6 @@ export default function Header() {
             className="rounded-full bg-blue-600 px-5 py-2 font-medium text-white hover:bg-blue-500"
           >
             Apply Now
-          </a>
-          {/* BF_WEBSITE_BLOCK_1_13_V2 — cross-link to BI-Website */}
-          <a
-            href="https://delightful-sand-05a55580f.7.azurestaticapps.net/"
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-white px-5 py-2 font-medium text-white transition hover:bg-white hover:text-black"
-          >
-            Visit Boreal Insurance
           </a>
         </nav>
 
