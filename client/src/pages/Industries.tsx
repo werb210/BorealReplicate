@@ -16,12 +16,13 @@ export default function Industries() {
           </Link>
         ))}
       </div>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* BF_WEBSITE_BLOCK_v83_MOBILE_FIXES_v1 — 2-up on mobile */}
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
         {industries.map((industry) => (
           <Link key={industry.slug} href={`/industries/${industry.slug}`} className="group overflow-hidden rounded-2xl border border-white/10 bg-[#08132a]">
-            <img src={industry.image} className="h-52 w-full object-cover transition duration-300 group-hover:scale-105" alt={industry.name} width={1200} height={520} loading="lazy" decoding="async" />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold">{industry.name}</h3>
+            <img src={industry.image} className="h-32 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-52" alt={industry.name} width={1200} height={520} loading="lazy" decoding="async" />
+            <div className="p-3 sm:p-4">
+              <h3 className="text-base font-semibold sm:text-xl">{industry.name}</h3>
               <p className="mt-2 text-sm text-slate-300">{industry.summary}</p>
             </div>
           </Link>

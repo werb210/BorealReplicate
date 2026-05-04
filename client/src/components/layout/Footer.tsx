@@ -1,10 +1,11 @@
 import { Link } from "wouter";
 import { APPLY_URL } from "@/config/site";
 
+// BF_WEBSITE_BLOCK_v83_MOBILE_FIXES_v1 — compact mobile footer
 export default function Footer() {
   return (
-    <footer className="bg-[#071a2f] text-gray-300 py-16">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-8">
+    <footer className="bg-[#071a2f] text-gray-300 py-10 md:py-16">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 px-6 md:px-8">
         <div>
           <h3 className="text-white font-semibold mb-4">Boreal Financial</h3>
           <p>Structured non-bank financing for Canadian businesses.</p>

@@ -258,7 +258,8 @@ export default function FloatingChat() {
   const chatUi = (
     <>
       {open ? (
-        <div className="chat-panel fixed bottom-20 right-4 z-[70] flex h-[min(75vh,620px)] w-[min(92vw,360px)] flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#08132a] shadow-2xl md:w-[min(90vw,420px)]">
+        <div className="chat-panel fixed inset-0 z-[70] flex h-[100dvh] w-full flex-col overflow-hidden border border-white/20 bg-[#08132a] shadow-2xl md:inset-auto md:bottom-20 md:right-4 md:h-[min(75vh,620px)] md:w-[min(90vw,420px)] md:rounded-2xl">
+          {/* BF_WEBSITE_BLOCK_v83_MOBILE_FIXES_v1: mobile full-screen with 100dvh; desktop keeps floating panel. */}
           <div className="chat-header flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div>
               <p className="text-sm font-semibold">Maya</p>
