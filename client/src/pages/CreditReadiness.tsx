@@ -3,7 +3,8 @@ import { estimateCommissionValue, trackConversion, trackEvent, trackLeadProfile 
 import { useLocation } from "wouter";
 import { WEBSITE_API_BASE } from "@/config/api";
 import { scoreCreditReadiness } from "@/lib/creditReadinessScore";
-import { formatPhone, formatCurrency, unformatCurrency } from "@/utils/formatters";
+// BF_WEBSITE_BLOCK_v129c_PHONE_NORMALIZATION_v1
+import { formatPhone, formatCurrency, unformatCurrency, toE164 } from "@/utils/formatters";
 
 // BF_WEBSITE_BLOCK_1_13_V2 — V1 14-field form aligned with BF-client
 // Step1_KYC.tsx canonical schema (see client-app/src/schemas/v1WizardSchema.ts).
@@ -129,8 +130,17 @@ export default function CreditReadiness() {
     setSubmitting(true);
 
     try {
+      // BF_WEBSITE_BLOCK_v129c_PHONE_NORMALIZATION_v1
+      // Normalize phone to E.164 before submit so the server stores
+      // the canonical form on the readiness_session row. The server
+      // (v129a) also normalizes defensively, but client-side
+      // normalization keeps the contract and network logs unambiguous.
+      // toE164 returns "" for malformed input — fall back to raw so
+      // the server's existing required-field check still triggers.
+      const e164Phone = toE164(form.phone);
       const submitPayload = {
         ...form,
+        phone: e164Phone || form.phone,
         requestedAmount: unformatCurrency(form.requestedAmount),
       };
       const response = await fetch(`${WEBSITE_API_BASE}/api/website/credit-readiness`, {
@@ -177,7 +187,10 @@ export default function CreditReadiness() {
           tier: computed.tier,
           capitalRange: form.annualRevenueRange,
           companyName: form.companyName,
-          phone: form.phone,
+          // BF_WEBSITE_BLOCK_v129c_PHONE_NORMALIZATION_v1 — store E.164
+          // so any consumer (deep-link to /apply, Hubspot mirror, etc.)
+          // matches what the OTP page will produce on verify.
+          phone: e164Phone || form.phone,
           redirect: body.redirect ?? null,
         }),
       );

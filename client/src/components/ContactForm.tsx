@@ -2,7 +2,8 @@ import { FormEvent, useState } from "react";
 import { safeFetch } from "@/lib/safeFetch";
 import { trackEvent } from "@/utils/analytics";
 import { WEBSITE_API_BASE } from "@/config/api";
-import { formatPhone } from "@/utils/formatters";
+// BF_WEBSITE_BLOCK_v129c_PHONE_NORMALIZATION_v1
+import { formatPhone, toE164 } from "@/utils/formatters";
 
 type ContactFormData = {
   companyName: string;
@@ -84,13 +85,17 @@ export default function ContactForm() {
       await safeFetch(`${WEBSITE_API_BASE}/api/website/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        // BF_WEBSITE_BLOCK_v129c_PHONE_NORMALIZATION_v1
         body: JSON.stringify({
           companyName: formData.companyName,
           fullName: fullNameJoined,
           firstName,
           lastName,
           email: formData.email,
-          phone: formData.mobilePhone,
+          // Normalize to E.164. CRM lookups across forms now share a
+          // single canonical phone format. Server falls back gracefully
+          // if normalization returns "" on malformed input.
+          phone: toE164(formData.mobilePhone) || formData.mobilePhone,
           message: formData.message,
         }),
       });
