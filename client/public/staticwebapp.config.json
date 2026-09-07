@@ -1,6 +1,16 @@
 {
   "routes": [
     {
+      "route": "/product-comparison",
+      "redirect": "/compare",
+      "statusCode": 301
+    },
+    {
+      "route": "/usa",
+      "redirect": "/us",
+      "statusCode": 301
+    },
+    {
       "route": "/refer",
       "redirect": "https://staff.boreal.financial/referrer/signup",
       "statusCode": 302
