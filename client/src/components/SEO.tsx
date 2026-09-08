@@ -5,6 +5,9 @@ type Props = {
   description: string;
   canonical?: string;
   url?: string;
+  // BF_WEBSITE_SEO_MERGE_v26 - ported from the deleted client/src/seo/SEO.tsx,
+  // which was the only copy that emitted og:image.
+  image?: string;
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
   noindex?: boolean;
@@ -18,6 +21,7 @@ const SITE_NAME = "Boreal Financial";
 // BF_WEBSITE_SEO_v9 - the canonical domain is boreal.financial. The previous
 // default pointed every canonical tag at a domain we do not own.
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://www.boreal.financial";
+const DEFAULT_OG_IMAGE = "/images/business-handshake-close-up.jpg";
 
 function normalizeHref(href?: string) {
   if (!href) return href;
@@ -29,11 +33,11 @@ function formatTitle(title: string) {
 }
 
 export default function SEO(props: Props) {
-  const { title, description, canonical, url, noindex } = props;
+  const { title, description, canonical, url, image, noindex } = props;
   const schema = getSchema(props);
   const schemaBlocks = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
   // BF_WEBSITE_CANONICAL_NO_QUERY_v25 - a canonical URL must identify the page,
-  // not the visit. window.location.search used to be appended, so ?gclid=... and
+  // not the visit. The browser query string used to be appended, so ?gclid=... and
   // every utm_* combination each produced a distinct canonical.
   const canonicalUrl = normalizeHref(canonical ?? url ?? (typeof window !== "undefined" ? `${SITE_URL}${window.location.pathname}` : SITE_URL));
   const fullTitle = formatTitle(title);
@@ -45,6 +49,7 @@ export default function SEO(props: Props) {
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
+      <meta property="og:image" content={`${SITE_URL}${image ?? DEFAULT_OG_IMAGE}`} />
       <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
       {canonicalUrl ? <link rel="canonical" href={canonicalUrl} /> : null}
       {schemaBlocks.length > 0 ? (
