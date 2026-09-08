@@ -1,6 +1,6 @@
 // BF_WEBSITE_LEGAL_v8 - class-only restyle. The CASL identification text and
 // mailing address are untouched; they are a legal requirement, not copy.
-import { SEO } from "@/seo/SEO";
+import SEO from "@/components/SEO";
 
 // BF_WEBSITE_SMS_ADDRESS_v1
 // CASL identification: the mailing address is legally required in the sender identification
